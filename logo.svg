@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <!-- Background card -->
+  <rect width="240" height="240" rx="24" fill="#0f172a"/>
+
+  <!-- Outer brackets (subtle depth layer) -->
+  <path d="M68,50 L46,105 L68,160" fill="none" stroke="#1e293b" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M172,50 L194,105 L172,160" fill="none" stroke="#1e293b" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Main code brackets -->
+  <path d="M82,62 L62,105 L82,148" fill="none" stroke="#334155" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M158,62 L178,105 L158,148" fill="none" stroke="#334155" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Plant stem -->
+  <line x1="120" y1="126" x2="120" y2="155" stroke="#15803d" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Small side branches -->
+  <path d="M120,137 C112,130 104,130 104,136" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+  <path d="M120,137 C128,130 136,130 136,136" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Left leaf -->
+  <path d="M120,111 C108,96 92,92 91,101 C90,112 107,116 120,111Z" fill="#22c55e"/>
+
+  <!-- Right leaf -->
+  <path d="M120,111 C132,96 148,92 149,101 C150,112 133,116 120,111Z" fill="#22c55e"/>
+
+  <!-- Bud outer -->
+  <ellipse cx="120" cy="86" rx="10" ry="16" fill="#16a34a"/>
+
+  <!-- Bud inner -->
+  <ellipse cx="120" cy="82" rx="6" ry="10" fill="#4ade80"/>
+
+  <!-- Bud tip -->
+  <ellipse cx="120" cy="76" rx="3" ry="5" fill="#bbf7d0"/>
+
+  <!-- Wordmark: CODE FARM -->
+  <text
+    x="120" y="183"
+    text-anchor="middle"
+    fill="#f1f5f9"
+    font-family="'Courier New', Courier, monospace"
+    font-size="16"
+    font-weight="bold"
+    letter-spacing="3">CODE FARM</text>
+
+  <!-- Wordmark: TESTING FACTORY -->
+  <text
+    x="120" y="200"
+    text-anchor="middle"
+    fill="#475569"
+    font-family="'Courier New', Courier, monospace"
+    font-size="10"
+    letter-spacing="2">TESTING FACTORY</text>
+</svg>
