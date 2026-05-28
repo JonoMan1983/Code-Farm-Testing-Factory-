@@ -1,3 +1,55 @@
+// ===========================
+// ANIMATION GALLERY — 32 clips
+// ===========================
+(function buildAnimGrid() {
+  const grid = document.getElementById('animGrid');
+  if (!grid) return;
+
+  const TOTAL = 32;
+  const BASE_PATH = 'assets/video/vfx/';
+
+  // Build thumbnail cards
+  for (let i = 1; i <= TOTAL; i++) {
+    const num = String(i).padStart(2, '0');
+    const thumb = document.createElement('div');
+    thumb.className = 'anim-thumb';
+
+    thumb.innerHTML = `
+      <video src="${BASE_PATH}anim-${num}.mp4"
+        muted playsinline preload="none"
+        loop></video>
+      <div class="anim-overlay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <span class="anim-num">${num}</span>`;
+
+    grid.appendChild(thumb);
+  }
+
+  // Hover play/pause
+  grid.querySelectorAll('.anim-thumb').forEach(thumb => {
+    const vid = thumb.querySelector('video');
+    thumb.addEventListener('mouseenter', () => { vid.load(); vid.play(); });
+    thumb.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+  });
+
+  // IntersectionObserver — only load videos near viewport
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const vid = entry.target.querySelector('video');
+      if (entry.isIntersecting) {
+        if (vid.getAttribute('preload') === 'none') {
+          vid.setAttribute('preload', 'metadata');
+        }
+      }
+    });
+  }, { rootMargin: '200px' });
+
+  grid.querySelectorAll('.anim-thumb').forEach(t => observer.observe(t));
+})();
+
 // Mobile nav toggle
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
