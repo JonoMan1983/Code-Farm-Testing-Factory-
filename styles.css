@@ -388,6 +388,80 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
+   SOFTWARE LOGOS
+   =========================== */
+.software-section h2 {
+  margin-bottom: 48px;
+}
+
+.software-category {
+  margin-bottom: 48px;
+}
+
+.software-category:last-child {
+  margin-bottom: 0;
+}
+
+.sw-cat-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+
+.logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 110px;
+  padding: 20px 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  cursor: default;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.logo-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-color: transparent;
+}
+
+.logo-item img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.logo-item span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+@media (max-width: 480px) {
+  .logo-item {
+    width: calc(33.33% - 12px);
+    min-width: 90px;
+  }
+}
+
+/* ===========================
    LINKEDIN CTA
    =========================== */
 .btn-linkedin {
