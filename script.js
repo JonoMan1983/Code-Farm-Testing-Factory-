@@ -1,4 +1,31 @@
 // ===========================
+// PLYR VIDEO PLAYERS
+// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Plyr !== 'undefined') {
+    // Showreel — full featured player
+    const showreelEl = document.getElementById('showreelPlayer');
+    if (showreelEl) {
+      new Plyr(showreelEl, {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+        ratio: '16:9',
+        resetOnEnd: true,
+      });
+    }
+
+    // Video cards — compact players
+    document.querySelectorAll('.video-card .plyr-video').forEach(el => {
+      new Plyr(el, {
+        controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen'],
+        ratio: '16:9',
+        resetOnEnd: true,
+        lazy: true,
+      });
+    });
+  }
+});
+
+// ===========================
 // ANIMATION GALLERY — 32 clips
 // ===========================
 (function buildAnimGrid() {

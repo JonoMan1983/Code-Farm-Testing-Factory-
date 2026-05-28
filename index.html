@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
 <body>
 
@@ -132,20 +133,13 @@
       <p class="section-label">Featured Video</p>
       <h2>Showreel</h2>
       <div class="showreel-embed">
-        <!-- Paste YouTube/Vimeo embed URL as src below -->
-        <div class="video-placeholder" data-label="Showreel — paste YouTube or Vimeo src">
-          <div class="video-placeholder-inner">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-            <p>Showreel coming soon</p>
-            <span>Paste your YouTube or Vimeo link</span>
-          </div>
-        </div>
-        <!-- PRODUCTION: replace placeholder above with:
-        <iframe src="https://www.youtube.com/embed/YOUR_ID?autoplay=0&rel=0"
-          title="Jonathan Nestler Showreel" frameborder="0" allowfullscreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          loading="lazy"></iframe>
-        -->
+        <video id="showreelPlayer" class="plyr-video" controls crossorigin playsinline
+          poster="assets/images/hero/showreel-poster.jpg">
+          <source src="assets/video/showreel/showreel.mp4" type="video/mp4" />
+          <!-- Fallback YouTube embed if no local file -->
+          <!-- <source src="https://www.youtube.com/watch?v=YOUR_ID" /> -->
+          Your browser does not support HTML5 video.
+        </video>
       </div>
     </div>
   </section>
@@ -159,81 +153,66 @@
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <div class="video-placeholder small" data-label="Video 1">
-              <div class="video-placeholder-inner">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-              </div>
-            </div>
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_1?rel=0" title="Video 1" frameborder="0" allowfullscreen loading="lazy"></iframe> -->
+            <video class="plyr-video" controls playsinline>
+              <source src="assets/video/case-studies/video-01.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="video-card-body">
             <span class="case-tag">UX/UI · Motion</span>
             <h3>Video Title One</h3>
-            <p>Brief description of this video piece — project context, your role, tools used.</p>
+            <p>Brief description — project context, your role, tools used.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <div class="video-placeholder small" data-label="Video 2">
-              <div class="video-placeholder-inner">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-              </div>
-            </div>
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_2?rel=0" title="Video 2" frameborder="0" allowfullscreen loading="lazy"></iframe> -->
+            <video class="plyr-video" controls playsinline>
+              <source src="assets/video/case-studies/video-02.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="video-card-body">
             <span class="case-tag">VFX · After Effects</span>
             <h3>Video Title Two</h3>
-            <p>Brief description of this video piece — project context, your role, tools used.</p>
+            <p>Brief description — project context, your role, tools used.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <div class="video-placeholder small" data-label="Video 3">
-              <div class="video-placeholder-inner">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-              </div>
-            </div>
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?rel=0" title="Video 3" frameborder="0" allowfullscreen loading="lazy"></iframe> -->
+            <video class="plyr-video" controls playsinline>
+              <source src="assets/video/case-studies/video-03.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="video-card-body">
             <span class="case-tag">Brand Identity · Motion</span>
             <h3>Video Title Three</h3>
-            <p>Brief description of this video piece — project context, your role, tools used.</p>
+            <p>Brief description — project context, your role, tools used.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <div class="video-placeholder small" data-label="Video 4">
-              <div class="video-placeholder-inner">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-              </div>
-            </div>
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_4?rel=0" title="Video 4" frameborder="0" allowfullscreen loading="lazy"></iframe> -->
+            <video class="plyr-video" controls playsinline>
+              <source src="assets/video/case-studies/video-04.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="video-card-body">
             <span class="case-tag">iGaming · UI</span>
             <h3>Video Title Four</h3>
-            <p>Brief description of this video piece — project context, your role, tools used.</p>
+            <p>Brief description — project context, your role, tools used.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <div class="video-placeholder small" data-label="Video 5">
-              <div class="video-placeholder-inner">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
-              </div>
-            </div>
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID_5?rel=0" title="Video 5" frameborder="0" allowfullscreen loading="lazy"></iframe> -->
+            <video class="plyr-video" controls playsinline>
+              <source src="assets/video/case-studies/video-05.mp4" type="video/mp4" />
+            </video>
           </div>
           <div class="video-card-body">
             <span class="case-tag">Product · UX</span>
             <h3>Video Title Five</h3>
-            <p>Brief description of this video piece — project context, your role, tools used.</p>
+            <p>Brief description — project context, your role, tools used.</p>
           </div>
         </div>
 
@@ -604,6 +583,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
