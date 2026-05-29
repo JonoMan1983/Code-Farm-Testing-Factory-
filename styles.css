@@ -1657,18 +1657,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
    RESPONSIVE
    =========================== */
 
-/* --- 768px --- */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 20px;
-  }
-
-  .section {
-    padding: 64px 0;
-  }
-
+/* --- 1024px: nav switches to hamburger dropdown --- */
+@media (max-width: 1024px) {
   .nav {
-    padding: 16px 20px;
+    padding: 14px 24px;
   }
 
   /* Hamburger icon button */
@@ -1713,7 +1705,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     padding: 6px 0 14px;
     z-index: 99;
-    /* Hidden state */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -1729,7 +1720,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
   }
 
-  /* Individual nav link rows */
   .nav-links > li {
     width: 100%;
   }
@@ -1751,7 +1741,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
     background: rgba(184, 168, 247, 0.07);
   }
 
-  /* LinkedIn + Contact as proper buttons inside dropdown */
   .nav-links .nav-linkedin,
   .nav-links .nav-cta {
     display: flex;
@@ -1766,11 +1755,17 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .nav-links .nav-linkedin:hover {
     transform: none;
   }
+}
 
-  /* Grids — force single column */
+/* --- 900px: layout columns collapse --- */
+@media (max-width: 900px) {
   .grid-2 {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .about-image {
+    order: -1;
   }
 
   .work-grid {
@@ -1787,8 +1782,23 @@ h1, h2, h3, h4 { color: var(--color-text); }
     gap: 40px;
   }
 
-  .about-image {
-    order: -1;
+  .ui-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- 768px: spacing and form adjustments --- */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .nav {
+    padding: 12px 16px;
   }
 
   .form-row {
@@ -1808,7 +1818,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
     display: none;
   }
 
-  /* iOS: svh accounts for browser chrome */
   .hero {
     min-height: 100svh;
   }

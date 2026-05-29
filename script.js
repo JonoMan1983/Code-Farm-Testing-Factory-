@@ -185,7 +185,7 @@ form.addEventListener('submit', e => {
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.nav');
   if (window.scrollY > 60) {
-    nav.style.padding = window.innerWidth <= 768 ? '10px 20px' : '12px 40px';
+    nav.style.padding = window.innerWidth <= 1024 ? '10px 16px' : '12px 40px';
   } else {
     nav.style.padding = '';
   }
