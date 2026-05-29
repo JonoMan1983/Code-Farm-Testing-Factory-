@@ -447,25 +447,33 @@ window.addEventListener('scroll', () => {
 
     const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
 
-    // Crimson glow pass — matches btn-primary (#E0115E)
-    ctx.shadowColor = '#E0115E';
+    // Glow pass (pulsing, whole string)
+    ctx.shadowColor = '#ff99cc';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#E0115E';
+    ctx.fillStyle   = '#ff99cc';
     ctx.fillText('20+', 0, 0);
 
-    // Solid crimson fill — transparency baked into colour, no globalAlpha
-    ctx.shadowBlur  = 8 + pulse * 18;
-    ctx.globalAlpha = 1;
-    ctx.fillStyle   = 'rgba(224,17,94,0.4)';
-    ctx.fillText('20+', 0, 0);
-
-    // White stroke — crispens edge against orbits
+    // Two-colour solid fill: "20" white, "+" light pink
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
-    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.globalAlpha = 1;
+    ctx.textAlign   = 'left';
+    const wFull  = ctx.measureText('20+').width;
+    const w20    = ctx.measureText('20').width;
+    const startX = -(wFull / 2);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('20', startX, 0);
+    ctx.fillStyle = '#ff99cc';
+    ctx.fillText('+', startX + w20, 0);
+
+    // Matching strokes
     ctx.lineWidth   = 5;
-    ctx.strokeText('20+', 0, 0);
+    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+    ctx.strokeText('20', startX, 0);
+    ctx.strokeStyle = 'rgba(255,153,204,0.55)';
+    ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
 
