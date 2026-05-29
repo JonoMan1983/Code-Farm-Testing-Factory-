@@ -150,7 +150,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
-  background: rgba(19, 15, 50, 0.92);
+  background: rgba(19, 15, 50, 0.97);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
   transition: padding var(--transition);
@@ -179,12 +179,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .nav-links a {
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.82);
   transition: color var(--transition);
 }
 
 .nav-links a:hover {
-  color: var(--color-text);
+  color: #ffffff;
 }
 
 .nav-linkedin {
@@ -1730,7 +1730,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     padding: 13px 20px;
     font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.82);
     border-bottom: 1px solid rgba(184, 168, 247, 0.07);
     transition: color 0.15s ease, background 0.15s ease;
   }
