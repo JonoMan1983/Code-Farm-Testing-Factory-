@@ -315,9 +315,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 324, ry: 124, tilt: 0,     speed:  0.0080, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 324, ry: 124, tilt: T,     speed: -0.0062, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0048, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 324, ry: 124, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 324, ry: 124, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
