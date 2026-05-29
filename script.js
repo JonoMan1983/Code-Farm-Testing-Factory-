@@ -279,6 +279,11 @@ window.addEventListener('scroll', () => {
   ];
   const floatStates = orbits.map(() => ({ x: 0, y: 0, tx: 0, ty: 0, next: 0 }));
 
+  // Ellipse perimeter (Ramanujan) — same for all orbits since rx/ry are equal
+  const _orbH    = ((orbits[0].rx - orbits[0].ry) / (orbits[0].rx + orbits[0].ry)) ** 2;
+  const ORB_PERIM = Math.PI * (orbits[0].rx + orbits[0].ry) *
+                    (1 + 3 * _orbH / (10 + Math.sqrt(4 - 3 * _orbH)));
+
   const TRAIL_LEN = 28;
   const atoms = orbits.map((_, i) => ({
     angle: (i * Math.PI * 2) / 3,
@@ -294,24 +299,25 @@ window.addEventListener('scroll', () => {
     return { x: cx + fx + ex * c - ey * s, y: cy + fy + ex * s + ey * c };
   }
 
-  function drawOrbits(dashOff, gRot, t) {
+  function drawOrbits(gRot, t) {
     // Per-orbit animation: lineWidth and dash gap each oscillate independently
     const ANIM = [
       { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
       { dot:  9, gapMin: 14, gapMax: 40, lwFreq: 0.57, lwPh: 2.1, gFreq: 0.88, gPh: 3.1 },
       { dot: 14, gapMin: 18, gapMax: 56, lwFreq: 0.78, lwPh: 4.2, gFreq: 1.18, gPh: 5.8 },
     ];
-    ctx.globalAlpha = 0.68;
+    ctx.globalAlpha = 0.72;
     orbits.forEach((o, i) => {
       const fs   = floatStates[i];
       const a    = ANIM[i];
-      const lw   = 1.2 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 3.8;  // 1.2–5.0
+      const lw   = 2.0 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 5.0;  // 2.0–7.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);   // pink ↔ atom colour
-      ctx.lineWidth      = lw;
+      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
+      ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
-      ctx.lineDashOffset = dashOff;
+      // Dash offset tracks the electron's angular position around the ellipse
+      ctx.lineDashOffset = -(atoms[i].angle / (2 * Math.PI)) * ORB_PERIM;
       ctx.save();
       ctx.translate(cx + fs.x, cy + fs.y);
       ctx.rotate(o.tilt + gRot);
@@ -427,9 +433,8 @@ window.addEventListener('scroll', () => {
   let rafId = null;
 
   function frame(timestamp) {
-    const t       = timestamp * 0.001;
-    const dashOff = -(t * 22);
-    const gRot    = t * 0.10;
+    const t    = timestamp * 0.001;
+    const gRot = t * 0.10;
     const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);   // slow ±5° rock
 
     // Each orbit drifts to a new random position at its own pace
@@ -447,7 +452,7 @@ window.addEventListener('scroll', () => {
     ctx.clearRect(0, 0, SIZE, SIZE);
 
     drawNucleus();
-    drawOrbits(dashOff, gRot, t);
+    drawOrbits(gRot, t);
     drawAtoms(gRot);
     drawText(textRot, t);
     rafId = requestAnimationFrame(frame);
