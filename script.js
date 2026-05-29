@@ -244,7 +244,7 @@ window.addEventListener('scroll', () => {
   const ctx = canvas.getContext('2d');
 
   const dpr = window.devicePixelRatio || 1;
-  const SIZE = 460;
+  const SIZE = 920;
   canvas.width  = SIZE * dpr;
   canvas.height = SIZE * dpr;
   ctx.scale(dpr, dpr);
@@ -257,9 +257,9 @@ window.addEventListener('scroll', () => {
   const PINK = '#ff40b8';   // bright fixed pink for all orbit paths
 
   const orbits = [
-    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 324, ry: 124, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 324, ry: 124, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   // Smooth random float state
@@ -316,24 +316,24 @@ window.addEventListener('scroll', () => {
         const frac = ti / TRAIL_LEN;
         const tp   = orbitalPoint(o, a, gRot);
         ctx.beginPath();
-        ctx.arc(tp.x, tp.y, 1.5 + frac * 3, 0, Math.PI * 2);
+        ctx.arc(tp.x, tp.y, 3 + frac * 6, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${frac * 0.55})`;
         ctx.fill();
       });
 
       // Glow halo
-      const grd = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 20);
+      const grd = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 40);
       grd.addColorStop(0,    `rgba(${r},${g},${b},0.85)`);
       grd.addColorStop(0.45, `rgba(${r},${g},${b},0.30)`);
       grd.addColorStop(1,    `rgba(${r},${g},${b},0)`);
       ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+      ctx.arc(pos.x, pos.y, 40, 0, Math.PI * 2);
       ctx.fillStyle = grd;
       ctx.fill();
 
       // Core dot
       ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
+      ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
       ctx.fillStyle = o.color;
       ctx.fill();
 
@@ -342,7 +342,7 @@ window.addEventListener('scroll', () => {
   }
 
   function drawNucleus() {
-    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 95);
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 190);
     grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
     grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
     grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
@@ -359,15 +359,15 @@ window.addEventListener('scroll', () => {
 
     // "20+" rotates ±5° around its own centre
     ctx.save();
-    ctx.translate(cx, cy - 14);
+    ctx.translate(cx, cy - 28);
     ctx.rotate(textRot);
-    ctx.font = 'bold 86px Poppins, sans-serif';
+    ctx.font = 'bold 172px Poppins, sans-serif';
     ctx.shadowColor  = '#B8A8F7';
-    ctx.shadowBlur   = 48;
+    ctx.shadowBlur   = 96;
     ctx.globalAlpha  = 0.55;
     ctx.fillStyle    = '#B8A8F7';
     ctx.fillText('20+', 0, 0);
-    ctx.shadowBlur   = 22;
+    ctx.shadowBlur   = 44;
     ctx.globalAlpha  = 1;
     ctx.fillStyle    = '#ffffff';
     ctx.fillText('20+', 0, 0);
@@ -376,11 +376,11 @@ window.addEventListener('scroll', () => {
     ctx.restore();
 
     // Subtitle stays upright
-    ctx.font        = '600 11px Poppins, sans-serif';
+    ctx.font        = '600 22px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 26);
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 52);
 
     ctx.restore();
   }
@@ -395,8 +395,8 @@ window.addEventListener('scroll', () => {
 
     // Smooth random float — lazily drift toward a new random target every 1.5–3.5 s
     if (timestamp > floatNext) {
-      floatTX   = (Math.random() - 0.5) * 20;
-      floatTY   = (Math.random() - 0.5) * 20;
+      floatTX   = (Math.random() - 0.5) * 40;
+      floatTY   = (Math.random() - 0.5) * 40;
       floatNext = timestamp + 1500 + Math.random() * 2000;
     }
     floatX += (floatTX - floatX) * 0.018;

@@ -271,7 +271,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .hero-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.3fr;
   align-items: center;
   gap: 40px;
 }
@@ -287,9 +287,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 #heroCanvas {
-  width: 460px;
-  height: 460px;
+  width: 920px;
+  height: 920px;
   max-width: 100%;
+  aspect-ratio: 1 / 1;
   display: block;
 }
 
@@ -1897,8 +1898,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   #heroCanvas {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
   }
 
   .grid-2 {
