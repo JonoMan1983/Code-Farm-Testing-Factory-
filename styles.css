@@ -508,6 +508,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-bottom: 12px;
 }
 
+.ux-section .section-intro { margin-top: 4px; }
+
 /* Process row */
 .ux-process {
   display: flex;
