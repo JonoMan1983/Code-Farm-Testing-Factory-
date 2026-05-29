@@ -147,7 +147,7 @@ const revealEls = document.querySelectorAll(
   '.hero-label, .hero-title, .hero-sub, .hero-actions, ' +
   '.section-label, h2, .about-text p, .image-placeholder, ' +
   '.case-card, .skill-group, .timeline-item, .resume-download, ' +
-  '.contact-sub, .contact-form'
+  '.contact-sub, .contact-form, .art-thumb'
 );
 
 revealEls.forEach(el => el.classList.add('reveal'));
