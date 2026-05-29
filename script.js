@@ -454,9 +454,9 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = '#ff40b8';
     ctx.fillText('20+', 0, 0);
 
-    // White fill — 80% opacity
+    // White fill — 20% opacity (80% transparent)
     ctx.shadowBlur  = 10 + pulse * 20;
-    ctx.globalAlpha = 0.8;
+    ctx.globalAlpha = 0.2;
     ctx.fillStyle   = '#ffffff';
     ctx.fillText('20+', 0, 0);
 
