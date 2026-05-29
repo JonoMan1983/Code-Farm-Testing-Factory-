@@ -257,13 +257,18 @@ window.addEventListener('scroll', () => {
   const PINK = '#ff40b8';   // bright fixed pink for all orbit paths
 
   const orbits = [
-    { rx: 324, ry: 124, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 324, ry: 124, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 324, ry: 124, tilt: 0,     speed:  0.0080, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 324, ry: 124, tilt: T,     speed: -0.0062, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0048, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
-  // Smooth random float state
-  let floatX = 0, floatY = 0, floatTX = 0, floatTY = 0, floatNext = 0;
+  // Each orbit drifts independently with its own random walk speed and range
+  const FLOAT_PARAMS = [
+    { range: 55, minInt:  700, intRange: 1800, lerp: 0.014 },
+    { range: 80, minInt: 1100, intRange: 2600, lerp: 0.009 },
+    { range: 45, minInt:  500, intRange: 1400, lerp: 0.019 },
+  ];
+  const floatStates = orbits.map(() => ({ x: 0, y: 0, tx: 0, ty: 0, next: 0 }));
 
   const TRAIL_LEN = 28;
   const atoms = orbits.map((_, i) => ({
@@ -271,24 +276,25 @@ window.addEventListener('scroll', () => {
     trail: []
   }));
 
-  function orbitalPoint(o, angle, gRot) {
+  function orbitalPoint(o, angle, gRot, fx, fy) {
     const ex   = o.rx * Math.cos(angle);
     const ey   = o.ry * Math.sin(angle);
     const tilt = o.tilt + gRot;
     const c    = Math.cos(tilt);
     const s    = Math.sin(tilt);
-    return { x: cx + ex * c - ey * s, y: cy + ex * s + ey * c };
+    return { x: cx + fx + ex * c - ey * s, y: cy + fy + ex * s + ey * c };
   }
 
   function drawOrbits(dashOff, gRot) {
-    ctx.setLineDash([2.5, 6.5]);
-    ctx.lineDashOffset = dashOff;
-    ctx.strokeStyle    = PINK;
-    ctx.globalAlpha    = 0.55;
-    ctx.lineWidth      = 1.1;
-    orbits.forEach(o => {
+    ctx.strokeStyle = PINK;
+    ctx.globalAlpha = 0.62;
+    ctx.lineWidth   = 2.5;
+    orbits.forEach((o, i) => {
+      const fs = floatStates[i];
+      ctx.setLineDash(o.dash);
+      ctx.lineDashOffset = dashOff;
       ctx.save();
-      ctx.translate(cx, cy);
+      ctx.translate(cx + fs.x, cy + fs.y);   // each orbit has its own float offset
       ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
@@ -304,17 +310,18 @@ window.addEventListener('scroll', () => {
     atoms.forEach((atom, i) => {
       const o         = orbits[i];
       const [r, g, b] = o.rgba;
+      const fs        = floatStates[i];   // match this atom's orbit float
 
       // Trail stores angles so positions recalculate correctly as orbit rotates
       atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
 
-      const pos = orbitalPoint(o, atom.angle, gRot);
+      const pos = orbitalPoint(o, atom.angle, gRot, fs.x, fs.y);
 
-      // Trail — each angle re-projected with current gRot
+      // Trail — each angle re-projected with current gRot and orbit float
       atom.trail.forEach((a, ti) => {
         const frac = ti / TRAIL_LEN;
-        const tp   = orbitalPoint(o, a, gRot);
+        const tp   = orbitalPoint(o, a, gRot, fs.x, fs.y);
         ctx.beginPath();
         ctx.arc(tp.x, tp.y, 3 + frac * 6, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${frac * 0.55})`;
@@ -359,7 +366,7 @@ window.addEventListener('scroll', () => {
 
     // "20+" rotates ±5° around its own centre
     ctx.save();
-    ctx.translate(cx, cy - 28);
+    ctx.translate(cx, cy + 20);
     ctx.rotate(textRot);
     ctx.font = 'bold 172px Poppins, sans-serif';
     ctx.shadowColor  = '#B8A8F7';
@@ -380,7 +387,7 @@ window.addEventListener('scroll', () => {
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 52);
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 100);
 
     ctx.restore();
   }
@@ -393,26 +400,24 @@ window.addEventListener('scroll', () => {
     const gRot    = t * 0.10;
     const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);   // slow ±5° rock
 
-    // Smooth random float — lazily drift toward a new random target every 1.5–3.5 s
-    if (timestamp > floatNext) {
-      floatTX   = (Math.random() - 0.5) * 40;
-      floatTY   = (Math.random() - 0.5) * 40;
-      floatNext = timestamp + 1500 + Math.random() * 2000;
-    }
-    floatX += (floatTX - floatX) * 0.018;
-    floatY += (floatTY - floatY) * 0.018;
+    // Each orbit drifts to a new random position at its own pace
+    floatStates.forEach((fs, i) => {
+      const p = FLOAT_PARAMS[i];
+      if (timestamp > fs.next) {
+        fs.tx   = (Math.random() - 0.5) * p.range;
+        fs.ty   = (Math.random() - 0.5) * p.range;
+        fs.next = timestamp + p.minInt + Math.random() * p.intRange;
+      }
+      fs.x += (fs.tx - fs.x) * p.lerp;
+      fs.y += (fs.ty - fs.y) * p.lerp;
+    });
 
     ctx.clearRect(0, 0, SIZE, SIZE);
-
-    ctx.save();
-    ctx.translate(floatX, floatY);
 
     drawNucleus();
     drawOrbits(dashOff, gRot);
     drawAtoms(gRot);
     drawText(textRot);
-
-    ctx.restore();
     rafId = requestAnimationFrame(frame);
   }
 
