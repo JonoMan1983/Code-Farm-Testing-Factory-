@@ -190,3 +190,47 @@ window.addEventListener('scroll', () => {
     nav.style.padding = '';
   }
 }, { passive: true });
+
+// ===========================
+// LIGHTBOX — Artistic Expression
+// ===========================
+(function () {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+
+  const lightboxImg = document.getElementById('lightboxImg');
+  const thumbs = Array.from(document.querySelectorAll('.art-thumb'));
+  let current = 0;
+
+  function open(index) {
+    current = index;
+    lightboxImg.src = thumbs[current].dataset.full;
+    lightboxImg.alt = thumbs[current].dataset.alt || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+
+  function prev() { open((current - 1 + thumbs.length) % thumbs.length); }
+  function next() { open((current + 1) % thumbs.length); }
+
+  thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => open(i)));
+
+  document.getElementById('lightboxClose').addEventListener('click', close);
+  document.getElementById('lightboxPrev').addEventListener('click', prev);
+  document.getElementById('lightboxNext').addEventListener('click', next);
+
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+})();
