@@ -253,19 +253,17 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T     = Math.PI * 2 / 3;
-  const WHITE = [255, 255, 255];
-  const PINK  = [255, 100, 185];
+  const T    = Math.PI * 2 / 3;
+  const PINK = '#ff40b8';   // bright fixed pink for all orbit paths
 
   const orbits = [
-    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247], phase: 0   },
-    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94], phase: 2.1 },
-    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240], phase: 4.2 },
+    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
-  function lerpColor(c1, c2, f) {
-    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*f)},${Math.round(c1[1]+(c2[1]-c1[1])*f)},${Math.round(c1[2]+(c2[2]-c1[2])*f)})`;
-  }
+  // Smooth random float state
+  let floatX = 0, floatY = 0, floatTX = 0, floatTY = 0, floatNext = 0;
 
   const TRAIL_LEN = 28;
   const atoms = orbits.map((_, i) => ({
@@ -282,16 +280,16 @@ window.addEventListener('scroll', () => {
     return { x: cx + ex * c - ey * s, y: cy + ex * s + ey * c };
   }
 
-  function drawOrbits(dashOff, colors, gRot) {
+  function drawOrbits(dashOff, gRot) {
     ctx.setLineDash([2.5, 6.5]);
     ctx.lineDashOffset = dashOff;
-    ctx.globalAlpha    = 0.32;
+    ctx.strokeStyle    = PINK;
+    ctx.globalAlpha    = 0.55;
     ctx.lineWidth      = 1.1;
-    orbits.forEach((o, i) => {
+    orbits.forEach(o => {
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(o.tilt + gRot);       // static tilt + slow global spin
-      ctx.strokeStyle = colors[i];
+      ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
       ctx.stroke();
@@ -354,29 +352,30 @@ window.addEventListener('scroll', () => {
     ctx.fill();
   }
 
-  function drawText() {
+  function drawText(textRot) {
     ctx.save();
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
-    // "20+" — glow layer then crisp white fill
+    // "20+" rotates ±5° around its own centre
+    ctx.save();
+    ctx.translate(cx, cy - 14);
+    ctx.rotate(textRot);
     ctx.font = 'bold 86px Poppins, sans-serif';
-
     ctx.shadowColor  = '#B8A8F7';
     ctx.shadowBlur   = 48;
     ctx.globalAlpha  = 0.55;
     ctx.fillStyle    = '#B8A8F7';
-    ctx.fillText('20+', cx, cy - 14);
-
+    ctx.fillText('20+', 0, 0);
     ctx.shadowBlur   = 22;
     ctx.globalAlpha  = 1;
     ctx.fillStyle    = '#ffffff';
-    ctx.fillText('20+', cx, cy - 14);
-
+    ctx.fillText('20+', 0, 0);
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
+    ctx.restore();
 
-    // "YEARS OF DESIGN" subtitle
+    // Subtitle stays upright
     ctx.font        = '600 11px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
@@ -388,20 +387,20 @@ window.addEventListener('scroll', () => {
 
   let rafId = null;
 
-  // Cycle frequencies (rad/s) — 3 deliberately different intervals
-  const COLOR_FREQS = [0.40, 0.70, 1.10];
-
   function frame(timestamp) {
     const t       = timestamp * 0.001;
     const dashOff = -(t * 22);
-    const floatX  = Math.sin(t * 0.38) * 4;
-    const floatY  = Math.sin(t * 0.55) * 7;
-    const gRot    = t * 0.10;                         // full revolution every ~63 s
+    const gRot    = t * 0.10;
+    const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);   // slow ±5° rock
 
-    // Each orbit path independently oscillates white ↔ pink
-    const orbitColors = orbits.map((o, i) =>
-      lerpColor(WHITE, PINK, Math.sin(t * COLOR_FREQS[i] + o.phase) * 0.5 + 0.5)
-    );
+    // Smooth random float — lazily drift toward a new random target every 1.5–3.5 s
+    if (timestamp > floatNext) {
+      floatTX   = (Math.random() - 0.5) * 20;
+      floatTY   = (Math.random() - 0.5) * 20;
+      floatNext = timestamp + 1500 + Math.random() * 2000;
+    }
+    floatX += (floatTX - floatX) * 0.018;
+    floatY += (floatTY - floatY) * 0.018;
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
@@ -409,9 +408,9 @@ window.addEventListener('scroll', () => {
     ctx.translate(floatX, floatY);
 
     drawNucleus();
-    drawOrbits(dashOff, orbitColors, gRot);
+    drawOrbits(dashOff, gRot);
     drawAtoms(gRot);
-    drawText();
+    drawText(textRot);
 
     ctx.restore();
     rafId = requestAnimationFrame(frame);
