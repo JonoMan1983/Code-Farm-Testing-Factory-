@@ -1945,7 +1945,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   #heroCanvas {
-    width: min(500px, 100%, 55vh);
+    width: min(650px, 100%, 72vh);
     max-width: 100%;
     max-height: none;
     height: auto;
@@ -2242,6 +2242,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (max-width: 600px) {
+  #heroCanvas {
+    width: min(500px, 100%, 55vh);
+  }
+
   .art-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
