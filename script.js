@@ -471,10 +471,8 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
-    // Matching strokes
+    // Stroke on + only
     ctx.lineWidth   = 5;
-    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
-    ctx.strokeText('20', startX, 0);
     ctx.strokeStyle = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
     ctx.strokeText('+', startX + w20, 0);
 
