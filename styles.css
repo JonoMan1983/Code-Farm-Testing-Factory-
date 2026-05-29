@@ -1207,6 +1207,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
    ANIMATION GALLERY (32 clips)
    =========================== */
 .animations h2 { margin-bottom: 8px; }
+.animations .section-intro { margin-top: 4px; }
 
 .anim-grid {
   display: grid;

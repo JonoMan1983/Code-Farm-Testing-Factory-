@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.appendChild(thumb);
 
     const vid = thumb.querySelector('video');
-    thumb.addEventListener('mouseenter', () => { vid.load(); vid.play(); });
+    thumb.addEventListener('mouseenter', () => { vid.load(); vid.play().catch(() => {}); });
     thumb.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
   });
 
