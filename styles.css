@@ -599,6 +599,220 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-size: 13.5px;
 }
 
+/* Sub-heading between blocks */
+.ux-sub-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  margin: 56px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Horizontal scroll strip for portfolio slides */
+.ui-strip {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.ui-strip::-webkit-scrollbar {
+  height: 4px;
+}
+
+.ui-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ui-strip::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.ui-strip-item {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.ui-strip-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.ui-strip-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Diploma project cards */
+.diploma-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.diploma-card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.diploma-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.diploma-card-img {
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+
+.diploma-card-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.diploma-card:hover .diploma-card-img img {
+  transform: scale(1.02);
+}
+
+.diploma-card-body {
+  padding: 20px 24px;
+}
+
+.diploma-card-body h3 {
+  margin-bottom: 8px;
+}
+
+.diploma-card-body p {
+  font-size: 13.5px;
+}
+
+/* Scrollable document showcase (site redesign, A4-style tall docs) */
+.ux-showcase {
+  margin-top: 56px;
+}
+
+.ux-showcase-header {
+  margin-bottom: 20px;
+}
+
+.ux-showcase-header h3 {
+  margin: 8px 0 6px;
+  font-size: 1.2rem;
+}
+
+.ux-showcase-header p {
+  font-size: 14px;
+  max-width: 600px;
+}
+
+.ux-doc-scroll {
+  height: 680px;
+  overflow-y: scroll;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  background: #fff;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.ux-doc-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ux-doc-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ux-doc-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.ux-doc-scroll img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Section CTA block */
+.ux-cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 56px 32px;
+  margin-top: 56px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  border-radius: 16px;
+  color: #fff;
+}
+
+.ux-cta-block svg {
+  color: rgba(255,255,255,0.55);
+  stroke: rgba(255,255,255,0.55);
+}
+
+.ux-cta-block h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.ux-cta-block p {
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+  max-width: 380px;
+}
+
+.ux-cta-block .btn-primary {
+  background: #fff;
+  color: var(--color-accent);
+  border-color: #fff;
+  margin-top: 4px;
+}
+
+.ux-cta-block .btn-primary:hover {
+  background: #e0eaff;
+  border-color: #e0eaff;
+}
+
+@media (max-width: 768px) {
+  .diploma-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ui-strip-item {
+    flex: 0 0 260px;
+  }
+
+  .ux-doc-scroll {
+    height: 480px;
+  }
+}
+
 /* CTA card variant */
 .ui-card.ui-card-cta {
   background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
