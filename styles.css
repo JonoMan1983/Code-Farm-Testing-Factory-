@@ -656,32 +656,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Horizontal scroll strip for portfolio slides */
 .ui-strip {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
-  overflow-x: auto;
-  padding-bottom: 14px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
-}
-
-.ui-strip::-webkit-scrollbar {
-  height: 4px;
-}
-
-.ui-strip::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.ui-strip::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
 }
 
 .ui-strip-item {
-  flex: 0 0 320px;
-  scroll-snap-align: start;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -847,8 +827,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
     grid-template-columns: 1fr;
   }
 
-  .ui-strip-item {
-    flex: 0 0 260px;
+  .ui-strip {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .ux-doc-scroll {
@@ -1828,6 +1808,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ui-strip {
     grid-template-columns: 1fr;
   }
 
