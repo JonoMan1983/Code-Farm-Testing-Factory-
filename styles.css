@@ -167,6 +167,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .nav-logo-img {
   height: 32px;
   width: auto;
+  max-width: 160px;
   display: block;
 }
 
@@ -179,7 +180,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .nav-links a {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.92);
   transition: color var(--transition);
 }
 
@@ -1730,7 +1731,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     padding: 13px 20px;
     font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid rgba(184, 168, 247, 0.07);
     transition: color 0.15s ease, background 0.15s ease;
   }
@@ -1790,15 +1791,24 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* --- 768px: spacing and form adjustments --- */
 @media (max-width: 768px) {
   .container {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 
   .section {
-    padding: 64px 0;
+    padding: 56px 0;
   }
 
   .nav {
     padding: 12px 16px;
+  }
+
+  .nav-logo-img {
+    max-width: 110px;
+    height: 28px;
+  }
+
+  .nav-toggle {
+    flex-shrink: 0;
   }
 
   .form-row {
