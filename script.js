@@ -454,10 +454,10 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = '#E0115E';
     ctx.fillText('20+', 0, 0);
 
-    // Solid crimson fill — button brightness, pulsing 75–100%
+    // Solid crimson fill — transparency baked into colour, no globalAlpha
     ctx.shadowBlur  = 8 + pulse * 18;
-    ctx.globalAlpha = 0.75 + pulse * 0.25;
-    ctx.fillStyle   = '#E0115E';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle   = 'rgba(224,17,94,0.4)';
     ctx.fillText('20+', 0, 0);
 
     // White stroke — crispens edge against orbits

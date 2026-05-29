@@ -317,6 +317,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: #ffffff;
 }
 
+.title-pink { color: var(--color-accent-red); }
+
 .hero-sub {
   font-size: 1.15rem;
   max-width: 520px;
