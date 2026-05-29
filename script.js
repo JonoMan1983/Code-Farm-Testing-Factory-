@@ -442,7 +442,7 @@ window.addEventListener('scroll', () => {
     ctx.save();
     ctx.translate(cx, cy + 8);
     ctx.rotate(textRot);
-    ctx.font     = 'bold 224px Poppins, sans-serif';
+    ctx.font     = 'bold 256px Poppins, sans-serif';
     ctx.lineJoin = 'round';
 
     const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
@@ -454,9 +454,9 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = '#ff40b8';
     ctx.fillText('20+', 0, 0);
 
-    // White fill
+    // White fill — 80% opacity
     ctx.shadowBlur  = 10 + pulse * 20;
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.8;
     ctx.fillStyle   = '#ffffff';
     ctx.fillText('20+', 0, 0);
 
@@ -469,12 +469,12 @@ window.addEventListener('scroll', () => {
 
     ctx.restore();
 
-    // Subtitle — 30% bigger, moved up to match
-    ctx.font        = '600 29px Poppins, sans-serif';
+    // Subtitle
+    ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 88);
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 108);
 
     ctx.restore();
   }
