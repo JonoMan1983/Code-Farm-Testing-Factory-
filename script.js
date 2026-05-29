@@ -252,11 +252,12 @@ window.addEventListener('scroll', () => {
   const cx = SIZE / 2;
   const cy = SIZE / 2;
 
-  // Three orbital rings: same size, tilted differently; atoms keep their individual colours
+  // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
+  const T = Math.PI * 2 / 3;
   const orbits = [
-    { rx: 162, ry: 62, tilt: -0.26, speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 162, ry: 62, tilt:  0.66, speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 162, ry: 62, tilt: -1.01, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   const TRAIL_LEN = 28;
@@ -273,11 +274,12 @@ window.addEventListener('scroll', () => {
     return { x: cx + ex * c - ey * s, y: cy + ex * s + ey * c };
   }
 
-  function drawOrbits() {
+  function drawOrbits(dashOff) {
     ctx.setLineDash([2.5, 6.5]);
-    ctx.strokeStyle = '#ffffff';
-    ctx.globalAlpha = 0.28;
-    ctx.lineWidth   = 1.1;
+    ctx.lineDashOffset = dashOff;
+    ctx.strokeStyle    = '#ffffff';
+    ctx.globalAlpha    = 0.28;
+    ctx.lineWidth      = 1.1;
     orbits.forEach(o => {
       ctx.save();
       ctx.translate(cx, cy);
@@ -288,7 +290,8 @@ window.addEventListener('scroll', () => {
       ctx.restore();
     });
     ctx.setLineDash([]);
-    ctx.globalAlpha = 1;
+    ctx.lineDashOffset = 0;
+    ctx.globalAlpha    = 1;
   }
 
   function drawAtoms() {
@@ -377,12 +380,23 @@ window.addEventListener('scroll', () => {
 
   let rafId = null;
 
-  function frame() {
+  function frame(timestamp) {
+    const t       = timestamp * 0.001;                // seconds
+    const dashOff = -(t * 22);                        // slow dot crawl along paths
+    const floatX  = Math.sin(t * 0.38) * 4;          // gentle sway
+    const floatY  = Math.sin(t * 0.55) * 7;          // gentle bob
+
     ctx.clearRect(0, 0, SIZE, SIZE);
+
+    ctx.save();
+    ctx.translate(floatX, floatY);   // whole scene floats together
+
     drawNucleus();
-    drawOrbits();
+    drawOrbits(dashOff);
     drawAtoms();
     drawText();
+
+    ctx.restore();
     rafId = requestAnimationFrame(frame);
   }
 
