@@ -150,9 +150,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
-  background: rgba(19, 15, 50, 0.97);
+  background: rgba(10, 7, 28, 0.99);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(184, 168, 247, 0.28);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   transition: padding var(--transition);
 }
 
@@ -171,6 +172,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
 }
 
+.nav-logo-icon {
+  display: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(184, 168, 247, 0.35);
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -179,13 +189,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .nav-links a {
   font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+  color: #ffffff;
   transition: color var(--transition);
 }
 
 .nav-links a:hover {
-  color: #ffffff;
+  color: var(--color-accent);
 }
 
 .nav-linkedin {
@@ -1730,16 +1740,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
     align-items: center;
     padding: 13px 20px;
     font-size: 15px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
-    border-bottom: 1px solid rgba(184, 168, 247, 0.07);
+    font-weight: 600;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(184, 168, 247, 0.1);
     transition: color 0.15s ease, background 0.15s ease;
   }
 
   .nav-links > li > a:hover,
   .nav-links > li > a:focus {
-    color: #ffffff;
-    background: rgba(184, 168, 247, 0.07);
+    color: var(--color-accent);
+    background: rgba(184, 168, 247, 0.08);
   }
 
   .nav-links .nav-linkedin,
@@ -1809,6 +1819,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .nav-toggle {
     flex-shrink: 0;
+    margin-left: 8px;
   }
 
   .form-row {
@@ -1841,6 +1852,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .section {
     padding: 52px 0;
+  }
+
+  /* Swap to icon-only logo on small phones */
+  .nav-logo-img {
+    display: none;
+  }
+
+  .nav-logo-icon {
+    display: block;
+  }
+
+  .nav {
+    padding: 10px 14px;
   }
 
   .hero-actions {
