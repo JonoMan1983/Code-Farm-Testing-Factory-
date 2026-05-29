@@ -523,11 +523,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ux-step {
-  flex: 1;
-  min-width: 150px;
-  max-width: 200px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
   text-align: center;
-  padding: 24px 16px;
+  padding: 24px 12px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 12px;
@@ -571,10 +571,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .ux-step-arrow {
   flex: 0 0 auto;
   align-self: center;
-  font-size: 1.4rem;
-  color: var(--color-border);
-  padding: 0 8px;
+  font-size: 1.96rem;
+  font-weight: 900;
+  color: var(--color-accent);
+  -webkit-text-stroke: 1px var(--color-accent);
+  padding: 0 6px;
   margin-top: -16px;
+  line-height: 1;
 }
 
 /* Credential callout */
@@ -1021,9 +1024,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: #fff;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .ux-process {
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .ux-step-arrow {
@@ -1031,9 +1035,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .ux-step {
-    min-width: calc(50% - 8px);
-    max-width: none;
-    flex: none;
+    flex: 1 1 calc(33.333% - 8px);
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ux-step {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 130px;
   }
 
   .ui-grid {
@@ -2070,7 +2080,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .ux-step {
-    min-width: 100%;
+    flex: 0 0 100%;
+    min-width: 0;
   }
 
   .logo-item {
