@@ -1322,6 +1322,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   object-fit: contain;
 }
 
+.logo-item-svg.adobe-icon {
+  width: 57px;
+  height: 57px;
+}
+
 .logo-item span {
   font-size: 11px;
   font-weight: 500;
