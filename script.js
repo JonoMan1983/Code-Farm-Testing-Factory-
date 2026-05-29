@@ -380,7 +380,13 @@ window.addEventListener('scroll', () => {
     ctx.globalAlpha    = 1;
   }
 
-  function drawAtoms(gRot) {
+  const SPEED_MOD = [
+    { freq: 0.38, phase: 0.0 },
+    { freq: 0.55, phase: 2.1 },
+    { freq: 0.28, phase: 4.2 },
+  ];
+
+  function drawAtoms(gRot, t) {
     atoms.forEach((atom, i) => {
       const o         = orbits[i];
       const [r, g, b] = o.rgba;
@@ -418,7 +424,8 @@ window.addEventListener('scroll', () => {
       ctx.fillStyle = o.color;
       ctx.fill();
 
-      atom.angle += o.speed;
+      const sm = SPEED_MOD[i];
+      atom.angle += o.speed * (0.35 + (Math.sin(t * sm.freq + sm.phase) * 0.5 + 0.5) * 1.3);
     });
   }
 
@@ -511,7 +518,7 @@ window.addEventListener('scroll', () => {
 
     drawNucleus();
     drawOrbits(gRot, t);
-    drawAtoms(gRot);
+    drawAtoms(gRot, t);
     drawText(textRot, t);
     rafId = requestAnimationFrame(frame);
   }
