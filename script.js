@@ -109,7 +109,7 @@ const navLinks = document.querySelector('.nav-links');
 
 function closeNav() {
   navLinks.classList.remove('open');
-  document.body.style.overflow = '';
+  navToggle.setAttribute('aria-expanded', 'false');
   const spans = navToggle.querySelectorAll('span');
   spans[0].style.transform = '';
   spans[1].style.opacity = '';
@@ -117,24 +117,22 @@ function closeNav() {
 }
 
 navToggle.addEventListener('click', () => {
+  const isOpen = !navLinks.classList.contains('open');
   navLinks.classList.toggle('open');
-  const isOpen = navLinks.classList.contains('open');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  navToggle.setAttribute('aria-expanded', isOpen);
   const spans = navToggle.querySelectorAll('span');
   if (isOpen) {
-    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[0].style.transform = 'rotate(45deg) translate(4px, 5px)';
     spans[1].style.opacity = '0';
-    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    spans[2].style.transform = 'rotate(-45deg) translate(4px, -5px)';
   } else {
     closeNav();
   }
 });
 
-// Close nav on link click
+// Close nav on link click or outside tap
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    closeNav();
-  });
+  link.addEventListener('click', closeNav);
 });
 
 // Close nav on tap outside overlay

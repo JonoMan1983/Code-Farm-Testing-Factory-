@@ -1671,66 +1671,100 @@ h1, h2, h3, h4 { color: var(--color-text); }
     padding: 16px 20px;
   }
 
-  /* Mobile nav overlay — dark brand background */
-  .nav-links {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #0c0922;
+  /* Hamburger icon button */
+  .nav-toggle {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 32px;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(184, 168, 247, 0.1);
+    border: 1px solid rgba(184, 168, 247, 0.2) !important;
+    position: relative;
+    z-index: 101;
+    transition: background var(--transition);
+  }
+
+  .nav-toggle:hover {
+    background: rgba(184, 168, 247, 0.18);
+  }
+
+  .nav-toggle span {
+    background: #ffffff;
+    width: 18px;
+  }
+
+  /* Dropdown panel — slides down from nav bar */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(12, 9, 34, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(184, 168, 247, 0.15);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+    padding: 6px 0 14px;
     z-index: 99;
-    padding: 80px 24px 40px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    /* Hidden state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
   }
 
   .nav-links.open {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
   }
 
-  .nav-links a {
-    font-size: 1.25rem;
+  /* Individual nav link rows */
+  .nav-links > li {
+    width: 100%;
+  }
+
+  .nav-links > li > a {
+    display: flex;
+    align-items: center;
+    padding: 13px 20px;
+    font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.75);
-    transition: color 0.15s ease;
+    color: rgba(255, 255, 255, 0.65);
+    border-bottom: 1px solid rgba(184, 168, 247, 0.07);
+    transition: color 0.15s ease, background 0.15s ease;
   }
 
-  .nav-links a:hover,
-  .nav-links a:focus {
+  .nav-links > li > a:hover,
+  .nav-links > li > a:focus {
     color: #ffffff;
+    background: rgba(184, 168, 247, 0.07);
   }
 
+  /* LinkedIn + Contact as proper buttons inside dropdown */
+  .nav-links .nav-linkedin,
   .nav-links .nav-cta {
-    font-size: 1rem;
-    padding: 12px 32px;
-    color: #fff !important;
-  }
-
-  /* LinkedIn button in mobile overlay — full width pill */
-  .nav-links .nav-linkedin {
-    font-size: 1rem;
-    padding: 12px 32px;
-    gap: 10px;
-    border-radius: 100px;
-  }
-
-  .nav-links .nav-linkedin svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .nav-toggle {
     display: flex;
-    position: relative;
-    z-index: 101;
+    justify-content: center;
+    margin: 8px 16px 2px;
+    padding: 11px 16px;
+    font-size: 14px;
+    border-radius: var(--radius);
+    border-bottom: none !important;
   }
 
-  /* Hamburger bars turn white when dark overlay is open */
-  .nav-links.open ~ .nav-toggle span {
-    background: #ffffff;
+  .nav-links .nav-linkedin:hover {
+    transform: none;
   }
 
   /* Grids — force single column */
