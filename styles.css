@@ -278,18 +278,22 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .hero-content {
   z-index: 1;
+  min-width: 0;
+  text-align: left;
 }
 
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 0;
 }
 
 #heroCanvas {
   width: 920px;
   height: 920px;
   max-width: 100%;
+  max-height: calc(100vh - 160px);
   aspect-ratio: 1 / 1;
   display: block;
 }
@@ -1886,6 +1890,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
+/* --- 1100px: equal hero columns to prevent text squashing --- */
+@media (max-width: 1100px) {
+  .hero-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
 /* --- 900px: layout columns collapse --- */
 @media (max-width: 900px) {
   .hero-container {
@@ -1895,11 +1907,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .hero-visual {
     order: -1;
+    justify-content: flex-start;   /* left-align canvas with text below */
   }
 
   #heroCanvas {
     width: 100%;
-    max-width: 560px;
+    max-width: 500px;
+    max-height: 60vw;
     height: auto;
   }
 

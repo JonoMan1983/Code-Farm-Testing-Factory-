@@ -253,8 +253,17 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T    = Math.PI * 2 / 3;
-  const PINK = '#ff40b8';   // bright fixed pink for all orbit paths
+  const T        = Math.PI * 2 / 3;
+  const PINK_RGB = [255, 64, 184];   // base pink colour for orbit paths
+
+  // Lerp between two [r,g,b] arrays and return an rgb() string
+  function lerpRGB(a, b, f) {
+    return `rgb(${~~(a[0]+(b[0]-a[0])*f)},${~~(a[1]+(b[1]-a[1])*f)},${~~(a[2]+(b[2]-a[2])*f)})`;
+  }
+
+  // Per-orbit colour oscillation frequencies and phase offsets
+  const CLR_FREQ = [0.38, 0.62, 0.91];
+  const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
     { rx: 324, ry: 124, tilt: 0,     speed:  0.0080, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
@@ -292,13 +301,14 @@ window.addEventListener('scroll', () => {
       { dot:  9, gapMin: 14, gapMax: 40, lwFreq: 0.57, lwPh: 2.1, gFreq: 0.88, gPh: 3.1 },
       { dot: 14, gapMin: 18, gapMax: 56, lwFreq: 0.78, lwPh: 4.2, gFreq: 1.18, gPh: 5.8 },
     ];
-    ctx.strokeStyle = PINK;
-    ctx.globalAlpha = 0.65;
+    ctx.globalAlpha = 0.68;
     orbits.forEach((o, i) => {
-      const fs  = floatStates[i];
-      const a   = ANIM[i];
-      const lw  = 1.2 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 3.8;  // 1.2–5.0
-      const gap = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
+      const fs   = floatStates[i];
+      const a    = ANIM[i];
+      const lw   = 1.2 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 3.8;  // 1.2–5.0
+      const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
+      const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
+      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);   // pink ↔ atom colour
       ctx.lineWidth      = lw;
       ctx.setLineDash([a.dot, gap]);
       ctx.lineDashOffset = dashOff;
