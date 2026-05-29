@@ -252,11 +252,11 @@ window.addEventListener('scroll', () => {
   const cx = SIZE / 2;
   const cy = SIZE / 2;
 
-  // Three orbital rings: rx/ry define the ellipse, tilt is rotation in radians
+  // Three orbital rings: same size, tilted differently; atoms keep their individual colours
   const orbits = [
-    { rx: 140, ry: 50, tilt: -0.26, speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 162, ry: 62, tilt: -0.26, speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
     { rx: 162, ry: 62, tilt:  0.66, speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 178, ry: 70, tilt: -1.01, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 162, ry: 62, tilt: -1.01, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   const TRAIL_LEN = 28;
@@ -275,15 +275,15 @@ window.addEventListener('scroll', () => {
 
   function drawOrbits() {
     ctx.setLineDash([2.5, 6.5]);
+    ctx.strokeStyle = '#ffffff';
+    ctx.globalAlpha = 0.28;
+    ctx.lineWidth   = 1.1;
     orbits.forEach(o => {
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(o.tilt);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = o.color;
-      ctx.globalAlpha  = 0.22;
-      ctx.lineWidth    = 1.1;
       ctx.stroke();
       ctx.restore();
     });
