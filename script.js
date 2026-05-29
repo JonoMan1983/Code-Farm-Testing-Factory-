@@ -253,12 +253,19 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T = Math.PI * 2 / 3;
+  const T     = Math.PI * 2 / 3;
+  const WHITE = [255, 255, 255];
+  const PINK  = [255, 100, 185];
+
   const orbits = [
-    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 162, ry: 62, tilt: 0,     speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247], phase: 0   },
+    { rx: 162, ry: 62, tilt: T,     speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94], phase: 2.1 },
+    { rx: 162, ry: 62, tilt: T * 2, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240], phase: 4.2 },
   ];
+
+  function lerpColor(c1, c2, f) {
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*f)},${Math.round(c1[1]+(c2[1]-c1[1])*f)},${Math.round(c1[2]+(c2[2]-c1[2])*f)})`;
+  }
 
   const TRAIL_LEN = 28;
   const atoms = orbits.map((_, i) => ({
@@ -266,24 +273,25 @@ window.addEventListener('scroll', () => {
     trail: []
   }));
 
-  function orbitalPoint(o, angle) {
-    const ex = o.rx * Math.cos(angle);
-    const ey = o.ry * Math.sin(angle);
-    const c  = Math.cos(o.tilt);
-    const s  = Math.sin(o.tilt);
+  function orbitalPoint(o, angle, gRot) {
+    const ex   = o.rx * Math.cos(angle);
+    const ey   = o.ry * Math.sin(angle);
+    const tilt = o.tilt + gRot;
+    const c    = Math.cos(tilt);
+    const s    = Math.sin(tilt);
     return { x: cx + ex * c - ey * s, y: cy + ex * s + ey * c };
   }
 
-  function drawOrbits(dashOff) {
+  function drawOrbits(dashOff, colors, gRot) {
     ctx.setLineDash([2.5, 6.5]);
     ctx.lineDashOffset = dashOff;
-    ctx.strokeStyle    = '#ffffff';
-    ctx.globalAlpha    = 0.28;
+    ctx.globalAlpha    = 0.32;
     ctx.lineWidth      = 1.1;
-    orbits.forEach(o => {
+    orbits.forEach((o, i) => {
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(o.tilt);
+      ctx.rotate(o.tilt + gRot);       // static tilt + slow global spin
+      ctx.strokeStyle = colors[i];
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
       ctx.stroke();
@@ -294,24 +302,24 @@ window.addEventListener('scroll', () => {
     ctx.globalAlpha    = 1;
   }
 
-  function drawAtoms() {
+  function drawAtoms(gRot) {
     atoms.forEach((atom, i) => {
-      const o        = orbits[i];
+      const o         = orbits[i];
       const [r, g, b] = o.rgba;
-      const pos      = orbitalPoint(o, atom.angle);
 
-      // Record trail position before advancing
-      atom.trail.push({ x: pos.x, y: pos.y });
+      // Trail stores angles so positions recalculate correctly as orbit rotates
+      atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
 
-      // Trail — fades and shrinks toward the tail
-      atom.trail.forEach((p, ti) => {
-        const frac   = ti / TRAIL_LEN;
-        const alpha  = frac * 0.55;
-        const radius = 1.5 + frac * 3;
+      const pos = orbitalPoint(o, atom.angle, gRot);
+
+      // Trail — each angle re-projected with current gRot
+      atom.trail.forEach((a, ti) => {
+        const frac = ti / TRAIL_LEN;
+        const tp   = orbitalPoint(o, a, gRot);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.arc(tp.x, tp.y, 1.5 + frac * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${frac * 0.55})`;
         ctx.fill();
       });
 
@@ -380,20 +388,29 @@ window.addEventListener('scroll', () => {
 
   let rafId = null;
 
+  // Cycle frequencies (rad/s) — 3 deliberately different intervals
+  const COLOR_FREQS = [0.40, 0.70, 1.10];
+
   function frame(timestamp) {
-    const t       = timestamp * 0.001;                // seconds
-    const dashOff = -(t * 22);                        // slow dot crawl along paths
-    const floatX  = Math.sin(t * 0.38) * 4;          // gentle sway
-    const floatY  = Math.sin(t * 0.55) * 7;          // gentle bob
+    const t       = timestamp * 0.001;
+    const dashOff = -(t * 22);
+    const floatX  = Math.sin(t * 0.38) * 4;
+    const floatY  = Math.sin(t * 0.55) * 7;
+    const gRot    = t * 0.10;                         // full revolution every ~63 s
+
+    // Each orbit path independently oscillates white ↔ pink
+    const orbitColors = orbits.map((o, i) =>
+      lerpColor(WHITE, PINK, Math.sin(t * COLOR_FREQS[i] + o.phase) * 0.5 + 0.5)
+    );
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
     ctx.save();
-    ctx.translate(floatX, floatY);   // whole scene floats together
+    ctx.translate(floatX, floatY);
 
     drawNucleus();
-    drawOrbits(dashOff);
-    drawAtoms();
+    drawOrbits(dashOff, orbitColors, gRot);
+    drawAtoms(gRot);
     drawText();
 
     ctx.restore();
