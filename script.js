@@ -467,19 +467,16 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = '#ffffff';
     ctx.fillText('20', startX, 0);
 
-    ctx.globalAlpha = 0.45 + plusPulse * 0.55;
-    ctx.fillStyle   = '#E0115E';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle   = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
     // Matching strokes
-    ctx.lineWidth     = 5;
-    ctx.globalAlpha   = 1;
-    ctx.strokeStyle   = 'rgba(255,255,255,0.55)';
+    ctx.lineWidth   = 5;
+    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
     ctx.strokeText('20', startX, 0);
-    ctx.globalAlpha   = 0.45 + plusPulse * 0.55;
-    ctx.strokeStyle   = 'rgba(224,17,94,0.55)';
+    ctx.strokeStyle = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
     ctx.strokeText('+', startX + w20, 0);
-    ctx.globalAlpha   = 1;
 
     ctx.restore();
 
