@@ -107,30 +107,41 @@ document.addEventListener('DOMContentLoaded', () => {
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
+function closeNav() {
+  navLinks.classList.remove('open');
+  document.body.style.overflow = '';
+  const spans = navToggle.querySelectorAll('span');
+  spans[0].style.transform = '';
+  spans[1].style.opacity = '';
+  spans[2].style.transform = '';
+}
+
 navToggle.addEventListener('click', () => {
   navLinks.classList.toggle('open');
   const isOpen = navLinks.classList.contains('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
   const spans = navToggle.querySelectorAll('span');
   if (isOpen) {
     spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
     spans[1].style.opacity = '0';
     spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
   } else {
-    spans[0].style.transform = '';
-    spans[1].style.opacity = '';
-    spans[2].style.transform = '';
+    closeNav();
   }
 });
 
 // Close nav on link click
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    const spans = navToggle.querySelectorAll('span');
-    spans[0].style.transform = '';
-    spans[1].style.opacity = '';
-    spans[2].style.transform = '';
+    closeNav();
   });
+});
+
+// Close nav on tap outside overlay
+document.addEventListener('click', e => {
+  if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+    closeNav();
+  }
 });
 
 // Scroll reveal
@@ -172,11 +183,11 @@ form.addEventListener('submit', e => {
   }, 800);
 });
 
-// Shrink nav on scroll
+// Shrink nav on scroll (responsive padding)
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.nav');
   if (window.scrollY > 60) {
-    nav.style.padding = '12px 40px';
+    nav.style.padding = window.innerWidth <= 768 ? '10px 20px' : '12px 40px';
   } else {
     nav.style.padding = '';
   }

@@ -187,6 +187,30 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: var(--color-text);
 }
 
+.nav-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #0A66C2;
+  color: #fff !important;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
+}
+
+.nav-linkedin:hover {
+  background: #004182;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+.nav-linkedin svg {
+  flex-shrink: 0;
+}
+
 .nav-cta {
   background: var(--color-accent-red);
   color: #fff !important;
@@ -1672,12 +1696,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
     display: none;
     position: fixed;
     inset: 0;
-    background: #160647;
+    background: #0c0922;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 32px;
     z-index: 99;
+    padding: 80px 24px 40px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-links.open {
@@ -1685,8 +1712,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .nav-links a {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    transition: color 0.15s ease;
   }
 
   .nav-links a:hover,
@@ -1695,7 +1724,22 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .nav-links .nav-cta {
+    font-size: 1rem;
+    padding: 12px 32px;
     color: #fff !important;
+  }
+
+  /* LinkedIn button in mobile overlay — full width pill */
+  .nav-links .nav-linkedin {
+    font-size: 1rem;
+    padding: 12px 32px;
+    gap: 10px;
+    border-radius: 100px;
+  }
+
+  .nav-links .nav-linkedin svg {
+    width: 18px;
+    height: 18px;
   }
 
   .nav-toggle {
