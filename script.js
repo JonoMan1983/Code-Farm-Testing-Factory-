@@ -448,10 +448,10 @@ window.addEventListener('scroll', () => {
     const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
 
     // Glow pass (pulsing, whole string)
-    ctx.shadowColor = '#ff99cc';
+    ctx.shadowColor = '#ff40b8';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#ff99cc';
+    ctx.fillStyle   = '#ff40b8';
     ctx.fillText('20+', 0, 0);
 
     // Two-colour solid fill: "20" white, "+" light pink
@@ -465,14 +465,14 @@ window.addEventListener('scroll', () => {
 
     ctx.fillStyle = '#ffffff';
     ctx.fillText('20', startX, 0);
-    ctx.fillStyle = '#ff99cc';
+    ctx.fillStyle = '#ff40b8';
     ctx.fillText('+', startX + w20, 0);
 
     // Matching strokes
     ctx.lineWidth   = 5;
     ctx.strokeStyle = 'rgba(255,255,255,0.55)';
     ctx.strokeText('20', startX, 0);
-    ctx.strokeStyle = 'rgba(255,153,204,0.55)';
+    ctx.strokeStyle = 'rgba(255,64,184,0.55)';
     ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
