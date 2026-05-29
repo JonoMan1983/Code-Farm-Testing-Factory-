@@ -38,6 +38,7 @@ body {
   line-height: 1.7;
   color: var(--color-text);
   background: var(--color-bg);
+  overflow-x: hidden;
 }
 
 a {
@@ -619,12 +620,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Sub-heading between blocks */
 .ux-sub-heading {
-  font-size: 1rem;
+  font-size: 11px;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 11px;
   margin: 56px 0 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--color-border);
@@ -1575,16 +1575,27 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* ===========================
    RESPONSIVE
    =========================== */
+
+/* --- 768px --- */
 @media (max-width: 768px) {
-  .nav {
-    padding: 16px 24px;
+  .container {
+    padding: 0 20px;
   }
 
+  .section {
+    padding: 64px 0;
+  }
+
+  .nav {
+    padding: 16px 20px;
+  }
+
+  /* Mobile nav overlay — dark brand background */
   .nav-links {
     display: none;
     position: fixed;
     inset: 0;
-    background: var(--color-bg);
+    background: #160647;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1598,6 +1609,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .nav-links a {
     font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus {
+    color: #ffffff;
+  }
+
+  .nav-links .nav-cta {
+    color: #fff !important;
   }
 
   .nav-toggle {
@@ -1606,7 +1627,27 @@ h1, h2, h3, h4 { color: var(--color-text); }
     z-index: 101;
   }
 
+  /* Hamburger bars turn white when dark overlay is open */
+  .nav-links.open ~ .nav-toggle span {
+    background: #ffffff;
+  }
+
+  /* Grids — force single column */
   .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .resume-layout {
     grid-template-columns: 1fr;
     gap: 40px;
   }
@@ -1615,13 +1656,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
     order: -1;
   }
 
-  .resume-layout {
+  .form-row {
     grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .footer-links {
-    align-items: flex-start;
   }
 
   .form-actions {
@@ -1629,26 +1665,71 @@ h1, h2, h3, h4 { color: var(--color-text); }
     align-items: flex-start;
   }
 
-  .form-row {
-    grid-template-columns: 1fr;
+  .footer-links {
+    align-items: flex-start;
   }
 
   .hero-scroll-hint {
     display: none;
   }
 
-  .section {
-    padding: 64px 0;
+  /* iOS: svh accounts for browser chrome */
+  .hero {
+    min-height: 100svh;
   }
 }
 
+/* --- 480px --- */
 @media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: 52px 0;
+  }
+
   .hero-actions {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  /* Prevent iOS auto-zoom when tapping form inputs */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    margin-bottom: 28px;
+  }
+}
+
+/* --- 380px --- */
+@media (max-width: 380px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .section {
+    padding: 44px 0;
+  }
+
+  .ux-step {
+    min-width: 100%;
+  }
+
+  .logo-item {
+    width: calc(50% - 8px);
   }
 }
