@@ -1931,9 +1931,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   #heroCanvas {
-    width: 100%;
-    max-width: 500px;
-    max-height: 60vw;
+    width: min(500px, 100%, 55vh);
+    max-width: 100%;
+    max-height: none;
     height: auto;
   }
 
