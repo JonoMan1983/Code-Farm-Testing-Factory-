@@ -359,7 +359,7 @@ window.addEventListener('scroll', () => {
     orbits.forEach((o, i) => {
       const fs   = floatStates[i];
       const a    = ANIM[i];
-      const lw   = 2.0 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 5.0;  // 2.0–7.0
+      const lw   = 4.0 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 7.0;  // 4.0–11.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
       ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
@@ -442,7 +442,7 @@ window.addEventListener('scroll', () => {
     ctx.save();
     ctx.translate(cx, cy + 8);
     ctx.rotate(textRot);
-    ctx.font     = 'bold 256px Poppins, sans-serif';
+    ctx.font     = '900 256px Poppins, sans-serif';
     ctx.lineJoin = 'round';
 
     const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
@@ -456,7 +456,7 @@ window.addEventListener('scroll', () => {
 
     // White fill — 20% opacity (80% transparent)
     ctx.shadowBlur  = 10 + pulse * 20;
-    ctx.globalAlpha = 0.2;
+    ctx.globalAlpha = 0.4;
     ctx.fillStyle   = '#ffffff';
     ctx.fillText('20+', 0, 0);
 
