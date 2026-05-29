@@ -742,6 +742,34 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-size: 13.5px;
 }
 
+/* Diploma certificate credential display */
+.diploma-credential {
+  margin-top: 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+  background: var(--color-bg-alt);
+}
+
+.diploma-credential-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.diploma-credential-caption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-accent);
+  border-top: 1px solid var(--color-border);
+  background: rgba(184, 168, 247, 0.04);
+}
+
 /* Scrollable document showcase (site redesign, A4-style tall docs) */
 .ux-showcase {
   margin-top: 56px;
