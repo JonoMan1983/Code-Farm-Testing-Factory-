@@ -445,35 +445,41 @@ window.addEventListener('scroll', () => {
     ctx.font     = '900 256px Poppins, sans-serif';
     ctx.lineJoin = 'round';
 
-    const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
+    const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
+    const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string)
-    ctx.shadowColor = '#ff40b8';
+    // Glow pass (pulsing, whole string) — #E0115E matches hero title pink
+    ctx.shadowColor = '#E0115E';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#ff40b8';
+    ctx.fillStyle   = '#E0115E';
     ctx.fillText('20+', 0, 0);
 
-    // Two-colour solid fill: "20" white, "+" light pink
+    // Two-colour solid fill: "20" white, "+" hero-title pink pulsing fast
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
-    ctx.globalAlpha = 1;
     ctx.textAlign   = 'left';
     const wFull  = ctx.measureText('20+').width;
     const w20    = ctx.measureText('20').width;
     const startX = -(wFull / 2);
 
-    ctx.fillStyle = '#ffffff';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle   = '#ffffff';
     ctx.fillText('20', startX, 0);
-    ctx.fillStyle = '#ff40b8';
+
+    ctx.globalAlpha = 0.45 + plusPulse * 0.55;
+    ctx.fillStyle   = '#E0115E';
     ctx.fillText('+', startX + w20, 0);
 
     // Matching strokes
-    ctx.lineWidth   = 5;
-    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+    ctx.lineWidth     = 5;
+    ctx.globalAlpha   = 1;
+    ctx.strokeStyle   = 'rgba(255,255,255,0.55)';
     ctx.strokeText('20', startX, 0);
-    ctx.strokeStyle = 'rgba(255,64,184,0.55)';
+    ctx.globalAlpha   = 0.45 + plusPulse * 0.55;
+    ctx.strokeStyle   = 'rgba(224,17,94,0.55)';
     ctx.strokeText('+', startX + w20, 0);
+    ctx.globalAlpha   = 1;
 
     ctx.restore();
 
