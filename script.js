@@ -447,23 +447,23 @@ window.addEventListener('scroll', () => {
 
     const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
 
-    // Pink glow pass
-    ctx.shadowColor = '#ff40b8';
+    // Crimson glow pass — matches btn-primary (#E0115E)
+    ctx.shadowColor = '#E0115E';
     ctx.shadowBlur  = 55 + pulse * 140;
-    ctx.globalAlpha = 0.55 + pulse * 0.45;
-    ctx.fillStyle   = '#ff40b8';
+    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.fillStyle   = '#E0115E';
     ctx.fillText('20+', 0, 0);
 
-    // White fill — 20% opacity (80% transparent)
-    ctx.shadowBlur  = 10 + pulse * 20;
-    ctx.globalAlpha = 0.4;
-    ctx.fillStyle   = '#ffffff';
+    // Solid crimson fill — button brightness, pulsing 75–100%
+    ctx.shadowBlur  = 8 + pulse * 18;
+    ctx.globalAlpha = 0.75 + pulse * 0.25;
+    ctx.fillStyle   = '#E0115E';
     ctx.fillText('20+', 0, 0);
 
-    // Pure white stroke — crispens the edge against the glow
+    // White stroke — crispens edge against orbits
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
     ctx.lineWidth   = 5;
     ctx.strokeText('20+', 0, 0);
 
