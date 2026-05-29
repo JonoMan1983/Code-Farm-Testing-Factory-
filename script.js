@@ -285,16 +285,25 @@ window.addEventListener('scroll', () => {
     return { x: cx + fx + ex * c - ey * s, y: cy + fy + ex * s + ey * c };
   }
 
-  function drawOrbits(dashOff, gRot) {
+  function drawOrbits(dashOff, gRot, t) {
+    // Per-orbit animation: lineWidth and dash gap each oscillate independently
+    const ANIM = [
+      { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
+      { dot:  9, gapMin: 14, gapMax: 40, lwFreq: 0.57, lwPh: 2.1, gFreq: 0.88, gPh: 3.1 },
+      { dot: 14, gapMin: 18, gapMax: 56, lwFreq: 0.78, lwPh: 4.2, gFreq: 1.18, gPh: 5.8 },
+    ];
     ctx.strokeStyle = PINK;
-    ctx.globalAlpha = 0.62;
-    ctx.lineWidth   = 2.5;
+    ctx.globalAlpha = 0.65;
     orbits.forEach((o, i) => {
-      const fs = floatStates[i];
-      ctx.setLineDash(o.dash);
+      const fs  = floatStates[i];
+      const a   = ANIM[i];
+      const lw  = 1.2 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 3.8;  // 1.2–5.0
+      const gap = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
+      ctx.lineWidth      = lw;
+      ctx.setLineDash([a.dot, gap]);
       ctx.lineDashOffset = dashOff;
       ctx.save();
-      ctx.translate(cx + fs.x, cy + fs.y);   // each orbit has its own float offset
+      ctx.translate(cx + fs.x, cy + fs.y);
       ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
@@ -359,35 +368,48 @@ window.addEventListener('scroll', () => {
     ctx.fill();
   }
 
-  function drawText(textRot) {
+  function drawText(textRot, t) {
     ctx.save();
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
-    // "20+" rotates ±5° around its own centre
+    // "20+" — pulsing pink glow, white fill, pure white stroke
     ctx.save();
-    ctx.translate(cx, cy + 20);
+    ctx.translate(cx, cy + 8);
     ctx.rotate(textRot);
-    ctx.font = 'bold 172px Poppins, sans-serif';
-    ctx.shadowColor  = '#B8A8F7';
-    ctx.shadowBlur   = 96;
-    ctx.globalAlpha  = 0.55;
-    ctx.fillStyle    = '#B8A8F7';
+    ctx.font     = 'bold 224px Poppins, sans-serif';
+    ctx.lineJoin = 'round';
+
+    const pulse = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
+
+    // Pink glow pass
+    ctx.shadowColor = '#ff40b8';
+    ctx.shadowBlur  = 55 + pulse * 140;
+    ctx.globalAlpha = 0.55 + pulse * 0.45;
+    ctx.fillStyle   = '#ff40b8';
     ctx.fillText('20+', 0, 0);
-    ctx.shadowBlur   = 44;
-    ctx.globalAlpha  = 1;
-    ctx.fillStyle    = '#ffffff';
+
+    // White fill
+    ctx.shadowBlur  = 10 + pulse * 20;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle   = '#ffffff';
     ctx.fillText('20+', 0, 0);
+
+    // Pure white stroke — crispens the edge against the glow
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth   = 5;
+    ctx.strokeText('20+', 0, 0);
+
     ctx.restore();
 
-    // Subtitle stays upright
-    ctx.font        = '600 22px Poppins, sans-serif';
+    // Subtitle — 30% bigger, moved up to match
+    ctx.font        = '600 29px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 100);
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 88);
 
     ctx.restore();
   }
@@ -415,9 +437,9 @@ window.addEventListener('scroll', () => {
     ctx.clearRect(0, 0, SIZE, SIZE);
 
     drawNucleus();
-    drawOrbits(dashOff, gRot);
+    drawOrbits(dashOff, gRot, t);
     drawAtoms(gRot);
-    drawText(textRot);
+    drawText(textRot, t);
     rafId = requestAnimationFrame(frame);
   }
 
