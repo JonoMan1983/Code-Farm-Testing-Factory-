@@ -1898,7 +1898,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
-/* --- 900px: layout columns collapse --- */
+/* --- 900px: layout columns collapse, hero centre-aligns --- */
 @media (max-width: 900px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -1907,7 +1907,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .hero-visual {
     order: -1;
-    justify-content: flex-start;   /* left-align canvas with text below */
+    justify-content: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-sub {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #heroCanvas {
