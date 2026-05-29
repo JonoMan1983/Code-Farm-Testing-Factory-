@@ -3,7 +3,6 @@
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof Plyr !== 'undefined') {
-    // Showreel — full featured player
     const showreelEl = document.getElementById('showreelPlayer');
     if (showreelEl) {
       new Plyr(showreelEl, {
@@ -12,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resetOnEnd: true,
       });
     }
-
-    // Video cards — compact players
     document.querySelectorAll('.video-card .plyr-video').forEach(el => {
       new Plyr(el, {
         controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen'],
@@ -26,50 +23,79 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===========================
-// ANIMATION GALLERY — 32 clips
+// ANIMATION GALLERY — 32 clips from Cloudinary
 // ===========================
 (function buildAnimGrid() {
   const grid = document.getElementById('animGrid');
   if (!grid) return;
 
-  const TOTAL = 32;
-  const BASE_PATH = 'assets/video/vfx/';
+  const CDN = 'https://res.cloudinary.com/dksariyyz/video/upload';
 
-  // Build thumbnail cards
-  for (let i = 1; i <= TOTAL; i++) {
-    const num = String(i).padStart(2, '0');
+  const ANIMATIONS = [
+    { id: 'v1780033064/Mega_Panda_Frog_as8mwg',                    label: 'Mega Panda Frog' },
+    { id: 'v1780033063/Red_Panda_Winning_hsf37d',                   label: 'Red Panda Winning' },
+    { id: 'v1780033063/Red_Panda_Idle_yuf5zw',                      label: 'Red Panda Idle' },
+    { id: 'v1780033063/Red_Panda_Landing_v7qffm',                   label: 'Red Panda Landing' },
+    { id: 'v1780033062/Genie_Animation_fpw6zp',                     label: 'Genie Animation' },
+    { id: 'v1780033062/Frog_004_iqluo7',                            label: 'Frog' },
+    { id: 'v1780033062/Atlantis_King_xcp1co',                       label: 'Atlantis King' },
+    { id: 'v1780033062/Big_Sexy_City_Reelframe_p6gb6u',             label: 'Big Sexy City Reelframe' },
+    { id: 'v1780033061/Atlantis_Queen_uic0ew',                      label: 'Atlantis Queen' },
+    { id: 'v1780033061/Big_Sexy_City_Scatter_Landing_icfiru',       label: 'BSC Scatter Landing' },
+    { id: 'v1780033060/Big_Sexy_City_Scatter_Winning_xvx1fu',       label: 'BSC Scatter Winning' },
+    { id: 'v1780033060/Big_Sexy_City_Sticky_Wild_sg9znb',           label: 'BSC Sticky Wild' },
+    { id: 'v1780033059/Cupcake_Space_Unicorn_In_Game_dq8m9p',       label: 'Cupcake Space Unicorn' },
+    { id: 'v1780033059/Big_Sexy_City_In_Game_tksnwc',               label: 'BSC In Game' },
+    { id: 'v1780033058/Big_Sexy_City_Winning_Wild_vd1wwu',          label: 'BSC Winning Wild' },
+    { id: 'v1780033058/Big_Sexy_City_Winframe_laytnj',              label: 'BSC Winframe' },
+    { id: 'v1780033058/Cupcake_Space_Unicorn_Reelframe_mzqgqy',     label: 'CSU Reelframe' },
+    { id: 'v1780033057/Cupcake_Space_Unicorn_Scatter_Landing_btkhrh', label: 'CSU Scatter Landing' },
+    { id: 'v1780033057/Cupcake_Space_Unicorn_Scatter_Winning_krg4ra', label: 'CSU Scatter Winning' },
+    { id: 'v1780033056/Geisha_Reelframe_cxusil',                    label: 'Geisha Reelframe' },
+    { id: 'v1780033056/Cupcake_Space_Unicorn_Sticky_Wild_ygiyk7',   label: 'CSU Sticky Wild' },
+    { id: 'v1780033056/Cupcake_Space_Unicorn_Winframe_wiaxfx',      label: 'CSU Winframe' },
+    { id: 'v1780033056/Geisha_Winframe_sbscbb',                     label: 'Geisha Winframe' },
+    { id: 'v1780033054/Mega_Wolf_Squirrel_strn2m',                  label: 'Mega Wolf Squirrel' },
+    { id: 'v1780033054/Land_a_Leprechaun_Looping_Wild_casgbm',      label: 'Land a Leprechaun' },
+    { id: 'v1780033054/Mayan_Madness_Wild_j7x05p',                  label: 'Mayan Madness Wild' },
+    { id: 'v1780033054/Mayan_Madness_Bird_hrspnj',                  label: 'Mayan Madness Bird' },
+    { id: 'v1780033054/Rose_of_the_West_pu7mna',                    label: 'Rose of the West' },
+    { id: 'v1780033053/Samurai_Winning_xjzc3w',                     label: 'Samurai Winning' },
+    { id: 'v1780033053/Samurai_Idle_vu3ypd',                        label: 'Samurai Idle' },
+    { id: 'v1780033052/Samurai_Reelframe_ke6sbp',                   label: 'Samurai Reelframe' },
+    { id: 'v1780033052/Samurai_Winframe_dbioec',                    label: 'Samurai Winframe' },
+  ];
+
+  ANIMATIONS.forEach((anim, i) => {
+    const videoUrl  = `${CDN}/q_auto,w_400,vc_auto/${anim.id}.mp4`;
+    const posterUrl = `${CDN}/f_jpg,q_auto,w_400,so_0/${anim.id}.jpg`;
+    const num = String(i + 1).padStart(2, '0');
+
     const thumb = document.createElement('div');
     thumb.className = 'anim-thumb';
-
     thumb.innerHTML = `
-      <video src="${BASE_PATH}anim-${num}.mp4"
-        muted playsinline preload="none"
-        loop></video>
+      <video src="${videoUrl}" poster="${posterUrl}"
+        muted playsinline preload="none" loop></video>
       <div class="anim-overlay">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <polygon points="5,3 19,12 5,21" fill="currentColor" stroke="none"/>
         </svg>
       </div>
-      <span class="anim-num">${num}</span>`;
+      <span class="anim-label">${anim.label}</span>`;
 
     grid.appendChild(thumb);
-  }
 
-  // Hover play/pause
-  grid.querySelectorAll('.anim-thumb').forEach(thumb => {
     const vid = thumb.querySelector('video');
     thumb.addEventListener('mouseenter', () => { vid.load(); vid.play(); });
     thumb.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
   });
 
-  // IntersectionObserver — only load videos near viewport
+  // Lazy-load videos near viewport
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      const vid = entry.target.querySelector('video');
       if (entry.isIntersecting) {
-        if (vid.getAttribute('preload') === 'none') {
-          vid.setAttribute('preload', 'metadata');
-        }
+        const vid = entry.target.querySelector('video');
+        if (vid.getAttribute('preload') === 'none') vid.setAttribute('preload', 'metadata');
       }
     });
   }, { rootMargin: '200px' });

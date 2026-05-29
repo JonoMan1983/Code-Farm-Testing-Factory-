@@ -609,15 +609,26 @@ h1, h2, h3, h4 { color: var(--color-text); }
   filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
 }
 
-.anim-num {
+.anim-label {
   position: absolute;
-  bottom: 6px;
-  right: 8px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
   font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.anim-thumb:hover .anim-label {
+  opacity: 1;
 }
 
 /* Responsive */
