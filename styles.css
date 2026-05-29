@@ -573,8 +573,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-self: center;
   font-size: 1.96rem;
   font-weight: 900;
-  color: var(--color-accent);
-  -webkit-text-stroke: 1px var(--color-accent);
+  color: var(--color-accent-red);
+  -webkit-text-stroke: 1px var(--color-accent-red);
   padding: 0 6px;
   margin-top: -16px;
   line-height: 1;
