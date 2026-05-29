@@ -381,7 +381,7 @@ window.addEventListener('scroll', () => {
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 44);
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 26);
 
     ctx.restore();
   }
