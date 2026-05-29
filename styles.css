@@ -754,53 +754,57 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .diploma-cred-body {
   display: flex;
   align-items: center;
-  gap: 40px;
-  padding: 48px 48px 36px;
+  gap: 36px;
+  padding: 40px 40px 28px;
 }
 
 .diploma-cred-seal {
   flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .diploma-cred-info {
   flex: 1;
+  max-width: 560px;
 }
 
-.diploma-cred-title {
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin: 10px 0 8px;
+.diploma-cred-info .case-tag {
+  display: inline-block;
+  margin-bottom: 12px;
 }
 
 .diploma-cred-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  margin-bottom: 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  line-height: 1.3;
 }
 
 .diploma-cred-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 32px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .diploma-cred-meta span {
   font-size: 13.5px;
   color: var(--color-text-muted);
+  line-height: 1.5;
 }
 
 .diploma-cred-meta strong {
-  color: var(--color-text);
+  color: var(--color-accent);
   font-weight: 600;
-  margin-right: 6px;
+  margin-right: 8px;
+  min-width: 80px;
+  display: inline-block;
 }
 
 .diploma-cred-actions {
   display: flex;
   gap: 12px;
-  padding: 20px 48px 36px;
+  padding: 20px 40px 32px;
   border-top: 1px solid rgba(184, 168, 247, 0.12);
   flex-wrap: wrap;
 }
@@ -809,12 +813,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .diploma-cred-body {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
-    padding: 28px 24px 20px;
+    gap: 16px;
+    padding: 24px 20px 16px;
   }
 
   .diploma-cred-actions {
-    padding: 16px 24px 28px;
+    padding: 16px 20px 24px;
+  }
+
+  .diploma-cred-info {
+    max-width: 100%;
   }
 }
 
