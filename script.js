@@ -234,3 +234,170 @@ window.addEventListener('scroll', () => {
     if (e.key === 'ArrowRight') next();
   });
 })();
+
+// ===========================
+// HERO CANVAS — ATOMIC ORBIT
+// ===========================
+(function initHeroCanvas() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const dpr = window.devicePixelRatio || 1;
+  const SIZE = 460;
+  canvas.width  = SIZE * dpr;
+  canvas.height = SIZE * dpr;
+  ctx.scale(dpr, dpr);
+
+  const cx = SIZE / 2;
+  const cy = SIZE / 2;
+
+  // Three orbital rings: rx/ry define the ellipse, tilt is rotation in radians
+  const orbits = [
+    { rx: 140, ry: 50, tilt: -0.26, speed:  0.0080, color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 162, ry: 62, tilt:  0.66, speed: -0.0062, color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 178, ry: 70, tilt: -1.01, speed:  0.0048, color: '#c8c8f0', rgba: [200, 200, 240] },
+  ];
+
+  const TRAIL_LEN = 28;
+  const atoms = orbits.map((_, i) => ({
+    angle: (i * Math.PI * 2) / 3,
+    trail: []
+  }));
+
+  function orbitalPoint(o, angle) {
+    const ex = o.rx * Math.cos(angle);
+    const ey = o.ry * Math.sin(angle);
+    const c  = Math.cos(o.tilt);
+    const s  = Math.sin(o.tilt);
+    return { x: cx + ex * c - ey * s, y: cy + ex * s + ey * c };
+  }
+
+  function drawOrbits() {
+    ctx.setLineDash([2.5, 6.5]);
+    orbits.forEach(o => {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(o.tilt);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = o.color;
+      ctx.globalAlpha  = 0.22;
+      ctx.lineWidth    = 1.1;
+      ctx.stroke();
+      ctx.restore();
+    });
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  }
+
+  function drawAtoms() {
+    atoms.forEach((atom, i) => {
+      const o        = orbits[i];
+      const [r, g, b] = o.rgba;
+      const pos      = orbitalPoint(o, atom.angle);
+
+      // Record trail position before advancing
+      atom.trail.push({ x: pos.x, y: pos.y });
+      if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
+
+      // Trail — fades and shrinks toward the tail
+      atom.trail.forEach((p, ti) => {
+        const frac   = ti / TRAIL_LEN;
+        const alpha  = frac * 0.55;
+        const radius = 1.5 + frac * 3;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.fill();
+      });
+
+      // Glow halo
+      const grd = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 20);
+      grd.addColorStop(0,    `rgba(${r},${g},${b},0.85)`);
+      grd.addColorStop(0.45, `rgba(${r},${g},${b},0.30)`);
+      grd.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+
+      // Core dot
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = o.color;
+      ctx.fill();
+
+      atom.angle += o.speed;
+    });
+  }
+
+  function drawNucleus() {
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 95);
+    grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
+    grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
+    grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, 95, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+  }
+
+  function drawText() {
+    ctx.save();
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'middle';
+
+    // "20+" — glow layer then crisp white fill
+    ctx.font = 'bold 86px Poppins, sans-serif';
+
+    ctx.shadowColor  = '#B8A8F7';
+    ctx.shadowBlur   = 48;
+    ctx.globalAlpha  = 0.55;
+    ctx.fillStyle    = '#B8A8F7';
+    ctx.fillText('20+', cx, cy - 14);
+
+    ctx.shadowBlur   = 22;
+    ctx.globalAlpha  = 1;
+    ctx.fillStyle    = '#ffffff';
+    ctx.fillText('20+', cx, cy - 14);
+
+    ctx.shadowBlur  = 0;
+    ctx.shadowColor = 'transparent';
+
+    // "YEARS OF DESIGN" subtitle
+    ctx.font        = '600 11px Poppins, sans-serif';
+    try { ctx.letterSpacing = '0.2em'; } catch (_) {}
+    ctx.fillStyle   = '#B8A8F7';
+    ctx.globalAlpha = 0.82;
+    ctx.fillText('YEARS OF DESIGN', cx, cy + 44);
+
+    ctx.restore();
+  }
+
+  let rafId = null;
+
+  function frame() {
+    ctx.clearRect(0, 0, SIZE, SIZE);
+    drawNucleus();
+    drawOrbits();
+    drawAtoms();
+    drawText();
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // Pause when tab is hidden to save CPU
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    } else if (!rafId) {
+      rafId = requestAnimationFrame(frame);
+    }
+  });
+
+  // Wait for Poppins to load before first draw
+  document.fonts.ready.then(() => {
+    rafId = requestAnimationFrame(frame);
+  });
+})();
