@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const thumb = document.createElement('div');
     thumb.className = 'anim-thumb';
+    thumb.dataset.id    = anim.id;
+    thumb.dataset.label = anim.label;
     thumb.innerHTML = `
       <video src="${videoUrl}" poster="${posterUrl}"
         muted playsinline preload="none" loop></video>
@@ -147,7 +149,7 @@ const revealEls = document.querySelectorAll(
   '.hero-label, .hero-title, .hero-sub, .hero-actions, ' +
   '.section-label, h2, .about-text p, .image-placeholder, ' +
   '.case-card, .skill-group, .timeline-item, .resume-download, ' +
-  '.contact-sub, .contact-form, .art-thumb'
+  '.contact-sub, .contact-form'
 );
 
 revealEls.forEach(el => el.classList.add('reveal'));
@@ -232,6 +234,53 @@ window.addEventListener('scroll', () => {
     if (e.key === 'Escape') close();
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
+  });
+})();
+
+// ===========================
+// VIDEO LIGHTBOX — Animation Reel
+// ===========================
+(function () {
+  const lb  = document.getElementById('videoLightbox');
+  if (!lb) return;
+  const vid = document.getElementById('videoLightboxVid');
+  const lbl = document.getElementById('videoLightboxLabel');
+  const CDN = 'https://res.cloudinary.com/dksariyyz/video/upload';
+  const anims = Array.from(document.querySelectorAll('.anim-thumb'));
+  let cur = 0;
+
+  function open(index) {
+    cur = index;
+    const t = anims[cur];
+    vid.src    = `${CDN}/q_auto,w_1200,vc_auto/${t.dataset.id}.mp4`;
+    vid.poster = `${CDN}/f_jpg,q_auto,w_1200,so_0/${t.dataset.id}.jpg`;
+    lbl.textContent = t.dataset.label || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    vid.play().catch(() => {});
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    vid.pause();
+    vid.src = '';
+    vid.load();
+  }
+
+  function prev() { open((cur - 1 + anims.length) % anims.length); }
+  function next() { open((cur + 1) % anims.length); }
+
+  anims.forEach((t, i) => t.addEventListener('click', () => open(i)));
+  document.getElementById('videoLightboxClose').addEventListener('click', close);
+  document.getElementById('videoLightboxPrev').addEventListener('click', prev);
+  document.getElementById('videoLightboxNext').addEventListener('click', next);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')      close();
+    if (e.key === 'ArrowLeft')   prev();
+    if (e.key === 'ArrowRight')  next();
   });
 })();
 
