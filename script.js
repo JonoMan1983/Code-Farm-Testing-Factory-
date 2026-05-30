@@ -876,6 +876,21 @@ window.addEventListener('scroll', () => {
   }
 })();
 
+/* ─── iGAMING UI CARDS — View Project click handler ────────── */
+(function () {
+  document.querySelectorAll('.ui-card-img').forEach(cardImg => {
+    const img = cardImg.querySelector('img');
+    if (!img) return;
+    const src = img.getAttribute('src');
+    // Strip crop/size transforms for both /video/upload and /image/upload thumbnails
+    const fullUrl = src
+      .replace(/f_jpg,q_auto,w_\d+,h_\d+,c_fill,so_\d+/, 'f_jpg,q_auto')
+      .replace(/q_auto,w_\d+,h_\d+,c_fill/, 'q_auto');
+    cardImg.style.cursor = 'pointer';
+    cardImg.addEventListener('click', () => window.open(fullUrl, '_blank', 'noopener'));
+  });
+})();
+
 /* ─── CERT GALLERY DRAG-TO-SCROLL ──────────────────────────── */
 (function () {
   const wrap = document.querySelector('.cert-scroll-wrap');
