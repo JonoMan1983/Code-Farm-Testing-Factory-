@@ -1468,9 +1468,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: start;
 }
 
+/* Prevent grid children from overflowing their cell */
+.resume-layout > * {
+  min-width: 0;
+}
+
 .timeline {
   position: relative;
   padding-left: 24px;
+  min-width: 0;
 }
 
 .timeline::before {
@@ -1513,9 +1519,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-bottom: 4px;
 }
 
+.timeline-content {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .timeline-content h4 {
   margin-bottom: 2px;
   font-size: 1.05rem;
+  line-height: 1.3;
 }
 
 .timeline-company {
@@ -1523,10 +1536,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-weight: 500;
   color: var(--color-text);
   margin-bottom: 6px;
+  line-height: 1.4;
 }
 
 .timeline-content p:last-child {
   font-size: 14px;
+  line-height: 1.6;
 }
 
 .resume-sidebar {
