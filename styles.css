@@ -699,6 +699,25 @@ h1, h2, h3, h4 { color: var(--color-text); }
   z-index: 2;
   transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
 }
+.uw-node-num {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(224,17,94,0.5);
+}
+
 .uw-node-icon {
   width: 30px;
   height: 30px;
@@ -774,6 +793,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
     border-color: rgba(184,168,247,0.22);
     background: rgba(19,15,50,0.9);
     box-shadow: none;
+  }
+  .uw-node-num {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+    align-self: center;
   }
   .uw-node-icon { flex-shrink: 0; margin: 0; }
   .uw-node-text h4 { font-size: 0.88rem; }
