@@ -694,3 +694,55 @@ window.addEventListener('scroll', () => {
     }
   }
 })();
+
+/* ─── SECTION NAV BUTTONS ───────────────────────────────────── */
+(function () {
+  const upBtn   = document.getElementById('sectionNavUp');
+  const downBtn = document.getElementById('sectionNavDown');
+  if (!upBtn || !downBtn) return;
+
+  const sectionIds = [
+    'hero','about','work','ux','showreel','videos','animations',
+    'artistic','credential','skills','software','resume','legacy','contact'
+  ];
+
+  function getSections() {
+    return sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  }
+
+  function currentIndex(sections) {
+    const mid = window.innerHeight / 2;
+    let best = 0;
+    sections.forEach((s, i) => {
+      const rect = s.getBoundingClientRect();
+      if (rect.top <= mid) best = i;
+    });
+    return best;
+  }
+
+  function updateButtons() {
+    const sections = getSections();
+    const idx = currentIndex(sections);
+    upBtn.disabled   = idx <= 0;
+    downBtn.disabled = idx >= sections.length - 1;
+  }
+
+  function scrollTo(section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  upBtn.addEventListener('click', () => {
+    const sections = getSections();
+    const idx = currentIndex(sections);
+    if (idx > 0) scrollTo(sections[idx - 1]);
+  });
+
+  downBtn.addEventListener('click', () => {
+    const sections = getSections();
+    const idx = currentIndex(sections);
+    if (idx < sections.length - 1) scrollTo(sections[idx + 1]);
+  });
+
+  window.addEventListener('scroll', updateButtons, { passive: true });
+  updateButtons();
+})();

@@ -2416,3 +2416,46 @@ h1, h2, h3, h4 { color: var(--color-text); }
     padding: 7px 16px;
   }
 }
+
+/* ─── SECTION NAV (sticky ↑↓) ────────────────────────────────── */
+.section-nav {
+  position: fixed;
+  bottom: 28px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 900;
+}
+
+.section-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(19, 15, 50, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(184, 168, 247, 0.3);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.section-nav-btn:hover {
+  background: rgba(184, 168, 247, 0.15);
+  border-color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.section-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.section-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  transform: none;
+}
