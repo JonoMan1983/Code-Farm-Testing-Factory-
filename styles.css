@@ -1635,7 +1635,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .contact.section {
-  padding-top: 48px;
+  padding-top: 24px;
 }
 
 .contact-inner h2 {
@@ -2275,7 +2275,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ─── LEGACY DESIGNS ──────────────────────────────────────────── */
-.legacy { }
+.legacy {
+  padding-bottom: 48px;
+}
 
 .legacy-tabs {
   display: flex;
