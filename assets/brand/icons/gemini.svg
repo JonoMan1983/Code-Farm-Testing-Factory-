@@ -1,0 +1,10 @@
+<svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gemini-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4285F4"/>
+      <stop offset="50%" style="stop-color:#9B72CB"/>
+      <stop offset="100%" style="stop-color:#D96570"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#gemini-grad)" d="M12 2C12 2 10.5 7.5 7.5 10.5C4.5 13.5 2 12 2 12C2 12 4.5 13.5 7.5 16.5C10.5 19.5 12 22 12 22C12 22 13.5 19.5 16.5 16.5C19.5 13.5 22 12 22 12C22 12 19.5 13.5 16.5 10.5C13.5 7.5 12 2 12 2Z"/>
+</svg>
