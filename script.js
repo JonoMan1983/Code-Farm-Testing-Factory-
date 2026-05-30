@@ -809,14 +809,34 @@ window.addEventListener('scroll', () => {
     controls.insertAdjacentElement('afterend', wrap);
   });
 
-  /* ── Certification reel tiles ── */
-  document.querySelectorAll('.cert-tile').forEach(tile => {
+  /* ── Certification reel tiles (image-based) ── */
+  document.querySelectorAll('.cert-tile:not(.cert-pdf-tile)').forEach(tile => {
     const img = tile.querySelector('img');
     if (!img) return;
     const src     = img.getAttribute('src');
     const openUrl = src.replace(/h_\d+,q_auto/, 'q_auto');
     const dlHref  = src.replace(/h_\d+,q_auto/, 'fl_attachment,q_auto');
     tile.appendChild(overlayBtns(openUrl, dlHref));
+  });
+
+  /* ── Certification reel tiles (PDF-based) ── */
+  document.querySelectorAll('.cert-pdf-tile[data-cert-pdf]').forEach(tile => {
+    const pdfUrl = tile.dataset.certPdf;
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+      pdf.getPage(1).then(page => {
+        const scale = tile.clientHeight / page.getViewport({ scale: 1 }).height;
+        const vp    = page.getViewport({ scale: scale * window.devicePixelRatio });
+        const canvas = document.createElement('canvas');
+        canvas.width  = vp.width;
+        canvas.height = vp.height;
+        canvas.style.cssText = 'height:100%;width:auto;display:block;';
+        tile.appendChild(canvas);
+        page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+        tile.appendChild(overlayBtns(pdfUrl, pdfUrl));
+      });
+    });
   });
 
   /* ── UX|UI Design Showcase strip (7 images) ── */
