@@ -315,9 +315,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 285, ry: 108, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 285, ry: 108, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 285, ry: 108, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 324, ry: 124, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 324, ry: 124, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -362,7 +362,7 @@ window.addEventListener('scroll', () => {
     orbits.forEach((o, i) => {
       const fs   = floatStates[i];
       const a    = ANIM[i];
-      const lw   = 4.0 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 7.0;  // 4.0–11.0
+      const lw   = 2.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 2.5–7.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
       ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
