@@ -408,7 +408,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   aspect-ratio: 1/1;
   object-fit: cover;
   object-position: center top;
-  border-radius: 16px;
+  border-radius: 50%;
   display: block;
 }
 
