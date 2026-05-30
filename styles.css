@@ -344,13 +344,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .btn-facebook {
   background: #1877F2;
-  border-color: #1877F2;
+  border-color: transparent;
   color: #fff;
 }
 
 .btn-facebook:hover {
   background: #0e65d9;
-  border-color: #0e65d9;
+  border-color: transparent;
   color: #fff;
 }
 
