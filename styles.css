@@ -2422,7 +2422,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .section-nav {
   position: fixed;
   top: 50%;
-  left: 24px;
+  right: 24px;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
