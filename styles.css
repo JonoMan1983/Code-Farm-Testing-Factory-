@@ -1446,7 +1446,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .logo-item img[alt="CSS3"],
-.logo-item img[alt="Bootstrap"] {
+.logo-item img[alt="Bootstrap"],
+.logo-item img[alt="Monday.com"] {
   width: 54px;
   height: 54px;
 }
