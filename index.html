@@ -166,47 +166,107 @@
       <h2>Designing with Process. Delivering with Precision.</h2>
       <p class="section-intro">20+ years of design distilled into a repeatable, human-centred process — from early discovery through to pixel-perfect, dev-ready delivery.</p>
 
-      <!-- UX PROCESS STEPS -->
-      <div class="ux-process">
-        <div class="ux-step">
-          <div class="ux-step-icon">
+      <!-- UX PROCESS WHEEL -->
+      <div class="ux-wheel-wrap" aria-label="UX design process diagram">
+
+        <svg class="ux-wheel-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <filter id="uw-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="uw-node-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Outer dashed guide ring -->
+          <circle cx="250" cy="250" r="170" stroke="rgba(184,168,247,0.1)" stroke-width="1" stroke-dasharray="4 8"/>
+
+          <!-- Solid base ring -->
+          <circle cx="250" cy="250" r="170" stroke="rgba(184,168,247,0.07)" stroke-width="1.5"/>
+
+          <!-- Animated arcs: Discover→Define→Design→Prototype→Deliver -->
+          <path class="uw-arc uw-arc-1" d="M 250 80 A 170 170 0 0 1 412 198" stroke="#B8A8F7" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="uw-arc uw-arc-2" d="M 412 198 A 170 170 0 0 1 350 388" stroke="#B8A8F7" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="uw-arc uw-arc-3" d="M 350 388 A 170 170 0 0 1 150 388" stroke="#B8A8F7" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="uw-arc uw-arc-4" d="M 150 388 A 170 170 0 0 1 88 198" stroke="#B8A8F7" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Return arc: Deliver→Discover (accent-red) -->
+          <path class="uw-arc uw-arc-5" d="M 88 198 A 170 170 0 0 1 250 80" stroke="#E0115E" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Node dot indicators on the ring -->
+          <circle cx="250" cy="80"  r="4" class="uw-ring-dot uw-ring-dot-1"/>
+          <circle cx="412" cy="198" r="4" class="uw-ring-dot uw-ring-dot-2"/>
+          <circle cx="350" cy="388" r="4" class="uw-ring-dot uw-ring-dot-3"/>
+          <circle cx="150" cy="388" r="4" class="uw-ring-dot uw-ring-dot-4"/>
+          <circle cx="88"  cy="198" r="4" class="uw-ring-dot uw-ring-dot-5"/>
+
+          <!-- Orbiting dot (red) — travels the ring using SVG animateTransform -->
+          <circle cx="250" cy="80" r="6" fill="#E0115E" filter="url(#uw-glow)">
+            <animateTransform attributeName="transform" type="rotate"
+              from="0 250 250" to="360 250 250"
+              dur="5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Centre hub -->
+          <circle cx="250" cy="250" r="52" fill="#160647" stroke="rgba(184,168,247,0.28)" stroke-width="1.5"/>
+          <circle cx="250" cy="250" r="46" fill="none" stroke="rgba(184,168,247,0.08)" stroke-width="1" stroke-dasharray="3 5"/>
+          <text x="250" y="245" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#B8A8F7">UX</text>
+          <text x="250" y="261" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" font-weight="500" letter-spacing="1.5" fill="rgba(184,168,247,0.55)">PROCESS</text>
+        </svg>
+
+        <!-- Step nodes positioned around the ring -->
+        <div class="uw-node uw-node-1">
+          <div class="uw-node-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </div>
-          <h4>Discover</h4>
-          <p>User research, stakeholder interviews, competitive analysis, and heuristic evaluation.</p>
+          <div class="uw-node-text">
+            <h4>Discover</h4>
+            <p>User research, stakeholder interviews, competitive analysis &amp; heuristic evaluation.</p>
+          </div>
         </div>
-        <div class="ux-step-arrow">→</div>
-        <div class="ux-step">
-          <div class="ux-step-icon">
+
+        <div class="uw-node uw-node-2">
+          <div class="uw-node-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </div>
-          <h4>Define</h4>
-          <p>Journey mapping, personas, Jobs-to-be-Done framing, and problem statements.</p>
+          <div class="uw-node-text">
+            <h4>Define</h4>
+            <p>Journey mapping, personas, Jobs-to-be-Done &amp; problem statements.</p>
+          </div>
         </div>
-        <div class="ux-step-arrow">→</div>
-        <div class="ux-step">
-          <div class="ux-step-icon">
+
+        <div class="uw-node uw-node-3">
+          <div class="uw-node-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
           </div>
-          <h4>Design</h4>
-          <p>Wireframes, information architecture, design systems, and component libraries in Figma.</p>
+          <div class="uw-node-text">
+            <h4>Design</h4>
+            <p>Wireframes, information architecture, design systems &amp; Figma component libraries.</p>
+          </div>
         </div>
-        <div class="ux-step-arrow">→</div>
-        <div class="ux-step">
-          <div class="ux-step-icon">
+
+        <div class="uw-node uw-node-4">
+          <div class="uw-node-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
-          <h4>Prototype</h4>
-          <p>Interactive Figma prototypes, micro-interactions, motion design, and AI-assisted iteration.</p>
+          <div class="uw-node-text">
+            <h4>Prototype</h4>
+            <p>Interactive Figma prototypes, micro-interactions &amp; AI-assisted iteration.</p>
+          </div>
         </div>
-        <div class="ux-step-arrow">→</div>
-        <div class="ux-step">
-          <div class="ux-step-icon">
+
+        <div class="uw-node uw-node-5">
+          <div class="uw-node-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <h4>Deliver</h4>
-          <p>Usability testing, dev handoff, accessibility review (WCAG), and continuous iteration.</p>
+          <div class="uw-node-text">
+            <h4>Deliver</h4>
+            <p>Usability testing, dev handoff, WCAG accessibility review &amp; iteration.</p>
+          </div>
         </div>
+
       </div>
 
       <!-- UX CREDENTIAL CALLOUT -->
