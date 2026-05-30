@@ -922,6 +922,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-bottom: 1px solid var(--color-border);
 }
 
+.ux-sub-intro {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin: -8px 0 32px;
+  max-width: 720px;
+}
+
 /* Horizontal scroll strip for portfolio slides */
 .ui-strip {
   display: grid;
