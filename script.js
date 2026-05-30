@@ -560,14 +560,13 @@ window.addEventListener('scroll', () => {
   });
 })();
 
-/* ─── LEGACY DESIGNS FLIPBOOKS ──────────────────────────────── */
+/* ─── LEGACY DESIGNS — VERTICAL SCROLL VIEWER ───────────────── */
 (function () {
   const tabs   = Array.from(document.querySelectorAll('.legacy-tab'));
   const panels = Array.from(document.querySelectorAll('.book-panel'));
   if (!tabs.length) return;
 
-  // Lazy-load state per book
-  const bookState = panels.map(() => ({ loaded: false, pageFlip: null, totalPages: 0 }));
+  const loaded = panels.map(() => false);
 
   /* ── Tab switching ── */
   tabs.forEach((tab, i) => {
@@ -577,137 +576,65 @@ window.addEventListener('scroll', () => {
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
       panels[i].classList.add('active');
-      if (!bookState[i].loaded) loadBook(i);
+      if (!loaded[i]) loadBook(i);
     });
   });
-
-  /* ── Book controls (prev/next/pagenums) ── */
-  panels.forEach((panel, i) => {
-    const prevBtn  = panel.querySelector('.book-prev');
-    const nextBtn  = panel.querySelector('.book-next');
-    const pageNum  = panel.querySelector('.book-pagenum');
-
-    prevBtn.addEventListener('click', () => {
-      const pf = bookState[i].pageFlip;
-      if (pf) pf.flipPrev('bottom');
-    });
-    nextBtn.addEventListener('click', () => {
-      const pf = bookState[i].pageFlip;
-      if (pf) pf.flipNext('bottom');
-    });
-
-    // store refs for update calls
-    bookState[i].prevBtn = prevBtn;
-    bookState[i].nextBtn = nextBtn;
-    bookState[i].pageNum = pageNum;
-  });
-
-  function updateControls(i) {
-    const state = bookState[i];
-    const pf    = state.pageFlip;
-    if (!pf) return;
-    const cur   = pf.getCurrentPageIndex();
-    const total = state.totalPages;
-    const isPortrait = pf.getOrientation() === 'portrait';
-    const spread = isPortrait ? 1 : 2;
-    state.prevBtn.disabled = cur <= 0;
-    state.nextBtn.disabled = cur + spread >= total;
-    const displayPage = cur + 1;
-    state.pageNum.textContent = `${displayPage} / ${total}`;
-  }
 
   /* ── Load a single book lazily ── */
   function loadBook(i) {
-    if (bookState[i].loaded) return;
-    bookState[i].loaded = true;
+    if (loaded[i]) return;
+    loaded[i] = true;
 
     const panel     = panels[i];
     const loadingEl = panel.querySelector('.book-loading');
-    const container = panel.querySelector('.stf-container');
+    const scrollEl  = panel.querySelector('.legacy-scroll');
+    const pdfUrl    = panel.dataset.pdf;
 
-    if (!window.pdfjsLib || !window.St) {
-      loadingEl.querySelector('span').textContent = 'Libraries not available.';
+    if (!window.pdfjsLib) {
+      loadingEl.querySelector('span').textContent = 'PDF viewer not available.';
       return;
     }
 
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const pdfUrl = panel.dataset.pdf;
+    pdfjsLib.getDocument(pdfUrl).promise.then(async pdf => {
+      loadingEl.classList.add('hidden');
 
-    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-      const totalPages = pdf.numPages;
-      bookState[i].totalPages = totalPages;
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page  = await pdf.getPage(p);
+        const scale = (scrollEl.clientWidth || window.innerWidth * 0.88) /
+                      page.getViewport({ scale: 1 }).width;
+        const vp    = page.getViewport({ scale: scale * window.devicePixelRatio });
+        const canvas = document.createElement('canvas');
+        canvas.width  = vp.width;
+        canvas.height = vp.height;
+        scrollEl.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      }
 
-      /* ── Work out dimensions from first page ── */
-      return pdf.getPage(1).then(firstPage => {
-        const vp       = firstPage.getViewport({ scale: 1 });
-        const maxW     = Math.min(container.offsetWidth || window.innerWidth * 0.9, 960);
-        const isPort   = window.innerWidth < 640;
-        const bookW    = isPort ? Math.floor(maxW) : Math.floor(maxW / 2);
-        const scale    = bookW / vp.width;
-        const pageW    = Math.round(vp.width  * scale);
-        const pageH    = Math.round(vp.height * scale);
+      /* ── Open / Download buttons ── */
+      const actions = document.createElement('div');
+      actions.className = 'legacy-doc-actions';
+      actions.innerHTML = `
+        <a class="inline-action-btn" href="${pdfUrl}" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open fullpage
+        </a>
+        <a class="inline-action-btn" href="${pdfUrl}" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>`;
+      panel.appendChild(actions);
 
-        /* ── Pre-create one canvas per page ── */
-        const canvases = [];
-        for (let p = 0; p < totalPages; p++) {
-          const c = document.createElement('canvas');
-          c.width  = pageW;
-          c.height = pageH;
-          canvases.push(c);
-        }
-
-        /* ── Init StPageFlip ── */
-        const pf = new St.PageFlip(container, {
-          width:       pageW,
-          height:      pageH,
-          size:        'fixed',
-          minWidth:    pageW,
-          maxWidth:    pageW,
-          minHeight:   pageH,
-          maxHeight:   pageH,
-          usePortrait: isPort,
-          drawShadow:  true,
-          flippingTime: 700,
-          useMouseEvents: true,
-          swipeDistance: 40,
-          showCover: false,
-          mobileScrollSupport: true,
-          startPage: 0,
-        });
-
-        pf.loadFromHTML(canvases);
-        pf.on('flip', () => updateControls(i));
-        pf.on('changeState', () => updateControls(i));
-        bookState[i].pageFlip = pf;
-
-        loadingEl.classList.add('hidden');
-        updateControls(i);
-
-        /* ── Render pages progressively ── */
-        async function renderPages() {
-          for (let p = 0; p < totalPages; p++) {
-            const page    = await pdf.getPage(p + 1);
-            const vpScaled = page.getViewport({ scale });
-            const canvas  = canvases[p];
-            const ctx     = canvas.getContext('2d');
-            await page.render({ canvasContext: ctx, viewport: vpScaled }).promise;
-            pf.update();
-          }
-        }
-        renderPages();
-      });
-    }).catch(err => {
-      console.error('PDF load error:', err);
-      loadingEl.querySelector('span').textContent = 'Could not load PDF.';
+    }).catch(() => {
+      loadingEl.querySelector('span').textContent = 'Could not load document.';
     });
   }
 
-  /* ── Auto-load the first (active) book ── */
+  /* ── Auto-load the first active panel ── */
   const firstActive = panels.findIndex(p => p.classList.contains('active'));
   if (firstActive >= 0) {
-    // defer until after PDF.js / page-flip scripts have definitely executed
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => loadBook(firstActive));
     } else {

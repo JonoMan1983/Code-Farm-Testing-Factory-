@@ -2474,6 +2474,35 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
+/* ─── LEGACY SCROLL VIEWER ───────────────────────────────────── */
+.legacy-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 4px 2px 8px;
+  scroll-behavior: smooth;
+}
+.legacy-scroll::-webkit-scrollbar { width: 6px; }
+.legacy-scroll::-webkit-scrollbar-track { background: transparent; }
+.legacy-scroll::-webkit-scrollbar-thumb { background: rgba(184,168,247,0.3); border-radius: 3px; }
+.legacy-scroll::-webkit-scrollbar-thumb:hover { background: rgba(184,168,247,0.55); }
+.legacy-scroll canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+}
+.legacy-doc-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 4px;
+}
+
 /* ─── SECTION NAV (sticky ↑↓) ────────────────────────────────── */
 .section-nav {
   position: fixed;
