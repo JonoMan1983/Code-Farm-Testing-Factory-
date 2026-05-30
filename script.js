@@ -315,9 +315,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 324, ry: 124, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 324, ry: 124, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -327,6 +327,10 @@ window.addEventListener('scroll', () => {
     { range: 45, minInt:  500, intRange: 1400, lerp: 0.019 },
   ];
   const floatStates = orbits.map(() => ({ x: 0, y: 0, tx: 0, ty: 0, next: 0 }));
+
+  // Single global float — whole assembly drifts as one unit
+  const unitFloat  = { x: 0, y: 0, tx: 0, ty: 0, next: 0 };
+  const UNIT_FLOAT = { range: 48, minInt: 3200, intRange: 4800, lerp: 0.004 };
 
   // Ellipse perimeter (Ramanujan) — same for all orbits since rx/ry are equal
   const _orbH    = ((orbits[0].rx - orbits[0].ry) / (orbits[0].rx + orbits[0].ry)) ** 2;
@@ -351,7 +355,7 @@ window.addEventListener('scroll', () => {
     return { x: cx + fx + ex * c - ey * s, y: cy + fy + ex * s + ey * c };
   }
 
-  function drawOrbits(gRot, t) {
+  function drawOrbits(gRot, t, ux, uy) {
     // Per-orbit animation: lineWidth and dash gap each oscillate independently
     const ANIM = [
       { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
@@ -371,7 +375,7 @@ window.addEventListener('scroll', () => {
       // Dash offset tracks the electron's angular position around the ellipse
       ctx.lineDashOffset = -(atoms[i].angle / (2 * Math.PI)) * ORB_PERIM;
       ctx.save();
-      ctx.translate(cx + fs.x, cy + fs.y);
+      ctx.translate(cx + fs.x + ux, cy + fs.y + uy);
       ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
@@ -389,7 +393,7 @@ window.addEventListener('scroll', () => {
     { freq: 0.28, phase: 4.2 },
   ];
 
-  function drawAtoms(gRot, t) {
+  function drawAtoms(gRot, t, ux, uy) {
     atoms.forEach((atom) => {
       const i         = atom.orbitIdx;
       const o         = orbits[i];
@@ -399,12 +403,12 @@ window.addEventListener('scroll', () => {
       atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
 
-      const pos = orbitalPoint(o, atom.angle, gRot, fs.x, fs.y);
+      const pos = orbitalPoint(o, atom.angle, gRot, fs.x + ux, fs.y + uy);
 
       // Trail
       atom.trail.forEach((a, ti) => {
         const frac = ti / TRAIL_LEN;
-        const tp   = orbitalPoint(o, a, gRot, fs.x, fs.y);
+        const tp   = orbitalPoint(o, a, gRot, fs.x + ux, fs.y + uy);
         ctx.beginPath();
         ctx.arc(tp.x, tp.y, 3 + frac * 6, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${frac * 0.55})`;
@@ -432,25 +436,26 @@ window.addEventListener('scroll', () => {
     });
   }
 
-  function drawNucleus() {
-    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 190);
+  function drawNucleus(ux, uy) {
+    const nx = cx + ux, ny = cy + uy;
+    const grd = ctx.createRadialGradient(nx, ny, 0, nx, ny, 190);
     grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
     grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
     grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
     ctx.beginPath();
-    ctx.arc(cx, cy, 95, 0, Math.PI * 2);
+    ctx.arc(nx, ny, 95, 0, Math.PI * 2);
     ctx.fillStyle = grd;
     ctx.fill();
   }
 
-  function drawText(textRot, t) {
+  function drawText(textRot, t, ux, uy) {
     ctx.save();
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
     // "20+" — pulsing pink glow, white fill, pure white stroke
     ctx.save();
-    ctx.translate(cx, cy + 8);
+    ctx.translate(cx + ux, cy + uy + 8);
     ctx.rotate(textRot);
     ctx.font     = '900 256px Poppins, sans-serif';
     ctx.lineJoin = 'round';
@@ -493,7 +498,7 @@ window.addEventListener('scroll', () => {
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.fillStyle   = '#B8A8F7';
     ctx.globalAlpha = 0.82;
-    ctx.fillText('YEARS OF DESIGN', cx, cy + 108);
+    ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
     ctx.restore();
   }
@@ -503,9 +508,9 @@ window.addEventListener('scroll', () => {
   function frame(timestamp) {
     const t    = timestamp * 0.001;
     const gRot = t * 0.10;
-    const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);   // slow ±5° rock
+    const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);
 
-    // Each orbit drifts to a new random position at its own pace
+    // Per-orbit independent drift
     floatStates.forEach((fs, i) => {
       const p = FLOAT_PARAMS[i];
       if (timestamp > fs.next) {
@@ -517,12 +522,24 @@ window.addEventListener('scroll', () => {
       fs.y += (fs.ty - fs.y) * p.lerp;
     });
 
+    // Whole-assembly unit float
+    if (timestamp > unitFloat.next) {
+      unitFloat.tx   = (Math.random() - 0.5) * UNIT_FLOAT.range;
+      unitFloat.ty   = (Math.random() - 0.5) * UNIT_FLOAT.range;
+      unitFloat.next = timestamp + UNIT_FLOAT.minInt + Math.random() * UNIT_FLOAT.intRange;
+    }
+    unitFloat.x += (unitFloat.tx - unitFloat.x) * UNIT_FLOAT.lerp;
+    unitFloat.y += (unitFloat.ty - unitFloat.y) * UNIT_FLOAT.lerp;
+
+    const ux = unitFloat.x;
+    const uy = unitFloat.y;
+
     ctx.clearRect(0, 0, SIZE, SIZE);
 
-    drawNucleus();
-    drawOrbits(gRot, t);
-    drawAtoms(gRot, t);
-    drawText(textRot, t);
+    drawNucleus(ux, uy);
+    drawOrbits(gRot, t, ux, uy);
+    drawAtoms(gRot, t, ux, uy);
+    drawText(textRot, t, ux, uy);
     rafId = requestAnimationFrame(frame);
   }
 
