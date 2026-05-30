@@ -181,8 +181,12 @@
             </filter>
           </defs>
 
-          <!-- Outer dashed guide ring -->
-          <circle cx="250" cy="250" r="170" stroke="rgba(184,168,247,0.15)" stroke-width="2" stroke-dasharray="4 8"/>
+          <!-- Rotating pink dotted ring -->
+          <circle cx="250" cy="250" r="170" stroke="#E0115E" stroke-width="2" stroke-dasharray="4 12" fill="none" opacity="0.6">
+            <animateTransform attributeName="transform" type="rotate"
+              from="0 250 250" to="360 250 250"
+              dur="12s" repeatCount="indefinite"/>
+          </circle>
 
           <!-- Solid base ring -->
           <circle cx="250" cy="250" r="170" stroke="rgba(184,168,247,0.12)" stroke-width="2.5"/>
