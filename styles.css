@@ -2570,7 +2570,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-color: var(--color-accent-red);
 }
 
-/* ─── CERTIFICATIONS TICKER ──────────────────────────────────── */
+/* ─── CERTIFICATIONS SCROLL GALLERY ─────────────────────────── */
 .certs-more {
   margin-top: 12px;
   font-size: 0.82rem;
@@ -2579,49 +2579,44 @@ h1, h2, h3, h4 { color: var(--color-text); }
   opacity: 0.8;
 }
 
-.cert-ticker-wrap {
-  position: relative;
-  overflow: hidden;
-  padding: 32px 0;
-  background: var(--color-bg);
+.cert-scroll-wrap {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin-top: 20px;
+  padding-bottom: 12px;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
-.cert-ticker-wrap::before,
-.cert-ticker-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-  z-index: 2;
-  pointer-events: none;
+.cert-scroll-wrap:active {
+  cursor: grabbing;
 }
 
-.cert-ticker-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-bg) 20%, transparent);
+/* Styled scrollbar */
+.cert-scroll-wrap::-webkit-scrollbar {
+  height: 6px;
 }
 
-.cert-ticker-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-bg) 20%, transparent);
+.cert-scroll-wrap::-webkit-scrollbar-track {
+  background: rgba(184, 168, 247, 0.08);
+  border-radius: 3px;
 }
 
-.cert-ticker {
-  display: flex;
-  width: max-content;
-  animation: cert-scroll 55s linear infinite;
+.cert-scroll-wrap::-webkit-scrollbar-thumb {
+  background: rgba(184, 168, 247, 0.4);
+  border-radius: 3px;
 }
 
-.cert-ticker:hover {
-  animation-play-state: paused;
+.cert-scroll-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }
 
-.cert-track {
+.cert-scroll-track {
   display: flex;
   gap: 14px;
-  padding-right: 14px;
-  align-items: center;
+  width: max-content;
+  padding: 4px 2px;
 }
 
 .cert-tile {
@@ -2632,10 +2627,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border: 1px solid rgba(184, 168, 247, 0.15);
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
 }
 
 .cert-tile:hover {
-  transform: scale(1.06);
+  transform: scale(1.04);
   border-color: var(--color-accent);
   box-shadow: 0 6px 20px rgba(184, 168, 247, 0.2);
 }
@@ -2644,9 +2640,5 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 100%;
   width: auto;
   display: block;
-}
-
-@keyframes cert-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  pointer-events: none;
 }

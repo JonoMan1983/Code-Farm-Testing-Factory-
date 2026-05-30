@@ -831,6 +831,27 @@ window.addEventListener('scroll', () => {
   }
 })();
 
+/* ─── CERT GALLERY DRAG-TO-SCROLL ──────────────────────────── */
+(function () {
+  const wrap = document.querySelector('.cert-scroll-wrap');
+  if (!wrap) return;
+  let isDown = false, startX, scrollLeft;
+  wrap.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft;
+  });
+  wrap.addEventListener('mouseleave', () => { isDown = false; });
+  wrap.addEventListener('mouseup',    () => { isDown = false; });
+  wrap.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x    = e.pageX - wrap.offsetLeft;
+    const walk = (x - startX) * 1.2;
+    wrap.scrollLeft = scrollLeft - walk;
+  });
+})();
+
 /* ─── SECTION NAV BUTTONS ───────────────────────────────────── */
 (function () {
   const upBtn   = document.getElementById('sectionNavUp');
