@@ -948,8 +948,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   text-align: center;
   gap: 12px;
-  padding: 56px 32px;
-  margin-top: 56px;
+  padding: 48px 32px;
+  margin-top: 32px;
   background: linear-gradient(135deg, #160647 0%, #311D73 100%);
   border-radius: 16px;
   color: #fff;
@@ -1780,7 +1780,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-bottom: 56px;
+  margin-bottom: 32px;
 }
 
 .ai-workflow-card {
