@@ -1548,6 +1548,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .resume-download,
@@ -1576,6 +1579,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   padding: 24px;
   border: 1px solid var(--color-border);
   border-radius: 12px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .resume-education h4,
@@ -1855,6 +1861,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* --- 1024px: nav switches to hamburger dropdown --- */
 @media (max-width: 1024px) {
+  /* Collapse resume to single column on all tablet sizes */
+  .resume-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
   .nav {
     padding: 14px 24px;
   }
@@ -2564,6 +2576,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .cert-scroll-wrap {
+  width: 100%;
+  max-width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   margin-top: 20px;
@@ -2571,6 +2585,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   cursor: grab;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 .cert-scroll-wrap:active {
