@@ -1445,6 +1445,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 57px;
 }
 
+.logo-item img[alt="CSS3"],
+.logo-item img[alt="Bootstrap"] {
+  width: 54px;
+  height: 54px;
+}
+
 .logo-item span {
   font-size: 11px;
   font-weight: 500;
