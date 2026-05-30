@@ -2536,7 +2536,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .case-image:hover .media-actions,
 .anim-thumb:hover .media-actions,
 .ui-strip-item:hover .media-actions,
-.ux-doc-wrap:hover .media-actions {
+.ux-doc-wrap:hover .media-actions,
+.cert-tile:hover .media-actions {
   opacity: 1;
 }
 
@@ -2686,6 +2687,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   overflow: hidden;
   border: 1px solid rgba(184, 168, 247, 0.15);
   cursor: pointer;
+  position: relative;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
   user-select: none;
 }

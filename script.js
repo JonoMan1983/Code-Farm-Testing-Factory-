@@ -809,6 +809,16 @@ window.addEventListener('scroll', () => {
     controls.insertAdjacentElement('afterend', wrap);
   });
 
+  /* ── Certification reel tiles ── */
+  document.querySelectorAll('.cert-tile').forEach(tile => {
+    const img = tile.querySelector('img');
+    if (!img) return;
+    const src     = img.getAttribute('src');
+    const openUrl = src.replace(/h_\d+,q_auto/, 'q_auto');
+    const dlHref  = src.replace(/h_\d+,q_auto/, 'fl_attachment,q_auto');
+    tile.appendChild(overlayBtns(openUrl, dlHref));
+  });
+
   /* ── UX|UI Design Showcase strip (7 images) ── */
   document.querySelectorAll('.ui-strip-item').forEach(item => {
     const img = item.querySelector('img');
