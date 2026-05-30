@@ -34,6 +34,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#software">Software</a></li>
         <li><a href="#resume">Resume</a></li>
+        <li><a href="#legacy">Legacy</a></li>
         <li>
           <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener" class="nav-linkedin" aria-label="LinkedIn Profile">
             <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1079,6 +1080,62 @@
     </div>
   </section>
 
+  <!-- LEGACY DESIGNS -->
+  <section id="legacy" class="legacy section">
+    <div class="container">
+      <p class="section-label">The Archive</p>
+      <h2>Legacy Designs</h2>
+      <p class="section-intro">Three decades of craft — portfolio pieces, brand identity systems, and site designs from the early years. Turn pages to explore.</p>
+
+      <div class="legacy-tabs" role="tablist">
+        <button class="legacy-tab active" role="tab" aria-selected="true"  data-book="0" aria-controls="book-panel-0">Portfolio 2010</button>
+        <button class="legacy-tab"        role="tab" aria-selected="false" data-book="1" aria-controls="book-panel-1">Site Designs</button>
+        <button class="legacy-tab"        role="tab" aria-selected="false" data-book="2" aria-controls="book-panel-2">Logo Designs</button>
+      </div>
+
+      <div class="legacy-panels">
+        <div class="book-panel active" id="book-panel-0" role="tabpanel"
+             data-pdf="assets/docs/legacy-portfolio-2010.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-0"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+
+        <div class="book-panel" id="book-panel-1" role="tabpanel"
+             data-pdf="assets/docs/legacy-site-design.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-1"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+
+        <div class="book-panel" id="book-panel-2" role="tabpanel"
+             data-pdf="assets/docs/legacy-logo-design.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-2"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact" class="contact section section-alt">
     <div class="container contact-inner">
@@ -1133,6 +1190,8 @@
   </footer>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
