@@ -2565,3 +2565,84 @@ h1, h2, h3, h4 { color: var(--color-text); }
   background: var(--color-accent-red);
   border-color: var(--color-accent-red);
 }
+
+/* ─── CERTIFICATIONS TICKER ──────────────────────────────────── */
+.certs-more {
+  margin-top: 12px;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.cert-ticker-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 0;
+  background: var(--color-bg);
+}
+
+.cert-ticker-wrap::before,
+.cert-ticker-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cert-ticker-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg) 20%, transparent);
+}
+
+.cert-ticker-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg) 20%, transparent);
+}
+
+.cert-ticker {
+  display: flex;
+  width: max-content;
+  animation: cert-scroll 55s linear infinite;
+}
+
+.cert-ticker:hover {
+  animation-play-state: paused;
+}
+
+.cert-track {
+  display: flex;
+  gap: 14px;
+  padding-right: 14px;
+  align-items: center;
+}
+
+.cert-tile {
+  flex-shrink: 0;
+  height: 110px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(184, 168, 247, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.cert-tile:hover {
+  transform: scale(1.06);
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 20px rgba(184, 168, 247, 0.2);
+}
+
+.cert-tile img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+@keyframes cert-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
