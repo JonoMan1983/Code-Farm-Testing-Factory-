@@ -876,6 +876,54 @@ window.addEventListener('scroll', () => {
   }
 })();
 
+/* ─── UX DIPLOMA PDF VIEWERS ────────────────────────────────── */
+(function () {
+  const viewers = document.querySelectorAll('.ux-pdf-doc[data-pdf]');
+  if (!viewers.length) return;
+
+  function renderPdf(container) {
+    const pdfUrl = container.dataset.pdf;
+    const loading = container.querySelector('.ux-pdf-loading');
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+      if (loading) loading.remove();
+
+      async function renderPages() {
+        for (let p = 1; p <= pdf.numPages; p++) {
+          const page = await pdf.getPage(p);
+          const scale = container.clientWidth / page.getViewport({ scale: 1 }).width;
+          const vp    = page.getViewport({ scale: scale * window.devicePixelRatio });
+
+          const canvas = document.createElement('canvas');
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+          container.appendChild(canvas);
+
+          await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        }
+      }
+      renderPages();
+    }).catch(() => {
+      if (loading) loading.querySelector('span').textContent = 'Unable to load document.';
+    });
+  }
+
+  // Render when the container scrolls into view for the first time
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        obs.unobserve(entry.target);
+        renderPdf(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  viewers.forEach(v => obs.observe(v));
+})();
+
 /* ─── iGAMING UI CARDS — View Project click handler ────────── */
 (function () {
   document.querySelectorAll('.ui-card-img').forEach(cardImg => {
