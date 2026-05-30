@@ -809,6 +809,30 @@ window.addEventListener('scroll', () => {
     controls.insertAdjacentElement('afterend', wrap);
   });
 
+  /* ── UX|UI Design Showcase strip (7 images) ── */
+  document.querySelectorAll('.ui-strip-item').forEach(item => {
+    const img = item.querySelector('img');
+    if (!img) return;
+    const src    = img.getAttribute('src');
+    const openUrl = src.replace(/q_auto,w_\d+/, 'q_auto');
+    const dlHref  = src.replace(/q_auto,w_\d+/, 'fl_attachment,q_auto');
+    item.appendChild(overlayBtns(openUrl, dlHref));
+  });
+
+  /* ── UX diploma + Wonderlabz doc scrollers (3) ── */
+  document.querySelectorAll('.ux-doc-scroll').forEach(docScroll => {
+    const img = docScroll.querySelector('img');
+    if (!img) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ux-doc-wrap';
+    docScroll.parentNode.insertBefore(wrapper, docScroll);
+    wrapper.appendChild(docScroll);
+    const src     = img.getAttribute('src');
+    const openUrl = src.replace(/f_jpg,q_auto,w_\d+/, 'f_jpg,q_auto');
+    const dlHref  = src.replace(/f_jpg,q_auto,w_\d+/, 'fl_attachment,f_jpg,q_auto');
+    wrapper.appendChild(overlayBtns(openUrl, dlHref));
+  });
+
   /* ── Image lightbox — open + download current image ── */
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImg');

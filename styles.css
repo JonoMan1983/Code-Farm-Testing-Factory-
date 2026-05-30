@@ -741,6 +741,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ui-strip-item {
+  position: relative;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -2482,8 +2483,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .art-thumb:hover .media-actions,
 .case-image:hover .media-actions,
-.anim-thumb:hover .media-actions {
+.anim-thumb:hover .media-actions,
+.ui-strip-item:hover .media-actions,
+.ux-doc-wrap:hover .media-actions {
   opacity: 1;
+}
+
+/* Wrapper for scrollable UX doc panels — keeps buttons above scroll */
+.ux-doc-wrap {
+  position: relative;
 }
 
 .media-action-btn {
