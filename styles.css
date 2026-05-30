@@ -354,6 +354,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: #fff;
 }
 
+.btn-linkedin-hero {
+  background: #0A66C2;
+  border-color: transparent;
+  color: #fff;
+}
+
+.btn-linkedin-hero:hover {
+  background: #0958a8;
+  border-color: transparent;
+  color: #fff;
+}
+
 .hero-actions {
   display: flex;
   gap: 16px;
