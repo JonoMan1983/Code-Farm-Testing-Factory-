@@ -315,9 +315,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 324, ry: 124, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 324, ry: 124, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 324, ry: 124, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 285, ry: 108, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
+    { rx: 285, ry: 108, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 285, ry: 108, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -334,10 +334,13 @@ window.addEventListener('scroll', () => {
                     (1 + 3 * _orbH / (10 + Math.sqrt(4 - 3 * _orbH)));
 
   const TRAIL_LEN = 28;
-  const atoms = orbits.map((_, i) => ({
-    angle: (i * Math.PI * 2) / 3,
-    trail: []
-  }));
+  // Two electrons per orbit, offset 180° apart
+  const atoms = [];
+  orbits.forEach((_, i) => {
+    const base = (i * Math.PI * 2) / 3;
+    atoms.push({ orbitIdx: i, angle: base,             trail: [] });
+    atoms.push({ orbitIdx: i, angle: base + Math.PI,   trail: [] });
+  });
 
   function orbitalPoint(o, angle, gRot, fx, fy) {
     const ex   = o.rx * Math.cos(angle);
@@ -387,18 +390,18 @@ window.addEventListener('scroll', () => {
   ];
 
   function drawAtoms(gRot, t) {
-    atoms.forEach((atom, i) => {
+    atoms.forEach((atom) => {
+      const i         = atom.orbitIdx;
       const o         = orbits[i];
       const [r, g, b] = o.rgba;
-      const fs        = floatStates[i];   // match this atom's orbit float
+      const fs        = floatStates[i];
 
-      // Trail stores angles so positions recalculate correctly as orbit rotates
       atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
 
       const pos = orbitalPoint(o, atom.angle, gRot, fs.x, fs.y);
 
-      // Trail — each angle re-projected with current gRot and orbit float
+      // Trail
       atom.trail.forEach((a, ti) => {
         const frac = ti / TRAIL_LEN;
         const tp   = orbitalPoint(o, a, gRot, fs.x, fs.y);
