@@ -2622,7 +2622,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .cert-tile {
   flex-shrink: 0;
-  height: 110px;
+  height: 220px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(184, 168, 247, 0.15);
