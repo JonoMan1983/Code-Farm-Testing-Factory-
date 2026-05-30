@@ -695,6 +695,142 @@ window.addEventListener('scroll', () => {
   }
 })();
 
+/* ─── MEDIA OPEN / DOWNLOAD ACTIONS ────────────────────────── */
+(function () {
+  const ICON_OPEN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  const ICON_DL   = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+
+  function attachDl(url) {
+    return url.replace('/upload/', '/upload/fl_attachment/');
+  }
+
+  function overlayBtns(openUrl, dlHref, filename) {
+    const wrap = document.createElement('div');
+    wrap.className = 'media-actions';
+    const dlAttr = filename ? `download="${filename}"` : 'download';
+    wrap.innerHTML = `
+      <a class="media-action-btn" href="${openUrl}" target="_blank" rel="noopener" title="Open in new window">${ICON_OPEN}</a>
+      <a class="media-action-btn" href="${dlHref}" ${dlAttr} title="Download">${ICON_DL}</a>`;
+    wrap.addEventListener('click', e => e.stopPropagation());
+    return wrap;
+  }
+
+  function inlineBtns(openUrl, dlHref, filename) {
+    const wrap = document.createElement('div');
+    wrap.className = 'inline-actions';
+    const dlAttr = filename ? `download="${filename}"` : 'download';
+    wrap.innerHTML = `
+      <a class="inline-action-btn" href="${openUrl}" target="_blank" rel="noopener">${ICON_OPEN}&nbsp;Open</a>
+      <a class="inline-action-btn" href="${dlHref}" ${dlAttr}>${ICON_DL}&nbsp;Download</a>`;
+    return wrap;
+  }
+
+  /* ── Art thumbnails (28 images) ── */
+  document.querySelectorAll('.art-thumb').forEach(thumb => {
+    const full = thumb.dataset.full;
+    if (!full) return;
+    thumb.appendChild(overlayBtns(full, attachDl(full)));
+  });
+
+  /* ── Case card images (3) ── */
+  document.querySelectorAll('.case-image').forEach(ci => {
+    const img = ci.querySelector('img');
+    if (!img) return;
+    const full = img.getAttribute('src')
+      .replace(/w_\d+,h_\d+,c_fill,q_auto/, 'w_1600,q_auto')
+      .replace(/w_\d+,h_\d+,c_fill/, 'w_1600');
+    ci.appendChild(overlayBtns(full, attachDl(full)));
+  });
+
+  /* ── Animation thumbnails (32) — built by buildAnimGrid ── */
+  const CDN_V = 'https://res.cloudinary.com/dksariyyz/video/upload';
+  document.querySelectorAll('.anim-thumb').forEach(thumb => {
+    const id    = thumb.dataset.id;
+    const label = thumb.dataset.label || 'animation';
+    if (!id) return;
+    const openUrl = `${CDN_V}/q_auto,vc_auto/${id}.mp4`;
+    const dlHref  = `${CDN_V}/fl_attachment,q_auto/${id}.mp4`;
+    thumb.appendChild(overlayBtns(openUrl, dlHref, `${label}.mp4`));
+  });
+
+  /* ── Video cards (4) ── */
+  document.querySelectorAll('.video-card').forEach(card => {
+    const src = card.querySelector('source');
+    if (!src) return;
+    const url  = src.getAttribute('src');
+    const body = card.querySelector('.video-card-body');
+    if (body) body.appendChild(inlineBtns(url, attachDl(url)));
+  });
+
+  /* ── Showreel ── */
+  const showreelEmbed = document.querySelector('.showreel-embed');
+  if (showreelEmbed) {
+    const src = showreelEmbed.querySelector('source');
+    if (src) {
+      const url = src.getAttribute('src');
+      showreelEmbed.insertAdjacentElement('afterend', inlineBtns(url, attachDl(url)));
+    }
+  }
+
+  /* ── Legacy PDF panels (3) ── */
+  document.querySelectorAll('.book-panel').forEach(panel => {
+    const pdfUrl = panel.dataset.pdf;
+    if (!pdfUrl) return;
+    const filename = pdfUrl.split('/').pop();
+    const controls = panel.querySelector('.book-controls');
+    if (!controls) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'inline-actions';
+    wrap.style.justifyContent = 'center';
+    wrap.innerHTML = `
+      <a class="inline-action-btn" href="${pdfUrl}" target="_blank" rel="noopener">${ICON_OPEN}&nbsp;Open PDF</a>
+      <a class="inline-action-btn" href="${pdfUrl}" download="${filename}">${ICON_DL}&nbsp;Download PDF</a>`;
+    controls.insertAdjacentElement('afterend', wrap);
+  });
+
+  /* ── Image lightbox — open + download current image ── */
+  const lb    = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  if (lb && lbImg) {
+    const bar = document.createElement('div');
+    bar.className = 'lightbox-action-bar';
+    bar.innerHTML = `
+      <a class="lightbox-action-btn" id="lbOpenBtn" href="#" target="_blank" rel="noopener" title="Open in new window">${ICON_OPEN}</a>
+      <a class="lightbox-action-btn" id="lbDlBtn" href="#" download title="Download">${ICON_DL}</a>`;
+    lb.appendChild(bar);
+    const openBtn = document.getElementById('lbOpenBtn');
+    const dlBtn   = document.getElementById('lbDlBtn');
+    new MutationObserver(() => {
+      const src = lbImg.src;
+      if (src && src !== window.location.href) {
+        openBtn.href = src;
+        dlBtn.href   = attachDl(src);
+      }
+    }).observe(lbImg, { attributes: true, attributeFilter: ['src'] });
+  }
+
+  /* ── Video lightbox — open + download current video ── */
+  const vlb    = document.getElementById('videoLightbox');
+  const vlbVid = document.getElementById('videoLightboxVid');
+  if (vlb && vlbVid) {
+    const bar = document.createElement('div');
+    bar.className = 'lightbox-action-bar';
+    bar.innerHTML = `
+      <a class="lightbox-action-btn" id="vlbOpenBtn" href="#" target="_blank" rel="noopener" title="Open in new window">${ICON_OPEN}</a>
+      <a class="lightbox-action-btn" id="vlbDlBtn" href="#" download title="Download">${ICON_DL}</a>`;
+    vlb.appendChild(bar);
+    const openBtn = document.getElementById('vlbOpenBtn');
+    const dlBtn   = document.getElementById('vlbDlBtn');
+    new MutationObserver(() => {
+      const src = vlbVid.src;
+      if (src && src !== window.location.href) {
+        openBtn.href = src;
+        dlBtn.href   = attachDl(src);
+      }
+    }).observe(vlbVid, { attributes: true, attributeFilter: ['src'] });
+  }
+})();
+
 /* ─── SECTION NAV BUTTONS ───────────────────────────────────── */
 (function () {
   const upBtn   = document.getElementById('sectionNavUp');

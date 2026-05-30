@@ -445,6 +445,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .case-image {
+  position: relative;
   height: 220px;
   overflow: hidden;
   background: var(--color-bg-alt);
@@ -2113,6 +2114,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .art-thumb {
+  position: relative;
   cursor: pointer;
   border-radius: 10px;
   overflow: hidden;
@@ -2460,4 +2462,106 @@ h1, h2, h3, h4 { color: var(--color-text); }
   opacity: 0.25;
   cursor: default;
   transform: none;
+}
+
+/* ─── MEDIA OPEN / DOWNLOAD ACTIONS ─────────────────────────── */
+
+/* Overlay buttons — appear on hover over images/thumbs */
+.media-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 20;
+}
+
+.art-thumb:hover .media-actions,
+.case-image:hover .media-actions,
+.anim-thumb:hover .media-actions {
+  opacity: 1;
+}
+
+.media-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(19, 15, 50, 0.88);
+  border: 1px solid rgba(184, 168, 247, 0.5);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.media-action-btn:hover {
+  background: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+}
+
+/* Inline buttons — below videos, showreel, PDFs */
+.inline-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.inline-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  text-decoration: none;
+  border: 1.5px solid rgba(184, 168, 247, 0.3);
+  border-radius: 20px;
+  padding: 5px 14px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  background: transparent;
+  cursor: pointer;
+}
+
+.inline-action-btn:hover {
+  background: rgba(184, 168, 247, 0.12);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Lightbox action bar (top-right, beside close button) */
+.lightbox-action-bar {
+  position: absolute;
+  top: 14px;
+  right: 60px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.lightbox-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(19, 15, 50, 0.82);
+  border: 1.5px solid rgba(184, 168, 247, 0.35);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+
+.lightbox-action-btn:hover {
+  background: var(--color-accent-red);
+  border-color: var(--color-accent-red);
 }
