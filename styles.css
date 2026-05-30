@@ -1601,6 +1601,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   max-width: 680px;
 }
 
+.contact.section {
+  padding-top: 48px;
+}
+
 .contact-inner h2 {
   margin-bottom: 12px;
 }
