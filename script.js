@@ -1060,9 +1060,12 @@ window.addEventListener('scroll', () => {
 
   btn.addEventListener('click', () => {
     if (audio.paused) {
-      audio.play();
-      btn.classList.add('playing');
-      btn.setAttribute('aria-label', 'Pause background music');
+      audio.play().then(() => {
+        btn.classList.add('playing');
+        btn.setAttribute('aria-label', 'Pause background music');
+      }).catch(() => {
+        // play blocked or failed — leave button in stopped state
+      });
     } else {
       audio.pause();
       btn.classList.remove('playing');
