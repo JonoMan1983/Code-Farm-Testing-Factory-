@@ -2314,6 +2314,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
   h2 {
     margin-bottom: 28px;
   }
+
+  #ux h2,
+  #ux h3,
+  #ux h4,
+  #ux .section-label,
+  #ux .section-intro,
+  #ux p:not(.uw-node-text p) {
+    text-align: right;
+  }
 }
 
 /* --- 380px --- */
