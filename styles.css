@@ -767,6 +767,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-color: #E0115E;
   box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
   background: rgba(60, 10, 30, 0.92);
+  animation: uw-node-pulse 0.5s ease-out forwards;
+}
+
+@keyframes uw-node-pulse {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  35%  { transform: translate(-50%, -50%) scale(1.07); }
+  100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 /* Mobile: collapse to a linear list */
