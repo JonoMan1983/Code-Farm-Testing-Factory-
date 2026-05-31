@@ -2714,6 +2714,27 @@ h1, h2, h3, h4 { color: var(--color-text); }
   position: relative;
 }
 
+/* Larger buttons specifically on UX doc scrollers */
+.ux-doc-wrap .media-actions {
+  top: 12px;
+  right: 12px;
+  gap: 8px;
+}
+
+.ux-doc-wrap .media-action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border-width: 1.5px;
+}
+
+.ux-doc-wrap .media-action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+
 .media-action-btn {
   display: flex;
   align-items: center;
