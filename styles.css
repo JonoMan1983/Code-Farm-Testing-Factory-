@@ -797,10 +797,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-5 { left: 17.6%;  top: 39.6%; animation-delay: 4s; }
 
 .uw-node.electron-near {
-  animation: none;
-  border-color: #E0115E;
-  box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
-  background: rgba(60, 10, 30, 0.92);
+  animation-play-state: paused;
+  border-color: #E0115E !important;
+  box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55) !important;
+  background: rgba(60, 10, 30, 0.92) !important;
 }
 
 @keyframes uw-node-glow {
