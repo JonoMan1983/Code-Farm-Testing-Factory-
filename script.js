@@ -375,7 +375,7 @@ window.addEventListener('scroll', () => {
       ctx.setLineDash([a.dot, gap]);
       // Align the last dash so it ends exactly at the electron (direction-aware)
       const p = (atoms[i * 2].angle / (2 * Math.PI)) * ORB_PERIM;
-      ctx.lineDashOffset = o.speed > 0 ? -(p - a.dot) : -p;
+      ctx.lineDashOffset = o.speed > 0 ? -p : -(p - a.dot);
       ctx.save();
       ctx.translate(cx + fs.x + ux, cy + fs.y + uy);
       ctx.rotate(o.tilt + gRot);
