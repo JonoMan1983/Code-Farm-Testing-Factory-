@@ -189,6 +189,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-left: 10px;
 }
 
+.nav-menu-wrap {
+  display: contents; /* transparent on desktop — ul behaves as direct flex child */
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -2118,11 +2122,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   /* Dropdown panel — slides down from nav bar */
-  .nav-links {
+  /* Clip wrapper — sits flush below the nav bar, hides the ul while it's slid up */
+  .nav-menu-wrap {
+    display: block;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
+    overflow: hidden;
+    z-index: 99;
+  }
+
+  .nav-links {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -2132,26 +2143,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
     border-bottom: 1px solid rgba(184, 168, 247, 0.15);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     padding: 6px 0 14px;
-    z-index: 99;
-    max-height: 0;
-    overflow: hidden;
-    visibility: hidden;
     pointer-events: none;
-    transform: translateY(-12px);
-    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0s linear 0.45s;
+    transform: translateY(-100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-links.open {
-    max-height: 640px;
-    overflow: hidden;
-    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0s;
   }
 
   .nav-links > li {
