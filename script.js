@@ -1099,6 +1099,8 @@ window.addEventListener('scroll', () => {
     { x: 88,  y: 198 },  // node-5: 17.6%, 39.6%
   ];
   const PROXIMITY_PX = 60; // distance in 500px space (~20° of arc)
+  const LINGER_MS    = 800; // pink stays this long after electron passes
+  const lingerTimers = new Array(5).fill(null);
 
   let sc = 1;
   let angle = (TAU - Math.PI / 2) % TAU;
@@ -1126,11 +1128,19 @@ window.addEventListener('scroll', () => {
     const px = CX + R * Math.cos(angle);
     const py = CY + R * Math.sin(angle);
 
-    // Highlight nodes when electron is nearby (pixel distance in 500px space)
+    // Highlight nodes when electron is nearby; linger for LINGER_MS after passing
     nodeEls.forEach((el, i) => {
       if (!el) return;
-      const np = nodePos[i];
-      el.classList.toggle('electron-near', Math.hypot(px - np.x, py - np.y) < PROXIMITY_PX);
+      const isNear = Math.hypot(px - nodePos[i].x, py - nodePos[i].y) < PROXIMITY_PX;
+      if (isNear) {
+        if (lingerTimers[i]) { clearTimeout(lingerTimers[i]); lingerTimers[i] = null; }
+        el.classList.add('electron-near');
+      } else if (el.classList.contains('electron-near') && !lingerTimers[i]) {
+        lingerTimers[i] = setTimeout(() => {
+          el.classList.remove('electron-near');
+          lingerTimers[i] = null;
+        }, LINGER_MS);
+      }
     });
 
     // Trail

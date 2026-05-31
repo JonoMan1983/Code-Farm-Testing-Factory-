@@ -698,41 +698,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   z-index: 2;
 }
 
-/* Animated arcs */
-.uw-arc {
-  stroke-dasharray: 214 800;
-  stroke-dashoffset: 214;
-  opacity: 0;
-  animation: uw-arc-draw 5s linear infinite;
-}
-.uw-arc-1 { animation-delay: 0s; }
-.uw-arc-2 { animation-delay: 1s; }
-.uw-arc-3 { animation-delay: 2s; }
-.uw-arc-4 { animation-delay: 3s; }
-.uw-arc-5 { animation-delay: 4s; }
-
-@keyframes uw-arc-draw {
-  0%   { stroke-dashoffset: 214; opacity: 1; }
-  17%  { stroke-dashoffset: 0;   opacity: 1; }
-  22%  { stroke-dashoffset: 0;   opacity: 0; }
-  100% { stroke-dashoffset: 214; opacity: 0; }
-}
-
-/* Ring dot indicators */
+/* Ring dot indicators — static accent marks on the orbit track */
 .uw-ring-dot {
-  fill: rgba(184,168,247,0.2);
-  animation: uw-dot-pulse 5s ease-in-out infinite;
-}
-.uw-ring-dot-1 { animation-delay: 0s; }
-.uw-ring-dot-2 { animation-delay: 1s; }
-.uw-ring-dot-3 { animation-delay: 2s; }
-.uw-ring-dot-4 { animation-delay: 3s; }
-.uw-ring-dot-5 { animation-delay: 4s; }
-
-@keyframes uw-dot-pulse {
-  0%   { fill: #B8A8F7; r: 6; }
-  18%  { fill: rgba(184,168,247,0.2); r: 4; }
-  100% { fill: rgba(184,168,247,0.2); r: 4; }
+  fill: rgba(184,168,247,0.35);
 }
 
 /* Step node cards */
@@ -747,7 +715,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-align: center;
   backdrop-filter: blur(10px);
   z-index: 2;
-  transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
+  transition: border-color 0.7s ease, box-shadow 0.7s ease, background 0.7s ease;
 }
 .uw-node-num {
   font-size: 0.68rem;
@@ -799,24 +767,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-color: #E0115E;
   box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
   background: rgba(60, 10, 30, 0.92);
-}
-
-@keyframes uw-node-glow {
-  0%   {
-    border-color: rgba(184,168,247,0.85);
-    box-shadow: 0 0 24px rgba(184,168,247,0.45), 0 0 6px rgba(184,168,247,0.2);
-    background: rgba(49,29,115,0.65);
-  }
-  16%  {
-    border-color: rgba(184,168,247,0.18);
-    box-shadow: none;
-    background: rgba(19,15,50,0.9);
-  }
-  100% {
-    border-color: rgba(184,168,247,0.18);
-    box-shadow: none;
-    background: rgba(19,15,50,0.9);
-  }
 }
 
 /* Mobile: collapse to a linear list */
