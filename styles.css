@@ -2853,10 +2853,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   bottom: 24px;
   left: 24px;
   z-index: 900;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(19, 15, 50, 0.75);
+  height: 44px;
+  padding: 0 18px 0 14px;
+  border-radius: 22px;
+  background: rgba(19, 15, 50, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(184, 168, 247, 0.3);
@@ -2864,14 +2864,24 @@ h1, h2, h3, h4 { color: var(--color-text); }
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .music-btn:hover {
   background: rgba(184, 168, 247, 0.12);
   border-color: var(--color-accent);
-  transform: scale(1.08);
+  transform: scale(1.04);
+}
+
+.music-label-play,
+.music-label-pause {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* Pulsing ring when playing */
@@ -2879,10 +2889,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   content: '';
   position: absolute;
   inset: -4px;
-  border-radius: 50%;
+  border-radius: 26px;
   border: 1.5px solid var(--color-accent-red);
   opacity: 0;
-  transform: scale(1);
   transition: opacity 0.3s ease;
 }
 
@@ -2898,13 +2907,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 @keyframes music-pulse {
   0%, 100% { transform: scale(1);    opacity: 0.6; }
-  50%       { transform: scale(1.35); opacity: 0;   }
+  50%       { transform: scale(1.2);  opacity: 0;   }
 }
 
-/* Icon swap */
-.music-btn .icon-pause { display: none; }
-.music-btn.playing .icon-play  { display: none; }
-.music-btn.playing .icon-pause { display: block; }
+/* Icon + label swap */
+.music-btn .icon-pause        { display: none; }
+.music-btn .music-label-pause { display: none; }
+.music-btn.playing .icon-play        { display: none; }
+.music-btn.playing .icon-pause       { display: block; }
+.music-btn.playing .music-label-play  { display: none; }
+.music-btn.playing .music-label-pause { display: block; }
 
 /* Styled scrollbar */
 .cert-scroll-wrap::-webkit-scrollbar {
