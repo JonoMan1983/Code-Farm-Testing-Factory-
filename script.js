@@ -1050,3 +1050,27 @@ window.addEventListener('scroll', () => {
   window.addEventListener('scroll', updateButtons, { passive: true });
   updateButtons();
 })();
+
+/* ─── BACKGROUND MUSIC PLAYER ───────────────────────────────── */
+(function () {
+  const btn   = document.getElementById('musicBtn');
+  const audio = document.getElementById('bgMusic');
+  if (!btn || !audio) return;
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add('playing');
+      btn.setAttribute('aria-label', 'Pause background music');
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+      btn.setAttribute('aria-label', 'Play background music');
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    btn.classList.remove('playing');
+    btn.setAttribute('aria-label', 'Play background music');
+  });
+})();

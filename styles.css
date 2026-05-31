@@ -2847,6 +2847,65 @@ h1, h2, h3, h4 { color: var(--color-text); }
   cursor: grabbing;
 }
 
+/* ── Music player button ───────────────────────────────────── */
+.music-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 900;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(19, 15, 50, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 168, 247, 0.3);
+  color: var(--color-accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.music-btn:hover {
+  background: rgba(184, 168, 247, 0.12);
+  border-color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+/* Pulsing ring when playing */
+.music-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-accent-red);
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 0.3s ease;
+}
+
+.music-btn.playing {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
+.music-btn.playing::before {
+  opacity: 0.6;
+  animation: music-pulse 2s ease-in-out infinite;
+}
+
+@keyframes music-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.6; }
+  50%       { transform: scale(1.35); opacity: 0;   }
+}
+
+/* Icon swap */
+.music-btn .icon-pause { display: none; }
+.music-btn.playing .icon-play  { display: none; }
+.music-btn.playing .icon-pause { display: block; }
+
 /* Styled scrollbar */
 .cert-scroll-wrap::-webkit-scrollbar {
   height: 6px;
