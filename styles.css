@@ -2691,10 +2691,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* Overlay buttons — appear on hover over images/thumbs */
 .media-actions {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 5px;
+  gap: 8px;
   opacity: 0;
   transition: opacity 0.2s;
   z-index: 20;
@@ -2716,11 +2717,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Larger buttons specifically on UX doc scrollers */
 .ux-doc-wrap .media-actions {
-  top: auto;
-  right: auto;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
   gap: 8px;
 }
 
