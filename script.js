@@ -373,8 +373,9 @@ window.addEventListener('scroll', () => {
       ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
-      // Dash offset tracks the electron's angular position around the ellipse
-      ctx.lineDashOffset = -(atoms[i].angle / (2 * Math.PI)) * ORB_PERIM;
+      // Align the last dash so it ends exactly at the electron (direction-aware)
+      const p = (atoms[i * 2].angle / (2 * Math.PI)) * ORB_PERIM;
+      ctx.lineDashOffset = o.speed > 0 ? -(p - a.dot) : -p;
       ctx.save();
       ctx.translate(cx + fs.x + ux, cy + fs.y + uy);
       ctx.rotate(o.tilt + gRot);
