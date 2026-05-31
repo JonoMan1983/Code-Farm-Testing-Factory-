@@ -2716,8 +2716,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Larger buttons specifically on UX doc scrollers */
 .ux-doc-wrap .media-actions {
-  top: 12px;
-  right: 12px;
+  top: auto;
+  right: auto;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
   gap: 8px;
 }
 
