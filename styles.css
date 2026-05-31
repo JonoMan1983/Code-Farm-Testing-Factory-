@@ -2850,8 +2850,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* ── Music player button ───────────────────────────────────── */
 .music-btn {
   position: fixed;
-  top: 72px;
-  right: 24px;
+  top: 90px;
+  right: 40px;
   z-index: 90;
   height: 44px;
   padding: 0 18px 0 14px;
