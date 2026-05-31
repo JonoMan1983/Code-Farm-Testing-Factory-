@@ -123,13 +123,6 @@
             </filter>
           </defs>
 
-          <!-- Rotating pink dotted ring -->
-          <circle cx="250" cy="250" r="170" stroke="#E0115E" stroke-width="2" stroke-dasharray="4 12" fill="none" opacity="0.6">
-            <animateTransform attributeName="transform" type="rotate"
-              from="0 250 250" to="360 250 250"
-              dur="12s" repeatCount="indefinite"/>
-          </circle>
-
           <!-- Solid base ring -->
           <circle cx="250" cy="250" r="170" stroke="rgba(184,168,247,0.12)" stroke-width="2.5"/>
 
@@ -148,19 +141,13 @@
           <circle cx="150" cy="388" r="4" class="uw-ring-dot uw-ring-dot-4"/>
           <circle cx="88"  cy="198" r="4" class="uw-ring-dot uw-ring-dot-5"/>
 
-          <!-- Orbiting dot (red) — travels the ring using SVG animateTransform -->
-          <circle cx="250" cy="80" r="6" fill="#E0115E" filter="url(#uw-glow)">
-            <animateTransform attributeName="transform" type="rotate"
-              from="0 250 250" to="360 250 250"
-              dur="5s" repeatCount="indefinite"/>
-          </circle>
-
           <!-- Centre hub -->
           <circle cx="250" cy="250" r="52" fill="#160647" stroke="rgba(184,168,247,0.28)" stroke-width="1.5"/>
           <circle cx="250" cy="250" r="46" fill="none" stroke="rgba(184,168,247,0.08)" stroke-width="1" stroke-dasharray="3 5"/>
           <text x="250" y="245" text-anchor="middle" font-family="Poppins,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#B8A8F7">UX</text>
           <text x="250" y="263" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" font-weight="500" letter-spacing="1.5" fill="rgba(184,168,247,0.55)">PROCESS</text>
         </svg>
+        <canvas id="uxWheelCanvas" class="ux-wheel-electron" aria-hidden="true"></canvas>
 
         <!-- Step nodes positioned around the ring -->
         <div class="uw-node uw-node-1">

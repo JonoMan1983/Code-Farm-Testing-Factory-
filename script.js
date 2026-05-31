@@ -1075,3 +1075,73 @@ window.addEventListener('scroll', () => {
     btn.setAttribute('aria-label', 'Play background music');
   });
 })();
+
+/* ─── UX WHEEL ELECTRON ─────────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('uxWheelCanvas');
+  if (!canvas) return;
+  const ctx  = canvas.getContext('2d');
+  const SIZE = 500;          // matches SVG viewBox
+  const CX = 250, CY = 250, R = 170;
+  const PINK = [224, 17, 94];
+  const TRAIL_LEN = 36;
+  const SPEED = 0.016;
+
+  let sc = 1;
+  let angle = -Math.PI / 2; // start at top (12 o'clock)
+  const trail = [];
+
+  function resize() {
+    const dpr  = window.devicePixelRatio || 1;
+    const side = canvas.offsetWidth;
+    canvas.width  = side * dpr;
+    canvas.height = side * dpr;
+    sc = (side * dpr) / SIZE;
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function frame() {
+    ctx.setTransform(sc, 0, 0, sc, 0, 0);
+    ctx.clearRect(0, 0, SIZE, SIZE);
+
+    angle += SPEED;
+    trail.push(angle);
+    if (trail.length > TRAIL_LEN) trail.shift();
+
+    const px = CX + R * Math.cos(angle);
+    const py = CY + R * Math.sin(angle);
+
+    // Trail
+    trail.forEach((a, ti) => {
+      const frac = ti / TRAIL_LEN;
+      const tx = CX + R * Math.cos(a);
+      const ty = CY + R * Math.sin(a);
+      ctx.beginPath();
+      ctx.arc(tx, ty, 2 + frac * 7, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${PINK[0]},${PINK[1]},${PINK[2]},${frac * 0.5})`;
+      ctx.fill();
+    });
+
+    // Glow halo
+    const grd = ctx.createRadialGradient(px, py, 0, px, py, 48);
+    grd.addColorStop(0,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.88)`);
+    grd.addColorStop(0.45, `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.28)`);
+    grd.addColorStop(1,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0)`);
+    ctx.beginPath();
+    ctx.arc(px, py, 48, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+
+    // Core dot
+    ctx.beginPath();
+    ctx.arc(px, py, 11, 0, Math.PI * 2);
+    ctx.fillStyle = '#E0115E';
+    ctx.fill();
+
+    requestAnimationFrame(frame);
+  }
+
+  frame();
+})();
