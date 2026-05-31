@@ -2133,19 +2133,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     padding: 6px 0 14px;
     z-index: 99;
-    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-6px);
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0s linear 0.4s;
+    transition: max-height 0.4s ease-in-out, visibility 0s linear 0.4s;
   }
 
   .nav-links.open {
-    opacity: 1;
+    max-height: 640px;
+    overflow: hidden;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0s;
+    transition: max-height 0.4s ease-in-out, visibility 0s;
   }
 
   .nav-links > li {
