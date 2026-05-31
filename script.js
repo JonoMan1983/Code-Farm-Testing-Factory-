@@ -1121,6 +1121,16 @@ window.addEventListener('scroll', () => {
   window.addEventListener('resize', resize);
 
   function frame() {
+    // Canvas hidden on mobile — clear lingering state and idle
+    if (!canvas.offsetWidth) {
+      nodeEls.forEach((el, i) => {
+        if (lingerTimers[i]) { clearTimeout(lingerTimers[i]); lingerTimers[i] = null; }
+        if (el) el.classList.remove('electron-near');
+      });
+      requestAnimationFrame(frame);
+      return;
+    }
+
     ctx.setTransform(sc, 0, 0, sc, 0, 0);
     ctx.clearRect(0, 0, SIZE, SIZE);
 

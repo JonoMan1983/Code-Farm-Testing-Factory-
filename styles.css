@@ -787,6 +787,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     gap: 10px;
   }
   .ux-wheel-svg { display: none; }
+  .ux-wheel-electron { display: none; }
   .uw-node {
     position: static;
     transform: none;
