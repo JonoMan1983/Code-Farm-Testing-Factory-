@@ -849,7 +849,7 @@ window.addEventListener('scroll', () => {
     item.appendChild(overlayBtns(openUrl, dlHref));
   });
 
-  /* ── UX diploma + Wonderlabz doc scrollers (3) ── */
+  /* ── UX diploma + Wonderlabz doc scrollers (image-based) ── */
   document.querySelectorAll('.ux-doc-scroll').forEach(docScroll => {
     const img = docScroll.querySelector('img');
     if (!img) return;
@@ -861,6 +861,16 @@ window.addEventListener('scroll', () => {
     const openUrl = src.replace(/f_jpg,q_auto,w_\d+/, 'f_jpg,q_auto');
     const dlHref  = src.replace(/f_jpg,q_auto,w_\d+/, 'fl_attachment,f_jpg,q_auto');
     wrapper.appendChild(overlayBtns(openUrl, dlHref));
+  });
+
+  /* ── UX diploma PDF viewers (Projects 8 & 10) ── */
+  document.querySelectorAll('.ux-pdf-doc[data-pdf]').forEach(pdfDoc => {
+    const pdfUrl = pdfDoc.dataset.pdf;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'ux-doc-wrap';
+    pdfDoc.parentNode.insertBefore(wrapper, pdfDoc);
+    wrapper.appendChild(pdfDoc);
+    wrapper.appendChild(overlayBtns(pdfUrl, pdfUrl));
   });
 
   /* ── Image lightbox — open + download current image ── */
@@ -941,8 +951,6 @@ window.addEventListener('scroll', () => {
     });
   }
 
-  // Render when the container scrolls into view for the first time
-  const obs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         obs.unobserve(entry.target);
