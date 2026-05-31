@@ -412,6 +412,40 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
+   HERO — tablet landscape + desktop (≥900px)
+   =========================== */
+@media (min-width: 900px) {
+  .hero-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .hero-visual {
+    flex: 0 0 auto;
+    order: -1;
+  }
+
+  #heroCanvas {
+    width: min(460px, 46vw);
+  }
+
+  .hero-content {
+    text-align: left;
+    max-width: 560px;
+  }
+
+  .hero-sub {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* ===========================
    ABOUT
    =========================== */
 .about-text {
