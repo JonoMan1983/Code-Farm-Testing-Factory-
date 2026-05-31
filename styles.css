@@ -796,6 +796,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-4 { left: 30%;    top: 77.6%; animation-delay: 3s; }
 .uw-node-5 { left: 17.6%;  top: 39.6%; animation-delay: 4s; }
 
+.uw-node.electron-near {
+  border-color: #E0115E;
+  box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
+  background: rgba(60, 10, 30, 0.92);
+  animation-play-state: paused;
+}
+
 @keyframes uw-node-glow {
   0%   {
     border-color: rgba(184,168,247,0.85);

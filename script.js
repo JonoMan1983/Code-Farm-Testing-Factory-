@@ -1081,14 +1081,30 @@ window.addEventListener('scroll', () => {
   const canvas = document.getElementById('uxWheelCanvas');
   if (!canvas) return;
   const ctx  = canvas.getContext('2d');
-  const SIZE = 500;          // matches SVG viewBox
+  const SIZE = 500;
   const CX = 250, CY = 250, R = 170;
   const PINK = [224, 17, 94];
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
+  const PROXIMITY = 0.42; // radians (~24°)
+
+  // Node elements and their angles on the orbit circle
+  const nodeEls = [1,2,3,4,5].map(n => document.querySelector('.uw-node-' + n));
+  const nodeAngles = [
+    Math.atan2(80  - CY, 250 - CX), // node 1 — top
+    Math.atan2(198 - CY, 412 - CX), // node 2 — upper-right
+    Math.atan2(388 - CY, 350 - CX), // node 3 — lower-right
+    Math.atan2(388 - CY, 150 - CX), // node 4 — lower-left
+    Math.atan2(198 - CY, 88  - CX), // node 5 — upper-left
+  ];
+
+  function angularDiff(a, b) {
+    let d = ((a - b) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+    return d > Math.PI ? 2 * Math.PI - d : d;
+  }
 
   let sc = 1;
-  let angle = -Math.PI / 2; // start at top (12 o'clock)
+  let angle = -Math.PI / 2;
   const trail = [];
 
   function resize() {
@@ -1112,6 +1128,12 @@ window.addEventListener('scroll', () => {
 
     const px = CX + R * Math.cos(angle);
     const py = CY + R * Math.sin(angle);
+
+    // Highlight nodes when electron is nearby
+    nodeEls.forEach((el, i) => {
+      if (!el) return;
+      el.classList.toggle('electron-near', angularDiff(angle, nodeAngles[i]) < PROXIMITY);
+    });
 
     // Trail
     trail.forEach((a, ti) => {
