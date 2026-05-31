@@ -951,6 +951,7 @@ window.addEventListener('scroll', () => {
     });
   }
 
+  const obs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         obs.unobserve(entry.target);
