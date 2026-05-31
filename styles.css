@@ -443,6 +443,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .hero-actions {
     justify-content: flex-start;
   }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  }
 }
 
 /* ===========================
