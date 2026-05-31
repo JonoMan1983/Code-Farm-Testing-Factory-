@@ -1086,28 +1086,22 @@ window.addEventListener('scroll', () => {
   const PINK = [224, 17, 94];
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
-  const PROXIMITY = 0.42; // radians (~24°)
-
   const TAU = 2 * Math.PI;
 
-  // Node elements — angles normalised to [0, TAU] to match running angle
   const nodeEls = [1,2,3,4,5].map(n => document.querySelector('.uw-node-' + n));
-  const nodeAngles = [
-    Math.atan2(80  - CY, 250 - CX),
-    Math.atan2(198 - CY, 412 - CX),
-    Math.atan2(388 - CY, 350 - CX),
-    Math.atan2(388 - CY, 150 - CX),
-    Math.atan2(198 - CY, 88  - CX),
-  ].map(a => (a + TAU) % TAU); // → all in [0, TAU]
 
-  // Simple diff that works because both angle and nodeAngles are in [0, TAU]
-  function angularDiff(a, b) {
-    const d = Math.abs(a - b);
-    return d > Math.PI ? TAU - d : d;
-  }
+  // Node centres in 500×500 coordinate space (match CSS: left%*500, top%*500)
+  const nodePos = [
+    { x: 250, y: 80  },  // node-1: 50%,   16%
+    { x: 412, y: 198 },  // node-2: 82.4%, 39.6%
+    { x: 350, y: 388 },  // node-3: 70%,   77.6%
+    { x: 150, y: 388 },  // node-4: 30%,   77.6%
+    { x: 88,  y: 198 },  // node-5: 17.6%, 39.6%
+  ];
+  const PROXIMITY_PX = 60; // distance in 500px space (~20° of arc)
 
   let sc = 1;
-  let angle = (TAU - Math.PI / 2) % TAU; // start at top (12 o'clock), in [0, TAU]
+  let angle = (TAU - Math.PI / 2) % TAU;
   const trail = [];
 
   function resize() {
@@ -1132,10 +1126,11 @@ window.addEventListener('scroll', () => {
     const px = CX + R * Math.cos(angle);
     const py = CY + R * Math.sin(angle);
 
-    // Highlight nodes when electron is nearby
+    // Highlight nodes when electron is nearby (pixel distance in 500px space)
     nodeEls.forEach((el, i) => {
       if (!el) return;
-      el.classList.toggle('electron-near', angularDiff(angle, nodeAngles[i]) < PROXIMITY);
+      const np = nodePos[i];
+      el.classList.toggle('electron-near', Math.hypot(px - np.x, py - np.y) < PROXIMITY_PX);
     });
 
     // Trail
