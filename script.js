@@ -1088,23 +1088,26 @@ window.addEventListener('scroll', () => {
   const SPEED = 0.016;
   const PROXIMITY = 0.42; // radians (~24°)
 
-  // Node elements and their angles on the orbit circle
+  const TAU = 2 * Math.PI;
+
+  // Node elements — angles normalised to [0, TAU] to match running angle
   const nodeEls = [1,2,3,4,5].map(n => document.querySelector('.uw-node-' + n));
   const nodeAngles = [
-    Math.atan2(80  - CY, 250 - CX), // node 1 — top
-    Math.atan2(198 - CY, 412 - CX), // node 2 — upper-right
-    Math.atan2(388 - CY, 350 - CX), // node 3 — lower-right
-    Math.atan2(388 - CY, 150 - CX), // node 4 — lower-left
-    Math.atan2(198 - CY, 88  - CX), // node 5 — upper-left
-  ];
+    Math.atan2(80  - CY, 250 - CX),
+    Math.atan2(198 - CY, 412 - CX),
+    Math.atan2(388 - CY, 350 - CX),
+    Math.atan2(388 - CY, 150 - CX),
+    Math.atan2(198 - CY, 88  - CX),
+  ].map(a => (a + TAU) % TAU); // → all in [0, TAU]
 
+  // Simple diff that works because both angle and nodeAngles are in [0, TAU]
   function angularDiff(a, b) {
-    let d = ((a - b) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-    return d > Math.PI ? 2 * Math.PI - d : d;
+    const d = Math.abs(a - b);
+    return d > Math.PI ? TAU - d : d;
   }
 
   let sc = 1;
-  let angle = -Math.PI / 2;
+  let angle = (TAU - Math.PI / 2) % TAU; // start at top (12 o'clock), in [0, TAU]
   const trail = [];
 
   function resize() {
@@ -1122,7 +1125,7 @@ window.addEventListener('scroll', () => {
     ctx.setTransform(sc, 0, 0, sc, 0, 0);
     ctx.clearRect(0, 0, SIZE, SIZE);
 
-    angle += SPEED;
+    angle = (angle + SPEED) % TAU;
     trail.push(angle);
     if (trail.length > TRAIL_LEN) trail.shift();
 
