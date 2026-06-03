@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Nestler — Portfolio Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #080620;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    /* ── A4 page ── */
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: linear-gradient(150deg, #0e0b2b 0%, #130f32 55%, #180c38 100%);
+      padding: 52px 52px 44px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Decorative glows */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,17,94,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page::after {
+      content: '';
+      position: absolute;
+      bottom: 180px; left: -100px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,168,247,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
+    .header {
+      border-bottom: 1px solid rgba(184,168,247,0.18);
+      padding-bottom: 26px;
+      margin-bottom: 32px;
+    }
+    .byline {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #E0115E;
+      margin-bottom: 7px;
+    }
+    .headline {
+      font-size: 40px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+    .headline span { color: #B8A8F7; }
+    .tagline {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(184,168,247,0.55);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+    .years-pill {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 12px;
+      background: rgba(224,17,94,0.12);
+      border: 1px solid rgba(224,17,94,0.3);
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #E0115E;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Two-column body ── */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      flex: 1;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #E0115E;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::before {
+      content: '';
+      width: 3px; height: 13px;
+      background: #E0115E;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Body copy */
+    .body-copy {
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(232,228,255,0.75);
+    }
+
+    /* Competency list */
+    .comp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 2px;
+    }
+    .comp-list li {
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: rgba(232,228,255,0.72);
+      padding-left: 16px;
+      position: relative;
+    }
+    .comp-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: #B8A8F7;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+    .comp-list li strong {
+      color: #e8e4ff;
+      font-weight: 600;
+    }
+
+    /* Philosophy callout */
+    .philosophy {
+      background: rgba(224,17,94,0.07);
+      border: 1px solid rgba(224,17,94,0.2);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 18px;
+    }
+    .philosophy p {
+      font-size: 11.5px;
+      font-style: italic;
+      color: rgba(232,228,255,0.78);
+      line-height: 1.65;
+    }
+
+    /* Work cards */
+    .work-card {
+      background: rgba(184,168,247,0.05);
+      border: 1px solid rgba(184,168,247,0.14);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 11px;
+    }
+    .work-card h4 {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e8e4ff;
+      margin-bottom: 5px;
+    }
+    .work-card p {
+      font-size: 11px;
+      color: rgba(232,228,255,0.6);
+      line-height: 1.58;
+    }
+
+    /* Toolkit tags */
+    .toolkit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(184,168,247,0.09);
+      border: 1px solid rgba(184,168,247,0.2);
+      color: #B8A8F7;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      margin-top: 34px;
+      border: 1.5px dashed rgba(224,17,94,0.38);
+      border-radius: 16px;
+      padding: 26px 36px 22px;
+      text-align: center;
+      background: rgba(224,17,94,0.04);
+      position: relative;
+      z-index: 1;
+    }
+    .cta-eyebrow {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(184,168,247,0.45);
+      margin-bottom: 13px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #E0115E 0%, #b80e4d 100%);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px 42px;
+      border-radius: 40px;
+      text-decoration: none;
+      box-shadow: 0 8px 28px rgba(224,17,94,0.35);
+    }
+    .cta-url {
+      display: block;
+      margin-top: 11px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(184,168,247,0.5);
+      letter-spacing: 0.03em;
+    }
+    .cta-sub {
+      margin-top: 7px;
+      font-size: 10.5px;
+      font-style: italic;
+      color: rgba(184,168,247,0.35);
+    }
+
+    /* ── Print ── */
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      body { background: #080620; padding: 0; }
+      .page { width: 100%; min-height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="byline">Jonathan Edward Nestler &nbsp;·&nbsp; Jeffreys Bay, South Africa</div>
+    <div class="headline">SENIOR CREATIVE<br><span>DESIGNER</span></div>
+    <div class="tagline">UX/UI &nbsp;·&nbsp; Visual Effects &nbsp;·&nbsp; Motion Graphics &nbsp;·&nbsp; Brand Identity &nbsp;·&nbsp; Front-End</div>
+    <div class="years-pill">20+ Years of Design</div>
+  </div>
+
+  <!-- Body -->
+  <div class="body-grid">
+
+    <!-- Left -->
+    <div>
+      <div class="section-label">Professional Profile</div>
+      <div class="body-copy">
+        A cross-disciplinary Senior Creative Designer with over two decades of experience spanning UX/UI product design, visual effects, motion graphics, brand identity, and front-end development. Known for bridging design craft and engineering — from research and wireframes all the way through to production-ready interactive code.
+      </div>
+
+      <div class="philosophy">
+        <p>"Design is not just how it looks — it's how it moves, how it feels, and fundamentally how it solves the right problem for the right person."</p>
+      </div>
+
+      <br />
+
+      <div class="section-label">Core Competencies</div>
+      <ul class="comp-list">
+        <li><strong>End-to-End UX:</strong> Research, empathy mapping, wireframes, hi-fi prototyping, usability testing &amp; WCAG accessibility.</li>
+        <li><strong>iGaming UI:</strong> 6 years delivering slot UI systems — reel frames, win screens &amp; animation direction at Astria Systems.</li>
+        <li><strong>Motion &amp; VFX:</strong> Animation direction, motion graphics and visual effects across broadcast and gaming.</li>
+        <li><strong>Brand Identity:</strong> Logo systems, design tokens &amp; brand governance across multiple industries.</li>
+        <li><strong>Front-End Dev:</strong> HTML5, CSS3, JavaScript &amp; Canvas API — ships interactive prototypes in the browser.</li>
+        <li><strong>AI-Assisted Workflow:</strong> Integrated AI tooling for ideation, annotation &amp; design-to-dev handoff.</li>
+      </ul>
+    </div>
+
+    <!-- Right -->
+    <div>
+      <div class="section-label">Selected Work</div>
+
+      <div class="work-card">
+        <h4>iGaming UI — Wonderlabz · Playsafe · Pantelotteriet</h4>
+        <p>End-to-end UI design and animation direction across 6 years of slot game production — reel frames, win screens, sticky wilds, and brand UI systems across three major portfolios, delivered in Figma at Astria Systems.</p>
+      </div>
+
+      <div class="work-card">
+        <h4>UX Design Institute Diploma — Dublin, Ireland</h4>
+        <p>Professional Diploma in UX Design (2023–2024) covering user research, interaction design, information architecture, and usability testing to international standards.</p>
+      </div>
+
+      <div class="work-card">
+        <h4>Brand Identity &amp; Motion Direction</h4>
+        <p>20+ years of logo design, brand systems, motion graphics and VFX spanning broadcast, gaming, and digital product environments across South Africa and internationally.</p>
+      </div>
+
+      <br />
+
+      <div class="section-label">Technical Toolkit</div>
+      <div class="toolkit">
+        <span class="tag">Figma</span>
+        <span class="tag">HTML5 / CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Adobe Creative Suite</span>
+        <span class="tag">After Effects</span>
+        <span class="tag">Canvas API</span>
+        <span class="tag">SVG Animation</span>
+        <span class="tag">Design Systems</span>
+        <span class="tag">WCAG AA</span>
+        <span class="tag">AI Workflows</span>
+        <span class="tag">Prototyping</span>
+        <span class="tag">Usability Testing</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-eyebrow">View the live portfolio</div>
+    <a class="cta-btn" href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">
+      LAUNCH PORTFOLIO
+    </a>
+    <div class="cta-url">jonoman1983.github.io/Code-Farm-Testing-Factory-/</div>
+    <div class="cta-sub">Live case studies &nbsp;·&nbsp; UX process wheel &nbsp;·&nbsp; Motion reel &nbsp;·&nbsp; Animation gallery &nbsp;·&nbsp; Interactive experiments</div>
+  </div>
+
+</div>
+</body>
+</html>
