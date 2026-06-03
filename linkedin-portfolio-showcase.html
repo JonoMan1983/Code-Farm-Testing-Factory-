@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1280" />
   <title>Jonathan Nestler — Portfolio Showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet" />
@@ -16,17 +16,16 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 24px 16px;
     }
 
-    /* ── 16:9 page (1280×720) ── */
+    /* ── Exact 1280×720 (16:9) ── */
     .page {
       width: 1280px;
       height: 720px;
-      background: linear-gradient(150deg, #0e0b2b 0%, #130f32 55%, #180c38 100%);
-      padding: 34px 48px 28px;
-      position: relative;
       overflow: hidden;
+      background: linear-gradient(150deg, #0e0b2b 0%, #130f32 55%, #180c38 100%);
+      padding: 28px 44px 22px;
+      position: relative;
       display: flex;
       flex-direction: column;
     }
@@ -34,8 +33,8 @@
     .page::before {
       content: '';
       position: absolute;
-      top: -100px; right: -100px;
-      width: 380px; height: 380px;
+      top: -90px; right: -90px;
+      width: 360px; height: 360px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(224,17,94,0.10) 0%, transparent 70%);
       pointer-events: none;
@@ -43,34 +42,34 @@
     .page::after {
       content: '';
       position: absolute;
-      bottom: 60px; left: -80px;
-      width: 300px; height: 300px;
+      bottom: 40px; left: -70px;
+      width: 280px; height: 280px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(184,168,247,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
 
-    /* ── Header (horizontal strip) ── */
+    /* ── Header strip ── */
     .header {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: 32px;
       border-bottom: 1px solid rgba(184,168,247,0.18);
-      padding-bottom: 18px;
-      margin-bottom: 20px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
       flex-shrink: 0;
     }
     .header-left { flex-shrink: 0; }
     .byline {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.17em;
       text-transform: uppercase;
       color: #E0115E;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .headline {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       color: #ffffff;
       line-height: 1.05;
@@ -82,13 +81,13 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }
     .tagline {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 500;
       color: rgba(184,168,247,0.55);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
     .years-pill {
@@ -97,8 +96,8 @@
       background: rgba(224,17,94,0.12);
       border: 1px solid rgba(224,17,94,0.3);
       border-radius: 30px;
-      padding: 3px 14px;
-      font-size: 9.5px;
+      padding: 2px 13px;
+      font-size: 9px;
       font-weight: 700;
       color: #E0115E;
       letter-spacing: 0.1em;
@@ -106,18 +105,17 @@
       width: fit-content;
     }
 
-    /* ── Two-column body ── */
+    /* ── 3-column body ── */
     .body-grid {
       display: grid;
-      grid-template-columns: 400px 1fr;
-      gap: 32px;
+      grid-template-columns: 290px 250px 1fr;
+      gap: 28px;
       flex: 1;
       min-height: 0;
     }
 
-    /* Section label */
     .section-label {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -125,48 +123,48 @@
       margin-bottom: 9px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
     .section-label::before {
       content: '';
-      width: 3px; height: 11px;
+      width: 3px; height: 10px;
       background: #E0115E;
       border-radius: 2px;
       flex-shrink: 0;
     }
 
+    /* Col 1 — Profile */
     .body-copy {
-      font-size: 10.5px;
-      line-height: 1.65;
+      font-size: 10px;
+      line-height: 1.68;
       color: rgba(232,228,255,0.75);
     }
-
     .philosophy {
       background: rgba(224,17,94,0.07);
       border: 1px solid rgba(224,17,94,0.2);
       border-radius: 8px;
       padding: 10px 13px;
-      margin-top: 11px;
-      margin-bottom: 13px;
+      margin-top: 12px;
     }
     .philosophy p {
-      font-size: 10px;
+      font-size: 9.5px;
       font-style: italic;
       color: rgba(232,228,255,0.78);
-      line-height: 1.6;
+      line-height: 1.62;
     }
 
+    /* Col 2 — Competencies */
     .comp-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 7px;
     }
     .comp-list li {
-      font-size: 10px;
+      font-size: 9.5px;
       line-height: 1.5;
       color: rgba(232,228,255,0.72);
-      padding-left: 13px;
+      padding-left: 12px;
       position: relative;
     }
     .comp-list li::before {
@@ -175,43 +173,42 @@
       left: 0;
       color: #B8A8F7;
       font-size: 12px;
-      line-height: 1.25;
+      line-height: 1.2;
     }
     .comp-list li strong {
       color: #e8e4ff;
       font-weight: 600;
     }
 
-    /* ── Right column ── */
+    /* Col 3 — Work cards + toolkit */
     .right-col {
       display: flex;
       flex-direction: column;
       min-height: 0;
     }
-
     .work-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 13px;
+      gap: 7px;
+      margin-bottom: 12px;
     }
     .work-card {
       background: rgba(184,168,247,0.05);
       border: 1px solid rgba(184,168,247,0.14);
-      border-radius: 8px;
-      padding: 10px 12px;
+      border-radius: 7px;
+      padding: 9px 11px;
     }
     .work-card:nth-child(3) { grid-column: 1 / -1; }
     .work-card h4 {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
       color: #e8e4ff;
       margin-bottom: 4px;
       line-height: 1.35;
     }
     .work-card p {
-      font-size: 9px;
-      color: rgba(232,228,255,0.6);
+      font-size: 8.5px;
+      color: rgba(232,228,255,0.58);
       line-height: 1.55;
     }
 
@@ -219,13 +216,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-top: 4px;
+      margin-top: 3px;
     }
     .tag {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 600;
       letter-spacing: 0.04em;
-      padding: 3px 9px;
+      padding: 3px 8px;
       border-radius: 20px;
       background: rgba(184,168,247,0.09);
       border: 1px solid rgba(184,168,247,0.2);
@@ -234,14 +231,14 @@
 
     /* ── CTA footer strip ── */
     .cta {
-      margin-top: 16px;
+      margin-top: 14px;
       border: 1.5px dashed rgba(224,17,94,0.38);
       border-radius: 12px;
-      padding: 13px 30px;
+      padding: 12px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
       background: rgba(224,17,94,0.04);
       position: relative;
       z-index: 1;
@@ -250,7 +247,7 @@
     .cta-left {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
     .cta-eyebrow {
       font-size: 8.5px;
@@ -260,7 +257,7 @@
       color: rgba(184,168,247,0.45);
     }
     .cta-sub {
-      font-size: 9px;
+      font-size: 8.5px;
       font-style: italic;
       color: rgba(184,168,247,0.35);
     }
@@ -269,29 +266,29 @@
       background: linear-gradient(135deg, #E0115E 0%, #b80e4d 100%);
       color: #ffffff;
       font-family: 'Poppins', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 10px 32px;
+      padding: 9px 28px;
       border-radius: 40px;
       text-decoration: none;
-      box-shadow: 0 6px 22px rgba(224,17,94,0.35);
+      box-shadow: 0 5px 18px rgba(224,17,94,0.35);
     }
     .cta-url {
       display: block;
-      margin-top: 6px;
-      font-size: 10px;
+      margin-top: 5px;
+      font-size: 9.5px;
       font-weight: 500;
       color: rgba(184,168,247,0.5);
       letter-spacing: 0.03em;
       text-align: center;
     }
 
-    /* ── Print ── */
+    /* ── Print / PDF ── */
     @media print {
-      @page { size: 1280px 720px landscape; margin: 0; }
-      body { background: #080620; padding: 0; min-height: 0; }
+      @page { size: 1280px 720px; margin: 0; }
+      body { background: #080620; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .page { width: 1280px; height: 720px; }
     }
   </style>
@@ -311,52 +308,50 @@
     </div>
   </div>
 
-  <!-- Body -->
+  <!-- 3-column body -->
   <div class="body-grid">
 
-    <!-- Left -->
+    <!-- Col 1: Profile -->
     <div>
       <div class="section-label">Professional Profile</div>
       <div class="body-copy">
-        A cross-disciplinary Senior UX/UI &amp; Product Designer with over two decades of experience spanning UX/UI product design, visual effects, motion graphics, brand identity, and front-end development. Known for bridging design craft and engineering — from research and wireframes all the way through to production-ready interactive code.
+        A cross-disciplinary Senior UX/UI &amp; Product Designer with over two decades spanning product design, VFX, motion graphics, brand identity, and front-end development. Known for bridging design craft and engineering — from research and wireframes through to production-ready interactive code.
       </div>
-
       <div class="philosophy">
         <p>"Design is not just how it looks — it's how it moves, how it feels, and fundamentally how it solves the right problem for the right person."</p>
       </div>
+    </div>
 
+    <!-- Col 2: Competencies -->
+    <div>
       <div class="section-label">Core Competencies</div>
       <ul class="comp-list">
         <li><strong>End-to-End UX:</strong> Research, empathy mapping, wireframes, hi-fi prototyping &amp; WCAG accessibility.</li>
-        <li><strong>iGaming UI:</strong> 6 years delivering slot UI systems — reel frames, win screens &amp; animation direction at Astria Systems.</li>
-        <li><strong>Motion &amp; VFX:</strong> Animation direction, motion graphics and visual effects across broadcast and gaming.</li>
+        <li><strong>iGaming UI:</strong> 6 years delivering slot UI systems — reel frames, win screens &amp; animation direction.</li>
+        <li><strong>Motion &amp; VFX:</strong> Animation direction, motion graphics &amp; visual effects across broadcast and gaming.</li>
         <li><strong>Brand Identity:</strong> Logo systems, design tokens &amp; brand governance across multiple industries.</li>
-        <li><strong>Front-End Dev:</strong> HTML5, CSS3, JavaScript &amp; Canvas API — ships interactive prototypes in the browser.</li>
-        <li><strong>AI-Assisted Workflow:</strong> Integrated AI tooling for ideation, annotation &amp; design-to-dev handoff.</li>
+        <li><strong>Front-End Dev:</strong> HTML5, CSS3, JavaScript &amp; Canvas API — ships interactive browser prototypes.</li>
+        <li><strong>AI Workflows:</strong> Integrated AI tooling for ideation, annotation &amp; design-to-dev handoff.</li>
       </ul>
     </div>
 
-    <!-- Right -->
+    <!-- Col 3: Work + Toolkit -->
     <div class="right-col">
       <div class="section-label">Selected Work</div>
-
       <div class="work-cards">
         <div class="work-card">
           <h4>iGaming UI — Wonderlabz · Playsafe · Pantelotteriet</h4>
-          <p>End-to-end UI design and animation direction across 6 years of slot game production — reel frames, win screens, sticky wilds, and brand UI systems across three major portfolios, delivered in Figma at Astria Systems.</p>
+          <p>End-to-end UI design and animation direction across 6 years of slot game production — reel frames, win screens, sticky wilds, and brand UI systems across three major portfolios at Astria Systems.</p>
         </div>
-
         <div class="work-card">
-          <h4>UX Design Institute Diploma — Dublin, Ireland</h4>
+          <h4>UX Design Institute Diploma — Dublin</h4>
           <p>Professional Diploma in UX Design (2023–2024) covering user research, interaction design, information architecture, and usability testing to international standards.</p>
         </div>
-
         <div class="work-card">
           <h4>Brand Identity &amp; Motion Direction</h4>
           <p>20+ years of logo design, brand systems, motion graphics and VFX spanning broadcast, gaming, and digital product environments across South Africa and internationally.</p>
         </div>
       </div>
-
       <div class="section-label">Technical Toolkit</div>
       <div class="toolkit">
         <span class="tag">Figma</span>
@@ -376,16 +371,14 @@
 
   </div>
 
-  <!-- CTA footer strip -->
+  <!-- CTA footer -->
   <div class="cta">
     <div class="cta-left">
       <div class="cta-eyebrow">View the live portfolio</div>
       <div class="cta-sub">Live case studies &nbsp;·&nbsp; UX process wheel &nbsp;·&nbsp; Motion reel &nbsp;·&nbsp; Animation gallery &nbsp;·&nbsp; Interactive experiments</div>
     </div>
     <div>
-      <a class="cta-btn" href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">
-        LAUNCH PORTFOLIO
-      </a>
+      <a class="cta-btn" href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">LAUNCH PORTFOLIO</a>
       <div class="cta-url">jonoman1983.github.io/Code-Farm-Testing-Factory-/</div>
     </div>
   </div>
