@@ -169,19 +169,36 @@ const observer = new IntersectionObserver(
 
 revealEls.forEach(el => observer.observe(el));
 
-// Contact form (demo — no backend)
+// Contact form — Web3Forms
 const form = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
-  form.querySelector('button[type="submit"]').textContent = 'Sending…';
-  setTimeout(() => {
-    form.reset();
-    form.querySelector('button[type="submit"]').textContent = 'Send Message';
-    formSuccess.classList.add('visible');
-    setTimeout(() => formSuccess.classList.remove('visible'), 4000);
-  }, 800);
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    });
+    const data = await res.json();
+    if (data.success) {
+      form.reset();
+      formSuccess.classList.add('visible');
+      setTimeout(() => formSuccess.classList.remove('visible'), 5000);
+    } else {
+      alert('Something went wrong. Please try again or email me directly.');
+    }
+  } catch {
+    alert('Could not send message. Please check your connection and try again.');
+  }
+
+  btn.textContent = 'Send Message';
+  btn.disabled = false;
 });
 
 // Shrink nav on scroll (responsive padding)
