@@ -155,6 +155,33 @@
       letter-spacing: -0.01em;
     }
 
+    /* AI tools grid */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .ai-cell {
+      background: #f7f7f7;
+      border-left: 3px solid #F5C300;
+      padding: 7px 10px;
+    }
+    .ai-cell-tool {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+    .ai-cell-desc {
+      font-size: 9px;
+      font-weight: 400;
+      color: #555555;
+      line-height: 1.5;
+    }
+
     /* Values tags */
     .values-row {
       display: flex;
@@ -265,9 +292,28 @@
       <p>Brandtech+'s position on GenAI in the creative industries is one I share without reservation. The designers who will navigate the opportunity and the ethics well are the ones already doing it, learning from it, and forming genuine opinions. I am one of those designers.</p>
     </div>
 
-    <p>My portfolio has a dedicated AI workflow section — from <strong>prompt-driven UX copy and component specs inside Figma</strong>, to rapid visual ideation that collapses days of research into focused hours of creative direction. This is not a future skill. It is my current practice every day.</p>
+    <p>Here is exactly how I use GenAI in my practice today:</p>
 
-    <p>What I bring beyond the tools is <strong>range</strong>. Shipped iGaming UI systems. Directed broadcast motion campaigns. Redesigned enterprise websites from research to pixel-perfect delivery. Built design systems across multiple live brands. Written HTML, CSS, and JavaScript to bring prototypes to life in the browser. I design to an outcome, not a handoff.</p>
+    <div class="ai-grid">
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Claude AI + Figma</div>
+        <div class="ai-cell-desc">Prompt-driven UX copy, design rationale, component specs, and dev-ready annotation — generated inside active Figma workflows at Astria Systems. Replaces manual documentation with live, accurate handoff.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Midjourney + DALL-E</div>
+        <div class="ai-cell-desc">Rapid mood boarding, art direction references, and visual concept generation. Collapses days of research into hours — used at the brief stage to align stakeholders before a pixel is designed.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Figma AI Features</div>
+        <div class="ai-cell-desc">Auto-layout inference, component scanning, and design system consistency checks across large libraries. Catches drift and surfaces consolidation opportunities without manual audits.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">AI-Assisted Prototyping</div>
+        <div class="ai-cell-desc">Micro-interaction scripting, edge-case scenario generation, and annotated handoff — shortening the gap between design intent and final build without losing craft or control.</div>
+      </div>
+    </div>
+
+    <p>What I bring beyond the tools is <strong>range</strong>. Shipped iGaming UI systems. Directed broadcast motion. Built design systems across multiple live brands. Written HTML, CSS, and JavaScript to bring prototypes to life in the browser. I design to an outcome, not a handoff.</p>
 
     <div class="values-row">
       <span class="value-tag yellow">Be Ambitious</span>
