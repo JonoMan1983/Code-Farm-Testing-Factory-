@@ -21,83 +21,76 @@
 
     .page {
       width: 794px;
-      min-height: 1123px;
-      background: #ffffff;
-      position: relative;
+      height: 1123px;
       overflow: hidden;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
     }
 
     /* ── Header ── */
     .header {
-      padding: 40px 52px 0;
+      padding: 26px 52px 0;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-shrink: 0;
     }
-
-    /* brandtech+ style logotype */
     .logo-type {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: #000000;
       letter-spacing: -0.03em;
       line-height: 1;
     }
     .logo-type sup {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       vertical-align: super;
       line-height: 0;
     }
-
-    .header-right {
-      text-align: right;
-    }
+    .header-right { text-align: right; }
     .contact-line {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 400;
       color: #888888;
-      line-height: 1.9;
+      line-height: 1.85;
     }
     .contact-link {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: #000000;
       text-decoration: none;
-      letter-spacing: -0.01em;
     }
 
-    /* ── Hero name block ── */
+    /* ── Hero ── */
     .hero {
-      padding: 32px 52px 0;
+      padding: 18px 52px 0;
       flex-shrink: 0;
     }
     .hero-name {
-      font-size: 52px;
+      font-size: 42px;
       font-weight: 900;
       color: #000000;
       letter-spacing: -0.04em;
-      line-height: 0.95;
+      line-height: 0.92;
       text-transform: uppercase;
     }
     .hero-name-highlight {
       display: inline-block;
       background: #F5C300;
-      padding: 0 6px;
-      margin-left: -6px;
+      padding: 0 5px;
+      margin-left: -5px;
     }
     .hero-rule {
       height: 3px;
       background: #000000;
-      margin-top: 20px;
+      margin-top: 14px;
     }
 
-    /* ── Role tag row ── */
+    /* ── Meta row ── */
     .meta-row {
-      padding: 16px 52px;
+      padding: 10px 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -105,14 +98,14 @@
       flex-shrink: 0;
     }
     .role-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #000000;
     }
     .date-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 400;
       color: #aaaaaa;
       letter-spacing: 0.06em;
@@ -120,72 +113,63 @@
 
     /* ── Body ── */
     .body {
-      padding: 36px 52px 44px;
+      padding: 22px 52px 20px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-
     .salutation {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #000000;
-      margin-bottom: 22px;
-      letter-spacing: -0.01em;
-    }
-
-    p {
-      font-size: 11.5px;
-      line-height: 1.82;
-      color: #333333;
-      margin-bottom: 15px;
-      font-weight: 400;
-    }
-    p strong {
-      color: #000000;
-      font-weight: 700;
-    }
-
-    /* Yellow highlight inline */
-    .hl {
-      background: #F5C300;
-      padding: 1px 4px;
-      font-weight: 700;
-      color: #000000;
-    }
-
-    /* Bold statement block */
-    .statement {
-      margin: 22px 0;
-      padding: 18px 22px;
-      border: 2px solid #000000;
-      border-radius: 0;
-    }
-    .statement p {
       font-size: 12.5px;
       font-weight: 700;
       color: #000000;
-      line-height: 1.6;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    p {
+      font-size: 10.5px;
+      line-height: 1.78;
+      color: #333333;
+      margin-bottom: 11px;
+      font-weight: 400;
+    }
+    p strong { color: #000000; font-weight: 700; }
+    .hl {
+      background: #F5C300;
+      padding: 1px 3px;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    /* Statement block */
+    .statement {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border: 2px solid #000000;
+    }
+    .statement p {
+      font-size: 11px;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.58;
       margin-bottom: 0;
       letter-spacing: -0.01em;
     }
 
-    /* Values echo row */
+    /* Values tags */
     .values-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin: 18px 0;
+      gap: 6px;
+      margin: 10px 0;
     }
     .value-tag {
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 4px 10px;
       background: #000000;
       color: #ffffff;
-      border-radius: 0;
     }
     .value-tag.yellow {
       background: #F5C300;
@@ -193,51 +177,44 @@
     }
 
     /* Closing */
-    .closing {
-      margin-top: auto;
-      padding-top: 28px;
-    }
-    .closing p {
-      margin-bottom: 4px;
-      color: #555555;
-    }
+    .closing { margin-top: 14px; }
+    .closing p { margin-bottom: 3px; color: #555555; }
     .sig-name {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 900;
       color: #000000;
       letter-spacing: -0.03em;
       text-transform: uppercase;
-      margin-top: 12px;
+      margin-top: 10px;
       line-height: 1;
     }
     .sig-url {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: #000000;
-      margin-top: 6px;
-      letter-spacing: 0.02em;
+      margin-top: 4px;
       text-decoration: underline;
-      text-underline-offset: 3px;
+      text-underline-offset: 2px;
     }
 
     /* ── Footer ── */
     .footer {
       background: #000000;
-      padding: 14px 52px;
+      padding: 11px 52px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-shrink: 0;
     }
     .footer-text {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 600;
       color: #ffffff;
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
     .footer-accent {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
       color: #F5C300;
       letter-spacing: 0.1em;
@@ -247,14 +224,13 @@
     @media print {
       @page { size: A4 portrait; margin: 0; }
       body { background: #ffffff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .page { width: 100%; min-height: 100vh; }
+      .page { width: 100%; height: 297mm; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Header -->
   <div class="header">
     <div class="logo-type">brandtech<sup>+</sup></div>
     <div class="header-right">
@@ -264,7 +240,6 @@
     </div>
   </div>
 
-  <!-- Hero name -->
   <div class="hero">
     <div class="hero-name">
       Jonathan<br>
@@ -273,18 +248,16 @@
     <div class="hero-rule"></div>
   </div>
 
-  <!-- Meta row -->
   <div class="meta-row">
     <div class="role-label">Senior Creative Designer · Application — Brandtech+</div>
     <div class="date-label">June 2026</div>
   </div>
 
-  <!-- Body -->
   <div class="body">
 
     <div class="salutation">Dear Hiring Team,</div>
 
-    <p>Twenty years ago I started my career doing what felt like magic — turning complexity into clarity, briefs into experiences, and ideas into things that actually moved people. I am still doing exactly that. The only thing that has changed is <span class="hl">the tools have finally caught up with the ambition.</span></p>
+    <p>Twenty years ago I started my career turning complexity into clarity, briefs into experiences, and ideas into things that actually moved people. I am still doing exactly that. The only thing that has changed is <span class="hl">the tools have finally caught up with the ambition.</span></p>
 
     <p>I am a Senior Creative Designer and UX/UI Product Designer with over two decades of experience spanning product design, visual effects, motion graphics, brand identity, and front-end development. Currently <strong>Jr. Product Owner at Astria Systems</strong>, I lead design across three active product portfolios while integrating <strong>Claude AI, Figma AI, and Midjourney</strong> into my daily workflows — not as novelty, as craft.</p>
 
@@ -292,9 +265,9 @@
       <p>Brandtech+'s position on GenAI in the creative industries is one I share without reservation. The designers who will navigate the opportunity and the ethics well are the ones already doing it, learning from it, and forming genuine opinions. I am one of those designers.</p>
     </div>
 
-    <p>My portfolio has a dedicated AI workflow section — from <strong>prompt-driven UX copy and component specs inside Figma</strong>, to rapid visual ideation that collapses days of research into focused hours of creative direction. This is not a future skill. It is my current practice at Astria Systems every day.</p>
+    <p>My portfolio has a dedicated AI workflow section — from <strong>prompt-driven UX copy and component specs inside Figma</strong>, to rapid visual ideation that collapses days of research into focused hours of creative direction. This is not a future skill. It is my current practice every day.</p>
 
-    <p>What I bring beyond the tools is <strong>range</strong>. Shipped iGaming UI systems. Directed broadcast motion campaigns. Redesigned enterprise websites from research to pixel-perfect delivery. Built design systems across multiple live brands. Written the HTML, CSS, and JavaScript to bring prototypes to life in the browser. I do not design to a handoff. I design to an outcome.</p>
+    <p>What I bring beyond the tools is <strong>range</strong>. Shipped iGaming UI systems. Directed broadcast motion campaigns. Redesigned enterprise websites from research to pixel-perfect delivery. Built design systems across multiple live brands. Written HTML, CSS, and JavaScript to bring prototypes to life in the browser. I design to an outcome, not a handoff.</p>
 
     <div class="values-row">
       <span class="value-tag yellow">Be Ambitious</span>
@@ -315,7 +288,6 @@
 
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="footer-text">Senior Creative Designer · Brandtech+</div>
     <div class="footer-accent">Req ID: 17375</div>
