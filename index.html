@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Farm — Idea Layout</title>
+  <style>
+    :root {
+      --ink: #1f3a4d;
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --accent: #2c6e8f;
+      --line: #d8e0e6;
+      --shadow: 0 6px 24px rgba(31, 58, 77, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    /* Cyclic arrow motif at the top of the sketch */
+    .cycle {
+      width: 84px;
+      height: 84px;
+      margin: 1rem 0 2rem;
+      color: var(--accent);
+      animation: spin 9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cycle { animation: none; }
+    }
+
+    /* The body of the sketch: symmetrical side panels around a central content area */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 1.4fr) 1fr;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 1100px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .side {
+      justify-content: center;
+    }
+
+    .side h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+    }
+
+    .side ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      line-height: 1.7;
+      color: #4a5d6b;
+    }
+
+    /* Central content area — drawn as the oval in the sketch */
+    .content-area {
+      background: var(--panel);
+      border: 2px solid var(--accent);
+      border-radius: 50% / 18%;
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 240px;
+    }
+
+    .content-area h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.5rem;
+    }
+
+    .content-area p {
+      margin: 0;
+      color: #4a5d6b;
+      line-height: 1.6;
+      max-width: 36ch;
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .content-area {
+        order: -1;
+        border-radius: 32px;
+      }
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #8a99a4;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Code Farm</h1>
+    <p>This is an idea I have — built on HTML</p>
+  </header>
+
+  <!-- Cyclic arrow motif from the top of the sketch -->
+  <svg class="cycle" viewBox="0 0 100 100" fill="none" stroke="currentColor"
+       stroke-width="6" stroke-linecap="round" aria-label="cycle">
+    <path d="M82 38a34 34 0 1 0 4 22" />
+    <path d="M86 22v20H66" stroke-linejoin="round" />
+  </svg>
+
+  <main class="layout">
+    <!-- Left arm -->
+    <aside class="panel side" aria-label="Left panel">
+      <h2>Left</h2>
+      <ul>
+        <li>Navigation</li>
+        <li>Filters</li>
+        <li>Quick links</li>
+      </ul>
+    </aside>
+
+    <!-- Central content area (the oval in the drawing) -->
+    <section class="content-area" aria-label="Content area">
+      <h2>Content Area</h2>
+      <p>The main stage. Everything important lives here, framed by the
+         two side panels and refreshed by the cycle above.</p>
+    </section>
+
+    <!-- Right arm -->
+    <aside class="panel side" aria-label="Right panel">
+      <h2>Right</h2>
+      <ul>
+        <li>Details</li>
+        <li>Activity</li>
+        <li>Settings</li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer>Sketch → HTML · Code Farm Testing Factory</footer>
+</body>
+</html>
