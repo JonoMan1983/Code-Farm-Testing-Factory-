@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Nestler — Cover Letter · PaintBharat Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 16px;
+    }
+
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Red top accent bar */
+    .top-bar {
+      height: 6px;
+      background: #E8334A;
+      flex-shrink: 0;
+    }
+
+    /* Header */
+    .header {
+      padding: 44px 56px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+    .header-left {}
+    .name {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0a0a0a;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #E8334A;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .header-right {
+      text-align: right;
+      padding-top: 4px;
+    }
+    .contact-line {
+      font-size: 10.5px;
+      font-weight: 400;
+      color: #888888;
+      line-height: 1.9;
+    }
+    .contact-link {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #E8334A;
+      text-decoration: none;
+    }
+
+    /* Role tag */
+    .body {
+      padding: 40px 56px 48px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .role-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1.5px solid #E8334A;
+      border-radius: 3px;
+      padding: 5px 14px;
+      width: fit-content;
+      margin-bottom: 32px;
+    }
+    .role-tag span {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #E8334A;
+    }
+
+    .date {
+      font-size: 10.5px;
+      color: #bbbbbb;
+      margin-bottom: 22px;
+      letter-spacing: 0.03em;
+    }
+
+    .salutation {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0a0a0a;
+      margin-bottom: 22px;
+    }
+
+    p {
+      font-size: 11.5px;
+      line-height: 1.82;
+      color: #444444;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    p strong {
+      color: #0a0a0a;
+      font-weight: 700;
+    }
+
+    /* Bold pull quote */
+    .pull-quote {
+      border-left: 3px solid #E8334A;
+      padding: 4px 0 4px 18px;
+      margin: 22px 0;
+    }
+    .pull-quote p {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0a0a0a;
+      line-height: 1.6;
+      margin-bottom: 0;
+      letter-spacing: -0.01em;
+    }
+
+    /* Skills row */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 20px 0;
+    }
+    .skill-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 2px;
+      color: #555555;
+    }
+
+    /* Closing */
+    .closing {
+      margin-top: 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .closing p { margin-bottom: 4px; }
+    .sig-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0a0a0a;
+      letter-spacing: -0.02em;
+      margin-top: 14px;
+    }
+    .sig-url {
+      font-size: 10px;
+      color: #E8334A;
+      font-weight: 500;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid #f0f0f0;
+      padding: 16px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .footer-text {
+      font-size: 9px;
+      font-weight: 500;
+      color: #cccccc;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .footer-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #E8334A;
+    }
+
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      body { background: #ffffff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { width: 100%; min-height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top-bar"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="name">Jonathan Edward Nestler</div>
+      <div class="title">Senior UI/UX and Product Designer</div>
+    </div>
+    <div class="header-right">
+      <div class="contact-line">jonathanedwardnestler@gmail.com</div>
+      <div class="contact-line">Jeffreys Bay, South Africa · Remote</div>
+      <a class="contact-link" href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-/</a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <div class="role-tag">
+      <span>Application — UI/UX Designer · PaintBharat Co.</span>
+    </div>
+
+    <div class="date">June 2026</div>
+
+    <div class="salutation">Hi PaintBharat Co. team,</div>
+
+    <p>You asked for someone who loves turning complex problems into simple, beautiful solutions. <strong>Twenty years in, that description still gets me out of bed in the morning.</strong></p>
+
+    <div class="pull-quote">
+      <p>"Designs don't just look good — they create real impact." That is not just your tagline. It is how I have worked for two decades.</p>
+    </div>
+
+    <p>I am a Senior UI/UX and Product Designer currently serving as <strong>Jr. Product Owner at Astria Systems</strong>, where I lead UX/UI design across three active product portfolios — designing in Figma every day, building reusable component systems, and directing product direction in close collaboration with engineering. Before that, five years as Product Designer at Wonderlabz SA delivering end-to-end UI/UX, corporate identity, and motion across multiple brands.</p>
+
+    <p>My toolkit goes beyond aesthetics. I bring <strong>end-to-end UX process</strong> — user research, empathy mapping, journey mapping, wireframing, hi-fidelity prototyping, usability testing, and WCAG AA accessibility — alongside active <strong>AI-integrated workflows</strong> using Claude AI, Figma AI, and Midjourney to move faster without losing craft. I also write HTML5, CSS3, and JavaScript, which means my designs come with a built-in understanding of what engineering can actually build.</p>
+
+    <p>My portfolio has live case studies, motion work, and an interactive UX process — not just pretty screens.</p>
+
+    <div class="skills-row">
+      <span class="skill-tag">Figma</span>
+      <span class="skill-tag">UI/UX Design</span>
+      <span class="skill-tag">Design Systems</span>
+      <span class="skill-tag">Prototyping</span>
+      <span class="skill-tag">User Research</span>
+      <span class="skill-tag">Claude AI</span>
+      <span class="skill-tag">Figma AI</span>
+      <span class="skill-tag">HTML5/CSS3/JS</span>
+      <span class="skill-tag">After Effects</span>
+      <span class="skill-tag">WCAG AA</span>
+      <span class="skill-tag">Motion Graphics</span>
+      <span class="skill-tag">20+ Years</span>
+    </div>
+
+    <p>Resume attached. Portfolio live at the link above. Would love to talk.</p>
+
+    <div class="closing">
+      <p>Warm regards,</p>
+      <div class="sig-name">Jonathan Edward Nestler</div>
+      <div class="sig-url">jonoman1983.github.io/Code-Farm-Testing-Factory-/</div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">UI/UX Designer Application · PaintBharat Co.</div>
+    <div class="footer-dot"></div>
+    <div class="footer-text">June 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
