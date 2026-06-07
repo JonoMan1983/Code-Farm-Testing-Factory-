@@ -274,7 +274,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   flex-direction: column;
   justify-content: center;
   padding-top: 80px;
-  padding-bottom: 100px;
+  padding-bottom: 160px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(140deg, #160647 0%, #311D73 100%);
