@@ -17,8 +17,8 @@
   --color-text-muted: #9d94c4;
   --color-accent: #B8A8F7;
   --color-accent-hover: #cfc3ff;
-  --color-accent-red: #E0115E;
-  --color-accent-red-hover: #f01970;
+  --color-accent-red: #FF6A00;
+  --color-accent-red-hover: #FF8C3A;
   --color-accent-light: #B8A8F7;
   --color-border: rgba(184, 168, 247, 0.18);
   --font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -318,9 +318,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   gap: 14px;
   margin-top: 28px;
   padding: 10px 22px;
-  border: 1px solid rgba(224, 17, 94, 0.35);
+  border: 1px solid rgba(255, 106, 0, 0.35);
   border-radius: 999px;
-  background: rgba(224, 17, 94, 0.08);
+  background: rgba(255, 106, 0, 0.08);
 }
 
 .hero-location-badge .flag-icon {
@@ -810,8 +810,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-5 { left: 17.6%;  top: 39.6%; }
 
 .uw-node.electron-near {
-  border-color: #E0115E;
-  box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
+  border-color: #FF6A00;
+  box-shadow: 0 0 0 1px rgba(255,106,0,0.4), 0 0 28px rgba(255,106,0,0.55);
   background: rgba(60, 10, 30, 0.92);
   animation: uw-node-pulse 0.5s ease-out forwards;
 }
