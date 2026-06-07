@@ -331,6 +331,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
   width: 64px;
   height: 43px;
+  object-fit: cover;
   flex-shrink: 0;
   border-radius: 3px;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
