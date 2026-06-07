@@ -321,7 +321,7 @@ window.addEventListener('scroll', () => {
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
   const T        = Math.PI * 2 / 3;
-  const PINK_RGB = [255, 64, 184];   // base pink colour for orbit paths
+  const ORANGE_RGB = [255, 159, 64];   // base orange colour for orbit paths
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
@@ -334,7 +334,7 @@ window.addEventListener('scroll', () => {
 
   const orbits = [
     { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#FF6A00', rgba: [255, 106,   0] },
     { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
   ];
 
@@ -387,7 +387,7 @@ window.addEventListener('scroll', () => {
       const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
+      ctx.strokeStyle = lerpRGB(ORANGE_RGB, o.rgba, frac);
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
       // Dash starts at electron, extends clockwise — dot leads, line follows
@@ -472,7 +472,7 @@ window.addEventListener('scroll', () => {
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
-    // "20+" — pulsing pink glow, white fill, pure white stroke
+    // "20+" — pulsing orange glow, white fill, pure white stroke
     ctx.save();
     ctx.translate(cx + ux, cy + uy + 8);
     ctx.rotate(textRot);
@@ -482,14 +482,14 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
     const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string) — #E0115E matches hero title pink
-    ctx.shadowColor = '#E0115E';
+    // Glow pass (pulsing, whole string) — #FF6A00 matches hero title orange
+    ctx.shadowColor = '#FF6A00';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#E0115E';
+    ctx.fillStyle   = '#FF6A00';
     ctx.fillText('20+', 0, 0);
 
-    // Two-colour solid fill: "20" white, "+" hero-title pink pulsing fast
+    // Two-colour solid fill: "20" white, "+" hero-title orange pulsing fast
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
     ctx.textAlign   = 'left';
@@ -502,12 +502,12 @@ window.addEventListener('scroll', () => {
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
+    ctx.fillStyle   = lerpRGB([255, 106, 0], [255, 255, 255], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
     // Stroke on + only
     ctx.lineWidth   = 5;
-    ctx.strokeStyle = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
+    ctx.strokeStyle = lerpRGB([255, 106, 0], [255, 255, 255], plusPulse);
     ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
@@ -1103,7 +1103,7 @@ window.addEventListener('scroll', () => {
   const ctx  = canvas.getContext('2d');
   const SIZE = 500;
   const CX = 250, CY = 250, R = 170;
-  const PINK = [224, 17, 94];
+  const GLOW = [255, 106, 0];
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
   const TAU = 2 * Math.PI;
@@ -1119,7 +1119,7 @@ window.addEventListener('scroll', () => {
     { x: 88,  y: 198 },  // node-5: 17.6%, 39.6%
   ];
   const PROXIMITY_PX = 60; // distance in 500px space (~20° of arc)
-  const LINGER_MS    = 800; // pink stays this long after electron passes
+  const LINGER_MS    = 800; // glow stays this long after electron passes
   const lingerTimers = new Array(5).fill(null);
 
   let sc = 1;
@@ -1180,15 +1180,15 @@ window.addEventListener('scroll', () => {
       const ty = CY + R * Math.sin(a);
       ctx.beginPath();
       ctx.arc(tx, ty, 2 + frac * 7, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${PINK[0]},${PINK[1]},${PINK[2]},${frac * 0.5})`;
+      ctx.fillStyle = `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},${frac * 0.5})`;
       ctx.fill();
     });
 
     // Glow halo
     const grd = ctx.createRadialGradient(px, py, 0, px, py, 48);
-    grd.addColorStop(0,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.88)`);
-    grd.addColorStop(0.45, `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.28)`);
-    grd.addColorStop(1,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0)`);
+    grd.addColorStop(0,    `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0.88)`);
+    grd.addColorStop(0.45, `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0.28)`);
+    grd.addColorStop(1,    `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0)`);
     ctx.beginPath();
     ctx.arc(px, py, 48, 0, Math.PI * 2);
     ctx.fillStyle = grd;
@@ -1197,7 +1197,7 @@ window.addEventListener('scroll', () => {
     // Core dot
     ctx.beginPath();
     ctx.arc(px, py, 11, 0, Math.PI * 2);
-    ctx.fillStyle = '#E0115E';
+    ctx.fillStyle = '#FF6A00';
     ctx.fill();
 
     requestAnimationFrame(frame);
