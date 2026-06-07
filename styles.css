@@ -312,6 +312,26 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
 }
 
+.hero-location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 7px 16px;
+  border: 1px solid rgba(224, 17, 94, 0.35);
+  border-radius: 999px;
+  background: rgba(224, 17, 94, 0.08);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+}
+
+.hero-location-badge .flag-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .hero-label {
   font-size: 13px;
   font-weight: 500;
