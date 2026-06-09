@@ -503,13 +503,8 @@ window.addEventListener('scroll', () => {
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = lerpRGB([46, 178, 234], [150, 220, 255], plusPulse);
+    ctx.fillStyle   = '#EA652C';
     ctx.fillText('+', startX + w20, 0);
-
-    // Stroke on + only
-    ctx.lineWidth   = 5;
-    ctx.strokeStyle = '#2EB2EA';
-    ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
 
@@ -561,7 +556,6 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
-    drawNucleus(ux, uy);
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
     drawText(textRot, t, ux, uy);
