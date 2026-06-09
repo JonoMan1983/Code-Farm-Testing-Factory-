@@ -516,7 +516,7 @@ window.addEventListener('scroll', () => {
     // Subtitle
     ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#B8A8F7';
+    ctx.fillStyle   = '#2EB2EA';
     ctx.globalAlpha = 0.82;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
@@ -1104,7 +1104,7 @@ window.addEventListener('scroll', () => {
   const ctx  = canvas.getContext('2d');
   const SIZE = 500;
   const CX = 250, CY = 250, R = 170;
-  const PINK = [224, 17, 94];
+  const PINK = [46, 178, 234];
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
   const TAU = 2 * Math.PI;
@@ -1198,7 +1198,7 @@ window.addEventListener('scroll', () => {
     // Core dot
     ctx.beginPath();
     ctx.arc(px, py, 11, 0, Math.PI * 2);
-    ctx.fillStyle = '#E0115E';
+    ctx.fillStyle = '#2EB2EA';
     ctx.fill();
 
     requestAnimationFrame(frame);
