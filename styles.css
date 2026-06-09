@@ -2858,10 +2858,44 @@ h1, h2, h3, h4 { color: var(--color-text); }
   cursor: grabbing;
 }
 
+/* ── Download resume button ─────────────────────────────────── */
+.resume-btn {
+  position: fixed;
+  top: 100px;
+  right: 40px;
+  z-index: 90;
+  height: 44px;
+  padding: 0 18px 0 14px;
+  border-radius: 22px;
+  background: rgba(20, 45, 46, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(234, 101, 44, 0.3);
+  color: var(--color-accent-red);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.resume-btn:hover {
+  background: rgba(234, 101, 44, 0.12);
+  border-color: var(--color-accent-red);
+  transform: scale(1.04);
+}
+
 /* ── Music player button ───────────────────────────────────── */
 .music-btn {
   position: fixed;
-  top: 100px;
+  top: 156px;
   right: 40px;
   z-index: 90;
   height: 44px;
