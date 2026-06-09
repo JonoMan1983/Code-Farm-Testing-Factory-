@@ -321,7 +321,7 @@ window.addEventListener('scroll', () => {
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
   const T        = Math.PI * 2 / 3;
-  const ORANGE_RGB = [255, 159, 64];   // base orange colour for orbit paths
+  const ORANGE_RGB = [234, 101, 44];   // base orange colour for orbit paths
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
@@ -333,9 +333,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#BEE0E2', rgba: [190, 224, 226] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#74DCE2', rgba: [116, 220, 226] },
     { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#EA652C', rgba: [234, 101, 44] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#D6EBEC', rgba: [214, 235, 236] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#B3ECEF', rgba: [179, 236, 239] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -458,9 +458,9 @@ window.addEventListener('scroll', () => {
   function drawNucleus(ux, uy) {
     const nx = cx + ux, ny = cy + uy;
     const grd = ctx.createRadialGradient(nx, ny, 0, nx, ny, 190);
-    grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
-    grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
-    grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
+    grd.addColorStop(0,   'rgba(25, 113, 118, 0.38)');
+    grd.addColorStop(0.5, 'rgba(25, 113, 118, 0.14)');
+    grd.addColorStop(1,   'rgba(12,  28,  29, 0)');
     ctx.beginPath();
     ctx.arc(nx, ny, 95, 0, Math.PI * 2);
     ctx.fillStyle = grd;
