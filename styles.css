@@ -3324,10 +3324,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   -webkit-text-stroke: 1px #EA652C;
 }
 
-/* UX wheel electron-near — dark red bg → light sky with orange glow */
+/* UX wheel electron-near — orange bg with white text for readability */
 [data-theme="light"] .uw-node.electron-near {
-  background: rgba(234, 247, 254, 0.97);
-  box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.45), 0 0 28px rgba(234, 101, 44, 0.35);
+  background: rgba(234, 101, 44, 0.88);
+  box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.4);
 }
 
 /* UI card overlay — purple → dark navy */
@@ -3370,10 +3370,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   stroke: rgba(46, 178, 234, 0.4);
 }
 
-/* UX wheel electron-near nodes — add orange text accent */
+/* UX wheel electron-near — white text on orange bg */
 [data-theme="light"] .uw-node.electron-near h4,
 [data-theme="light"] .uw-node.electron-near .uw-node-num {
-  color: #EA652C;
+  color: #ffffff;
+}
+
+[data-theme="light"] .uw-node.electron-near p {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 /* Diploma credential — lighten background for light theme */
