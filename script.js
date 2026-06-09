@@ -503,22 +503,27 @@ window.addEventListener('scroll', () => {
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = lerpRGB([234, 101, 44], [255, 200, 100], plusPulse);
+    ctx.fillStyle   = lerpRGB([46, 178, 234], [150, 220, 255], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
     // Stroke on + only
     ctx.lineWidth   = 5;
-    ctx.strokeStyle = '#EA652C';
+    ctx.strokeStyle = '#2EB2EA';
     ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
 
-    // Subtitle
-    ctx.font        = '600 34px Poppins, sans-serif';
+    // Subtitle — boldest weight, solid white
+    ctx.font        = '900 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#2EB2EA';
-    ctx.globalAlpha = 0.82;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle   = '#FFFFFF';
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
+    // Extra stroke to fatten the glyphs as much as possible
+    ctx.lineWidth   = 1.4;
+    ctx.lineJoin    = 'round';
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.strokeText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
     ctx.restore();
   }
