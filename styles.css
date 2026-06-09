@@ -3328,7 +3328,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 [data-theme="light"] .uw-node.electron-near {
   background: rgba(234, 101, 44, 0.88);
   box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.4);
-  border-color: rgba(255, 255, 255, 0.75);
+  border-color: #ffffff;
 }
 
 [data-theme="light"] .uw-node.electron-near .uw-node-icon svg {
