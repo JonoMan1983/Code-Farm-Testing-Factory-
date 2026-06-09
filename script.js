@@ -320,8 +320,16 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T        = Math.PI * 2 / 3;
-  const ORANGE_RGB = [234, 101, 44];   // base orange colour for orbit paths
+  const T = Math.PI * 2 / 3;
+
+  // Orange shades — rings cycle between these
+  const OR_DARK  = [178, 52,  4];    // deep burnt orange
+  const OR_MID   = [234, 101, 44];   // primary #EA652C
+  const OR_LIGHT = [255, 168, 80];   // bright warm orange
+
+  // Fixed blue for all electrons
+  const ELECTRON_RGB   = [46, 178, 234];
+  const ELECTRON_COLOR = '#2EB2EA';
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
@@ -333,9 +341,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#5DC3EF', rgba: [93, 195, 239] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#EA652C', rgba: [234, 101, 44] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], orA: OR_DARK,  orB: OR_LIGHT },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], orA: OR_MID,   orB: OR_DARK  },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], orA: OR_LIGHT, orB: OR_MID   },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -387,7 +395,7 @@ window.addEventListener('scroll', () => {
       const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(ORANGE_RGB, o.rgba, frac);
+      ctx.strokeStyle = lerpRGB(o.orA, o.orB, frac);
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
       // Dash starts at electron, extends clockwise — dot leads, line follows
@@ -416,7 +424,7 @@ window.addEventListener('scroll', () => {
     atoms.forEach((atom) => {
       const i         = atom.orbitIdx;
       const o         = orbits[i];
-      const [r, g, b] = o.rgba;
+      const [r, g, b] = ELECTRON_RGB;
       const fs        = floatStates[i];
 
       atom.trail.push(atom.angle);
@@ -447,7 +455,7 @@ window.addEventListener('scroll', () => {
       // Core dot
       ctx.beginPath();
       ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = o.color;
+      ctx.fillStyle = ELECTRON_COLOR;
       ctx.fill();
 
       const sm = SPEED_MOD[i];
