@@ -3324,11 +3324,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   -webkit-text-stroke: 1px #EA652C;
 }
 
-/* UX wheel electron-near — orange bg with white text for readability */
+/* UX wheel electron-near — orange bg with white stroke + white text */
 [data-theme="light"] .uw-node.electron-near {
   background: rgba(234, 101, 44, 0.88);
   box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.4);
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.75);
 }
 
 [data-theme="light"] .uw-node.electron-near .uw-node-icon svg {
@@ -3370,10 +3370,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-color: transparent;
 }
 
-/* UX wheel hub circle — dark navy is too dark on light bg */
+/* UX wheel hub circle — orange with white stroke and white text */
 [data-theme="light"] .uw-hub-circle {
-  fill: #EAF7FE;
-  stroke: rgba(46, 178, 234, 0.4);
+  fill: #EA652C;
+  stroke: #ffffff;
+}
+
+[data-theme="light"] .ux-wheel-svg text {
+  fill: #ffffff;
 }
 
 /* UX wheel electron-near — white text on orange bg */
