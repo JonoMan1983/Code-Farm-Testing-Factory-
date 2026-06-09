@@ -498,7 +498,7 @@ window.addEventListener('scroll', () => {
     const startX = -(wFull / 2);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#ffffff';
+    ctx.fillStyle   = '#D5F0FB';
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
@@ -515,7 +515,7 @@ window.addEventListener('scroll', () => {
     // Subtitle
     ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#BEE0E2';
+    ctx.fillStyle   = '#D5F0FB';
     ctx.globalAlpha = 0.82;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
@@ -555,7 +555,6 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
-    drawNucleus(ux, uy);
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
     drawText(textRot, t, ux, uy);
