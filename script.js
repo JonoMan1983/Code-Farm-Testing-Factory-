@@ -320,16 +320,9 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T = Math.PI * 2 / 3;
-
-  // Orange shades — rings cycle between these
-  const OR_DARK  = [178, 52,  4];    // deep burnt orange
-  const OR_MID   = [234, 101, 44];   // primary #EA652C
-  const OR_LIGHT = [255, 168, 80];   // bright warm orange
-
-  // Fixed orange for all electrons
-  const ELECTRON_RGB   = [234, 101, 44];
-  const ELECTRON_COLOR = '#EA652C';
+  const T        = Math.PI * 2 / 3;
+  const PINK_RGB    = [46, 178, 234];  // light blue — same as accent
+  const ELECTRON_RGB = [234, 101, 44]; // orange electrons #EA652C
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
@@ -341,9 +334,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], orA: OR_DARK,  orB: OR_LIGHT },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], orA: OR_MID,   orB: OR_DARK  },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], orA: OR_LIGHT, orB: OR_MID   },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -395,7 +388,7 @@ window.addEventListener('scroll', () => {
       const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(o.orA, o.orB, frac);
+      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
       // Dash starts at electron, extends clockwise — dot leads, line follows
@@ -421,11 +414,11 @@ window.addEventListener('scroll', () => {
   ];
 
   function drawAtoms(gRot, t, ux, uy) {
+    const [r, g, b] = ELECTRON_RGB;
     atoms.forEach((atom) => {
-      const i         = atom.orbitIdx;
-      const o         = orbits[i];
-      const [r, g, b] = ELECTRON_RGB;
-      const fs        = floatStates[i];
+      const i  = atom.orbitIdx;
+      const o  = orbits[i];
+      const fs = floatStates[i];
 
       atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
@@ -455,7 +448,7 @@ window.addEventListener('scroll', () => {
       // Core dot
       ctx.beginPath();
       ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = ELECTRON_COLOR;
+      ctx.fillStyle = '#EA652C';
       ctx.fill();
 
       const sm = SPEED_MOD[i];
@@ -466,9 +459,9 @@ window.addEventListener('scroll', () => {
   function drawNucleus(ux, uy) {
     const nx = cx + ux, ny = cy + uy;
     const grd = ctx.createRadialGradient(nx, ny, 0, nx, ny, 190);
-    grd.addColorStop(0,   'rgba(46, 178, 234, 0.42)');
-    grd.addColorStop(0.5, 'rgba(46, 178, 234, 0.16)');
-    grd.addColorStop(1,   'rgba(3,  20,  28, 0)');
+    grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
+    grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
+    grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
     ctx.beginPath();
     ctx.arc(nx, ny, 95, 0, Math.PI * 2);
     ctx.fillStyle = grd;
@@ -480,7 +473,7 @@ window.addEventListener('scroll', () => {
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
-    // "20+" — pulsing orange glow, white fill, pure white stroke
+    // "20+" — pulsing pink glow, white fill, pure white stroke
     ctx.save();
     ctx.translate(cx + ux, cy + uy + 8);
     ctx.rotate(textRot);
@@ -490,14 +483,14 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
     const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string) — #EA652C matches hero title orange
+    // Glow pass (pulsing, whole string) — orange
     ctx.shadowColor = '#EA652C';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
     ctx.fillStyle   = '#EA652C';
     ctx.fillText('20+', 0, 0);
 
-    // Two-colour solid fill: "20" white, "+" hero-title orange pulsing fast
+    // Solid orange fill for whole string
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
     ctx.textAlign   = 'left';
@@ -506,16 +499,16 @@ window.addEventListener('scroll', () => {
     const startX = -(wFull / 2);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#2EB2EA';
+    ctx.fillStyle   = '#EA652C';
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = lerpRGB([255, 106, 0], [255, 255, 255], plusPulse);
+    ctx.fillStyle   = lerpRGB([234, 101, 44], [255, 200, 100], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
     // Stroke on + only
     ctx.lineWidth   = 5;
-    ctx.strokeStyle = lerpRGB([255, 106, 0], [255, 255, 255], plusPulse);
+    ctx.strokeStyle = '#EA652C';
     ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
@@ -523,7 +516,7 @@ window.addEventListener('scroll', () => {
     // Subtitle
     ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#D5F0FB';
+    ctx.fillStyle   = '#2EB2EA';
     ctx.globalAlpha = 0.82;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
@@ -563,6 +556,7 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
+    drawNucleus(ux, uy);
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
     drawText(textRot, t, ux, uy);
@@ -1110,7 +1104,7 @@ window.addEventListener('scroll', () => {
   const ctx  = canvas.getContext('2d');
   const SIZE = 500;
   const CX = 250, CY = 250, R = 170;
-  const GLOW = [255, 106, 0];
+  const PINK = [46, 178, 234];
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
   const TAU = 2 * Math.PI;
@@ -1126,7 +1120,7 @@ window.addEventListener('scroll', () => {
     { x: 88,  y: 198 },  // node-5: 17.6%, 39.6%
   ];
   const PROXIMITY_PX = 60; // distance in 500px space (~20° of arc)
-  const LINGER_MS    = 800; // glow stays this long after electron passes
+  const LINGER_MS    = 800; // pink stays this long after electron passes
   const lingerTimers = new Array(5).fill(null);
 
   let sc = 1;
@@ -1187,15 +1181,15 @@ window.addEventListener('scroll', () => {
       const ty = CY + R * Math.sin(a);
       ctx.beginPath();
       ctx.arc(tx, ty, 2 + frac * 7, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},${frac * 0.5})`;
+      ctx.fillStyle = `rgba(${PINK[0]},${PINK[1]},${PINK[2]},${frac * 0.5})`;
       ctx.fill();
     });
 
     // Glow halo
     const grd = ctx.createRadialGradient(px, py, 0, px, py, 48);
-    grd.addColorStop(0,    `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0.88)`);
-    grd.addColorStop(0.45, `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0.28)`);
-    grd.addColorStop(1,    `rgba(${GLOW[0]},${GLOW[1]},${GLOW[2]},0)`);
+    grd.addColorStop(0,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.88)`);
+    grd.addColorStop(0.45, `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0.28)`);
+    grd.addColorStop(1,    `rgba(${PINK[0]},${PINK[1]},${PINK[2]},0)`);
     ctx.beginPath();
     ctx.arc(px, py, 48, 0, Math.PI * 2);
     ctx.fillStyle = grd;
@@ -1204,7 +1198,7 @@ window.addEventListener('scroll', () => {
     // Core dot
     ctx.beginPath();
     ctx.arc(px, py, 11, 0, Math.PI * 2);
-    ctx.fillStyle = '#EA652C';
+    ctx.fillStyle = '#2EB2EA';
     ctx.fill();
 
     requestAnimationFrame(frame);
