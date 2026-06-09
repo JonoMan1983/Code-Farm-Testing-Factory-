@@ -483,11 +483,11 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
     const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string) — orange
-    ctx.shadowColor = '#EA652C';
+    // Glow pass (pulsing, whole string) — blue
+    ctx.shadowColor = '#2EB2EA';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#EA652C';
+    ctx.fillStyle   = '#2EB2EA';
     ctx.fillText('20+', 0, 0);
 
     // Solid orange fill for whole string
