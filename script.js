@@ -528,10 +528,19 @@ window.addEventListener('scroll', () => {
     ctx.fillStyle   = textHex;
     ctx.fillText('20', startX, 0);
 
-    // "+" — orange on both (visible regardless of theme)
-    ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#EA652C';
-    ctx.fillText('+', startX + w20, 0);
+    // "+" — scales ±15%, orange on both
+    ctx.save();
+    const wPlus    = ctx.measureText('+').width;
+    const plusCx   = startX + w20 + wPlus / 2;
+    const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
+    ctx.translate(plusCx, 0);
+    ctx.scale(plusScale, plusScale);
+    ctx.globalAlpha  = 1;
+    ctx.fillStyle    = '#EA652C';
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('+', 0, 0);
+    ctx.restore();
 
     ctx.restore();
 
@@ -1129,7 +1138,7 @@ window.addEventListener('scroll', () => {
   const ctx  = canvas.getContext('2d');
   const SIZE = 500;
   const CX = 250, CY = 250, R = 170;
-  const PINK = [46, 178, 234];
+  const PINK = [234, 101, 44];  // orange #EA652C
   const TRAIL_LEN = 36;
   const SPEED = 0.016;
   const TAU = 2 * Math.PI;
@@ -1223,7 +1232,7 @@ window.addEventListener('scroll', () => {
     // Core dot
     ctx.beginPath();
     ctx.arc(px, py, 11, 0, Math.PI * 2);
-    ctx.fillStyle = '#2EB2EA';
+    ctx.fillStyle = '#EA652C';
     ctx.fill();
 
     requestAnimationFrame(frame);

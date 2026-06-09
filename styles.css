@@ -809,8 +809,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .uw-node.electron-near {
   border-color: #EA652C;
-  box-shadow: 0 0 0 1px rgba(224,17,94,0.4), 0 0 28px rgba(224,17,94,0.55);
-  background: rgba(60, 10, 30, 0.92);
+  box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.6);
+  background: rgba(80, 30, 5, 0.92);
   animation: uw-node-pulse 0.5s ease-out forwards;
 }
 
