@@ -333,9 +333,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#C0DFDE', rgba: [192, 223, 222] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#C0D5DF', rgba: [192, 213, 223] },
     { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#FF6A00', rgba: [255, 106,   0] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#D1E7E6', rgba: [209, 231, 230] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#D7E4EB', rgba: [215, 228, 235] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -515,7 +515,7 @@ window.addEventListener('scroll', () => {
     // Subtitle
     ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#C0DFDE';
+    ctx.fillStyle   = '#C0D5DF';
     ctx.globalAlpha = 0.82;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
