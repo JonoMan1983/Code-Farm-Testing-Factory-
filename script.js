@@ -327,9 +327,9 @@ window.addEventListener('scroll', () => {
   const OR_MID   = [234, 101, 44];   // primary #EA652C
   const OR_LIGHT = [255, 168, 80];   // bright warm orange
 
-  // Fixed blue for all electrons
-  const ELECTRON_RGB   = [46, 178, 234];
-  const ELECTRON_COLOR = '#2EB2EA';
+  // Fixed orange for all electrons
+  const ELECTRON_RGB   = [234, 101, 44];
+  const ELECTRON_COLOR = '#EA652C';
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
