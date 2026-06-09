@@ -3059,51 +3059,58 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
-   THEME TOGGLE BUTTON
+   THEME TOGGLE BUTTON (fixed, below music btn)
    =========================== */
 .theme-toggle {
+  position: fixed;
+  top: 212px;   /* resume 100px + music 156px + height 44 + gap 12 */
+  right: 40px;
+  z-index: 90;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(184, 168, 247, 0.1);
-  border: 1px solid rgba(184, 168, 247, 0.25);
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: rgba(20, 45, 46, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(46, 178, 234, 0.3);
   color: var(--color-accent);
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background var(--transition), border-color var(--transition), transform 0.15s;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .theme-toggle:hover {
-  background: rgba(184, 168, 247, 0.2);
+  background: rgba(46, 178, 234, 0.12);
   border-color: var(--color-accent);
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 .theme-toggle svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   display: none;
   pointer-events: none;
 }
 
-/* Dark mode: show moon (clicking will go to light) */
+/* Dark mode: show moon (click → go light) */
 .theme-toggle .icon-moon { display: block; }
 .theme-toggle .icon-sun  { display: none;  }
 
-/* Light mode: show sun (clicking will go to dark) */
+/* Light mode: show sun (click → go dark) */
 [data-theme="light"] .theme-toggle .icon-moon { display: none;  }
 [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
 
 [data-theme="light"] .theme-toggle {
-  background: rgba(109, 40, 217, 0.07);
-  border-color: rgba(109, 40, 217, 0.22);
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.35);
+  color: #0b516f;
 }
 
 [data-theme="light"] .theme-toggle:hover {
-  background: rgba(109, 40, 217, 0.14);
+  background: rgba(46, 178, 234, 0.12);
+  border-color: #2EB2EA;
 }
 
 /* ===========================
