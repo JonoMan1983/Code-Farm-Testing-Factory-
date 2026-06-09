@@ -3308,4 +3308,36 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 8px 24px rgba(46, 178, 234, 0.18);
 }
 
+/* UI strip hover — swap purple shadow for brand blue */
+[data-theme="light"] .ui-strip-item:hover {
+  box-shadow: 0 8px 24px rgba(46, 178, 234, 0.18);
+}
+
+/* AI workflow card hover — swap purple shadow for brand blue */
+[data-theme="light"] .ai-workflow-card:hover {
+  box-shadow: 0 8px 28px rgba(46, 178, 234, 0.15);
+}
+
+/* UX step arrows — maroon → brand orange */
+[data-theme="light"] .ux-step-arrow {
+  color: #EA652C;
+  -webkit-text-stroke: 1px #EA652C;
+}
+
+/* UX wheel electron-near — dark red bg → light sky with orange glow */
+[data-theme="light"] .uw-node.electron-near {
+  background: rgba(234, 247, 254, 0.97);
+  box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.45), 0 0 28px rgba(234, 101, 44, 0.35);
+}
+
+/* UI card overlay — purple → dark navy */
+[data-theme="light"] .ui-card-overlay {
+  background: rgba(4, 30, 42, 0.82);
+}
+
+/* UX doc scroll — give the panel stronger contrast against page bg */
+[data-theme="light"] .ux-doc-scroll {
+  background: #B8E8F8;
+}
+
 /* Resume btn stays orange — visible on light */
