@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style Guide — Jonathan Nestler Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0d1d1e;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 30px 16px;
+    }
+
+    .page {
+      width: 794px;
+      height: 1123px;
+      background: linear-gradient(150deg, #183435 0%, #2D6163 100%);
+      color: #EFF7F8;
+      position: relative;
+      overflow: hidden;
+      padding: 46px 52px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page::before {
+      content: '';
+      position: absolute;
+      top: -180px; right: -160px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(234, 101, 44,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Header */
+    .gh-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(190, 224, 226,0.18);
+      position: relative;
+      z-index: 1;
+    }
+    .gh-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    .gh-title span { color: #EA652C; }
+    .gh-subtitle {
+      font-size: 11px;
+      font-weight: 400;
+      color: #8CC8CC;
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+    }
+    .gh-meta {
+      text-align: right;
+      font-size: 10px;
+      color: #8CC8CC;
+      line-height: 1.7;
+    }
+    .gh-meta a { color: #BEE0E2; text-decoration: none; }
+
+    /* Section label */
+    .sg-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #BEE0E2;
+      margin: 22px 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Color palette */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .swatch {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .swatch-color { height: 52px; }
+    .swatch-label {
+      padding: 7px 10px;
+      background: rgba(255,255,255,0.03);
+    }
+    .swatch-name {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .swatch-hex {
+      font-size: 9px;
+      color: #8CC8CC;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+      margin-top: 1px;
+    }
+
+    /* Typography */
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 1;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-sample { color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .type-h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+    .type-h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+    .type-h3 { font-size: 16px; font-weight: 600; }
+    .type-h4 { font-size: 13px; font-weight: 600; }
+    .type-body { font-size: 11.5px; font-weight: 400; color: #8CC8CC; }
+    .type-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #BEE0E2; }
+    .type-meta {
+      font-size: 9px;
+      color: #8CC8CC;
+      font-family: 'Courier New', monospace;
+      text-align: right;
+      flex-shrink: 0;
+      letter-spacing: 0.01em;
+    }
+
+    /* Components row */
+    .comp-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 2px solid transparent;
+    }
+    .btn-demo-primary { background: #EA652C; color: #fff; }
+    .btn-demo-ghost { background: transparent; color: #EFF7F8; border-color: rgba(190, 224, 226,0.28); }
+    .pill-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border: 1px solid rgba(234, 101, 44,0.35);
+      border-radius: 999px;
+      background: rgba(234, 101, 44,0.08);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #EA652C; }
+    .tag-demo {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #BEE0E2;
+      border: 1px solid rgba(190, 224, 226,0.28);
+      border-radius: 4px;
+      padding: 6px 12px;
+    }
+
+    /* Tokens grid */
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .token-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.02);
+    }
+    .token-card-title {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #BEE0E2;
+      margin-bottom: 6px;
+    }
+    .token-card-value {
+      font-size: 11px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+    .token-card-sub {
+      font-size: 9px;
+      color: #8CC8CC;
+      margin-top: 2px;
+      font-family: 'Courier New', monospace;
+    }
+    .radius-demo {
+      width: 36px; height: 36px;
+      background: #EA652C;
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    .gh-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(190, 224, 226,0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8CC8CC;
+      position: relative;
+      z-index: 1;
+    }
+    .gh-footer span.dot {
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #EA652C;
+      margin: 0 8px;
+      vertical-align: middle;
+    }
+
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      body { background: #0d1d1e; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { width: 100%; height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="gh-header">
+    <div>
+      <div class="gh-title">Style <span>Guide</span></div>
+      <div class="gh-subtitle">Visual design system — Jonathan Edward Nestler Portfolio</div>
+    </div>
+    <div class="gh-meta">
+      <div><a href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-</a></div>
+      <div>Retro teal · Orange accent system · Poppins</div>
+    </div>
+  </div>
+
+  <!-- Color palette -->
+  <div class="sg-label">Color Palette</div>
+  <div class="swatch-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#142B2C;"></div>
+      <div class="swatch-label"><div class="swatch-name">Background</div><div class="swatch-hex">#142B2C</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0d1d1e;"></div>
+      <div class="swatch-label"><div class="swatch-name">Background Alt</div><div class="swatch-hex">#0d1d1e</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#183435;"></div>
+      <div class="swatch-label"><div class="swatch-name">Background Dark</div><div class="swatch-hex">#183435</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2D6163;"></div>
+      <div class="swatch-label"><div class="swatch-name">Background Mid</div><div class="swatch-hex">#2D6163</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#EFF7F8;"></div>
+      <div class="swatch-label"><div class="swatch-name">Text</div><div class="swatch-hex">#EFF7F8</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8CC8CC;"></div>
+      <div class="swatch-label"><div class="swatch-name">Text Muted</div><div class="swatch-hex">#8CC8CC</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#BEE0E2;"></div>
+      <div class="swatch-label"><div class="swatch-name">Highlight Turquoise</div><div class="swatch-hex">#BEE0E2</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#EA652C;"></div>
+      <div class="swatch-label"><div class="swatch-name">Accent Orange</div><div class="swatch-hex">#EA652C</div></div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="sg-label">Typography — Poppins</div>
+  <div>
+    <div class="type-row">
+      <div class="type-sample type-h1">20+ years of design.</div>
+      <div class="type-meta">H1 · clamp(2.4–3.8rem) · 700 · -0.02em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-sample type-h2">Selected Work</div>
+      <div class="type-meta">H2 · clamp(1.8–2.6rem) · 700 · -0.02em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-sample type-h3">Senior Creative Designer</div>
+      <div class="type-meta">H3 · 1.2rem · 600</div>
+    </div>
+    <div class="type-row">
+      <div class="type-sample type-h4">Product Design · UX/UI</div>
+      <div class="type-meta">H4 · 1rem · 600</div>
+    </div>
+    <div class="type-row">
+      <div class="type-sample type-body">Translating complex problems into elegant, intuitive products.</div>
+      <div class="type-meta">Body · 16px · 400 · 1.7 line-height</div>
+    </div>
+    <div class="type-row">
+      <div class="type-sample type-label">Section Label</div>
+      <div class="type-meta">Label · 12px · 600 · 0.12em uppercase</div>
+    </div>
+  </div>
+
+  <!-- Components -->
+  <div class="sg-label">Components</div>
+  <div class="comp-row">
+    <div class="btn-demo btn-demo-primary">View My Work</div>
+    <div class="btn-demo btn-demo-ghost">Ghost Button</div>
+    <div class="pill-demo"><span class="pill-dot"></span>Location Pill</div>
+    <div class="tag-demo">Section Tag</div>
+  </div>
+
+  <!-- Tokens -->
+  <div class="sg-label">Layout Tokens</div>
+  <div class="token-grid">
+    <div class="token-card">
+      <div class="token-card-title">Border Radius</div>
+      <div class="radius-demo" style="border-radius:8px;"></div>
+      <div class="token-card-value">8px</div>
+      <div class="token-card-sub">--radius</div>
+    </div>
+    <div class="token-card">
+      <div class="token-card-title">Container</div>
+      <div class="token-card-value">1100px max-width</div>
+      <div class="token-card-sub">--max-w</div>
+    </div>
+    <div class="token-card">
+      <div class="token-card-title">Transition</div>
+      <div class="token-card-value">0.2s ease</div>
+      <div class="token-card-sub">--transition</div>
+    </div>
+    <div class="token-card">
+      <div class="token-card-title">Section Spacing</div>
+      <div class="token-card-value">96px vertical</div>
+      <div class="token-card-sub">.section padding</div>
+    </div>
+    <div class="token-card">
+      <div class="token-card-title">Border Color</div>
+      <div class="token-card-value">Turquoise · 18% alpha</div>
+      <div class="token-card-sub">rgba(190, 224, 226,.18)</div>
+    </div>
+    <div class="token-card">
+      <div class="token-card-title">Hero Gradient</div>
+      <div class="token-card-value">140deg, deep turquoise → mid turquoise</div>
+      <div class="token-card-sub">#183435 → #2D6163</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="gh-footer">
+    <div>Jonathan Edward Nestler · Design System</div>
+    <div>Style Guide v1.0<span class="dot"></span>2026</div>
+  </div>
+
+</div>
+</body>
+</html>
