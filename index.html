@@ -6,13 +6,21 @@
   <title>Jonathan Nestler — Product Designer · UX/UI · VFX · Brand Identity</title>
   <meta name="description" content="Senior Creative Designer with 20+ years spanning UX/UI, visual effects, motion graphics, brand identity, and front-end development." />
   <link rel="icon" type="image/x-icon" href="assets/brand/logo/favicon.ico" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR87BLZQG1');
+  </script>
   <link rel="apple-touch-icon" href="assets/brand/logo/icon-180.png" />
   <meta property="og:image" content="assets/brand/logo/og-image.png" />
   <meta property="og:title" content="Jonathan Nestler — Product Designer · UX/UI · VFX" />
   <meta property="og:description" content="Senior Creative Designer with 20+ years spanning UX/UI, visual effects, motion graphics, brand identity, and front-end development." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
@@ -21,19 +29,30 @@
   <!-- NAV -->
   <header class="nav">
     <a href="#hero" class="nav-logo">
-      <img src="assets/brand/logo/logo-full-light.svg" alt="Jonathan Nestler" class="nav-logo-img" />
+      <img src="assets/brand/logo/icon-jn.jpg" alt="Jonathan Nestler" class="nav-logo-icon" />
+      <span class="nav-logo-name">Jonathan Nestler</span>
     </a>
     <nav>
+      <div class="nav-menu-wrap">
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
+        <li><a href="#ux">UX/UI</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#showreel">Showreel</a></li>
         <li><a href="#animations">Motion</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#software">Software</a></li>
         <li><a href="#resume">Resume</a></li>
+        <li><a href="#legacy">Legacy</a></li>
+        <li>
+          <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener" class="nav-linkedin" aria-label="LinkedIn Profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <span class="nav-linkedin-text">LinkedIn</span>
+          </a>
+        </li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
+      </div>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -42,13 +61,30 @@
 
   <!-- HERO -->
   <section id="hero" class="hero">
-    <div class="container">
-      <p class="hero-label">Product Designer · UX/UI · Visual Effects · Brand Identity</p>
-      <h1 class="hero-title">20+ years of design.<br />Zero compromise.</h1>
-      <p class="hero-sub">Senior Creative Designer translating complex problems into elegant, intuitive products — across iGaming, media, enterprise, and education. Now integrating AI-powered workflows to push design further, faster.</p>
-      <div class="hero-actions">
-        <a href="#work" class="btn btn-primary">View My Work</a>
-        <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn →</a>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <p class="hero-label">Product Designer · UX/UI · Visual Effects · Brand Identity</p>
+        <h1 class="hero-title"><span class="title-pink">20+ years of design.</span><br />Zero compromise.</h1>
+        <p class="hero-sub">Senior Creative Designer translating complex problems into elegant, intuitive products — across iGaming, media, enterprise, and education. Now integrating AI-powered workflows to push design further, faster.</p>
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">View My Work</a>
+          <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener" class="btn btn-linkedin-hero">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true" style="margin-right:6px;vertical-align:-2px"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+          </a>
+          <a href="https://www.facebook.com/jonathanedwardnestler/" target="_blank" rel="noopener" class="btn btn-ghost btn-facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true" style="margin-right:6px;vertical-align:-2px"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>Facebook
+          </a>
+        </div>
+        <div class="hero-location-badge">
+          <img class="flag-icon" src="https://res.cloudinary.com/dksariyyz/image/upload/v1780815683/RSAflag_ihstds.svg" alt="South African flag" width="64" height="43" loading="lazy" />
+          <span class="badge-text">
+            <span class="badge-main">South Africa · Remote Worldwide</span>
+            <span class="badge-sub">Fully Set-Up Ready to Rock</span>
+          </span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
       </div>
     </div>
     <div class="hero-scroll-hint">
@@ -62,7 +98,7 @@
     <div class="container grid-2">
       <div class="about-text">
         <p class="section-label">About Me</p>
-        <h2>Designing with purpose,<br />building with care.</h2>
+        <h2><span class="about-heading-pink">Designing with purpose,</span><br /><span class="about-heading-white">building with care.</span></h2>
         <p>I'm a Senior Creative Designer based in Jeffreys Bay, South Africa, with over two decades of experience across UX/UI design, visual effects, motion graphics, brand identity, and front-end development.</p>
         <p>I deliver high-impact digital products across sectors — from iGaming platforms and enterprise software to educational tools and media campaigns. I'm equally comfortable leading a discovery workshop, crafting a design system, or animating a slot game in After Effects.</p>
         <p>Currently, I'm integrating Claude AI into Figma-based workflows at Astria Systems — accelerating product cycles without sacrificing craft.</p>
@@ -80,6 +116,319 @@
     </div>
   </section>
 
+  <!-- UX / UI SECTION -->
+  <section id="ux" class="ux-section section section-alt">
+    <div class="container">
+      <p class="section-label">UX &amp; UI Design</p>
+      <h2><span class="title-pink">Designing with Process.</span> Delivering with Precision.</h2>
+      <p class="section-intro">20+ years of design distilled into a repeatable, human-centred process — from early discovery through to pixel-perfect, dev-ready delivery.</p>
+
+      <!-- UX PROCESS WHEEL -->
+      <div class="ux-wheel-wrap" aria-label="UX design process diagram">
+
+        <svg class="ux-wheel-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <filter id="uw-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="uw-node-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Dotted orbit track -->
+          <circle cx="250" cy="250" r="170" stroke="#EA652C" stroke-width="3.5" stroke-dasharray="4 10" fill="none"/>
+
+          <!-- Node dot indicators on the ring -->
+          <circle cx="250" cy="80"  r="4" class="uw-ring-dot uw-ring-dot-1"/>
+          <circle cx="412" cy="198" r="4" class="uw-ring-dot uw-ring-dot-2"/>
+          <circle cx="350" cy="388" r="4" class="uw-ring-dot uw-ring-dot-3"/>
+          <circle cx="150" cy="388" r="4" class="uw-ring-dot uw-ring-dot-4"/>
+          <circle cx="88"  cy="198" r="4" class="uw-ring-dot uw-ring-dot-5"/>
+
+          <!-- Centre hub -->
+          <circle cx="250" cy="250" r="52" fill="#041e2a" stroke="rgba(46, 178, 234,0.28)" stroke-width="1.5"/>
+          <circle cx="250" cy="250" r="46" fill="none" stroke="rgba(46, 178, 234,0.08)" stroke-width="1" stroke-dasharray="3 5"/>
+          <text x="250" y="252" text-anchor="middle" dominant-baseline="auto" font-family="Poppins,sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#2EB2EA">UX</text>
+          <text x="250" y="265" text-anchor="middle" dominant-baseline="auto" font-family="Poppins,sans-serif" font-size="11.5" font-weight="500" letter-spacing="1.5" fill="rgba(46, 178, 234,0.55)">PROCESS</text>
+        </svg>
+        <canvas id="uxWheelCanvas" class="ux-wheel-electron" aria-hidden="true"></canvas>
+
+        <!-- Step nodes positioned around the ring -->
+        <div class="uw-node uw-node-1">
+          <div class="uw-node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <div class="uw-node-text">
+            <h4><span class="uw-node-num">1.</span>Discover</h4>
+            <p>User research, stakeholder interviews, competitive analysis &amp; heuristic evaluation.</p>
+          </div>
+        </div>
+
+        <div class="uw-node uw-node-2">
+          <div class="uw-node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="uw-node-text">
+            <h4><span class="uw-node-num">2.</span>Define</h4>
+            <p>Journey mapping, personas, Jobs-to-be-Done framing &amp; clearly defined problem statements.</p>
+          </div>
+        </div>
+
+        <div class="uw-node uw-node-3">
+          <div class="uw-node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="uw-node-text">
+            <h4><span class="uw-node-num">3.</span>Design</h4>
+            <p>Wireframes, information architecture, design systems &amp; high-fidelity Figma component libraries.</p>
+          </div>
+        </div>
+
+        <div class="uw-node uw-node-4">
+          <div class="uw-node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="uw-node-text">
+            <h4><span class="uw-node-num">4.</span>Prototype</h4>
+            <p>Interactive Figma prototypes, micro-interactions, motion design &amp; AI-assisted rapid iteration.</p>
+          </div>
+        </div>
+
+        <div class="uw-node uw-node-5">
+          <div class="uw-node-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="uw-node-text">
+            <h4><span class="uw-node-num">5.</span>Deliver</h4>
+            <p>Usability testing, developer handoff, WCAG accessibility review &amp; continuous design iteration.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- UX CREDENTIAL CALLOUT -->
+      <div class="ux-credential">
+        <div class="ux-credential-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <h4>Professional Diploma in UX Design</h4>
+          <p>UX Design Institute — Dublin, Ireland · 2023–2024</p>
+        </div>
+      </div>
+
+      <!-- iGAMING UI WORK GRID -->
+      <p class="section-label" style="margin-top: 64px;">iGaming &amp; UI Design</p>
+      <h2>Six Years of iGaming UI.</h2>
+      <p class="section-intro">Slot game reel frames, win screens, character animations, and brand UI systems across the Wonderlabz, Playsafe, and Pantelotteriet portfolios — delivered end-to-end in Figma at Astria Systems.</p>
+      <div class="ui-grid">
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_600,h_380,c_fill,so_1/v1780033052/Samurai_Reelframe_ke6sbp.jpg"
+              alt="Slot Game UI — Samurai" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">iGaming · UI Design · Figma</span>
+            <h3>Samurai — Slot Game UI</h3>
+            <p>Full UI design and animation direction for the Samurai slot game — reel frames, win screens, idle states, and symbol animations.</p>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_600,h_380,c_fill,so_1/v1780033056/Geisha_Reelframe_cxusil.jpg"
+              alt="Geisha Slot Game UI" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">iGaming · UI Design · Motion</span>
+            <h3>Geisha — Slot Game UI</h3>
+            <p>UI design for the Geisha slot — reel frame, win frame, and symbol motion direction for the Wonderlabz portfolio.</p>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_600,h_380,c_fill,so_1/v1780033058/Cupcake_Space_Unicorn_Reelframe_mzqgqy.jpg"
+              alt="Cupcake Space Unicorn UI" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">iGaming · UI Design · Illustration</span>
+            <h3>Cupcake Space Unicorn — UI</h3>
+            <p>Playful iGaming UI design featuring original illustrations, bold colour systems, and full animation direction from reel to win state.</p>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_600,h_380,c_fill,so_1/v1780033054/Mayan_Madness_Wild_j7x05p.jpg"
+              alt="Mayan Madness UI" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">iGaming · UI Design · VFX</span>
+            <h3>Mayan Madness — UI &amp; VFX</h3>
+            <p>Environment-driven UI design with character animation for the Mayan Madness slot — wild symbols, creature animations, and atmospheric motion.</p>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_600,h_380,c_fill,so_1/v1780033062/Atlantis_King_xcp1co.jpg"
+              alt="Atlantis UI — Wonderlabz" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">iGaming · Character Design · UI</span>
+            <h3>Atlantis — Character &amp; UI Design</h3>
+            <p>Character-led UI design for the Atlantis series — King and Queen character animations, oceanic visual language, and immersive reel design.</p>
+          </div>
+        </div>
+
+        <div class="ui-card">
+          <div class="ui-card-img">
+            <img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_600,h_380,c_fill/v1780042689/Vote-Betting_lypghr.jpg"
+              alt="Vote-Betting App UI" loading="lazy" />
+            <div class="ui-card-overlay"><span>View Project</span></div>
+          </div>
+          <div class="ui-card-body">
+            <span class="case-tag">Sports Betting · Product Design · UI</span>
+            <h3>Vote-Betting — App UI</h3>
+            <p>UI design for a vote-driven sports betting product — prediction flows, live odds display, and social engagement mechanics for the Livescore SA portfolio.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- UI PORTFOLIO 2022 — Horizontal Scroll Strip -->
+      <h3 class="ux-sub-heading">UX|UI Design Showcase</h3>
+      <div class="ui-strip">
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042536/UI_Portfolio_2022-02_dh0wod.jpg" alt="UI Portfolio 2022 — slide 02" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042536/UI_Portfolio_2022-03_xcjkn6.jpg" alt="UI Portfolio 2022 — slide 03" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042538/UI_Portfolio_2022-04_hxksrx.jpg" alt="UI Portfolio 2022 — slide 04" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042654/UI_Portfolio_2022-07_gfwpyt.jpg" alt="UI Portfolio 2022 — slide 07" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042654/UI_Portfolio_2022-08_i9r9dc.jpg" alt="UI Portfolio 2022 — slide 08" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042655/UI_Portfolio_2022-09_gvww35.jpg" alt="UI Portfolio 2022 — slide 09" loading="lazy" /></div>
+        <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042655/UI_Portfolio_2022-10_ewhqsu.jpg" alt="UI Portfolio 2022 — slide 10" loading="lazy" /></div>
+      </div>
+
+      <!-- UX DIPLOMA PROJECTS -->
+      <h3 class="ux-sub-heading">UX Design Institute — Diploma Projects</h3>
+
+      <div class="ux-showcase" style="margin-top: 28px;">
+        <div class="ux-showcase-header">
+          <span class="case-tag">UX Research · Service Design</span>
+          <h3>Project 6 — Customer Journey Map</h3>
+          <p>End-to-end customer journey map developed as part of the Professional UX Diploma — mapping touchpoints, emotions, pain points, and opportunities across a core user flow.</p>
+        </div>
+        <div class="ux-doc-scroll">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/f_jpg,q_auto,w_1300/v1780042719/Jonathan_Edward_Nestler_-_Project_6_-_Customer_Journey_Map_nevsnc.ai"
+            alt="Customer Journey Map — UX Diploma Project 6" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="ux-showcase">
+        <div class="ux-showcase-header">
+          <span class="case-tag">Interaction Design · Mobile · Flow Mapping</span>
+          <h3>Project 8 — Mobile Flow Diagram</h3>
+          <p>Detailed interaction flow diagram for a mobile application — screens, decision points, and user pathways from onboarding through to core task completion.</p>
+        </div>
+        <div class="ux-doc-scroll ux-pdf-doc" data-pdf="assets/docs/project-8-flow-diagram.pdf">
+          <div class="ux-pdf-loading"><div class="book-spinner"></div><span>Loading document…</span></div>
+        </div>
+      </div>
+
+      <div class="ux-showcase">
+        <div class="ux-showcase-header">
+          <span class="case-tag">Interaction Design · Mobile · Prototyping</span>
+          <h3>Project 10 — Interaction Design Mobile</h3>
+          <p>High-fidelity interaction design for a mobile application — component states, gesture flows, micro-interactions, and annotated handoff documentation.</p>
+        </div>
+        <div class="ux-doc-scroll ux-pdf-doc" data-pdf="assets/docs/project-10-interaction-design.pdf">
+          <div class="ux-pdf-loading"><div class="book-spinner"></div><span>Loading document…</span></div>
+        </div>
+      </div>
+
+      <!-- WONDERLABZ SITE REDESIGN — Scrollable Document -->
+      <div class="ux-showcase">
+        <div class="ux-showcase-header">
+          <span class="case-tag">UX Research · Information Architecture · Visual Design</span>
+          <h3>Wonderlabz.com — Site Redesign</h3>
+          <p>Full-scope website redesign — user research, information architecture, and high-fidelity visual design, documented as a single scrollable deliverable.</p>
+        </div>
+        <div class="ux-doc-scroll">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/f_jpg,q_auto,w_1300/v1780042721/Wonderlbaz_Site_Redesign_aiyghu.ai"
+            alt="Wonderlabz Site Redesign — full document" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- AI DESIGN & WORKFLOW INTEGRATION -->
+      <p class="ux-sub-heading">AI Design &amp; Workflow Integration</p>
+      <p class="ai-workflow-intro">Integrating AI into every phase of the design process — from raw ideation through to pixel-perfect delivery — to compress timelines without sacrificing craft or intent.</p>
+      <div class="ai-workflow-grid">
+
+        <div class="ai-workflow-card reveal">
+          <div class="ai-workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z"/></svg>
+          </div>
+          <div class="ai-workflow-body">
+            <span class="ai-workflow-stage">Strategy &amp; Copy</span>
+            <h4>Claude AI + Figma</h4>
+            <p>Prompt-driven UX copy, design rationale, and component specifications integrated directly into Figma-based product workflows at Astria Systems.</p>
+          </div>
+        </div>
+
+        <div class="ai-workflow-card reveal">
+          <div class="ai-workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+          <div class="ai-workflow-body">
+            <span class="ai-workflow-stage">Visual Ideation</span>
+            <h4>Midjourney &amp; DALL·E</h4>
+            <p>Rapid mood boarding, visual concept generation, and art direction reference — collapsing days of research into hours of focused creative direction.</p>
+          </div>
+        </div>
+
+        <div class="ai-workflow-card reveal">
+          <div class="ai-workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="ai-workflow-body">
+            <span class="ai-workflow-stage">Design &amp; Iteration</span>
+            <h4>Figma AI Features</h4>
+            <p>Auto-layout inference, component scanning, and design system consistency checks — accelerating iteration without losing control over quality.</p>
+          </div>
+        </div>
+
+        <div class="ai-workflow-card reveal">
+          <div class="ai-workflow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="ai-workflow-body">
+            <span class="ai-workflow-stage">Prototyping &amp; Handoff</span>
+            <h4>AI-Assisted Prototyping</h4>
+            <p>Micro-interaction scripting, edge-case scenario generation, and dev-ready annotation — shortening the gap between design intent and final build.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SECTION CTA -->
+      <div class="ux-cta-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <h3>Got a project in mind?</h3>
+        <p>Available for UX/UI design, product strategy, and motion work in 2026.</p>
+        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CASE STUDIES -->
   <section id="work" class="work section">
     <div class="container">
@@ -88,38 +437,53 @@
       <div class="work-grid">
 
         <article class="case-card">
-          <div class="case-image" style="background:#f0f4ff;">
-            <span>Project Preview</span>
+          <div class="case-image">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_1/v1780033059/Big_Sexy_City_In_Game_tksnwc.jpg"
+              alt="iGaming Product Design — Astria Systems" loading="lazy" />
           </div>
           <div class="case-body">
-            <span class="case-tag">iGaming · UX/UI · Motion</span>
-            <h3>Cross-Platform iGaming Product</h3>
-            <p>Led UX/UI design and motion across a suite of iGaming portfolio brands — from slot game animations to cross-platform UI prototyping and CI development.</p>
-            <a href="#" class="case-link">View Case Study →</a>
+            <span class="case-tag">iGaming · UX/UI · Product Ownership · AI-Integrated</span>
+            <h3>iGaming Platform Design — Astria Systems</h3>
+            <p>Promoted from Product Designer to Jr. Product Owner at Astria Systems. Led UX/UI across Wonderlabz, Playsafe, and Pantelotteriet brands — integrating Claude AI into Figma workflows, driving slot game animations, CI development, and cross-platform UI prototyping.</p>
+            <div class="case-meta">
+              <span>Astria Systems (formerly Wonderlabz)</span>
+              <span>2018 – Present</span>
+            </div>
+            <a href="#animations" class="case-link">View Animation Work →</a>
           </div>
         </article>
 
         <article class="case-card">
-          <div class="case-image" style="background:#f0fff4;">
-            <span>Project Preview</span>
+          <div class="case-image">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg"
+              alt="3D Motion & Brand Identity — Wonderlabz" loading="lazy" />
           </div>
           <div class="case-body">
-            <span class="case-tag">Enterprise · Brand Systems · Web</span>
-            <h3>Enterprise Identity & Web Design</h3>
-            <p>End-to-end brand identity and responsive web implementation for a large-scale enterprise client — from system design through to HTML5/CSS3 delivery.</p>
-            <a href="#" class="case-link">View Case Study →</a>
+            <span class="case-tag">Brand Identity · Motion · VFX · 3D</span>
+            <h3>Brand Identity & Motion Design — Wonderlabz</h3>
+            <p>Delivered full design collateral across multiple portfolio brands — UI/UX prototyping, corporate identity systems, character illustrations, slot game VFX animations, and 3D motion campaigns for Wonderlabz and Livescore SA.</p>
+            <div class="case-meta">
+              <span>Wonderlabz SA / Livescore SA</span>
+              <span>2018 – 2023</span>
+            </div>
+            <a href="#videos" class="case-link">View Video Work →</a>
           </div>
         </article>
 
         <article class="case-card">
-          <div class="case-image" style="background:#fff8f0;">
-            <span>Project Preview</span>
+          <div class="case-image">
+            <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_2/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.jpg"
+              alt="EdTech Multimedia — EduBoard" loading="lazy" />
           </div>
           <div class="case-body">
-            <span class="case-tag">EdTech · Multimedia · UX</span>
-            <h3>Interactive Classroom Platform</h3>
-            <p>Full-service multimedia design for an EdTech solution — websites, interactive media, video production, and social content for classroom-first delivery.</p>
-            <a href="#" class="case-link">View Case Study →</a>
+            <span class="case-tag">EdTech · Multimedia · UX · Video Production</span>
+            <h3>Interactive Classroom Platform — EduBoard</h3>
+            <p>Full-service multimedia consultant for EduBoard Interactive Classroom Solutions — websites, interactive media, video production, social media marketing, and SEO for a classroom-first EdTech product.</p>
+            <div class="case-meta">
+              <span>EduBoard Interactive</span>
+              <span>2017 – 2018</span>
+            </div>
+            <a href="#videos" class="case-link">View Video Work →</a>
           </div>
         </article>
 
@@ -134,10 +498,8 @@
       <h2>Showreel</h2>
       <div class="showreel-embed">
         <video id="showreelPlayer" class="plyr-video" controls crossorigin playsinline
-          poster="assets/images/hero/showreel-poster.jpg">
-          <source src="assets/video/showreel/showreel.mp4" type="video/mp4" />
-          <!-- Fallback YouTube embed if no local file -->
-          <!-- <source src="https://www.youtube.com/watch?v=YOUR_ID" /> -->
+          poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
+          <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
           Your browser does not support HTML5 video.
         </video>
       </div>
@@ -153,66 +515,57 @@
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline>
-              <source src="assets/video/case-studies/video-01.mp4" type="video/mp4" />
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033052/Indiemode_Edit_002_b7ugch.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033052/Indiemode_Edit_002_b7ugch.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="video-card-body">
-            <span class="case-tag">UX/UI · Motion</span>
-            <h3>Video Title One</h3>
-            <p>Brief description — project context, your role, tools used.</p>
+            <span class="case-tag">Video Production · Motion</span>
+            <h3>Indiemode Edit</h3>
+            <p>Video production and motion design for Indiemode — editing, colour grading, and motion graphics.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline>
-              <source src="assets/video/case-studies/video-02.mp4" type="video/mp4" />
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="video-card-body">
-            <span class="case-tag">VFX · After Effects</span>
-            <h3>Video Title Two</h3>
-            <p>Brief description — project context, your role, tools used.</p>
+            <span class="case-tag">Animation · EdTech</span>
+            <h3>EduBox — Video Animation</h3>
+            <p>Full video animation production for EduBoard Interactive Classroom Solutions — concept to final delivery.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline>
-              <source src="assets/video/case-studies/video-03.mp4" type="video/mp4" />
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="video-card-body">
-            <span class="case-tag">Brand Identity · Motion</span>
-            <h3>Video Title Three</h3>
-            <p>Brief description — project context, your role, tools used.</p>
+            <span class="case-tag">3D · Motion · Wonderlabz</span>
+            <h3>Wonderlabz — 3D Photo Animation</h3>
+            <p>3D photo animation with sound design produced for Wonderlabz — bringing static assets to life through motion and depth.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline>
-              <source src="assets/video/case-studies/video-04.mp4" type="video/mp4" />
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="video-card-body">
-            <span class="case-tag">iGaming · UI</span>
-            <h3>Video Title Four</h3>
-            <p>Brief description — project context, your role, tools used.</p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline>
-              <source src="assets/video/case-studies/video-05.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="video-card-body">
-            <span class="case-tag">Product · UX</span>
-            <h3>Video Title Five</h3>
-            <p>Brief description — project context, your role, tools used.</p>
+            <span class="case-tag">Campaign · Motion · Wonderlabz</span>
+            <h3>Wonderlabz — 2023 Step Challenge</h3>
+            <p>Motion campaign for the Wonderlabz 2023 Step Challenge — animated promotional content for internal engagement.</p>
           </div>
         </div>
 
@@ -229,6 +582,187 @@
       <div class="anim-grid" id="animGrid">
         <!-- Animations 01–32 — filenames: anim-01.mp4 … anim-32.mp4 -->
         <!-- Upload to: assets/video/vfx/ -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTISTIC EXPRESSION -->
+  <section id="artistic" class="artistic section">
+    <div class="container">
+      <p class="section-label">Personal Work</p>
+      <h2>Artistic Expression</h2>
+      <p class="section-intro">Just Because I CAN</p>
+      <div class="art-grid">
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" data-alt="Artistic Expression 01">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" alt="Artistic Expression 01" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" data-alt="Artistic Expression 02">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" alt="Artistic Expression 02" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" data-alt="Artistic Expression 03">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" alt="Artistic Expression 03" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" data-alt="Artistic Expression 04">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" alt="Artistic Expression 04" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" data-alt="Artistic Expression 05">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" alt="Artistic Expression 05" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" data-alt="Artistic Expression 06">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" alt="Artistic Expression 06" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" data-alt="Artistic Expression 07">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" alt="Artistic Expression 07" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" data-alt="Artistic Expression 08">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" alt="Artistic Expression 08" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" data-alt="Artistic Expression 09">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" alt="Artistic Expression 09" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" data-alt="Artistic Expression 10">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" alt="Artistic Expression 10" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" data-alt="Artistic Expression 11">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" alt="Artistic Expression 11" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" data-alt="Artistic Expression 12">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" alt="Artistic Expression 12" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" data-alt="Artistic Expression 13">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" alt="Artistic Expression 13" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" data-alt="Artistic Expression 14">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" alt="Artistic Expression 14" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" data-alt="Artistic Expression 15">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" alt="Artistic Expression 15" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" data-alt="Artistic Expression 16">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" alt="Artistic Expression 16" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" data-alt="Artistic Expression 17">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" alt="Artistic Expression 17" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" data-alt="Artistic Expression 18">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" alt="Artistic Expression 18" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" data-alt="Artistic Expression 19">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" alt="Artistic Expression 19" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" data-alt="Artistic Expression 20">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" alt="Artistic Expression 20" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" data-alt="Artistic Expression 21">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" alt="Artistic Expression 21" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" data-alt="Artistic Expression 22">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" alt="Artistic Expression 22" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" data-alt="Artistic Expression 23">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" alt="Artistic Expression 23" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" data-alt="Artistic Expression 24">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" alt="Artistic Expression 24" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" data-alt="Artistic Expression 25">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" alt="Artistic Expression 25" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" data-alt="Artistic Expression 26">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" alt="Artistic Expression 26" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" data-alt="Artistic Expression 27">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" alt="Artistic Expression 27" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" data-alt="Artistic Expression 28">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" alt="Artistic Expression 28" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#x2715;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#x2039;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#x203A;</button>
+  </div>
+
+  <!-- VIDEO LIGHTBOX -->
+  <div class="lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Video viewer">
+    <button class="lightbox-close" id="videoLightboxClose" aria-label="Close">&#x2715;</button>
+    <button class="lightbox-prev" id="videoLightboxPrev" aria-label="Previous">&#x2039;</button>
+    <div class="video-lightbox-wrap">
+      <video id="videoLightboxVid" controls muted playsinline loop></video>
+      <p class="video-lightbox-label" id="videoLightboxLabel"></p>
+    </div>
+    <button class="lightbox-next" id="videoLightboxNext" aria-label="Next">&#x203A;</button>
+  </div>
+
+  <!-- DIPLOMA CREDENTIAL -->
+  <section id="credential" class="credential section section-alt">
+    <div class="container">
+      <p class="section-label">Accredited Qualification</p>
+      <h2>Professional Diploma in UX Design</h2>
+      <div class="diploma-credential">
+        <div class="diploma-cred-body">
+          <div class="diploma-cred-seal">
+            <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+              <circle cx="32" cy="32" r="30" stroke="var(--color-accent)" stroke-width="2" stroke-dasharray="4 3"/>
+              <circle cx="32" cy="32" r="22" fill="rgba(46, 178, 234,0.08)" stroke="var(--color-accent)" stroke-width="1.5"/>
+              <path d="M32 18 L35.5 27.1 L45.3 27.7 L37.7 33.9 L40.2 43.3 L32 38 L23.8 43.3 L26.3 33.9 L18.7 27.7 L28.5 27.1 Z" fill="var(--color-accent)" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="diploma-cred-info">
+            <span class="case-tag">SCQF Level 8 · GCU Accredited · EQF Recognised</span>
+            <p class="diploma-cred-name">Jonathan Edward Nestler</p>
+            <div class="diploma-cred-meta">
+              <span><strong>Institution</strong> UX Design Institute, Dublin</span>
+              <span><strong>Awarded</strong> October 25, 2023</span>
+              <span><strong>Student ID</strong> UXDI-0123-0606</span>
+            </div>
+          </div>
+        </div>
+        <div class="diploma-cred-actions">
+          <a href="assets/docs/UXDI_diploma.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            View Diploma
+          </a>
+          <a href="assets/docs/UXDI_diploma.pdf" download class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -301,35 +835,51 @@
         <h4 class="sw-cat-label">Adobe Creative Suite</h4>
         <div class="logo-grid">
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Adobe Photoshop" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Photoshop">
+              <rect width="44" height="44" rx="8" fill="#001E36"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#31A8FF" text-anchor="middle">Ps</text>
+            </svg>
             <span>Photoshop</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Adobe Illustrator" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Illustrator">
+              <rect width="44" height="44" rx="8" fill="#330000"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#FF9A00" text-anchor="middle">Ai</text>
+            </svg>
             <span>Illustrator</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="Adobe After Effects" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe After Effects">
+              <rect width="44" height="44" rx="8" fill="#00005B"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#9999FF" text-anchor="middle">Ae</text>
+            </svg>
             <span>After Effects</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobepremierepro/EA77FF" alt="Adobe Premiere Pro" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Premiere Pro">
+              <rect width="44" height="44" rx="8" fill="#00005B"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#EA77FF" text-anchor="middle">Pr</text>
+            </svg>
             <span>Premiere Pro</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobexd/FF61F6" alt="Adobe XD" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe XD">
+              <rect width="44" height="44" rx="8" fill="#470137"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#FF61F6" text-anchor="middle">Xd</text>
+            </svg>
             <span>Adobe XD</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobeindesign/FF3366" alt="Adobe InDesign" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe InDesign">
+              <rect width="44" height="44" rx="8" fill="#49021F"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#FF3366" text-anchor="middle">Id</text>
+            </svg>
             <span>InDesign</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobelightroom/31A8FF" alt="Adobe Lightroom" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Lightroom">
+              <rect width="44" height="44" rx="8" fill="#001E36"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#4FCCFF" text-anchor="middle">Lr</text>
+            </svg>
             <span>Lightroom</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/adobedreamweaver/4BBEAC" alt="Adobe Dreamweaver" loading="lazy" />
+            <svg class="logo-item-svg adobe-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Dreamweaver">
+              <rect width="44" height="44" rx="8" fill="#072E20"/><text x="22" y="30" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#4BBEAC" text-anchor="middle">Dw</text>
+            </svg>
             <span>Dreamweaver</span>
           </div>
         </div>
@@ -343,16 +893,20 @@
             <span>Figma</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/miro/050038" alt="Miro" loading="lazy" />
+            <img src="https://cdn.simpleicons.org/miro/ffffff" alt="Miro" loading="lazy" />
             <span>Miro</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/invision/FF3366" alt="InVision" loading="lazy" />
-            <span>InVision</span>
+            <img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude AI" loading="lazy" />
+            <span>Claude AI</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/blender/F5792A" alt="Blender" loading="lazy" />
-            <span>Blender</span>
+            <img src="assets/brand/icons/drawio.svg" alt="draw.io" loading="lazy" />
+            <span>draw. io</span>
+          </div>
+          <div class="logo-item">
+            <img src="assets/brand/icons/gemini.svg" alt="Gemini" loading="lazy" />
+            <span>Gemini</span>
           </div>
         </div>
       </div>
@@ -365,11 +919,20 @@
             <span>Claude AI</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/midjourney/000000" alt="Midjourney" loading="lazy" />
+            <img src="assets/brand/icons/chatgpt.svg" alt="ChatGPT" loading="lazy" />
+            <span>ChatGPT</span>
+          </div>
+          <div class="logo-item">
+            <svg class="logo-item-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Midjourney">
+              <path d="M12 2L9.5 7.5H4L8.5 11L6.5 17L12 13.5L17.5 17L15.5 11L20 7.5H14.5L12 2Z" fill="#2EB2EA"/>
+              <path d="M7 19.5C8.5 20.8 10.2 21.5 12 21.5C13.8 21.5 15.5 20.8 17 19.5" stroke="#2EB2EA" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
             <span>Midjourney</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/openai/000000" alt="DALL·E / OpenAI" loading="lazy" />
+            <svg class="logo-item-svg" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="DALL-E / OpenAI">
+              <rect width="44" height="44" rx="8" fill="#0d0d0d"/><text x="22" y="24" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle">DALL·E</text><text x="22" y="35" font-family="Arial,sans-serif" font-size="8" font-weight="400" fill="#aaaaaa" text-anchor="middle">OpenAI</text>
+            </svg>
             <span>DALL·E</span>
           </div>
           <div class="logo-item">
@@ -387,7 +950,7 @@
             <span>HTML5</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS3" loading="lazy" />
+            <img src="assets/brand/icons/css3.svg" alt="CSS3" loading="lazy" />
             <span>CSS3</span>
           </div>
           <div class="logo-item">
@@ -398,6 +961,10 @@
             <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap" loading="lazy" />
             <span>Bootstrap</span>
           </div>
+          <div class="logo-item">
+            <img src="assets/brand/icons/github.svg" alt="GitHub" loading="lazy" />
+            <span>GitHub</span>
+          </div>
         </div>
       </div>
 
@@ -405,24 +972,30 @@
         <h4 class="sw-cat-label">Productivity &amp; Project Management</h4>
         <div class="logo-grid">
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/notion/000000" alt="Notion" loading="lazy" />
-            <span>Notion</span>
+            <img src="assets/brand/icons/monday.svg" alt="Monday.com" loading="lazy" />
+            <span>Monday.com</span>
           </div>
           <div class="logo-item">
             <img src="https://cdn.simpleicons.org/jira/0052CC" alt="Jira" loading="lazy" />
             <span>Jira</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/microsoftpowerpoint/B7472A" alt="PowerPoint" loading="lazy" />
-            <span>PowerPoint</span>
+            <svg class="logo-item-svg" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" aria-label="Microsoft Office Suite">
+              <rect width="44" height="44" rx="8" fill="#0d0d0d"/>
+              <rect x="8" y="8" width="12" height="12" rx="2" fill="#F25022"/>
+              <rect x="24" y="8" width="12" height="12" rx="2" fill="#7FBA00"/>
+              <rect x="8" y="24" width="12" height="12" rx="2" fill="#00A4EF"/>
+              <rect x="24" y="24" width="12" height="12" rx="2" fill="#FFB900"/>
+            </svg>
+            <span>MS Office Suite</span>
           </div>
           <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/trello/0052CC" alt="Trello" loading="lazy" />
-            <span>Trello</span>
-          </div>
-          <div class="logo-item">
-            <img src="https://cdn.simpleicons.org/slack/4A154B" alt="Slack" loading="lazy" />
+            <img src="assets/brand/icons/slack.svg" alt="Slack" loading="lazy" />
             <span>Slack</span>
+          </div>
+          <div class="logo-item">
+            <img src="https://cdn.simpleicons.org/notion/ffffff" alt="Notion" loading="lazy" />
+            <span>Notion</span>
           </div>
         </div>
       </div>
@@ -444,7 +1017,7 @@
               <span class="timeline-date">Nov 2023 – Present</span>
               <h4>Jr. Product Owner</h4>
               <p class="timeline-company">Astria Systems (formerly Wonderlabz) · Remote</p>
-              <p>Promoted from Product Designer. Leading UX/UI product design for multiple iGaming portfolio brands. Integrating Claude AI into Figma-based workflows. Driving CI development, slot game animations, and cross-platform UI prototyping.</p>
+              <p>Promoted from Product Designer. Leading UX/UI product design for Wonderlabz, Playsafe, and Pantelotteriet portfolio brands. Integrating Claude AI into Figma-based design workflows. Driving CI development, slot game animations, and cross-platform UI prototyping.</p>
             </div>
           </div>
 
@@ -454,7 +1027,7 @@
               <span class="timeline-date">Oct 2018 – Nov 2023</span>
               <h4>Product Designer — VFX · UX &amp; UI</h4>
               <p class="timeline-company">Wonderlabz SA (now Livescore SA) · Table View</p>
-              <p>Led design collateral across multiple portfolio brands. Delivered UI/UX prototyping, corporate identity development, illustrations, and animations for online slot games and digital media campaigns.</p>
+              <p>Led design collateral across multiple portfolio brands. Delivered UI/UX prototyping, corporate identity systems, character illustrations, slot game VFX animations, and motion campaigns for online gaming and media.</p>
             </div>
           </div>
 
@@ -464,7 +1037,27 @@
               <span class="timeline-date">Aug 2017 – Sep 2018</span>
               <h4>Multimedia Consultant</h4>
               <p class="timeline-company">EduBoard Interactive Classroom Solutions · East London</p>
-              <p>Full-service design across websites, interactive media, video production, social media marketing, and SEO for an EdTech platform.</p>
+              <p>Full-service multimedia design: websites, interactive media, video production, social media marketing, and SEO for an EdTech classroom platform.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Sep 2015 – May 2016</span>
+              <h4>Owner — Freelance Designer &amp; Graphic Artist</h4>
+              <p class="timeline-company">jonathanedwardnestler.com · Thinklocal · Jeffreys Bay</p>
+              <p>Full-service freelance covering graphic design, web design, illustration, photography, and video production. Concurrent print advertising for South African coastal and inland clients at Thinklocal — layout, proofing, and CMYK deadline management.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Jun 2015 – Aug 2015</span>
+              <h4>Product Designer &amp; Web</h4>
+              <p class="timeline-company">Kashan Advertising · Hatfield, Pretoria</p>
+              <p>Annual reports, web design, billboards, brochures, and logo design. Portfolio included Road Accident Fund, SABS, and SARS.</p>
             </div>
           </div>
 
@@ -474,17 +1067,57 @@
               <span class="timeline-date">Aug 2013 – Jun 2015</span>
               <h4>Web &amp; Graphic Designer</h4>
               <p class="timeline-company">Falcorp Technologies · Telkom SA · Pretoria</p>
-              <p>All design for a major national telecoms brand identity. Responsive websites using Bootstrap, HTML5/CSS3, and JavaScript.</p>
+              <p>All design for Telkom's national brand identity. Responsive websites using Bootstrap 2–3.2, HTML5/CSS3, ActionScript, and JavaScript.</p>
             </div>
           </div>
 
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
-              <span class="timeline-date">2007 – 2013</span>
-              <h4>Earlier Roles</h4>
-              <p class="timeline-company">iGaming · Advertising · New Media · Events</p>
-              <p>13+ years across casino promotions, motion graphics for national stadiums, blue-chip corporate decks, LED display animation, brand development, and TTL/BTL campaigns.</p>
+              <span class="timeline-date">Oct 2012 – Apr 2013</span>
+              <h4>Web &amp; New Media Designer</h4>
+              <p class="timeline-company">Xcellent Media · Woodstock, Cape Town</p>
+              <p>Flash animation, HTML5/CSS3 implementation, logo design, illustration, and advanced photo editing for a digital agency.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Jan 2010 – Oct 2012</span>
+              <h4>New Media Designer</h4>
+              <p class="timeline-company">Digineering · Randburg</p>
+              <p>Large-scale PowerPoint decks for blue-chip clients — GSK, BASF, Rand Show, JHB Motor Show. DVD menus, Flash animation, and web design.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Jul 2008 – Nov 2008</span>
+              <h4>Product Designer — Brand &amp; Identity</h4>
+              <p class="timeline-company">8 Image Brand Consulting · Bryanston</p>
+              <p>Brand development for Coca-Cola, Vodacom, MTN, Zain, and Sprite. Major work aligned to the 2010 FIFA World Cup campaign.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Jun 2007 – Jul 2008</span>
+              <h4>Product Designer &amp; DTP Operator</h4>
+              <p class="timeline-company">Peermont Global · Emperors Palace · Kempton Park</p>
+              <p>Casino-driven promotional advertising for Emperors Palace and Peermont Group. Events, performer collateral, and BTL/TTL campaigns.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Mar 2007 – Jun 2007</span>
+              <h4>Middleweight Graphic Designer</h4>
+              <p class="timeline-company">Shocking Pink · Fourways</p>
+              <p>Die-cut packaging for mouse pads and PVC stationery. Lenticular and stereoscopic design and printing.</p>
             </div>
           </div>
 
@@ -509,7 +1142,7 @@
                 <span>UX Design Institute, Dublin · 2023–2024</span>
               </li>
               <li>
-                <strong>Visual Communication</strong>
+                <strong>Visual Communication (First Year)</strong>
                 <span>The Open Window, Pretoria · 2008–2010</span>
               </li>
             </ul>
@@ -524,6 +1157,95 @@
               <li>Product Management Frameworks</li>
               <li>Ultimate AI Art &amp; Content Creation</li>
             </ul>
+            <p class="certs-more">and much more… see below</p>
+
+            <div class="cert-scroll-wrap" aria-label="Certification gallery">
+              <div class="cert-scroll-track">
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/83569374_xxmglb.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/UC-c3a3a66a-cf87-422f-a3f2-cbbd0f30bd52_fr3xcn.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/UC-278da022-5f30-4d95-b49c-11bd9df66154_grjbtm.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/UC-168b6eb3-bf45-439c-a53c-95d4c8e746b6_jnqrqb.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/81054566_wadwk3.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131914/UC-d9831fc8-7c64-4cd8-8d05-ddc72a1cc302_sckczy.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131915/85247406_i0u8br.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131915/80992866_vzgup2.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131915/84826466_qtpb8r.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131916/81068090_qgdjvf.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131916/84994698_si7icu.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131916/86809692_edsucy.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131917/86874670_ukpfau.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131917/86942748_c23hlo.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131917/85720392_ddczm2.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131918/88038068_sig7vs.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131919/84653580_grta0b.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131919/87908184_wabf6k.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780131920/91526198_rkyk01.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132235/80992866_ivaoaq.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132236/81054566_haepd9.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132236/81068090_c0oelm.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132236/83569374_npyvj0.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132237/84653580_yonjrn.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile"><img src="https://res.cloudinary.com/dksariyyz/image/upload/h_220,q_auto/v1780132237/84724332_mrkqfu.jpg" alt="Certification" loading="lazy" /></div>
+                <div class="cert-tile cert-pdf-tile" data-cert-pdf="assets/docs/cert-style-guides.pdf"></div>
+                <div class="cert-tile cert-pdf-tile" data-cert-pdf="assets/docs/cert-ux-for-devs.pdf"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGACY DESIGNS -->
+  <section id="legacy" class="legacy section">
+    <div class="container">
+      <p class="section-label">The Archive</p>
+      <h2>Legacy Designs</h2>
+      <p class="section-intro">Two decades of craft — portfolio pieces, brand identity systems, and site designs from the early years. Turn pages to explore.</p>
+
+      <div class="legacy-tabs" role="tablist">
+        <button class="legacy-tab active" role="tab" aria-selected="true"  data-book="0" aria-controls="book-panel-0">Portfolio 2010</button>
+        <button class="legacy-tab"        role="tab" aria-selected="false" data-book="1" aria-controls="book-panel-1">Site Designs</button>
+        <button class="legacy-tab"        role="tab" aria-selected="false" data-book="2" aria-controls="book-panel-2">Logo Designs</button>
+      </div>
+
+      <div class="legacy-panels">
+        <div class="book-panel active" id="book-panel-0" role="tabpanel"
+             data-pdf="assets/docs/legacy-portfolio-2010.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-0"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+
+        <div class="book-panel" id="book-panel-1" role="tabpanel"
+             data-pdf="assets/docs/legacy-site-design.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-1"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+
+        <div class="book-panel" id="book-panel-2" role="tabpanel"
+             data-pdf="assets/docs/legacy-logo-design.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="book-2"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
           </div>
         </div>
       </div>
@@ -537,6 +1259,9 @@
       <h2>Let's build something great.</h2>
       <p class="contact-sub">Open to senior product design roles, creative leadership, and select freelance projects in 2026. Based in Jeffreys Bay — working remotely worldwide.</p>
       <form class="contact-form" id="contactForm">
+        <input type="hidden" name="access_key" value="ad2b7fb4-8386-4d3c-8673-328736c89017" />
+        <input type="hidden" name="subject" value="New message from your portfolio site" />
+        <input type="hidden" name="from_name" value="Portfolio Contact Form" />
         <div class="form-row">
           <div class="form-group">
             <label for="name">Name</label>
@@ -583,7 +1308,30 @@
     </div>
   </footer>
 
+  <!-- SECTION NAV -->
+  <div class="section-nav" id="sectionNav" aria-label="Page navigation">
+    <button class="section-nav-btn" id="sectionNavUp" aria-label="Previous section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+    <button class="section-nav-btn" id="sectionNavDown" aria-label="Next section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop preload="none">
+    <source src="https://res.cloudinary.com/dksariyyz/video/upload/v1780209046/Psycho_-_Never_Forget_U_Official_Audio_auki6h.mp3" type="audio/mpeg">
+  </audio>
+  <button class="music-btn" id="musicBtn" aria-label="Play background music">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><polygon points="6,3 20,12 6,21"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><rect x="4" y="3" width="5" height="18" rx="1"/><rect x="15" y="3" width="5" height="18" rx="1"/></svg>
+    <span class="music-label-play">Play Music</span>
+    <span class="music-label-pause">Pause Music</span>
+  </button>
+
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
