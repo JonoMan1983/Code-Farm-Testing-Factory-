@@ -498,7 +498,7 @@ window.addEventListener('scroll', () => {
     const startX = -(wFull / 2);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#D5F0FB';
+    ctx.fillStyle   = '#2EB2EA';
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
