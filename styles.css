@@ -3115,18 +3115,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* ===========================
    LIGHT THEME — CSS VARIABLES
+   (derived from style-guide-light palette)
    =========================== */
 [data-theme="light"] {
-  --color-bg:              #f7f5ff;
-  --color-bg-alt:          #ede9ff;
-  --color-bg-dark:         #ddd5ff;
-  --color-bg-mid:          #c4b0f8;
-  --color-text:            #160f3b;
-  --color-text-muted:      #6555a0;
-  --color-accent:          #6d28d9;
-  --color-accent-hover:    #5b21b6;
-  --color-accent-light:    #6d28d9;
-  --color-border:          rgba(109, 40, 217, 0.18);
+  --color-bg:              #EAF7FE;
+  --color-bg-alt:          #D5F0FB;
+  --color-bg-dark:         #B8E8F8;
+  --color-bg-mid:          #6dbee0;
+  --color-text:            #041E2A;
+  --color-text-muted:      #0b516f;
+  --color-accent:          #2EB2EA;
+  --color-accent-hover:    #1a9fd6;
+  --color-accent-light:    #2EB2EA;
+  --color-border:          rgba(46, 178, 234, 0.22);
 }
 
 /* ===========================
@@ -3135,176 +3136,176 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Nav */
 [data-theme="light"] .nav {
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom-color: rgba(109, 40, 217, 0.14);
-  box-shadow: 0 2px 20px rgba(109, 40, 217, 0.08);
+  background: rgba(234, 247, 254, 0.97);
+  border-bottom-color: rgba(46, 178, 234, 0.2);
+  box-shadow: 0 2px 20px rgba(46, 178, 234, 0.1);
 }
 
 [data-theme="light"] .nav-logo-name,
 [data-theme="light"] .nav-links a {
-  color: #160f3b;
+  color: #041E2A;
 }
 
 [data-theme="light"] .nav-toggle span {
-  background: #160f3b;
+  background: #041E2A;
 }
 
 [data-theme="light"] .nav-toggle {
-  background: rgba(109, 40, 217, 0.07);
-  border-color: rgba(109, 40, 217, 0.2) !important;
+  background: rgba(46, 178, 234, 0.08);
+  border-color: rgba(46, 178, 234, 0.28) !important;
 }
 
 [data-theme="light"] .nav-toggle:hover {
-  background: rgba(109, 40, 217, 0.14);
+  background: rgba(46, 178, 234, 0.15);
 }
 
 /* Mobile nav dropdown */
 [data-theme="light"] .nav-links {
-  background: rgba(252, 250, 255, 0.98);
-  border-bottom-color: rgba(109, 40, 217, 0.12);
-  box-shadow: 0 16px 48px rgba(109, 40, 217, 0.12);
+  background: rgba(234, 247, 254, 0.98);
+  border-bottom-color: rgba(46, 178, 234, 0.15);
+  box-shadow: 0 16px 48px rgba(46, 178, 234, 0.15);
 }
 
 [data-theme="light"] .nav-links > li > a {
-  color: #160f3b;
-  border-bottom-color: rgba(109, 40, 217, 0.1);
+  color: #041E2A;
+  border-bottom-color: rgba(46, 178, 234, 0.12);
 }
 
 [data-theme="light"] .nav-links > li > a:hover,
 [data-theme="light"] .nav-links > li > a:focus {
-  color: var(--color-accent);
-  background: rgba(109, 40, 217, 0.06);
+  color: #041E2A;
+  background: rgba(46, 178, 234, 0.1);
 }
 
 /* Hero section */
 [data-theme="light"] .hero {
-  background: linear-gradient(140deg, #e8e0ff 0%, #c4b0f8 100%);
+  background: linear-gradient(140deg, #EAF7FE 0%, #B8E8F8 100%);
 }
 
 [data-theme="light"] .hero-title {
-  color: #160f3b;
+  color: #041E2A;
 }
 
 [data-theme="light"] .hero-sub {
-  color: rgba(22, 15, 59, 0.78);
+  color: rgba(4, 30, 42, 0.75);
 }
 
 [data-theme="light"] .hero .btn-ghost {
-  color: #160f3b;
-  border-color: rgba(22, 15, 59, 0.32);
+  color: #041E2A;
+  border-color: rgba(4, 30, 42, 0.3);
 }
 
 [data-theme="light"] .hero .btn-ghost:hover {
-  border-color: rgba(22, 15, 59, 0.65);
-  background: rgba(22, 15, 59, 0.05);
+  border-color: rgba(4, 30, 42, 0.6);
+  background: rgba(4, 30, 42, 0.05);
 }
 
 [data-theme="light"] .hero-scroll-hint {
-  color: rgba(22, 15, 59, 0.45);
+  color: rgba(4, 30, 42, 0.4);
 }
 
 [data-theme="light"] .scroll-line {
-  background: rgba(22, 15, 59, 0.28);
+  background: rgba(4, 30, 42, 0.25);
 }
 
 /* UX Wheel nodes */
 [data-theme="light"] .uw-node {
-  background: rgba(255, 255, 255, 0.93);
-  border-color: rgba(109, 40, 217, 0.2);
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.28);
 }
 
 @media (max-width: 620px) {
   [data-theme="light"] .uw-node {
-    background: rgba(255, 255, 255, 0.93);
-    border-color: rgba(109, 40, 217, 0.22);
+    background: rgba(234, 247, 254, 0.92);
+    border-color: rgba(46, 178, 234, 0.28);
     box-shadow: none;
   }
 }
 
 /* UX doc scroll */
 [data-theme="light"] .ux-doc-scroll {
-  background: #ede9ff;
-  border-color: rgba(109, 40, 217, 0.18);
+  background: #D5F0FB;
+  border-color: rgba(46, 178, 234, 0.22);
 }
 
-/* CTA gradient blocks — keep dark so they pop on light bg */
+/* CTA gradient blocks — use dark navy/teal so they pop on light bg */
 [data-theme="light"] .ux-cta-block {
-  background: linear-gradient(135deg, #5b21b6 0%, #4c1d95 100%);
+  background: linear-gradient(135deg, #041e2a 0%, #0b516f 100%);
 }
 
 [data-theme="light"] .ui-card.ui-card-cta {
-  background: linear-gradient(135deg, #5b21b6 0%, #4c1d95 100%);
+  background: linear-gradient(135deg, #041e2a 0%, #0b516f 100%);
 }
 
 [data-theme="light"] .diploma-credential {
-  background: linear-gradient(135deg, rgba(91, 33, 182, 0.9) 0%, rgba(76, 29, 149, 0.75) 100%);
+  background: linear-gradient(135deg, rgba(4, 30, 42, 0.92) 0%, rgba(11, 81, 111, 0.78) 100%);
 }
 
 /* Fixed UI elements */
 [data-theme="light"] .section-nav-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(109, 40, 217, 0.25);
-  color: var(--color-accent);
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.3);
+  color: #041E2A;
 }
 
 [data-theme="light"] .section-nav-btn:hover {
-  background: rgba(109, 40, 217, 0.1);
+  background: rgba(46, 178, 234, 0.12);
 }
 
 [data-theme="light"] .music-btn {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(109, 40, 217, 0.25);
-  color: var(--color-accent);
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.3);
+  color: #041E2A;
 }
 
 [data-theme="light"] .music-btn:hover {
-  background: rgba(109, 40, 217, 0.08);
-  border-color: var(--color-accent);
+  background: rgba(46, 178, 234, 0.12);
+  border-color: #2EB2EA;
 }
 
 /* Media action buttons */
 [data-theme="light"] .media-action-btn {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(109, 40, 217, 0.4);
-  color: #160f3b;
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.45);
+  color: #041E2A;
 }
 
 [data-theme="light"] .lightbox-action-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(109, 40, 217, 0.3);
-  color: #160f3b;
+  background: rgba(234, 247, 254, 0.9);
+  border-color: rgba(46, 178, 234, 0.35);
+  color: #041E2A;
 }
 
 /* Legacy tabs */
 [data-theme="light"] .legacy-tab.active {
-  color: #ffffff;
+  color: #041E2A;
 }
 
 [data-theme="light"] .legacy-tab {
-  border-color: rgba(109, 40, 217, 0.3);
+  border-color: rgba(46, 178, 234, 0.35);
 }
 
 /* Book spinner */
 [data-theme="light"] .book-spinner {
-  border-color: rgba(109, 40, 217, 0.18);
-  border-top-color: var(--color-accent);
+  border-color: rgba(46, 178, 234, 0.2);
+  border-top-color: #2EB2EA;
 }
 
-/* Case card & UI card hover shadows — lighten the purple shadow */
+/* Hover shadows — use brand blue instead of purple */
 [data-theme="light"] .case-card:hover,
 [data-theme="light"] .ui-card:hover,
 [data-theme="light"] .diploma-card:hover,
 [data-theme="light"] .video-card:hover,
 [data-theme="light"] .ux-step:hover {
-  box-shadow: 0 12px 40px rgba(109, 40, 217, 0.15);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.2);
 }
 
 [data-theme="light"] .art-thumb:hover {
-  box-shadow: 0 10px 32px rgba(109, 40, 217, 0.2);
+  box-shadow: 0 10px 32px rgba(46, 178, 234, 0.25);
 }
 
 [data-theme="light"] .logo-item:hover {
-  box-shadow: 0 8px 24px rgba(109, 40, 217, 0.14);
+  box-shadow: 0 8px 24px rgba(46, 178, 234, 0.18);
 }
 
-/* Resume btn stays orange — already visible on light */
+/* Resume btn stays orange — visible on light */

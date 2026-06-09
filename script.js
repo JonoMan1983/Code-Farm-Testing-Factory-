@@ -490,9 +490,9 @@ window.addEventListener('scroll', () => {
 
   function drawText(textRot, t, ux, uy) {
     const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#6d28d9' : '#2EB2EA';
-    const textHex     = isLight ? '#160f3b' : '#EA652C';
-    const subtitleHex = isLight ? '#4c1d95' : '#FFFFFF';
+    const glowHex     = isLight ? '#2EB2EA' : '#2EB2EA';  // blue glow on both
+    const textHex     = isLight ? '#041E2A' : '#EA652C';  // dark navy / orange
+    const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';  // dark teal / white
 
     ctx.save();
     ctx.textAlign    = 'center';
