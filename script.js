@@ -321,7 +321,8 @@ window.addEventListener('scroll', () => {
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
   const T        = Math.PI * 2 / 3;
-  const PINK_RGB = [255, 64, 184];   // base pink colour for orbit paths
+  const PINK_RGB    = [46, 178, 234];  // light blue — same as accent
+  const ELECTRON_RGB = [234, 101, 44]; // orange electrons #EA652C
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
   function lerpRGB(a, b, f) {
@@ -333,9 +334,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#B8A8F7', rgba: [184, 168, 247] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#E0115E', rgba: [224,  17,  94] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#c8c8f0', rgba: [200, 200, 240] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -413,11 +414,11 @@ window.addEventListener('scroll', () => {
   ];
 
   function drawAtoms(gRot, t, ux, uy) {
+    const [r, g, b] = ELECTRON_RGB;
     atoms.forEach((atom) => {
-      const i         = atom.orbitIdx;
-      const o         = orbits[i];
-      const [r, g, b] = o.rgba;
-      const fs        = floatStates[i];
+      const i  = atom.orbitIdx;
+      const o  = orbits[i];
+      const fs = floatStates[i];
 
       atom.trail.push(atom.angle);
       if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
@@ -447,7 +448,7 @@ window.addEventListener('scroll', () => {
       // Core dot
       ctx.beginPath();
       ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = o.color;
+      ctx.fillStyle = '#EA652C';
       ctx.fill();
 
       const sm = SPEED_MOD[i];
@@ -482,14 +483,14 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
     const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string) — #E0115E matches hero title pink
-    ctx.shadowColor = '#E0115E';
+    // Glow pass (pulsing, whole string) — orange
+    ctx.shadowColor = '#EA652C';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#E0115E';
+    ctx.fillStyle   = '#EA652C';
     ctx.fillText('20+', 0, 0);
 
-    // Two-colour solid fill: "20" white, "+" hero-title pink pulsing fast
+    // Solid orange fill for whole string
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
     ctx.textAlign   = 'left';
@@ -498,16 +499,16 @@ window.addEventListener('scroll', () => {
     const startX = -(wFull / 2);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#ffffff';
+    ctx.fillStyle   = '#EA652C';
     ctx.fillText('20', startX, 0);
 
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
+    ctx.fillStyle   = lerpRGB([234, 101, 44], [255, 200, 100], plusPulse);
     ctx.fillText('+', startX + w20, 0);
 
     // Stroke on + only
     ctx.lineWidth   = 5;
-    ctx.strokeStyle = lerpRGB([224, 17, 94], [255, 255, 255], plusPulse);
+    ctx.strokeStyle = '#EA652C';
     ctx.strokeText('+', startX + w20, 0);
 
     ctx.restore();
