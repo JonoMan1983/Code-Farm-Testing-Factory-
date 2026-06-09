@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Nestler — Cover Letter · Brandtech+</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 16px;
+    }
+
+    .page {
+      width: 794px;
+      height: 1123px;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 26px 52px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-shrink: 0;
+    }
+    .logo-type {
+      font-size: 14px;
+      font-weight: 800;
+      color: #000000;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .logo-type sup {
+      font-size: 10px;
+      font-weight: 900;
+      vertical-align: super;
+      line-height: 0;
+    }
+    .header-right { text-align: right; }
+    .contact-line {
+      font-size: 9.5px;
+      font-weight: 400;
+      color: #888888;
+      line-height: 1.85;
+    }
+    .contact-link {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #000000;
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 18px 52px 0;
+      flex-shrink: 0;
+    }
+    .hero-name {
+      font-size: 42px;
+      font-weight: 900;
+      color: #000000;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+    .hero-name-highlight {
+      display: inline-block;
+      background: #F5C300;
+      padding: 0 5px;
+      margin-left: -5px;
+    }
+    .hero-rule {
+      height: 3px;
+      background: #000000;
+      margin-top: 14px;
+    }
+
+    /* ── Meta row ── */
+    .meta-row {
+      padding: 10px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      flex-shrink: 0;
+    }
+    .role-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #000000;
+    }
+    .date-label {
+      font-size: 9px;
+      font-weight: 400;
+      color: #aaaaaa;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Body ── */
+    .body {
+      padding: 22px 52px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .salutation {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    p {
+      font-size: 10.5px;
+      line-height: 1.78;
+      color: #333333;
+      margin-bottom: 11px;
+      font-weight: 400;
+    }
+    p strong { color: #000000; font-weight: 700; }
+    .hl {
+      background: #F5C300;
+      padding: 1px 3px;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    /* Statement block */
+    .statement {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border: 2px solid #000000;
+    }
+    .statement p {
+      font-size: 11px;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.58;
+      margin-bottom: 0;
+      letter-spacing: -0.01em;
+    }
+
+    /* AI tools grid */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .ai-cell {
+      background: #f7f7f7;
+      border-left: 3px solid #F5C300;
+      padding: 7px 10px;
+    }
+    .ai-cell-tool {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+    .ai-cell-desc {
+      font-size: 9px;
+      font-weight: 400;
+      color: #555555;
+      line-height: 1.5;
+    }
+
+    /* Values tags */
+    .values-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .value-tag {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: #000000;
+      color: #ffffff;
+    }
+    .value-tag.yellow {
+      background: #F5C300;
+      color: #000000;
+    }
+
+    /* Closing */
+    .closing { margin-top: 14px; }
+    .closing p { margin-bottom: 3px; color: #555555; }
+    .sig-name {
+      font-size: 16px;
+      font-weight: 900;
+      color: #000000;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-top: 10px;
+      line-height: 1;
+    }
+    .sig-url {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #000000;
+      margin-top: 4px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #000000;
+      padding: 11px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .footer-text {
+      font-size: 8.5px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .footer-accent {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #F5C300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      body { background: #ffffff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { width: 100%; height: 297mm; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo-type">brandtech<sup>+</sup></div>
+    <div class="header-right">
+      <div class="contact-line">jonathanedwardnestler@gmail.com</div>
+      <div class="contact-line">Jeffreys Bay, South Africa · Remote</div>
+      <a class="contact-link" href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-/</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-name">
+      Jonathan<br>
+      <span class="hero-name-highlight">Nestler.</span>
+    </div>
+    <div class="hero-rule"></div>
+  </div>
+
+  <div class="meta-row">
+    <div class="role-label">Senior Creative Designer · Application — Brandtech+</div>
+    <div class="date-label">June 2026</div>
+  </div>
+
+  <div class="body">
+
+    <div class="salutation">Dear Hiring Team,</div>
+
+    <p>Twenty years ago I started my career turning complexity into clarity, briefs into experiences, and ideas into things that actually moved people. I am still doing exactly that. The only thing that has changed is <span class="hl">the tools have finally caught up with the ambition.</span></p>
+
+    <p>I am a Senior Creative Designer and UX/UI Product Designer with over two decades of experience spanning product design, visual effects, motion graphics, brand identity, and front-end development. Currently <strong>Jr. Product Owner at Astria Systems</strong>, I lead design across three active product portfolios while integrating <strong>Claude AI, Figma AI, and Midjourney</strong> into my daily workflows — not as novelty, as craft.</p>
+
+    <div class="statement">
+      <p>Brandtech+'s position on GenAI in the creative industries is one I share without reservation. The designers who will navigate the opportunity and the ethics well are the ones already doing it, learning from it, and forming genuine opinions. I am one of those designers.</p>
+    </div>
+
+    <p>Here is exactly how I use GenAI in my practice today:</p>
+
+    <div class="ai-grid">
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Claude AI + Figma</div>
+        <div class="ai-cell-desc">Prompt-driven UX copy, design rationale, component specs, and dev-ready annotation — generated inside active Figma workflows at Astria Systems. Replaces manual documentation with live, accurate handoff.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Midjourney + DALL-E</div>
+        <div class="ai-cell-desc">Rapid mood boarding, art direction references, and visual concept generation. Collapses days of research into hours — used at the brief stage to align stakeholders before a pixel is designed.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">Figma AI Features</div>
+        <div class="ai-cell-desc">Auto-layout inference, component scanning, and design system consistency checks across large libraries. Catches drift and surfaces consolidation opportunities without manual audits.</div>
+      </div>
+      <div class="ai-cell">
+        <div class="ai-cell-tool">AI-Assisted Prototyping</div>
+        <div class="ai-cell-desc">Micro-interaction scripting, edge-case scenario generation, and annotated handoff — shortening the gap between design intent and final build without losing craft or control.</div>
+      </div>
+    </div>
+
+    <p>What I bring beyond the tools is <strong>range</strong>. Shipped iGaming UI systems. Directed broadcast motion. Built design systems across multiple live brands. Written HTML, CSS, and JavaScript to bring prototypes to life in the browser. I design to an outcome, not a handoff.</p>
+
+    <div class="values-row">
+      <span class="value-tag yellow">Be Ambitious</span>
+      <span class="value-tag">Be Imaginative</span>
+      <span class="value-tag yellow">Be Inspirational</span>
+      <span class="value-tag">Always Learning</span>
+      <span class="value-tag yellow">Results-Focused</span>
+      <span class="value-tag">Pro-Inclusive</span>
+    </div>
+
+    <p>I read your values and recognised the way I already work.</p>
+
+    <div class="closing">
+      <p>Warm regards,</p>
+      <div class="sig-name">Jonathan Edward Nestler</div>
+      <div class="sig-url">jonoman1983.github.io/Code-Farm-Testing-Factory-/</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">Senior Creative Designer · Brandtech+</div>
+    <div class="footer-accent">Req ID: 17375</div>
+  </div>
+
+</div>
+</body>
+</html>
