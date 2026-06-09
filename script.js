@@ -1,4 +1,24 @@
 // ===========================
+// THEME TOGGLE
+// ===========================
+(function () {
+  const root   = document.documentElement;
+  const btn    = document.getElementById('themeToggle');
+  if (!btn) return;
+
+  function applyTheme(theme) {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    localStorage.setItem('jn-theme', theme);
+  }
+
+  btn.addEventListener('click', () => {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    applyTheme(isLight ? 'dark' : 'light');
+  });
+})();
+
+// ===========================
 // PLYR VIDEO PLAYERS
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
@@ -469,28 +489,31 @@ window.addEventListener('scroll', () => {
   }
 
   function drawText(textRot, t, ux, uy) {
+    const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
+    const glowHex     = isLight ? '#6d28d9' : '#2EB2EA';
+    const textHex     = isLight ? '#160f3b' : '#EA652C';
+    const subtitleHex = isLight ? '#4c1d95' : '#FFFFFF';
+
     ctx.save();
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
 
-    // "20+" — pulsing pink glow, white fill, pure white stroke
     ctx.save();
     ctx.translate(cx + ux, cy + uy + 8);
     ctx.rotate(textRot);
     ctx.font     = '900 256px Poppins, sans-serif';
     ctx.lineJoin = 'round';
 
-    const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
-    const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
+    const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
+    const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;
 
-    // Glow pass (pulsing, whole string) — blue
-    ctx.shadowColor = '#2EB2EA';
+    // Glow pass — blue in dark, purple in light
+    ctx.shadowColor = glowHex;
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#2EB2EA';
+    ctx.fillStyle   = glowHex;
     ctx.fillText('20+', 0, 0);
 
-    // Solid orange fill for whole string
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
     ctx.textAlign   = 'left';
@@ -498,26 +521,27 @@ window.addEventListener('scroll', () => {
     const w20    = ctx.measureText('20').width;
     const startX = -(wFull / 2);
 
+    // "20" — orange in dark, dark navy in light
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#EA652C';
+    ctx.fillStyle   = textHex;
     ctx.fillText('20', startX, 0);
 
+    // "+" — orange on both (visible regardless of theme)
     ctx.globalAlpha = 1;
     ctx.fillStyle   = '#EA652C';
     ctx.fillText('+', startX + w20, 0);
 
     ctx.restore();
 
-    // Subtitle — boldest weight, solid white
+    // Subtitle — weight 900, white in dark / deep purple in light
     ctx.font        = '900 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = '#FFFFFF';
+    ctx.fillStyle   = subtitleHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    // Extra stroke to fatten the glyphs as much as possible
     ctx.lineWidth   = 1.4;
     ctx.lineJoin    = 'round';
-    ctx.strokeStyle = '#FFFFFF';
+    ctx.strokeStyle = subtitleHex;
     ctx.strokeText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
     ctx.restore();
