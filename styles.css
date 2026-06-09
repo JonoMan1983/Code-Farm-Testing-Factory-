@@ -3340,4 +3340,64 @@ h1, h2, h3, h4 { color: var(--color-text); }
   background: #B8E8F8;
 }
 
+/* "building with care." — white in dark, dark navy in light */
+[data-theme="light"] .about-heading-white {
+  color: #041E2A;
+}
+
+/* Download Resume button — same style as Play Music in light */
+[data-theme="light"] .resume-btn {
+  background: rgba(234, 247, 254, 0.92);
+  border-color: rgba(46, 178, 234, 0.3);
+  color: #041E2A;
+}
+
+[data-theme="light"] .resume-btn:hover {
+  background: rgba(46, 178, 234, 0.12);
+  border-color: #2EB2EA;
+  color: #041E2A;
+}
+
+/* Facebook button — keep border transparent (override hero .btn-ghost light rule) */
+[data-theme="light"] .hero .btn-facebook,
+[data-theme="light"] .btn-facebook {
+  border-color: transparent;
+}
+
+/* UX wheel hub circle — dark navy is too dark on light bg */
+[data-theme="light"] .uw-hub-circle {
+  fill: #EAF7FE;
+  stroke: rgba(46, 178, 234, 0.4);
+}
+
+/* UX wheel electron-near nodes — add orange text accent */
+[data-theme="light"] .uw-node.electron-near h4,
+[data-theme="light"] .uw-node.electron-near .uw-node-num {
+  color: #EA652C;
+}
+
+/* Diploma credential — lighten background for light theme */
+[data-theme="light"] .diploma-credential {
+  background: linear-gradient(135deg, #ffffff 0%, #EAF7FE 100%);
+  border-color: rgba(46, 178, 234, 0.3);
+  box-shadow: 0 12px 48px rgba(46, 178, 234, 0.12);
+}
+
+[data-theme="light"] .diploma-cred-name {
+  color: #041E2A;
+}
+
+/* Miro + Notion icons — white on dark bg, invert to black for light bg */
+[data-theme="light"] .logo-item img[alt="Miro"],
+[data-theme="light"] .logo-item img[alt="Notion"] {
+  filter: invert(1);
+}
+
+/* Education + Certifications containers — white background */
+[data-theme="light"] .resume-education,
+[data-theme="light"] .resume-certs {
+  background: #ffffff;
+  border-color: rgba(46, 178, 234, 0.2);
+}
+
 /* Resume btn stays orange — visible on light */
