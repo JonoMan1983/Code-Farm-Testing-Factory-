@@ -333,9 +333,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#AAF6EE', rgba: [170, 246, 238] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#FF6A00', rgba: [255, 106,   0] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#C9F9F4', rgba: [201, 249, 244] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#BEE0E2', rgba: [190, 224, 226] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#EA652C', rgba: [234, 101, 44] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#D6EBEC', rgba: [214, 235, 236] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -482,11 +482,11 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;   // 0 → 1
     const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;   // fast 0 → 1
 
-    // Glow pass (pulsing, whole string) — #FF6A00 matches hero title orange
-    ctx.shadowColor = '#FF6A00';
+    // Glow pass (pulsing, whole string) — #EA652C matches hero title orange
+    ctx.shadowColor = '#EA652C';
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
-    ctx.fillStyle   = '#FF6A00';
+    ctx.fillStyle   = '#EA652C';
     ctx.fillText('20+', 0, 0);
 
     // Two-colour solid fill: "20" white, "+" hero-title orange pulsing fast
@@ -515,7 +515,7 @@ window.addEventListener('scroll', () => {
     // Subtitle
     ctx.font        = '600 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-    ctx.fillStyle   = '#AAF6EE';
+    ctx.fillStyle   = '#BEE0E2';
     ctx.globalAlpha = 0.82;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
 
@@ -1197,7 +1197,7 @@ window.addEventListener('scroll', () => {
     // Core dot
     ctx.beginPath();
     ctx.arc(px, py, 11, 0, Math.PI * 2);
-    ctx.fillStyle = '#FF6A00';
+    ctx.fillStyle = '#EA652C';
     ctx.fill();
 
     requestAnimationFrame(frame);
