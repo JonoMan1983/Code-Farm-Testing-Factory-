@@ -507,32 +507,44 @@ window.addEventListener('scroll', () => {
     ctx.lineJoin = 'round';
 
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
-    const plusPulse = Math.sin(t * 6.0) * 0.5 + 0.5;
+    const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
 
-    // Glow pass — blue in dark, purple in light
+    // Measure with left alignment so glow + solid passes line up
+    ctx.textAlign = 'left';
+    const wFull  = ctx.measureText('20+').width;
+    const w20    = ctx.measureText('20').width;
+    const wPlus  = ctx.measureText('+').width;
+    const startX = -(wFull / 2);
+    const plusCx = startX + w20 + wPlus / 2;
+
+    // Glow pass — blue in dark, blue in light
     ctx.shadowColor = glowHex;
     ctx.shadowBlur  = 55 + pulse * 140;
     ctx.globalAlpha = 0.45 + pulse * 0.55;
     ctx.fillStyle   = glowHex;
-    ctx.fillText('20+', 0, 0);
+
+    // Glow for "20"
+    ctx.fillText('20', startX, 0);
+
+    // Glow for "+" — scaled with plusScale so the halo grows/shrinks with it
+    ctx.save();
+    ctx.translate(plusCx, 0);
+    ctx.scale(plusScale, plusScale);
+    ctx.textAlign = 'center';
+    ctx.fillText('+', 0, 0);
+    ctx.restore();
 
     ctx.shadowBlur  = 0;
     ctx.shadowColor = 'transparent';
-    ctx.textAlign   = 'left';
-    const wFull  = ctx.measureText('20+').width;
-    const w20    = ctx.measureText('20').width;
-    const startX = -(wFull / 2);
 
     // "20" — orange in dark, dark navy in light
     ctx.globalAlpha = 1;
     ctx.fillStyle   = textHex;
+    ctx.textAlign   = 'left';
     ctx.fillText('20', startX, 0);
 
     // "+" — scales ±15%, orange on both
     ctx.save();
-    const wPlus    = ctx.measureText('+').width;
-    const plusCx   = startX + w20 + wPlus / 2;
-    const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
     ctx.translate(plusCx, 0);
     ctx.scale(plusScale, plusScale);
     ctx.globalAlpha  = 1;
