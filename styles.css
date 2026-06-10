@@ -808,7 +808,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-5 { left: 17.6%;  top: 39.6%; }
 
 .uw-node.electron-near {
-  border-color: #EA652C;
+  border-color: #ffffff;
+  border-width: 2px;
   box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.6);
   background: rgba(80, 30, 5, 0.92);
   animation: uw-node-pulse 0.5s ease-out forwards;
@@ -3329,6 +3330,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   background: rgba(234, 101, 44, 0.88);
   box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.4);
   border-color: #ffffff;
+  border-width: 2px;
 }
 
 [data-theme="light"] .uw-node.electron-near .uw-node-icon svg {
