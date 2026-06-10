@@ -395,6 +395,7 @@ window.addEventListener('scroll', () => {
   }
 
   function drawOrbits(gRot, t, ux, uy) {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     // Per-orbit animation: lineWidth and dash gap each oscillate independently
     const ANIM = [
       { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
@@ -408,7 +409,7 @@ window.addEventListener('scroll', () => {
       const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
       const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
+      ctx.strokeStyle = isLight ? '#000000' : lerpRGB(PINK_RGB, o.rgba, frac);
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
       // Dash starts at electron, extends clockwise — dot leads, line follows
