@@ -559,6 +559,16 @@ window.addEventListener('scroll', () => {
     // Subtitle — weight 900, white in dark / deep purple in light
     ctx.font        = '900 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
+
+    // Glow pass — same blue as "20+", on both light and dark
+    ctx.save();
+    ctx.shadowColor = glowHex;
+    ctx.shadowBlur  = 55 + pulse * 140;
+    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.fillStyle   = glowHex;
+    ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
+    ctx.restore();
+
     ctx.globalAlpha = 1;
     ctx.fillStyle   = subtitleHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
