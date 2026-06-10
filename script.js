@@ -435,8 +435,9 @@ window.addEventListener('scroll', () => {
   ];
 
   function drawAtoms(gRot, t, ux, uy) {
-    const [r, g, b] = ELECTRON_RGB;  // orange electrons on both themes
-    const coreDot  = '#EA652C';
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const [r, g, b] = isLight ? [29, 130, 173] : ELECTRON_RGB;  // darker blue in light, orange in dark
+    const coreDot  = isLight ? '#1D82AD' : '#EA652C';
     atoms.forEach((atom) => {
       const i  = atom.orbitIdx;
       const o  = orbits[i];
