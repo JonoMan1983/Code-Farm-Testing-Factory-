@@ -1252,3 +1252,39 @@ window.addEventListener('scroll', () => {
 
   frame();
 })();
+
+// ===========================
+// HERO CANVAS — match height to hero copy on desktop
+// ===========================
+(function syncHeroCanvasSize() {
+  const heroContent = document.querySelector('.hero-content');
+  const heroVisual  = document.querySelector('.hero-visual');
+  const heroCanvas  = document.getElementById('heroCanvas');
+  if (!heroContent || !heroVisual || !heroCanvas) return;
+
+  function apply() {
+    if (window.innerWidth < 900) {
+      heroCanvas.style.removeProperty('width');
+      heroCanvas.style.removeProperty('height');
+      return;
+    }
+
+    const hvWidth  = heroVisual.getBoundingClientRect().width;
+    const hcHeight = heroContent.getBoundingClientRect().height;
+    const size = Math.min(hcHeight, hvWidth);
+    heroCanvas.style.width  = size + 'px';
+    heroCanvas.style.height = size + 'px';
+  }
+
+  apply();
+
+  let raf = null;
+  window.addEventListener('resize', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = null; apply(); });
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(apply);
+  }
+})();
