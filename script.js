@@ -395,13 +395,14 @@ window.addEventListener('scroll', () => {
   }
 
   function drawOrbits(gRot, t, ux, uy) {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     // Per-orbit animation: lineWidth and dash gap each oscillate independently
     const ANIM = [
       { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
       { dot:  9, gapMin: 14, gapMax: 40, lwFreq: 0.57, lwPh: 2.1, gFreq: 0.88, gPh: 3.1 },
       { dot: 14, gapMin: 18, gapMax: 56, lwFreq: 0.78, lwPh: 4.2, gFreq: 1.18, gPh: 5.8 },
     ];
-    ctx.globalAlpha = 0.72;
+    ctx.globalAlpha = isLight ? 1 : 0.72;
     orbits.forEach((o, i) => {
       const fs   = floatStates[i];
       const a    = ANIM[i];
