@@ -3327,7 +3327,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* UX wheel electron-near — orange bg with white stroke + white text */
 [data-theme="light"] .uw-node.electron-near {
   background: rgba(234, 101, 44, 0.88);
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.4);
+  box-shadow: 0 0 0 2px #ffffff, 0 0 28px rgba(234, 101, 44, 0.4);
   border-color: #ffffff;
 }
 
