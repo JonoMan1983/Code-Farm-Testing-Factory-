@@ -621,6 +621,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Quote/testimonial marquee */
 .marquee-quotes .marquee-group {
+  align-items: stretch;
   gap: 20px;
   padding: 0 10px;
 }
@@ -717,6 +718,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   width: 14px;
   height: 14px;
   transition: transform var(--transition);
+}
+
+.quote-expand .icon-book {
+  width: 28px;
+  height: 28px;
 }
 
 .quote-expand:hover {
