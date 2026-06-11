@@ -1387,3 +1387,124 @@ window.addEventListener('scroll', () => {
     document.fonts.ready.then(apply);
   }
 })();
+
+// ===========================
+// QUOTES MARQUEE — drag-to-scroll + auto-scroll
+// ===========================
+(function () {
+  const marquee = document.querySelector('.marquee-quotes');
+  const track = marquee && marquee.querySelector('.marquee-track');
+  if (!marquee || !track) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SCROLL_DURATION = 60; // seconds per full group-width pass
+
+  let groupWidth = 0;
+  let x = 0;
+  let isHovering = false;
+  let isDragging = false;
+  let dragMoved = false;
+  let pointerId = null;
+  let startX = 0;
+  let startTranslate = 0;
+  let lastTime = null;
+
+  track.style.animation = 'none';
+
+  function apply() {
+    track.style.transform = `translateX(${x}px)`;
+  }
+
+  function wrap() {
+    if (groupWidth <= 0) return;
+    while (x > 0) x -= groupWidth;
+    while (x <= -groupWidth) x += groupWidth;
+  }
+
+  function measure() {
+    const newGroupWidth = track.scrollWidth / 2;
+    if (newGroupWidth <= 0) return;
+    if (groupWidth === 0) {
+      x = -newGroupWidth;
+    } else if (newGroupWidth !== groupWidth) {
+      x = (x / groupWidth) * newGroupWidth;
+    }
+    groupWidth = newGroupWidth;
+    wrap();
+    apply();
+  }
+
+  function frame(time) {
+    if (lastTime === null) lastTime = time;
+    const dt = Math.min((time - lastTime) / 1000, 0.1);
+    lastTime = time;
+
+    if (!isDragging && !isHovering && !reduceMotion && groupWidth > 0) {
+      x += (groupWidth / SCROLL_DURATION) * dt;
+      wrap();
+      apply();
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  track.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    dragMoved = false;
+    pointerId = e.pointerId;
+    startX = e.clientX;
+    startTranslate = x;
+  });
+
+  track.addEventListener('pointermove', (e) => {
+    if (!isDragging || e.pointerId !== pointerId) return;
+    const delta = e.clientX - startX;
+    if (!dragMoved && Math.abs(delta) > 3) {
+      dragMoved = true;
+      track.classList.add('dragging');
+      track.setPointerCapture(pointerId);
+    }
+    if (!dragMoved) return;
+    x = startTranslate + delta;
+    wrap();
+    apply();
+  });
+
+  function endDrag(e) {
+    if (!isDragging || e.pointerId !== pointerId) return;
+    isDragging = false;
+    if (dragMoved) {
+      track.classList.remove('dragging');
+      track.releasePointerCapture(pointerId);
+    }
+    pointerId = null;
+  }
+
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
+  track.addEventListener('click', (e) => {
+    if (dragMoved) {
+      e.preventDefault();
+      e.stopPropagation();
+      dragMoved = false;
+    }
+  }, true);
+
+  marquee.addEventListener('mouseenter', () => { isHovering = true; });
+  marquee.addEventListener('mouseleave', () => { isHovering = false; });
+
+  measure();
+
+  let resizeRaf = null;
+  window.addEventListener('resize', () => {
+    if (resizeRaf) return;
+    resizeRaf = requestAnimationFrame(() => { resizeRaf = null; measure(); });
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(measure);
+  }
+
+  requestAnimationFrame(frame);
+})();

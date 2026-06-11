@@ -277,7 +277,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   padding-bottom: 100px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(140deg, #041e2a 0%, #0b516f 100%);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(2, 10, 17, 0.85) 0%, rgba(2, 10, 17, 0) 48%),
+    radial-gradient(circle at 88% 86%, rgba(1, 8, 14, 0.75) 0%, rgba(1, 8, 14, 0) 52%),
+    linear-gradient(140deg, #041e2a 0%, #0b516f 100%);
 }
 
 .hero-container {
@@ -608,6 +611,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
   animation-play-state: paused;
 }
 
+.marquee-quotes .marquee-track {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.marquee-quotes .marquee-track.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -638,6 +651,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border: 1px solid var(--color-border);
   border-radius: 12px;
   backdrop-filter: blur(8px);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.quote-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent);
+  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
 }
 
 .quote-card p {
@@ -1101,8 +1121,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-5 { left: 17.6%;  top: 39.6%; }
 
 .uw-node.electron-near {
+  border-width: 1px;
   border-color: #ffffff;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.6);
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.6);
   background: rgba(80, 30, 5, 0.92);
   animation: uw-node-pulse 0.5s ease-out forwards;
 }
@@ -1141,46 +1162,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .uw-node-icon { flex-shrink: 0; margin: 0; }
   .uw-node-text h4 { font-size: 0.88rem; justify-content: flex-start; }
   .uw-node-text p  { font-size: 0.75rem; }
-}
-
-/* Credential callout */
-.ux-credential {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: rgba(46, 178, 234, 0.07);
-  border: 1px solid rgba(46, 178, 234, 0.22);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 48px;
-  max-width: 520px;
-}
-
-.ux-credential-icon {
-  flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--color-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ux-credential-icon svg {
-  width: 22px;
-  height: 22px;
-  color: #fff;
-  stroke: #fff;
-}
-
-.ux-credential h4 {
-  margin-bottom: 2px;
-  font-size: 0.95rem;
-}
-
-.ux-credential p {
-  font-size: 13px;
 }
 
 /* UI work grid */
@@ -3472,7 +3453,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Hero section */
 [data-theme="light"] .hero {
-  background: linear-gradient(140deg, #EAF7FE 0%, #B8E8F8 100%);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(11, 81, 111, 0.4) 0%, rgba(11, 81, 111, 0) 48%),
+    radial-gradient(circle at 88% 86%, rgba(4, 30, 42, 0.3) 0%, rgba(4, 30, 42, 0) 52%),
+    linear-gradient(140deg, #EAF7FE 0%, #B8E8F8 100%);
 }
 
 [data-theme="light"] .hero-title {
@@ -3589,6 +3573,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 [data-theme="light"] .ui-card:hover,
 [data-theme="light"] .diploma-card:hover,
 [data-theme="light"] .video-card:hover,
+[data-theme="light"] .quote-card:hover,
 [data-theme="light"] .ux-step:hover {
   box-shadow: 0 12px 40px rgba(46, 178, 234, 0.2);
 }
@@ -3619,6 +3604,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* UX wheel electron-near — orange bg with white stroke + white text */
 [data-theme="light"] .uw-node.electron-near {
+  border-width: 1px;
   background: rgba(234, 101, 44, 0.88);
   box-shadow: 0 0 0 1px #ffffff, 0 0 28px rgba(234, 101, 44, 0.4);
   border-color: #ffffff;
