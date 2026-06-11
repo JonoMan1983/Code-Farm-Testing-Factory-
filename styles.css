@@ -619,26 +619,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
-/* Logo marquee */
-.marquee-logos {
-  margin-bottom: 28px;
-}
-
-.marquee-logos .marquee-group {
-  gap: 56px;
-  padding: 0 28px;
-}
-
-.logo-mark {
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-  filter: grayscale(1);
-  opacity: 0.6;
-}
-
 /* Quote/testimonial marquee */
 .marquee-quotes .marquee-group {
   gap: 20px;
@@ -646,9 +626,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .quote-card {
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   width: 320px;
-  padding: 22px;
+  min-height: 260px;
+  padding: 24px;
   text-align: left;
   background: rgba(46, 178, 234, 0.06);
   border: 1px solid var(--color-border);
@@ -657,14 +640,21 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .quote-card p {
-  font-size: 14px;
-  line-height: 1.6;
+  flex: 1 0 auto;
+  font-size: 15px;
+  line-height: 1.65;
   color: var(--color-text);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .quote-card p strong {
   color: var(--color-accent);
+}
+
+.quote-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .quote-card-meta {
@@ -707,31 +697,141 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: var(--color-text-muted);
 }
 
-.quote-company {
-  font-size: 11px;
+.quote-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font);
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-accent-red);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: color var(--transition);
 }
 
-.quote-company:empty {
-  display: none;
+.quote-expand svg {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--transition);
+}
+
+.quote-expand:hover {
+  color: var(--color-accent-hover);
+}
+
+.quote-expand:hover svg {
+  transform: translateX(3px);
+}
+
+/* Full reference modal */
+.reference-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding: 24px;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.reference-modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.2s ease;
+}
+
+.reference-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 36px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+.reference-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(46, 178, 234, 0.1);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.reference-modal-close:hover {
+  background: rgba(46, 178, 234, 0.2);
+}
+
+.reference-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-right: 40px;
+}
+
+.reference-modal-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.reference-modal-role {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.reference-modal-text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: 24px;
+}
+
+.reference-modal-footer {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+}
+
+.reference-modal-footer a {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 @media (max-width: 480px) {
   .quote-card {
     width: 260px;
+    min-height: 280px;
     padding: 18px;
   }
 
-  .marquee-logos .marquee-group {
-    gap: 36px;
-    padding: 0 18px;
-  }
-
-  .logo-mark {
-    font-size: 0.92rem;
+  .reference-modal-card {
+    padding: 28px 20px;
   }
 }
 

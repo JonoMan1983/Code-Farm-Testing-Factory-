@@ -232,6 +232,95 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ===========================
+// RECOMMENDATION REFERENCE MODAL
+// ===========================
+(function () {
+  const modal = document.getElementById('referenceModal');
+  if (!modal) return;
+
+  const nameEl   = document.getElementById('referenceModalName');
+  const roleEl   = document.getElementById('referenceModalRole');
+  const textEl   = document.getElementById('referenceModalText');
+  const closeBtn = document.getElementById('referenceModalClose');
+
+  const REFERENCES = {
+    'anne-jacobson': {
+      name: 'Anne Jacobson',
+      role: 'General Manager',
+      text: `I am delighted to provide this reference for Jonathan Nestler, whom I had the pleasure of working with. Jonathan consistently demonstrated exceptional creativity, professionalism, and dedication. He went from Product Designer on to lead UX/UI product design across multiple portfolio brands. In this role, he played a key part in shaping product experiences, integrating Claude AI into Figma-based design workflows, driving continuous integration development initiatives, creating slot game animations, and developing cross-platform UI prototypes. Jonathan also led the creation of design collateral across multiple portfolio brands, delivering high-quality UI/UX prototypes, corporate identity systems, illustrations, and VFX animations for online slot games and digital media campaigns. His ability to combine strategic thinking with strong visual design skills consistently resulted in outstanding work that elevated both the products and brands he supported. Beyond his technical and creative expertise, Jonathan is a true team player and an outstanding collaborator. He brings positive energy to every project and is always willing to contribute ideas that improve processes, products, and outcomes. His creativity, initiative, and enthusiasm make him a valued member of any team. Jonathan is exceptionally easy to work with, dependable, and committed to excellence. He consistently goes the extra mile to ensure tasks are completed to the highest possible standard and takes great pride in delivering flawless results. His strong work ethic, attention to detail, and willingness to support colleagues make him a genuine asset to any organization. I have no hesitation in recommending Jonathan for any role that requires creativity, innovation, leadership, and collaboration. Any organization would be fortunate to have him on their team.`
+    },
+    'hendrik-groenewald': {
+      name: 'Hendrik Groenewald',
+      role: 'Art Director',
+      text: `I highly recommend Jonathan without hesitation. Having worked with him for several years, I can confidently say that he is an incredibly talented and creative graphic designer. His ability to generate innovative ideas and deliver high-quality work consistently sets him apart. Not only is he a fast learner, but his broad skill set allows him to tackle a wide range of design challenges with ease. Beyond his technical skills, Jonathan is also a fantastic collaborator. He is always willing to share his knowledge with others and is open to learning new techniques himself. His positive attitude and strong work ethic make him an invaluable asset to any team. If you're looking for someone with both exceptional creativity and a willingness to grow, Jonathan is the perfect choice. I am proud to have been his mentor and manager.`
+    },
+    'vanessa-bohling': {
+      name: 'Vanessa Bohling',
+      role: 'Executive Support & Admin Controller',
+      text: `I had the pleasure of working with Jonathan for just over a year. He was always a calm and dependable team member. His quiet demeanour and low maintenance competence in the workplace brought a good balance to the team. He was adaptable and showed great patience in dealing with constant changes and conflicting information and ideas that were brought to him. He brought a special artistic flair to the branding, multimedia, videos, and website design. Creative and logical with exceptional technical and organizational skills. Jonathan was always courteous and helpful with a wonderful quick wit and unique sense of humour. Jonathan is an asset to any team or organization.`
+    },
+    'elizabeth-joss-bethlehem': {
+      name: 'Elizabeth Joss-Bethlehem',
+      role: 'Managing Director & Founder',
+      text: `Jonathan is a hard worker who pays exceptional attention to detail in all he does. He is a creative through and through and goes above and beyond to produce the best possible work according to the brief. He faces challenging tasks with ease and dedication. I thoroughly enjoyed working with him as he is a likeable, professional, open and interesting people's person. I hope we can work together on projects in the future.`
+    },
+    'justin-gieselbach': {
+      name: 'Justin Gieselbach',
+      role: 'Creative Leader',
+      text: `Jonathan is an extremely dedicated designer, creative leader and workhorse in all of his endeavors. I had the pleasure of working with him over several years and have seen him grow exponentially into a truly innovative designer, going above and beyond in all the projects we were involved in. Jonathan has extensive experience in UI/UX as well as other fields such as video editing, photography, animation and front-end development. I have no hesitation in recommending Jonathan as his work ethic has been an inspiration to me over the years.`
+    },
+    'riaan-roetz': {
+      name: 'Riaan Roetz',
+      role: 'UX/UI Designer & Developer',
+      text: `Jonathan is not only an amazing designer but also a great manager. He gets design management well, fixes problems, and gets things done. Jonathan's balanced approach to design and management is refreshing not only to new members of his team but to the entire management structure. Projects under his leadership progress smoothly from concept to deployment. I definitely recommend Jonathan for any company in need of great design skills.`
+    },
+    'phillip-van-coller': {
+      name: 'Phillip van Coller',
+      role: 'Multimedia Designer',
+      text: `Jonathan is a highly skilled and very experienced creative individual. He has a very unique and inspiring perspective on any creative work and puts his own personal touch to every project. He is very respectful and always makes sure that the client needs are fulfilled. I highly recommend him for any creative work — he has my golden stamp of approval!`
+    },
+    'warren-raysdorf': {
+      name: 'Warren Raysdorf',
+      role: 'Graphic Artist & Sequential Artist',
+      text: `Jonathan was an excellent colleague and friend to work with. He is really good at what he does and whenever we have had to overlap illustration with design and animation, he always brings great ideas to the table without being overbearing or controlling. This is an important quality to have when working with other creatives. Jonathan is a very good allrounder with a steady character who doesn't easily get flustered under pressure.`
+    },
+    'darryl-smith': {
+      name: 'Darryl Smith',
+      role: 'Mentor',
+      text: `In my years of working with Jonathan, I have found him to be a truly inspirational creative who can visually bring his ideas together and add pure brilliance to any design task he sets his mind to. True creatives are hard to find and he is one of the best.`
+    },
+  };
+
+  function open(id) {
+    const ref = REFERENCES[id];
+    if (!ref) return;
+    nameEl.textContent = ref.name;
+    roleEl.textContent = ref.role;
+    textEl.textContent = ref.text;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.quote-expand').forEach(btn => {
+    btn.addEventListener('click', () => open(btn.dataset.ref));
+  });
+
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
+
+  document.addEventListener('keydown', e => {
+    if (modal.classList.contains('open') && e.key === 'Escape') close();
+  });
+})();
+
+// ===========================
 // LIGHTBOX — Artistic Expression
 // ===========================
 (function () {
