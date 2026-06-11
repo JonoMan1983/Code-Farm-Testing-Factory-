@@ -648,7 +648,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .quote-card p strong {
-  color: var(--color-accent);
+  color: var(--color-accent-red);
 }
 
 .quote-card-footer {
