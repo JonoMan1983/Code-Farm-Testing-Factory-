@@ -552,6 +552,190 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
+   RECOMMENDATIONS / TRUSTED BY
+   =========================== */
+.recommendations {
+  overflow: hidden;
+}
+
+.recommendations-intro {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.recommendations-intro .section-intro {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recommendations-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.recommendations-cta .linkedin-cta {
+  display: inline-block;
+  text-align: left;
+}
+
+/* Marquee shell — full-bleed with edge fade */
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 36s linear infinite;
+}
+
+.marquee-track-reverse {
+  animation-duration: 60s;
+  animation-direction: reverse;
+}
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Logo marquee */
+.marquee-logos {
+  margin-bottom: 28px;
+}
+
+.marquee-logos .marquee-group {
+  gap: 56px;
+  padding: 0 28px;
+}
+
+.logo-mark {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+/* Quote/testimonial marquee */
+.marquee-quotes .marquee-group {
+  gap: 20px;
+  padding: 0 10px;
+}
+
+.quote-card {
+  flex-shrink: 0;
+  width: 320px;
+  padding: 22px;
+  text-align: left;
+  background: rgba(46, 178, 234, 0.06);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.quote-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: 18px;
+}
+
+.quote-card p strong {
+  color: var(--color-accent);
+}
+
+.quote-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quote-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(46, 178, 234, 0.12);
+  color: var(--color-accent);
+}
+
+.quote-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.quote-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quote-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.quote-role {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.quote-company {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+}
+
+.quote-company:empty {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .quote-card {
+    width: 260px;
+    padding: 18px;
+  }
+
+  .marquee-logos .marquee-group {
+    gap: 36px;
+    padding: 0 18px;
+  }
+
+  .logo-mark {
+    font-size: 0.92rem;
+  }
+}
+
+/* ===========================
    CASE STUDIES
    =========================== */
 .work-grid {
