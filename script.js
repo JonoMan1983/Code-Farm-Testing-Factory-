@@ -497,8 +497,12 @@ window.addEventListener('scroll', () => {
       const a    = ANIM[i];
       const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
       const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
-      const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-      ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
+      if (isLight) {
+        ctx.strokeStyle = '#FFFFFF';
+      } else {
+        const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
+        ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
+      }
       ctx.lineWidth   = lw;
       ctx.setLineDash([a.dot, gap]);
       // Dash starts at electron, extends clockwise — dot leads, line follows
@@ -524,8 +528,9 @@ window.addEventListener('scroll', () => {
   ];
 
   function drawAtoms(gRot, t, ux, uy) {
-    const [r, g, b] = ELECTRON_RGB;  // orange electrons on both themes
-    const coreDot  = '#EA652C';
+    const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
+    const [r, g, b] = isLight ? [255, 255, 255] : ELECTRON_RGB;
+    const coreDot  = isLight ? '#FFFFFF' : '#EA652C';
     atoms.forEach((atom) => {
       const i  = atom.orbitIdx;
       const o  = orbits[i];
