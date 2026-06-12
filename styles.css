@@ -644,6 +644,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* Quote/testimonial marquee */
+.marquee-quotes {
+  /* Buffer so the hover lift/shadow isn't clipped by overflow:hidden */
+  padding-top: 32px;
+  margin-top: -32px;
+}
+
 .marquee-quotes .marquee-group {
   align-items: stretch;
   gap: 20px;
