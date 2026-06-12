@@ -474,70 +474,6 @@ window.addEventListener('scroll', () => {
     atoms.push({ orbitIdx: i, angle: base + Math.PI,   trail: [] });
   });
 
-  // ── Ambient starfield — drifting, twinkling depth layer behind the orbits ──
-  const STAR_COUNT      = 70;
-  const GLOW_STAR_COUNT = 8;
-  // Star colours per theme — light theme needs darker tones to read against the pale sky
-  const STAR_PALETTES = {
-    dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
-    light: [[4,   30,  42],  [11,  81, 111], [234, 101, 44]],
-  };
-  function makeStar(glow) {
-    const roll = Math.random();
-    const colorIdx = roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2;
-    return {
-      x: Math.random() * SIZE,
-      y: Math.random() * SIZE,
-      r: glow ? 2 + Math.random() * 2 : 0.6 + Math.random() * 1.6,
-      glow,
-      colorIdx,
-      baseAlpha: glow ? 0.35 + Math.random() * 0.25 : 0.25 + Math.random() * 0.55,
-      twFreq: 0.2 + Math.random() * 1.0,
-      twPhase: Math.random() * Math.PI * 2,
-      vx: (Math.random() - 0.5) * (glow ? 2.5 : 5),
-      vy: (Math.random() - 0.5) * (glow ? 2.5 : 5),
-    };
-  }
-  const stars = [
-    ...Array.from({ length: STAR_COUNT },      () => makeStar(false)),
-    ...Array.from({ length: GLOW_STAR_COUNT }, () => makeStar(true)),
-  ];
-
-  function drawStars(t, dt, ux, uy) {
-    const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
-    const palette  = isLight ? STAR_PALETTES.light : STAR_PALETTES.dark;
-    const alphaMul = isLight ? 0.85 : 1;
-    const px = ux * 0.3, py = uy * 0.3; // slower parallax = sits further back
-    stars.forEach(s => {
-      s.x += s.vx * dt;
-      s.y += s.vy * dt;
-      if (s.x < -20) s.x += SIZE + 40;
-      if (s.x > SIZE + 20) s.x -= SIZE + 40;
-      if (s.y < -20) s.y += SIZE + 40;
-      if (s.y > SIZE + 20) s.y -= SIZE + 40;
-
-      const tw    = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
-      const alpha = s.baseAlpha * (0.35 + tw * 0.65) * alphaMul;
-      const x = s.x + px, y = s.y + py;
-      const rgb = palette[s.colorIdx];
-
-      if (s.glow) {
-        const grd = ctx.createRadialGradient(x, y, 0, x, y, s.r * 6);
-        grd.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`);
-        grd.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
-        ctx.beginPath();
-        ctx.arc(x, y, s.r * 6, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
-      }
-
-      ctx.beginPath();
-      ctx.arc(x, y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
-      ctx.fill();
-    });
-  }
-
   function orbitalPoint(o, angle, gRot, fx, fy) {
     const ex   = o.rx * Math.cos(angle);
     const ey   = o.ry * Math.sin(angle);
@@ -735,12 +671,8 @@ window.addEventListener('scroll', () => {
 
   let rafId = null;
 
-  let lastTimestamp = null;
-
   function frame(timestamp) {
     const t    = timestamp * 0.001;
-    const dt   = lastTimestamp === null ? 0 : Math.min((timestamp - lastTimestamp) * 0.001, 0.1);
-    lastTimestamp = timestamp;
     const gRot = t * 0.10;
     const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);
 
@@ -770,7 +702,6 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
-    drawStars(t, dt, ux, uy);
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
     drawText(textRot, t, ux, uy);
@@ -791,6 +722,171 @@ window.addEventListener('scroll', () => {
   document.fonts.ready.then(() => {
     rafId = requestAnimationFrame(frame);
   });
+})();
+
+// ===========================
+// HERO STARFIELD — ambient particles across the full hero
+// ===========================
+(function initHeroStarfield() {
+  const hero       = document.querySelector('.hero');
+  const canvas     = document.getElementById('heroStarsCanvas');
+  const heroCanvas = document.getElementById('heroCanvas');
+  if (!hero || !canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Star colours per theme — light theme needs darker tones to read against the pale sky
+  const STAR_PALETTES = {
+    dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
+    light: [[4,   30,  42],  [11,  81, 111], [234, 101, 44]],
+  };
+  // Glow halos always use the bright accent hues — a dark halo reads as a smudge, not a glow
+  const GLOW_PALETTE = [[46, 178, 234], [234, 101, 44]];
+
+  let W = 0, H = 0;
+  let stars = [];
+
+  // depth 0 = far (small, dim, slow, low parallax) — 1 = near (large, bright, fast, high parallax)
+  function makeStar(w, h, glow) {
+    const roll = Math.random();
+    const colorIdx = glow ? (roll < 0.55 ? 0 : 1) : (roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2);
+    const depth = Math.random();
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: (glow ? 1.6 + Math.random() * 2.4 : 0.5 + Math.random() * 1.6) * (0.6 + depth * 0.9),
+      glow,
+      colorIdx,
+      depth,
+      baseAlpha: glow ? 0.3 + Math.random() * 0.25 : 0.2 + Math.random() * 0.5,
+      twFreq: 0.2 + Math.random() * 1.3,
+      twPhase: Math.random() * Math.PI * 2,
+      vx: 0, vy: 0,
+      tx: 0, ty: 0,
+      nextRoll: 0,
+    };
+  }
+
+  // Star density scales with hero area, clamped to a sensible range
+  function buildStars(w, h) {
+    const count   = Math.round(Math.min(260, Math.max(90, (w * h) / 9000)));
+    const glowCnt = Math.max(10, Math.round(count * 0.1));
+    stars = [
+      ...Array.from({ length: count },   () => makeStar(w, h, false)),
+      ...Array.from({ length: glowCnt }, () => makeStar(w, h, true)),
+    ];
+  }
+
+  function resize() {
+    const rect = hero.getBoundingClientRect();
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildStars(W, H);
+  }
+
+  resize();
+
+  let resizeRaf = null;
+  window.addEventListener('resize', () => {
+    if (resizeRaf) return;
+    resizeRaf = requestAnimationFrame(() => { resizeRaf = null; resize(); });
+  });
+
+  let rafId = null;
+  let lastTimestamp = null;
+
+  function frame(timestamp) {
+    const t  = timestamp * 0.001;
+    const dt = lastTimestamp === null ? 0 : Math.min((timestamp - lastTimestamp) * 0.001, 0.1);
+    lastTimestamp = timestamp;
+
+    const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
+    const palette  = isLight ? STAR_PALETTES.light : STAR_PALETTES.dark;
+    const alphaMul = isLight ? 0.85 : 1;
+
+    // Focal point — centre of the "20+" orbit canvas, relative to the hero (recomputed
+    // every frame so it stays correct across the mobile-stacked / desktop-row layouts)
+    const heroRect = hero.getBoundingClientRect();
+    let focalX = W * 0.5, focalY = H * 0.45, focalR = Math.max(W, H) * 0.55;
+    if (heroCanvas) {
+      const cRect = heroCanvas.getBoundingClientRect();
+      if (cRect.width > 0) {
+        focalX = (cRect.left + cRect.width  / 2) - heroRect.left;
+        focalY = (cRect.top  + cRect.height / 2) - heroRect.top;
+        focalR = Math.max(cRect.width, cRect.height) * 0.85;
+      }
+    }
+
+    // Scroll parallax — nearer (higher depth) stars shift further as the hero scrolls
+    const clampedTop  = Math.max(-H, Math.min(0, heroRect.top));
+    const scrollShift = clampedTop * -0.18;
+
+    ctx.clearRect(0, 0, W, H);
+
+    stars.forEach(s => {
+      // Organic drift — periodically re-roll a target velocity and ease toward it
+      if (timestamp > s.nextRoll) {
+        const speed = 4 + s.depth * 22;
+        s.tx = (Math.random() - 0.5) * speed;
+        s.ty = (Math.random() - 0.5) * speed;
+        s.nextRoll = timestamp + 1500 + Math.random() * 3500;
+      }
+      s.vx += (s.tx - s.vx) * 0.01;
+      s.vy += (s.ty - s.vy) * 0.01;
+      s.x  += s.vx * dt;
+      s.y  += s.vy * dt;
+
+      if (s.x < -30) s.x += W + 60;
+      if (s.x > W + 30) s.x -= W + 60;
+      if (s.y < -30) s.y += H + 60;
+      if (s.y > H + 30) s.y -= H + 60;
+
+      const px = s.x;
+      const py = s.y + scrollShift * (0.3 + s.depth * 0.9);
+
+      const dx = px - focalX;
+      const dy = py - focalY;
+      const proximity = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / focalR);
+
+      const tw    = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
+      const alpha = Math.min(1, s.baseAlpha * (0.35 + tw * 0.65) * alphaMul * (1 + proximity * 1.6));
+      const r     = s.r * (1 + proximity * 1.3);
+      const rgb   = s.glow ? GLOW_PALETTE[s.colorIdx] : palette[s.colorIdx];
+
+      if (s.glow) {
+        const grd = ctx.createRadialGradient(px, py, 0, px, py, r * 6);
+        grd.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`);
+        grd.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+        ctx.beginPath();
+        ctx.arc(px, py, r * 6, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+      ctx.fill();
+    });
+
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // Pause when tab is hidden to save CPU
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+      lastTimestamp = null;
+    } else if (!rafId) {
+      rafId = requestAnimationFrame(frame);
+    }
+  });
+
+  rafId = requestAnimationFrame(frame);
 })();
 
 /* ─── LEGACY DESIGNS FLIPBOOKS ──────────────────────────────── */
