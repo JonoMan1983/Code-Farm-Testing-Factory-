@@ -674,7 +674,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .quote-card:hover {
   transform: translateY(-4px);
   border-color: var(--color-accent);
-  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
 .quote-card p {
@@ -897,7 +897,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .case-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
 .case-image {
@@ -1003,7 +1003,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ux-step:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(49, 29, 115, 0.3);
+  box-shadow: 0 12px 32px rgba(46, 178, 234, 0.3);
 }
 
 .ux-step-icon {
@@ -1198,7 +1198,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ui-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
 .ui-card-img {
@@ -1223,7 +1223,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .ui-card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(49, 29, 115, 0.8);
+  background: rgba(4, 30, 42, 0.82);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1296,7 +1296,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ui-strip-item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(49, 29, 115, 0.3);
+  box-shadow: 0 8px 24px rgba(46, 178, 234, 0.3);
 }
 
 .ui-strip-item img {
@@ -1322,7 +1322,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .diploma-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
 .diploma-card-img {
@@ -1731,7 +1731,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .video-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(49, 29, 115, 0.35);
+  box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
 .video-embed-wrap {
@@ -1946,7 +1946,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .logo-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(49, 29, 115, 0.3);
+  box-shadow: 0 8px 24px rgba(46, 178, 234, 0.3);
   border-color: transparent;
 }
 
@@ -2364,7 +2364,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ai-workflow-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(49, 29, 115, 0.09);
+  box-shadow: 0 8px 28px rgba(46, 178, 234, 0.09);
   border-color: var(--color-accent-light);
 }
 
@@ -2697,7 +2697,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .art-thumb:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 32px rgba(49, 29, 115, 0.5);
+  box-shadow: 0 10px 32px rgba(46, 178, 234, 0.5);
 }
 
 .art-thumb img {
@@ -3683,7 +3683,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-top-color: #2EB2EA;
 }
 
-/* Hover shadows — use brand blue instead of purple */
+/* Hover shadows — lighter brand-blue alpha for light backgrounds */
 [data-theme="light"] .case-card:hover,
 [data-theme="light"] .ui-card:hover,
 [data-theme="light"] .diploma-card:hover,
@@ -3701,12 +3701,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 8px 24px rgba(46, 178, 234, 0.18);
 }
 
-/* UI strip hover — swap purple shadow for brand blue */
+/* UI strip hover — lighter brand-blue alpha for light backgrounds */
 [data-theme="light"] .ui-strip-item:hover {
   box-shadow: 0 8px 24px rgba(46, 178, 234, 0.18);
 }
 
-/* AI workflow card hover — swap purple shadow for brand blue */
+/* AI workflow card hover — stronger brand-blue alpha for light backgrounds */
 [data-theme="light"] .ai-workflow-card:hover {
   box-shadow: 0 8px 28px rgba(46, 178, 234, 0.15);
 }
@@ -3728,11 +3728,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 [data-theme="light"] .uw-node.electron-near .uw-node-icon svg {
   stroke: #ffffff;
   color: #ffffff;
-}
-
-/* UI card overlay — purple → dark navy */
-[data-theme="light"] .ui-card-overlay {
-  background: rgba(4, 30, 42, 0.82);
 }
 
 /* UX doc scroll — give the panel stronger contrast against page bg */

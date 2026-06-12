@@ -654,7 +654,7 @@ window.addEventListener('scroll', () => {
 
     ctx.restore();
 
-    // Subtitle — weight 900, white in dark / deep purple in light
+    // Subtitle — weight 900, white in dark / dark teal in light
     ctx.font        = '900 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
 
