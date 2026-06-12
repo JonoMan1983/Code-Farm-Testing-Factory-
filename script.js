@@ -586,7 +586,7 @@ window.addEventListener('scroll', () => {
 
   function drawText(textRot, t, ux, uy) {
     const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#2EB2EA' : '#2EB2EA';  // blue glow on both
+    const glowHex     = isLight ? '#2386B0' : '#2EB2EA';  // darker blue glow in light theme
     const textHex     = '#EA652C';                          // orange on both
     const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';  // dark teal / white
 
