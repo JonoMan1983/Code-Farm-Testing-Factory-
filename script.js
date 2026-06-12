@@ -1444,6 +1444,17 @@ window.addEventListener('scroll', () => {
   });
 })();
 
+/* ─── SITE CONTROLS ACCORDION (mobile) ──────────────────────── */
+(function () {
+  const btn = document.getElementById('siteControlsBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const isOpen = document.body.classList.toggle('site-controls-open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+})();
+
 /* ─── UX WHEEL ELECTRON ─────────────────────────────────────── */
 (function () {
   const canvas = document.getElementById('uxWheelCanvas');
