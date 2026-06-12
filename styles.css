@@ -3492,6 +3492,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: rgba(4, 30, 42, 0.4);
 }
 
+[data-theme="light"] .hero-label {
+  color: #ffffff;
+}
+
+[data-theme="light"] #heroCanvas {
+  border-radius: 50%;
+  box-shadow:
+    0 0 60px 10px rgba(46, 178, 234, 0.5),
+    0 0 120px 40px rgba(46, 178, 234, 0.3);
+}
+
+
 [data-theme="light"] .scroll-line {
   background: rgba(4, 30, 42, 0.25);
 }
