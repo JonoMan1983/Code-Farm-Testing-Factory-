@@ -474,6 +474,70 @@ window.addEventListener('scroll', () => {
     atoms.push({ orbitIdx: i, angle: base + Math.PI,   trail: [] });
   });
 
+  // ── Ambient starfield — drifting, twinkling depth layer behind the orbits ──
+  const STAR_COUNT      = 70;
+  const GLOW_STAR_COUNT = 8;
+  // Star colours per theme — light theme needs darker tones to read against the pale sky
+  const STAR_PALETTES = {
+    dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
+    light: [[4,   30,  42],  [11,  81, 111], [234, 101, 44]],
+  };
+  function makeStar(glow) {
+    const roll = Math.random();
+    const colorIdx = roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2;
+    return {
+      x: Math.random() * SIZE,
+      y: Math.random() * SIZE,
+      r: glow ? 2 + Math.random() * 2 : 0.6 + Math.random() * 1.6,
+      glow,
+      colorIdx,
+      baseAlpha: glow ? 0.35 + Math.random() * 0.25 : 0.25 + Math.random() * 0.55,
+      twFreq: 0.2 + Math.random() * 1.0,
+      twPhase: Math.random() * Math.PI * 2,
+      vx: (Math.random() - 0.5) * (glow ? 2.5 : 5),
+      vy: (Math.random() - 0.5) * (glow ? 2.5 : 5),
+    };
+  }
+  const stars = [
+    ...Array.from({ length: STAR_COUNT },      () => makeStar(false)),
+    ...Array.from({ length: GLOW_STAR_COUNT }, () => makeStar(true)),
+  ];
+
+  function drawStars(t, dt, ux, uy) {
+    const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
+    const palette  = isLight ? STAR_PALETTES.light : STAR_PALETTES.dark;
+    const alphaMul = isLight ? 0.85 : 1;
+    const px = ux * 0.3, py = uy * 0.3; // slower parallax = sits further back
+    stars.forEach(s => {
+      s.x += s.vx * dt;
+      s.y += s.vy * dt;
+      if (s.x < -20) s.x += SIZE + 40;
+      if (s.x > SIZE + 20) s.x -= SIZE + 40;
+      if (s.y < -20) s.y += SIZE + 40;
+      if (s.y > SIZE + 20) s.y -= SIZE + 40;
+
+      const tw    = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
+      const alpha = s.baseAlpha * (0.35 + tw * 0.65) * alphaMul;
+      const x = s.x + px, y = s.y + py;
+      const rgb = palette[s.colorIdx];
+
+      if (s.glow) {
+        const grd = ctx.createRadialGradient(x, y, 0, x, y, s.r * 6);
+        grd.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`);
+        grd.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
+        ctx.beginPath();
+        ctx.arc(x, y, s.r * 6, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(x, y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+      ctx.fill();
+    });
+  }
+
   function orbitalPoint(o, angle, gRot, fx, fy) {
     const ex   = o.rx * Math.cos(angle);
     const ey   = o.ry * Math.sin(angle);
@@ -671,8 +735,12 @@ window.addEventListener('scroll', () => {
 
   let rafId = null;
 
+  let lastTimestamp = null;
+
   function frame(timestamp) {
     const t    = timestamp * 0.001;
+    const dt   = lastTimestamp === null ? 0 : Math.min((timestamp - lastTimestamp) * 0.001, 0.1);
+    lastTimestamp = timestamp;
     const gRot = t * 0.10;
     const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);
 
@@ -702,6 +770,7 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, SIZE, SIZE);
 
+    drawStars(t, dt, ux, uy);
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
     drawText(textRot, t, ux, uy);
