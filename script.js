@@ -763,6 +763,13 @@ window.addEventListener('scroll', () => {
       vx: 0, vy: 0,
       tx: 0, ty: 0,
       nextRoll: 0,
+      // Slow figure-8 bob layered on top of the drift for a more "floating" feel
+      bobFreq: 0.12 + Math.random() * 0.28,
+      bobPhase: Math.random() * Math.PI * 2,
+      bobAmp: (3 + depth * 11),
+      // Glow halos breathe slowly, independent of the twinkle
+      pulseFreq: 0.1 + Math.random() * 0.2,
+      pulsePhase: Math.random() * Math.PI * 2,
     };
   }
 
@@ -829,13 +836,13 @@ window.addEventListener('scroll', () => {
     stars.forEach(s => {
       // Organic drift — periodically re-roll a target velocity and ease toward it
       if (timestamp > s.nextRoll) {
-        const speed = 4 + s.depth * 22;
+        const speed = 10 + s.depth * 38;
         s.tx = (Math.random() - 0.5) * speed;
         s.ty = (Math.random() - 0.5) * speed;
-        s.nextRoll = timestamp + 1500 + Math.random() * 3500;
+        s.nextRoll = timestamp + 1000 + Math.random() * 2500;
       }
-      s.vx += (s.tx - s.vx) * 0.01;
-      s.vy += (s.ty - s.vy) * 0.01;
+      s.vx += (s.tx - s.vx) * 0.018;
+      s.vy += (s.ty - s.vy) * 0.018;
       s.x  += s.vx * dt;
       s.y  += s.vy * dt;
 
@@ -844,8 +851,12 @@ window.addEventListener('scroll', () => {
       if (s.y < -30) s.y += H + 60;
       if (s.y > H + 30) s.y -= H + 60;
 
-      const px = s.x;
-      const py = s.y + scrollShift * (0.3 + s.depth * 0.9);
+      // Slow figure-8 bob layered on top of the drift — reads as a gentle float in place
+      const bobX = Math.sin(t * s.bobFreq + s.bobPhase) * s.bobAmp;
+      const bobY = Math.cos(t * s.bobFreq * 0.8 + s.bobPhase) * s.bobAmp;
+
+      const px = s.x + bobX;
+      const py = s.y + bobY + scrollShift * (0.3 + s.depth * 0.9);
 
       const dx = px - focalX;
       const dy = py - focalY;
@@ -857,11 +868,15 @@ window.addEventListener('scroll', () => {
       const rgb   = s.glow ? GLOW_PALETTE[s.colorIdx] : palette[s.colorIdx];
 
       if (s.glow) {
-        const grd = ctx.createRadialGradient(px, py, 0, px, py, r * 6);
-        grd.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`);
+        // Slow independent breathing pulse on the glow halo
+        const pulse   = Math.sin(t * s.pulseFreq + s.pulsePhase) * 0.5 + 0.5;
+        const glowA   = Math.min(1, alpha * (0.55 + pulse * 0.85));
+        const glowR   = r * (5 + pulse * 2.5);
+        const grd = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+        grd.addColorStop(0, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${glowA})`);
         grd.addColorStop(1, `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0)`);
         ctx.beginPath();
-        ctx.arc(px, py, r * 6, 0, Math.PI * 2);
+        ctx.arc(px, py, glowR, 0, Math.PI * 2);
         ctx.fillStyle = grd;
         ctx.fill();
       }

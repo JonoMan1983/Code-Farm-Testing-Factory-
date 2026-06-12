@@ -282,6 +282,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     radial-gradient(circle at 14% 18%, rgba(2, 10, 17, 0.85) 0%, rgba(2, 10, 17, 0) 48%),
     radial-gradient(circle at 88% 86%, rgba(1, 8, 14, 0.75) 0%, rgba(1, 8, 14, 0) 52%),
     linear-gradient(140deg, #041e2a 0%, #0b516f 100%);
+  background-attachment: fixed;
 }
 
 #heroStarsCanvas {
@@ -3468,6 +3469,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     radial-gradient(circle at 14% 18%, rgba(11, 81, 111, 0.4) 0%, rgba(11, 81, 111, 0) 48%),
     radial-gradient(circle at 88% 86%, rgba(4, 30, 42, 0.3) 0%, rgba(4, 30, 42, 0) 52%),
     linear-gradient(140deg, #EAF7FE 0%, #B8E8F8 100%);
+  background-attachment: fixed;
 }
 
 [data-theme="light"] .hero-title {
