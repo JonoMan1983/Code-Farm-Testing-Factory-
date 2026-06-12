@@ -739,14 +739,17 @@ window.addEventListener('scroll', () => {
   if (!hero || !canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Star colours per theme — particles are pure white in both themes; only the
-  // secondary accent tone needs to darken in light mode to stay readable
+  // Star colours per theme — every particle is pure white in light mode;
+  // dark mode keeps the blue/orange accent tones for variety
   const STAR_PALETTES = {
     dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
-    light: [[255, 255, 255], [11,  81, 111], [234, 101, 44]],
+    light: [[255, 255, 255], [255, 255, 255], [255, 255, 255]],
   };
-  // Glow halos always use the bright accent hues — a dark halo reads as a smudge, not a glow
-  const GLOW_PALETTE = [[46, 178, 234], [234, 101, 44]];
+  // Glow halos use bright accent hues in dark mode, pure white in light mode
+  const GLOW_PALETTES = {
+    dark:  [[46, 178, 234], [234, 101, 44]],
+    light: [[255, 255, 255], [255, 255, 255]],
+  };
 
   let W = 0, H = 0;
   let stars = [];
@@ -871,7 +874,8 @@ window.addEventListener('scroll', () => {
       const tw    = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
       const alpha = Math.min(1, s.baseAlpha * (0.35 + tw * 0.65) * alphaMul * (1 + proximity * 1.6));
       const r     = s.r * (1 + proximity * 1.3);
-      const rgb   = s.glow ? GLOW_PALETTE[s.colorIdx] : palette[s.colorIdx];
+      const glowPalette = isLight ? GLOW_PALETTES.light : GLOW_PALETTES.dark;
+      const rgb   = s.glow ? glowPalette[s.colorIdx] : palette[s.colorIdx];
 
       if (s.glow) {
         // Slow independent breathing pulse on the glow halo
@@ -888,7 +892,7 @@ window.addEventListener('scroll', () => {
       }
 
       // White dots get a soft dark halo in light mode so they read against the pale sky
-      if (isLight && !s.glow && s.colorIdx === 0) {
+      if (isLight && !s.glow) {
         ctx.beginPath();
         ctx.arc(px, py, r * 2.2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(4,30,42,${alpha * 0.18})`;
