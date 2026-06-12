@@ -603,6 +603,10 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
     const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
 
+    // Light theme's pale background washes out the glow, so push it harder
+    const glowBlur  = isLight ? 90 + pulse * 200 : 55 + pulse * 140;
+    const glowAlpha = isLight ? 0.65 + pulse * 0.35 : 0.45 + pulse * 0.55;
+
     // Measure with left alignment so glow + solid passes line up
     ctx.textAlign = 'left';
     const wFull  = ctx.measureText('20+').width;
@@ -613,8 +617,8 @@ window.addEventListener('scroll', () => {
 
     // Glow pass — blue in dark, blue in light
     ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = 55 + pulse * 140;
-    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.shadowBlur  = glowBlur;
+    ctx.globalAlpha = glowAlpha;
     ctx.fillStyle   = glowHex;
 
     // Glow for "20"
@@ -657,8 +661,8 @@ window.addEventListener('scroll', () => {
     // Glow pass — same blue as "20+", on both light and dark
     ctx.save();
     ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = 55 + pulse * 140;
-    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.shadowBlur  = glowBlur;
+    ctx.globalAlpha = glowAlpha;
     ctx.fillStyle   = glowHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
     ctx.restore();
