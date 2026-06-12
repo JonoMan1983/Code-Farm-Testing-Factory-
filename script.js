@@ -729,7 +729,6 @@ window.addEventListener('scroll', () => {
 // ===========================
 (function initHeroStarfield() {
   const hero       = document.querySelector('.hero');
-  const heroBg     = document.querySelector('.hero-bg');
   const canvas     = document.getElementById('heroStarsCanvas');
   const heroCanvas = document.getElementById('heroCanvas');
   if (!hero || !canvas) return;
@@ -832,9 +831,6 @@ window.addEventListener('scroll', () => {
     // Scroll parallax — nearer (higher depth) stars shift further as the hero scrolls
     const clampedTop  = Math.max(-H, Math.min(0, heroRect.top));
     const scrollShift = clampedTop * -0.18;
-
-    // The fixed-position gradient layer drifts a little slower than the content for depth
-    if (heroBg) heroBg.style.transform = `translateY(${clampedTop * 0.12}px)`;
 
     ctx.clearRect(0, 0, W, H);
 
