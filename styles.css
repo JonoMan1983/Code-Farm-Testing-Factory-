@@ -3465,9 +3465,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* Hero section */
 [data-theme="light"] .hero {
   background:
-    radial-gradient(circle at 14% 18%, rgba(11, 81, 111, 0.4) 0%, rgba(11, 81, 111, 0) 48%),
-    radial-gradient(circle at 88% 86%, rgba(4, 30, 42, 0.3) 0%, rgba(4, 30, 42, 0) 52%),
-    linear-gradient(140deg, #EAF7FE 0%, #B8E8F8 100%);
+    radial-gradient(circle at 14% 18%, rgba(8, 57, 78, 0.4) 0%, rgba(8, 57, 78, 0) 48%),
+    radial-gradient(circle at 88% 86%, rgba(3, 21, 29, 0.3) 0%, rgba(3, 21, 29, 0) 52%),
+    linear-gradient(140deg, #A4ADB2 0%, #81A2AE 100%);
 }
 
 [data-theme="light"] .hero-title {
