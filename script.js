@@ -729,15 +729,17 @@ window.addEventListener('scroll', () => {
 // ===========================
 (function initHeroStarfield() {
   const hero       = document.querySelector('.hero');
+  const heroBg     = document.querySelector('.hero-bg');
   const canvas     = document.getElementById('heroStarsCanvas');
   const heroCanvas = document.getElementById('heroCanvas');
   if (!hero || !canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Star colours per theme — light theme needs darker tones to read against the pale sky
+  // Star colours per theme — particles are pure white in both themes; only the
+  // secondary accent tone needs to darken in light mode to stay readable
   const STAR_PALETTES = {
     dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
-    light: [[4,   30,  42],  [11,  81, 111], [234, 101, 44]],
+    light: [[255, 255, 255], [11,  81, 111], [234, 101, 44]],
   };
   // Glow halos always use the bright accent hues — a dark halo reads as a smudge, not a glow
   const GLOW_PALETTE = [[46, 178, 234], [234, 101, 44]];
@@ -831,6 +833,9 @@ window.addEventListener('scroll', () => {
     const clampedTop  = Math.max(-H, Math.min(0, heroRect.top));
     const scrollShift = clampedTop * -0.18;
 
+    // The fixed-position gradient layer drifts a little slower than the content for depth
+    if (heroBg) heroBg.style.transform = `translateY(${clampedTop * 0.12}px)`;
+
     ctx.clearRect(0, 0, W, H);
 
     stars.forEach(s => {
@@ -878,6 +883,14 @@ window.addEventListener('scroll', () => {
         ctx.beginPath();
         ctx.arc(px, py, glowR, 0, Math.PI * 2);
         ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      // White dots get a soft dark halo in light mode so they read against the pale sky
+      if (isLight && !s.glow && s.colorIdx === 0) {
+        ctx.beginPath();
+        ctx.arc(px, py, r * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(4,30,42,${alpha * 0.18})`;
         ctx.fill();
       }
 
