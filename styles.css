@@ -1074,7 +1074,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Ring dot indicators — static accent marks on the orbit track */
 .uw-ring-dot {
-  fill: rgba(184,168,247,0.35);
+  fill: rgba(46, 178, 234, 0.35);
 }
 
 /* Step node cards */
@@ -1172,8 +1172,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
     align-items: flex-start;
     gap: 14px;
     animation: none;
-    border-color: rgba(184,168,247,0.22);
-    background: rgba(19,15,50,0.9);
+    border-color: rgba(46, 178, 234, 0.18);
+    background: rgba(20, 45, 46, 0.9);
     box-shadow: none;
   }
   .uw-node-icon { flex-shrink: 0; margin: 0; }
@@ -1462,7 +1462,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   border-radius: 12px;
   border: 1px solid var(--color-border);
   box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-  background: #1a1540;
+  background: #041e2a;
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) transparent;
