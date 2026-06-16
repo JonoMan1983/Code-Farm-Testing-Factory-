@@ -3220,30 +3220,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-transform: uppercase;
 }
 
-/* Pulsing ring when playing */
-.music-btn::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 26px;
-  border: 1.5px solid var(--color-accent-red);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
 
 .music-btn.playing {
   color: var(--color-accent-red);
 }
 
-.music-btn.playing::before {
-  opacity: 0.6;
-  animation: music-pulse 2s ease-in-out infinite;
-}
 
-@keyframes music-pulse {
-  0%, 100% { transform: scale(1);    opacity: 0.6; }
-  50%       { transform: scale(1.2);  opacity: 0;   }
-}
 
 /* Icon + label swap */
 .music-btn .icon-pause        { display: none; }
