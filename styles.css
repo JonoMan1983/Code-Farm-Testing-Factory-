@@ -665,15 +665,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
   padding: 24px;
   text-align: left;
   background: rgba(46, 178, 234, 0.06);
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   backdrop-filter: blur(8px);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .quote-card:hover {
   transform: translateY(-4px);
-  border-color: var(--color-accent);
   box-shadow: 0 12px 40px rgba(46, 178, 234, 0.35);
 }
 
@@ -995,7 +993,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-align: center;
   padding: 24px 12px;
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   transition: transform var(--transition), box-shadow var(--transition);
 }
@@ -1082,13 +1079,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   transform: translate(-50%, -50%);
   width: 132px;
   background: rgba(20, 45, 46, 0.9);
-  border: 1.5px solid rgba(46, 178, 234, 0.18);
   border-radius: 12px;
   padding: 14px 11px 12px;
   text-align: center;
   backdrop-filter: blur(10px);
   z-index: 2;
-  transition: border-color 0.7s ease, box-shadow 0.7s ease, background 0.7s ease;
+  transition: box-shadow 0.7s ease, background 0.7s ease;
 }
 .uw-node-num {
   font-size: 0.68rem;
@@ -1137,8 +1133,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .uw-node-5 { left: 17.6%;  top: 39.6%; }
 
 .uw-node.electron-near {
-  border-width: 0.5px;
-  border-color: #ffffff;
   box-shadow: 0 0 0 1px rgba(234, 101, 44, 0.5), 0 0 28px rgba(234, 101, 44, 0.6);
   background: rgba(80, 30, 5, 0.92);
   animation: uw-node-pulse 0.5s ease-out forwards;
@@ -1171,7 +1165,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
     align-items: flex-start;
     gap: 14px;
     animation: none;
-    border-color: rgba(46, 178, 234, 0.18);
     background: rgba(20, 45, 46, 0.9);
     box-shadow: none;
   }
@@ -1188,7 +1181,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ui-card {
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   overflow: hidden;
   background: var(--color-bg);
@@ -1354,7 +1346,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .diploma-credential {
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(4, 30, 42, 0.8) 0%, rgba(11, 81, 111, 0.5) 100%);
-  border: 1px solid rgba(46, 178, 234, 0.2);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
@@ -1413,7 +1404,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: flex;
   gap: 12px;
   padding: 20px 40px 32px;
-  border-top: 1px solid rgba(46, 178, 234, 0.12);
   flex-wrap: wrap;
 }
 
@@ -1457,7 +1447,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 680px;
   overflow-y: scroll;
   border-radius: 12px;
-  border: 1px solid var(--color-border);
   box-shadow: 0 4px 24px rgba(0,0,0,0.3);
   background: #041e2a;
   scroll-behavior: smooth;
@@ -2000,7 +1989,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-top: 32px;
   padding: 24px;
   background: rgba(46, 178, 234, 0.07);
-  border: 1px solid rgba(46, 178, 234, 0.22);
   border-radius: 10px;
 }
 
@@ -2241,17 +2229,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-size: 15px;
   color: var(--color-text);
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 12px 16px;
-  transition: border-color var(--transition);
   resize: vertical;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
 }
 
 .form-success {
@@ -2351,16 +2336,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: flex;
   gap: 18px;
   padding: 24px;
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   background: var(--color-bg);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .ai-workflow-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 28px rgba(46, 178, 234, 0.09);
-  border-color: var(--color-accent-light);
 }
 
 .ai-workflow-icon {
@@ -2369,7 +2352,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 42px;
   border-radius: 10px;
   background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
