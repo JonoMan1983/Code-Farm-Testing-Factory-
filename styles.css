@@ -3804,3 +3804,31 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* Resume btn stays orange — visible on light */
+
+
+/* ════════════════════════════════════════════════════════════
+   NO-STROKES EXPERIMENT  ·  branch: no-strokes
+   To revert: git checkout portfolio-build
+   ════════════════════════════════════════════════════════════ */
+
+/* 1 — Remove ALL CSS borders and outlines */
+*,
+*::before,
+*::after {
+  border: none !important;
+  outline: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+
+/* 2 — Remove decorative SVG strokes (orbit ring, hub, diploma seal)
+        while preserving stroke-drawn icon SVGs (arrows, chevrons, etc.) */
+.ux-wheel-svg circle,
+.ux-wheel-svg path,
+.uw-ring-dot,
+.diploma-cred-seal svg circle,
+.diploma-cred-seal svg path,
+.quote-badge svg circle,
+.quote-badge svg path {
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
