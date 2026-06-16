@@ -1028,8 +1028,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-self: center;
   font-size: 1.96rem;
   font-weight: 900;
-  color: #8B0038;
-  -webkit-text-stroke: 1px #8B0038;
+  color: var(--color-accent-red);
   padding: 0 6px;
   margin-top: -16px;
   line-height: 1;
@@ -1070,7 +1069,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   position: absolute;
   transform: translate(-50%, -50%);
   width: 132px;
-  background: rgba(20, 45, 46, 0.9);
+  background: rgba(4, 30, 42, 0.92);
   border-radius: 12px;
   padding: 14px 11px 12px;
   text-align: center;
@@ -1157,7 +1156,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     align-items: flex-start;
     gap: 14px;
     animation: none;
-    background: rgba(20, 45, 46, 0.9);
+    background: rgba(4, 30, 42, 0.92);
     box-shadow: none;
   }
   .uw-node-icon { flex-shrink: 0; margin: 0; }
@@ -3660,11 +3659,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 8px 28px rgba(46, 178, 234, 0.15);
 }
 
-/* UX step arrows — maroon → brand orange */
-[data-theme="light"] .ux-step-arrow {
-  color: #EA652C;
-  -webkit-text-stroke: 1px #EA652C;
-}
 
 /* UX wheel electron-near — orange bg with white stroke + white text */
 [data-theme="light"] .uw-node.electron-near {
