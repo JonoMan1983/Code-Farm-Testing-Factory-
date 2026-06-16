@@ -1125,8 +1125,22 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .uw-node.electron-near {
   box-shadow: 0 0 28px rgba(234, 101, 44, 0.6);
-  background: rgba(80, 30, 5, 0.92);
+  background: rgba(234, 101, 44, 0.88);
   animation: uw-node-pulse 0.5s ease-out forwards;
+}
+.uw-node.electron-near .uw-node-num,
+.uw-node.electron-near .uw-node-text h4 {
+  color: #ffffff;
+}
+.uw-node.electron-near .uw-node-text p {
+  color: rgba(255, 255, 255, 0.85);
+}
+.uw-node.electron-near .uw-node-icon {
+  color: #ffffff;
+}
+.uw-node.electron-near .uw-node-icon svg {
+  color: #ffffff;
+  stroke: #ffffff;
 }
 
 @keyframes uw-node-pulse {
