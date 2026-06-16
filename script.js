@@ -670,10 +670,7 @@ window.addEventListener('scroll', () => {
     ctx.globalAlpha = 1;
     ctx.fillStyle   = subtitleHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    ctx.lineWidth   = 1.4;
-    ctx.lineJoin    = 'round';
-    ctx.strokeStyle = subtitleHex;
-    ctx.strokeText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
+    /* no-strokes: strokeText removed */
 
     ctx.restore();
   }
