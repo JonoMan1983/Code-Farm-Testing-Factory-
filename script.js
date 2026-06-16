@@ -513,7 +513,7 @@ window.addEventListener('scroll', () => {
       ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
+      /* no-strokes: ctx.stroke(); */
       ctx.restore();
     });
     ctx.setLineDash([]);
@@ -670,10 +670,7 @@ window.addEventListener('scroll', () => {
     ctx.globalAlpha = 1;
     ctx.fillStyle   = subtitleHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    ctx.lineWidth   = 1.4;
-    ctx.lineJoin    = 'round';
-    ctx.strokeStyle = subtitleHex;
-    ctx.strokeText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
+    /* no-strokes: ctx.strokeText('YEARS OF DESIGN', ...) */
 
     ctx.restore();
   }

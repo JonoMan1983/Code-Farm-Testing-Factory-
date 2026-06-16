@@ -3832,3 +3832,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   stroke: none !important;
   stroke-width: 0 !important;
 }
+
+/* 3 — Remaining CSS stroke properties */
+.ux-step-icon svg,
+.ux-cta-block svg,
+.ui-card-cta-inner svg,
+[data-theme="light"] .uw-node.electron-near .uw-node-icon svg {
+  stroke: none !important;
+}
+
+/* 4 — Box-shadow ring effects that act as visible strokes */
+.badge-img,
+.uw-node.electron-near,
+.timeline-dot {
+  box-shadow: none !important;
+}
