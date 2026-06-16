@@ -513,7 +513,7 @@ window.addEventListener('scroll', () => {
       ctx.rotate(o.tilt + gRot);
       ctx.beginPath();
       ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
-      /* no-strokes: ctx.stroke(); */
+      ctx.stroke();
       ctx.restore();
     });
     ctx.setLineDash([]);
