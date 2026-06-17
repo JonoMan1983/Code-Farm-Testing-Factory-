@@ -1260,7 +1260,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin: 80px 0 24px;
+  margin: 96px 0 24px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--color-border);
 }
@@ -1480,7 +1480,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Scrollable document showcase (site redesign, A4-style tall docs) */
 .ux-showcase {
-  margin-top: 72px;
+  margin-top: 96px;
 }
 
 .ux-showcase-header {
@@ -1752,7 +1752,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-align: center;
   gap: 12px;
   padding: 48px 32px;
-  margin-top: 48px;
+  margin-top: 72px;
   background: linear-gradient(135deg, #041e2a 0%, #0b516f 100%);
   border-radius: 16px;
   color: #fff;
@@ -2586,7 +2586,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-bottom: 48px;
+  margin-bottom: 72px;
 }
 
 .ai-workflow-card {
@@ -2645,7 +2645,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ai-case {
-  margin-bottom: 40px;
+  margin-bottom: 64px;
 }
 
 .ai-case-header {
