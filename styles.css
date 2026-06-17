@@ -1449,6 +1449,34 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-size: 1.2rem;
 }
 
+.ux-role-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ux-role-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.ux-role-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
 .ux-showcase-header p {
   font-size: 14px;
   max-width: 600px;
