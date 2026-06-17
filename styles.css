@@ -1427,6 +1427,57 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
+/* Course breakdown — diploma curriculum modules */
+.diploma-modules {
+  margin-top: 48px;
+}
+
+.diploma-modules-intro {
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+.diploma-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.diploma-module {
+  padding: 22px 20px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.diploma-module:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(46, 178, 234, 0.09);
+}
+
+.diploma-module-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.diploma-module h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.diploma-module p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
 /* Scrollable document showcase (site redesign, A4-style tall docs) */
 .ux-showcase {
   margin-top: 56px;
@@ -1434,6 +1485,29 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ux-showcase-header {
   margin-bottom: 20px;
+}
+
+/* Employer-project card (e.g. Wonderlabz role summary) — elevated panel
+   treatment matching the diploma credential card */
+.ux-showcase-card {
+  padding: 36px 40px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(4, 30, 42, 0.8) 0%, rgba(11, 81, 111, 0.5) 100%);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+}
+
+.ux-showcase-card .ux-showcase-header {
+  margin-bottom: 22px;
+}
+
+.ux-showcase-card .ux-role-list {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .ux-showcase-card {
+    padding: 28px 24px;
+  }
 }
 
 .ux-showcase-header h3 {
@@ -1585,16 +1659,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   position: relative;
   z-index: 1;
   padding: 24px 18px;
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   background: var(--color-bg);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .process-stage:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 28px rgba(49, 29, 115, 0.09);
-  border-color: var(--color-accent-light);
 }
 
 .process-icon {
@@ -1602,7 +1674,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 42px;
   border-radius: 10px;
   background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1616,20 +1687,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .process-icon-4 { animation: process-glow-4 8s ease-in-out infinite; }
 
 @keyframes process-glow-1 {
-  0%, 8%, 100% { box-shadow: none; border-color: var(--color-border); }
-  3%            { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+  0%, 8%, 100% { box-shadow: none; }
+  3%            { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
 }
 @keyframes process-glow-2 {
-  0%, 29%, 37%, 100% { box-shadow: none; border-color: var(--color-border); }
-  33%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+  0%, 29%, 37%, 100% { box-shadow: none; }
+  33%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
 }
 @keyframes process-glow-3 {
-  0%, 58%, 66%, 100% { box-shadow: none; border-color: var(--color-border); }
-  62%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+  0%, 58%, 66%, 100% { box-shadow: none; }
+  62%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
 }
 @keyframes process-glow-4 {
-  0%, 87%, 95%, 100% { box-shadow: none; border-color: var(--color-border); }
-  91%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+  0%, 87%, 95%, 100% { box-shadow: none; }
+  91%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
 }
 
 .process-stage-label {
@@ -3998,6 +4069,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 [data-theme="light"] .diploma-credential {
   background: linear-gradient(135deg, #ffffff 0%, #EAF7FE 100%);
   border-color: rgba(46, 178, 234, 0.3);
+  box-shadow: 0 12px 48px rgba(46, 178, 234, 0.12);
+}
+
+/* Employer-project card — lighten background for light theme */
+[data-theme="light"] .ux-showcase-card {
+  background: linear-gradient(135deg, #ffffff 0%, #EAF7FE 100%);
   box-shadow: 0 12px 48px rgba(46, 178, 234, 0.12);
 }
 
