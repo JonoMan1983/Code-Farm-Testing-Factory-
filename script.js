@@ -586,7 +586,7 @@ window.addEventListener('scroll', () => {
 
   function drawText(textRot, t, ux, uy) {
     const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#2EB2EA' : '#2EB2EA';  // blue glow on both
+    const glowHex     = isLight ? '#2386B0' : '#2EB2EA';  // darker blue glow in light theme
     const textHex     = '#EA652C';                          // orange on both
     const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';  // dark teal / white
 
@@ -603,6 +603,10 @@ window.addEventListener('scroll', () => {
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
     const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
 
+    // Light theme's pale background washes out the glow, so push it harder
+    const glowBlur  = isLight ? 90 + pulse * 200 : 55 + pulse * 140;
+    const glowAlpha = isLight ? 0.65 + pulse * 0.35 : 0.45 + pulse * 0.55;
+
     // Measure with left alignment so glow + solid passes line up
     ctx.textAlign = 'left';
     const wFull  = ctx.measureText('20+').width;
@@ -613,8 +617,8 @@ window.addEventListener('scroll', () => {
 
     // Glow pass — blue in dark, blue in light
     ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = 55 + pulse * 140;
-    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.shadowBlur  = glowBlur;
+    ctx.globalAlpha = glowAlpha;
     ctx.fillStyle   = glowHex;
 
     // Glow for "20"
@@ -650,15 +654,15 @@ window.addEventListener('scroll', () => {
 
     ctx.restore();
 
-    // Subtitle — weight 900, white in dark / deep purple in light
+    // Subtitle — weight 900, white in dark / dark teal in light
     ctx.font        = '900 34px Poppins, sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
 
     // Glow pass — same blue as "20+", on both light and dark
     ctx.save();
     ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = 55 + pulse * 140;
-    ctx.globalAlpha = 0.45 + pulse * 0.55;
+    ctx.shadowBlur  = glowBlur;
+    ctx.globalAlpha = glowAlpha;
     ctx.fillStyle   = glowHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
     ctx.restore();
@@ -666,10 +670,7 @@ window.addEventListener('scroll', () => {
     ctx.globalAlpha = 1;
     ctx.fillStyle   = subtitleHex;
     ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    ctx.lineWidth   = 1.4;
-    ctx.lineJoin    = 'round';
-    ctx.strokeStyle = subtitleHex;
-    ctx.strokeText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
+    /* no-strokes: strokeText removed */
 
     ctx.restore();
   }
@@ -739,14 +740,17 @@ window.addEventListener('scroll', () => {
   if (!hero || !canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Star colours per theme — particles are pure white in both themes; only the
-  // secondary accent tone needs to darken in light mode to stay readable
+  // Star colours per theme — every particle is pure white in light mode;
+  // dark mode keeps the blue/orange accent tones for variety
   const STAR_PALETTES = {
     dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
-    light: [[255, 255, 255], [11,  81, 111], [234, 101, 44]],
+    light: [[255, 255, 255], [255, 255, 255], [255, 255, 255]],
   };
-  // Glow halos always use the bright accent hues — a dark halo reads as a smudge, not a glow
-  const GLOW_PALETTE = [[46, 178, 234], [234, 101, 44]];
+  // Glow halos use bright accent hues in dark mode, pure white in light mode
+  const GLOW_PALETTES = {
+    dark:  [[46, 178, 234], [234, 101, 44]],
+    light: [[255, 255, 255], [255, 255, 255]],
+  };
 
   let W = 0, H = 0;
   let stars = [];
@@ -871,7 +875,8 @@ window.addEventListener('scroll', () => {
       const tw    = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
       const alpha = Math.min(1, s.baseAlpha * (0.35 + tw * 0.65) * alphaMul * (1 + proximity * 1.6));
       const r     = s.r * (1 + proximity * 1.3);
-      const rgb   = s.glow ? GLOW_PALETTE[s.colorIdx] : palette[s.colorIdx];
+      const glowPalette = isLight ? GLOW_PALETTES.light : GLOW_PALETTES.dark;
+      const rgb   = s.glow ? glowPalette[s.colorIdx] : palette[s.colorIdx];
 
       if (s.glow) {
         // Slow independent breathing pulse on the glow halo
@@ -888,7 +893,7 @@ window.addEventListener('scroll', () => {
       }
 
       // White dots get a soft dark halo in light mode so they read against the pale sky
-      if (isLight && !s.glow && s.colorIdx === 0) {
+      if (isLight && !s.glow) {
         ctx.beginPath();
         ctx.arc(px, py, r * 2.2, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(4,30,42,${alpha * 0.18})`;
@@ -1433,6 +1438,17 @@ window.addEventListener('scroll', () => {
   audio.addEventListener('ended', () => {
     btn.classList.remove('playing');
     btn.setAttribute('aria-label', 'Play background music');
+  });
+})();
+
+/* ─── SITE CONTROLS ACCORDION (mobile) ──────────────────────── */
+(function () {
+  const btn = document.getElementById('siteControlsBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const isOpen = document.body.classList.toggle('site-controls-open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 })();
 
