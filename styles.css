@@ -1485,6 +1485,31 @@ h1, h2, h3, h4 { color: var(--color-text); }
   scrollbar-color: var(--color-border) transparent;
 }
 
+/* Compact diploma-project grid — three deliverables side by side
+   instead of three full-width 680px scrollers stacked vertically */
+.ux-doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.ux-doc-grid .ux-showcase {
+  margin-top: 0;
+}
+
+.ux-doc-grid .ux-showcase-header h3 {
+  font-size: 1.05rem;
+}
+
+.ux-doc-grid .ux-showcase-header p {
+  font-size: 13px;
+}
+
+.ux-doc-grid .ux-doc-scroll {
+  height: 420px;
+}
+
 .ux-doc-scroll::-webkit-scrollbar {
   width: 6px;
 }
