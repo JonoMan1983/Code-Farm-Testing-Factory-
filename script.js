@@ -1369,8 +1369,8 @@ window.addEventListener('scroll', () => {
   if (!upBtn || !downBtn) return;
 
   const sectionIds = [
-    'hero','about','ux','work','showreel','videos','animations',
-    'artistic','credential','skills','software','resume','legacy','contact'
+    'hero','about','ux','work','credential','skills','software','resume',
+    'showreel','videos','animations','artistic','legacy','contact'
   ];
 
   function getSections() {

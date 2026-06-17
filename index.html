@@ -47,11 +47,11 @@
         <li><a href="#about">About</a></li>
         <li><a href="#ux">UX/UI</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="#showreel">Showreel</a></li>
-        <li><a href="#animations">Motion</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#software">Software</a></li>
         <li><a href="#resume">Resume</a></li>
+        <li><a href="#showreel">Showreel</a></li>
+        <li><a href="#animations">Motion</a></li>
         <li><a href="#legacy">Legacy</a></li>
         <li>
           <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener" class="nav-linkedin" aria-label="LinkedIn Profile">
@@ -120,7 +120,7 @@
     <div class="container grid-2">
       <div class="about-text">
         <p class="section-label">About Me</p>
-        <h2><span class="about-heading-pink">Designing with purpose,</span><br /><span class="about-heading-white">building with care.</span></h2>
+        <h2 style="color: var(--color-accent-red)">Designing with purpose,<br />building with care.</h2>
         <p>I'm a Senior Creative Designer based in Jeffreys Bay, South Africa, with over two decades of experience across UX/UI design, visual effects, motion graphics, brand identity, and front-end development.</p>
         <p>I deliver high-impact digital products across sectors — from iGaming platforms and enterprise software to educational tools and media campaigns. I'm equally comfortable leading a discovery workshop, crafting a design system, or animating a slot game in After Effects.</p>
         <p>Currently, I'm integrating Claude AI into Figma-based workflows at Astria Systems — accelerating product cycles without sacrificing craft.</p>
@@ -135,7 +135,7 @@
   <section id="recommendations" class="recommendations section section-alt">
     <div class="container recommendations-intro">
       <p class="section-label">Recommendations</p>
-      <h2><span class="title-pink">Respected</span> by the people I work with.</h2>
+      <h2 style="color: var(--color-accent-red)">Respected by the people I work with.</h2>
       <p class="section-intro">What managers, colleagues, and mentors have said about my work ethic, creativity, and reliability — every reference below is genuine, and the full conversations are publicly available on LinkedIn.</p>
     </div>
 
@@ -397,7 +397,7 @@
   <section id="ux" class="ux-section section section-alt">
     <div class="container">
       <p class="section-label">UX &amp; UI Design</p>
-      <h2><span class="title-pink">Designing with Process.</span> Delivering with Precision.</h2>
+      <h2 style="color: var(--color-accent-red)">Designing with Process. Delivering with Precision.</h2>
       <p class="section-intro">20+ years of design distilled into a repeatable, human-centred process — from early discovery through to pixel-perfect, dev-ready delivery.</p>
 
       <!-- UX PROCESS WHEEL -->
@@ -636,6 +636,54 @@
         </ul>
       </div>
 
+      <!-- FIGMA WORKFLOW PROCESS — Animated Explainer -->
+      <div class="ux-showcase">
+        <div class="ux-showcase-header">
+          <span class="case-tag">Process · Figma Workflow · AI-Assisted Prototyping</span>
+          <h3>From Figma Frames to Functional Prototype</h3>
+          <p>How a flow actually gets built day-to-day on the Pantelotteriet mobile app and raffle site — the Figma structure, the journey-documentation habit, and the AI-assisted prototyping step that static frames can't cover. Diagram below is an illustrative explainer, not an actual screen.</p>
+        </div>
+        <div class="process-flow">
+          <div class="process-line" aria-hidden="true"><span class="process-dot"></span></div>
+
+          <div class="process-stage">
+            <div class="process-icon process-icon-1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <span class="process-stage-label">01</span>
+            <h4>Figma Structure</h4>
+            <p>One cover page indexes every flow canvas. Repeating rows, fields, and dropdowns are built once as components with prefix/suffix slot variants, then reused everywhere instead of redrawn.</p>
+          </div>
+
+          <div class="process-stage">
+            <div class="process-icon process-icon-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>
+            </div>
+            <span class="process-stage-label">02</span>
+            <h4>Journey Mapping</h4>
+            <p>Every build gets documented as a numbered set of user journeys — registration through to claim, profile, support, history — each scoped in a single line covering the happy path and every edge case before a screen gets drawn.</p>
+          </div>
+
+          <div class="process-stage">
+            <div class="process-icon process-icon-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="process-stage-label">03</span>
+            <h4>AI-Assisted Prototype</h4>
+            <p>A self-contained, hand-coded HTML prototype — real tab switching, live countdown logic, and state transitions — built with Claude to pressure-test flows and timing that static Figma frames can't simulate.</p>
+          </div>
+
+          <div class="process-stage">
+            <div class="process-icon process-icon-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
+            </div>
+            <span class="process-stage-label">04</span>
+            <h4>Dev Handoff</h4>
+            <p>Flows, edge cases, and timing logic ship to engineering already proven against real interaction — fewer surprises once build starts.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- AI DESIGN & WORKFLOW INTEGRATION -->
       <p class="ux-sub-heading">AI Design &amp; Workflow Integration</p>
       <p class="ai-workflow-intro">Integrating AI into every phase of the design process — from raw ideation through to pixel-perfect delivery — to compress timelines without sacrificing craft or intent.</p>
@@ -802,260 +850,6 @@
     </div>
   </section>
 
-  <!-- SHOWREEL -->
-  <section id="showreel" class="showreel section section-alt">
-    <div class="container">
-      <p class="section-label">Featured Video</p>
-      <h2 style="color: var(--color-accent-red)">Showreel</h2>
-      <div class="showreel-embed">
-        <video id="showreelPlayer" class="plyr-video" controls crossorigin playsinline
-          poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
-          <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-    </div>
-  </section>
-
-  <!-- VIDEO WORK -->
-  <section id="videos" class="videos section">
-    <div class="container">
-      <p class="section-label">Video Work</p>
-      <h2 style="color: var(--color-accent-red)">Selected Videos</h2>
-      <div class="video-grid">
-
-        <div class="video-card">
-          <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline
-              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033052/Indiemode_Edit_002_b7ugch.jpg">
-              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033052/Indiemode_Edit_002_b7ugch.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="video-card-body">
-            <span class="case-tag">Video Production · Motion</span>
-            <h3>Indiemode Edit</h3>
-            <p>Video production and motion design for Indiemode — editing, colour grading, and motion graphics.</p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline
-              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.jpg">
-              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="video-card-body">
-            <span class="case-tag">Animation · EdTech</span>
-            <h3>EduBox — Video Animation</h3>
-            <p>Full video animation production for EduBoard Interactive Classroom Solutions — concept to final delivery.</p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline
-              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
-              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="video-card-body">
-            <span class="case-tag">3D · Motion · Wonderlabz</span>
-            <h3>Wonderlabz — 3D Photo Animation</h3>
-            <p>3D photo animation with sound design produced for Wonderlabz — bringing static assets to life through motion and depth.</p>
-          </div>
-        </div>
-
-        <div class="video-card">
-          <div class="video-embed-wrap">
-            <video class="plyr-video" controls playsinline
-              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.jpg">
-              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="video-card-body">
-            <span class="case-tag">Campaign · Motion · Wonderlabz</span>
-            <h3>Wonderlabz — 2023 Step Challenge</h3>
-            <p>Motion campaign for the Wonderlabz 2023 Step Challenge — animated promotional content for internal engagement.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ANIMATION GALLERY -->
-  <section id="animations" class="animations section section-alt">
-    <div class="container">
-      <p class="section-label">Motion &amp; Animation</p>
-      <h2 style="color: var(--color-accent-red)">Animation Reel</h2>
-      <p class="section-intro">32 pieces spanning iGaming, UI motion, brand animations, and VFX — hover to play.</p>
-      <div class="anim-grid" id="animGrid">
-        <!-- Animations 01–32 — filenames: anim-01.mp4 … anim-32.mp4 -->
-        <!-- Upload to: assets/video/vfx/ -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ARTISTIC EXPRESSION -->
-  <section id="artistic" class="artistic section">
-    <div class="container">
-      <p class="section-label">Personal Work</p>
-      <h2 style="color: var(--color-accent-red)">Artistic Expression</h2>
-      <p class="section-intro">Just Because I CAN</p>
-      <div class="art-grid">
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" data-alt="Artistic Expression 01">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" alt="Artistic Expression 01" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" data-alt="Artistic Expression 02">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" alt="Artistic Expression 02" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" data-alt="Artistic Expression 03">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" alt="Artistic Expression 03" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" data-alt="Artistic Expression 04">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" alt="Artistic Expression 04" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" data-alt="Artistic Expression 05">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" alt="Artistic Expression 05" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" data-alt="Artistic Expression 06">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" alt="Artistic Expression 06" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" data-alt="Artistic Expression 07">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" alt="Artistic Expression 07" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" data-alt="Artistic Expression 08">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" alt="Artistic Expression 08" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" data-alt="Artistic Expression 09">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" alt="Artistic Expression 09" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" data-alt="Artistic Expression 10">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" alt="Artistic Expression 10" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" data-alt="Artistic Expression 11">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" alt="Artistic Expression 11" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" data-alt="Artistic Expression 12">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" alt="Artistic Expression 12" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" data-alt="Artistic Expression 13">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" alt="Artistic Expression 13" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" data-alt="Artistic Expression 14">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" alt="Artistic Expression 14" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" data-alt="Artistic Expression 15">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" alt="Artistic Expression 15" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" data-alt="Artistic Expression 16">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" alt="Artistic Expression 16" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" data-alt="Artistic Expression 17">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" alt="Artistic Expression 17" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" data-alt="Artistic Expression 18">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" alt="Artistic Expression 18" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" data-alt="Artistic Expression 19">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" alt="Artistic Expression 19" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" data-alt="Artistic Expression 20">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" alt="Artistic Expression 20" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" data-alt="Artistic Expression 21">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" alt="Artistic Expression 21" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" data-alt="Artistic Expression 22">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" alt="Artistic Expression 22" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" data-alt="Artistic Expression 23">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" alt="Artistic Expression 23" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" data-alt="Artistic Expression 24">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" alt="Artistic Expression 24" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" data-alt="Artistic Expression 25">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" alt="Artistic Expression 25" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" data-alt="Artistic Expression 26">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" alt="Artistic Expression 26" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" data-alt="Artistic Expression 27">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" alt="Artistic Expression 27" loading="lazy" />
-        </div>
-
-        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" data-alt="Artistic Expression 28">
-          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" alt="Artistic Expression 28" loading="lazy" />
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- RECOMMENDATION REFERENCE MODAL -->
-  <div class="reference-modal" id="referenceModal" role="dialog" aria-modal="true" aria-label="Full reference" aria-hidden="true">
-    <div class="reference-modal-card">
-      <button class="reference-modal-close" id="referenceModalClose" aria-label="Close">&#x2715;</button>
-      <div class="reference-modal-header">
-        <span class="quote-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
-        <div>
-          <p class="reference-modal-name" id="referenceModalName"></p>
-          <p class="reference-modal-role" id="referenceModalRole"></p>
-        </div>
-      </div>
-      <p class="reference-modal-text" id="referenceModalText"></p>
-      <p class="reference-modal-footer">More recommendations available on <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener">LinkedIn</a>.</p>
-    </div>
-  </div>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#x2715;</button>
-    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#x2039;</button>
-    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
-    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#x203A;</button>
-  </div>
-
-  <!-- VIDEO LIGHTBOX -->
-  <div class="lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Video viewer">
-    <button class="lightbox-close" id="videoLightboxClose" aria-label="Close">&#x2715;</button>
-    <button class="lightbox-prev" id="videoLightboxPrev" aria-label="Previous">&#x2039;</button>
-    <div class="video-lightbox-wrap">
-      <video id="videoLightboxVid" controls muted playsinline loop></video>
-      <p class="video-lightbox-label" id="videoLightboxLabel"></p>
-    </div>
-    <button class="lightbox-next" id="videoLightboxNext" aria-label="Next">&#x203A;</button>
-  </div>
-
   <!-- DIPLOMA CREDENTIAL -->
   <section id="credential" class="credential section section-alt">
     <div class="container">
@@ -1094,8 +888,44 @@
     </div>
   </section>
 
+
+  <!-- RECOMMENDATION REFERENCE MODAL -->
+  <div class="reference-modal" id="referenceModal" role="dialog" aria-modal="true" aria-label="Full reference" aria-hidden="true">
+    <div class="reference-modal-card">
+      <button class="reference-modal-close" id="referenceModalClose" aria-label="Close">&#x2715;</button>
+      <div class="reference-modal-header">
+        <span class="quote-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
+        <div>
+          <p class="reference-modal-name" id="referenceModalName"></p>
+          <p class="reference-modal-role" id="referenceModalRole"></p>
+        </div>
+      </div>
+      <p class="reference-modal-text" id="referenceModalText"></p>
+      <p class="reference-modal-footer">More recommendations available on <a href="https://www.linkedin.com/in/jonoman1983" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#x2715;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#x2039;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#x203A;</button>
+  </div>
+
+  <!-- VIDEO LIGHTBOX -->
+  <div class="lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Video viewer">
+    <button class="lightbox-close" id="videoLightboxClose" aria-label="Close">&#x2715;</button>
+    <button class="lightbox-prev" id="videoLightboxPrev" aria-label="Previous">&#x2039;</button>
+    <div class="video-lightbox-wrap">
+      <video id="videoLightboxVid" controls muted playsinline loop></video>
+      <p class="video-lightbox-label" id="videoLightboxLabel"></p>
+    </div>
+    <button class="lightbox-next" id="videoLightboxNext" aria-label="Next">&#x203A;</button>
+  </div>
+
   <!-- SKILLS -->
-  <section id="skills" class="skills section section-alt">
+  <section id="skills" class="skills section">
     <div class="container">
       <p class="section-label">Capabilities</p>
       <h2 style="color: var(--color-accent-red)">Skills &amp; Tools</h2>
@@ -1523,8 +1353,227 @@
     </div>
   </section>
 
+  <!-- SHOWREEL -->
+  <section id="showreel" class="showreel section section-alt">
+    <div class="container">
+      <p class="section-label">Featured Video</p>
+      <h2 style="color: var(--color-accent-red)">Showreel</h2>
+      <div class="showreel-embed">
+        <video id="showreelPlayer" class="plyr-video" controls crossorigin playsinline
+          poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
+          <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO WORK -->
+  <section id="videos" class="videos section">
+    <div class="container">
+      <p class="section-label">Video Work</p>
+      <h2 style="color: var(--color-accent-red)">Selected Videos</h2>
+      <div class="video-grid">
+
+        <div class="video-card">
+          <div class="video-embed-wrap">
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033052/Indiemode_Edit_002_b7ugch.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033052/Indiemode_Edit_002_b7ugch.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="video-card-body">
+            <span class="case-tag">Video Production · Motion</span>
+            <h3>Indiemode Edit</h3>
+            <p>Video production and motion design for Indiemode — editing, colour grading, and motion graphics.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-embed-wrap">
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="video-card-body">
+            <span class="case-tag">Animation · EdTech</span>
+            <h3>EduBox — Video Animation</h3>
+            <p>Full video animation production for EduBoard Interactive Classroom Solutions — concept to final delivery.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-embed-wrap">
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="video-card-body">
+            <span class="case-tag">3D · Motion · Wonderlabz</span>
+            <h3>Wonderlabz — 3D Photo Animation</h3>
+            <p>3D photo animation with sound design produced for Wonderlabz — bringing static assets to life through motion and depth.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-embed-wrap">
+            <video class="plyr-video" controls playsinline
+              poster="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,so_1/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.jpg">
+              <source src="https://res.cloudinary.com/dksariyyz/video/upload/q_auto,vc_auto/v1780040137/Wonderlabz_2023_Step_Challenge_1_1_buxnih.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="video-card-body">
+            <span class="case-tag">Campaign · Motion · Wonderlabz</span>
+            <h3>Wonderlabz — 2023 Step Challenge</h3>
+            <p>Motion campaign for the Wonderlabz 2023 Step Challenge — animated promotional content for internal engagement.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ANIMATION GALLERY -->
+  <section id="animations" class="animations section section-alt">
+    <div class="container">
+      <p class="section-label">Motion &amp; Animation</p>
+      <h2 style="color: var(--color-accent-red)">Animation Reel</h2>
+      <p class="section-intro">32 pieces spanning iGaming, UI motion, brand animations, and VFX — hover to play.</p>
+      <div class="anim-grid" id="animGrid">
+        <!-- Animations 01–32 — filenames: anim-01.mp4 … anim-32.mp4 -->
+        <!-- Upload to: assets/video/vfx/ -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTISTIC EXPRESSION -->
+  <section id="artistic" class="artistic section">
+    <div class="container">
+      <p class="section-label">Personal Work</p>
+      <h2 style="color: var(--color-accent-red)">Artistic Expression</h2>
+      <p class="section-intro">Just Because I CAN</p>
+      <div class="art-grid">
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" data-alt="Artistic Expression 01">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060814/10269455_843323309018702_1110181153043696083_n_843323309018702_qlhl2u.jpg" alt="Artistic Expression 01" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" data-alt="Artistic Expression 02">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10393670_897303210287378_1277171968560322217_n_897303210287378_rr4lod.jpg" alt="Artistic Expression 02" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" data-alt="Artistic Expression 03">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10708166_875004939183872_948875278_n_870291246321908_elt8fd.jpg" alt="Artistic Expression 03" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" data-alt="Artistic Expression 04">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10641259_851391274878572_8149263578432376248_n_851391274878572_ojai9i.jpg" alt="Artistic Expression 04" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" data-alt="Artistic Expression 05">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10721392_893961430621556_735909732_n_893501040667595_kwusip.jpg" alt="Artistic Expression 05" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" data-alt="Artistic Expression 06">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10599274_850176298333403_1797768862578906192_n_850176298333403_esxwaj.jpg" alt="Artistic Expression 06" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" data-alt="Artistic Expression 07">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060816/10670156_874303229254043_1350214656426378987_n_874303229254043_zzi5u6.jpg" alt="Artistic Expression 07" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" data-alt="Artistic Expression 08">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10353004_858993594118340_2328946421158728532_n_858993594118340_xsthgg.jpg" alt="Artistic Expression 08" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" data-alt="Artistic Expression 09">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060817/10728898_876320495718983_904965966_n_875928492424850_kmb8dv.jpg" alt="Artistic Expression 09" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" data-alt="Artistic Expression 10">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060815/10270696_832898160061217_9024732070573116186_n_832898160061217_aza7tu.jpg" alt="Artistic Expression 10" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" data-alt="Artistic Expression 11">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060818/10728982_880786451939054_1767062404_n_880448361972863_jyjumv.jpg" alt="Artistic Expression 11" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" data-alt="Artistic Expression 12">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060820/10743876_879072678777098_470108411_o_878251432192556_okozi7.jpg" alt="Artistic Expression 12" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" data-alt="Artistic Expression 13">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060819/10599385_848916155126084_66886256716369915_n_848916155126084_meruk0.jpg" alt="Artistic Expression 13" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" data-alt="Artistic Expression 14">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/1078604_626212104063158_2102063152_o_626212104063158_lxjsjx.jpg" alt="Artistic Expression 14" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" data-alt="Artistic Expression 15">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745114_883151291702570_368903428_n_881919518492414_rkxjyz.jpg" alt="Artistic Expression 15" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" data-alt="Artistic Expression 16">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10745033_883718171645882_1705325595_n_883705798313786_hjg99b.jpg" alt="Artistic Expression 16" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" data-alt="Artistic Expression 17">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060821/10744718_881289488555417_213145361_n_881085428575823_bxxzic.jpg" alt="Artistic Expression 17" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" data-alt="Artistic Expression 18">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/10885522_918428311508201_5781675447246678443_n_918428311508201_gjwbkf.jpg" alt="Artistic Expression 18" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" data-alt="Artistic Expression 19">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060822/10807097_892080094143023_932785353_n_892080677476298_zms7ik.jpg" alt="Artistic Expression 19" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" data-alt="Artistic Expression 20">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11214195_1039901599360871_687319823107170667_n_1039901599360871_uv7rkt.jpg" alt="Artistic Expression 20" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" data-alt="Artistic Expression 21">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11705786_1036023803081984_9195118305628889169_o_1036023803081984_weiuvw.jpg" alt="Artistic Expression 21" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" data-alt="Artistic Expression 22">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060823/11411739_1034957249855306_913544138849039922_o_1034957249855306_rpakcy.jpg" alt="Artistic Expression 22" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" data-alt="Artistic Expression 23">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/12017459_1074315365919494_5386347244143922735_o_1074315365919494_bldkrz.jpg" alt="Artistic Expression 23" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" data-alt="Artistic Expression 24">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060824/11830710_1052224744795223_1312378966_n_1052225204795177_yt1obx.jpg" alt="Artistic Expression 24" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" data-alt="Artistic Expression 25">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/562793_474742449210125_788863167_n_474742449210125_eyyzu6.jpg" alt="Artistic Expression 25" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" data-alt="Artistic Expression 26">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060831/420050_383488088335562_1303657398_n_383488088335562_tzasj9.jpg" alt="Artistic Expression 26" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" data-alt="Artistic Expression 27">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060832/523974_421328661218171_1291517784_n_421328661218171_uxq0zl.jpg" alt="Artistic Expression 27" loading="lazy" />
+        </div>
+
+        <div class="art-thumb" data-full="https://res.cloudinary.com/dksariyyz/image/upload/w_1400,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" data-alt="Artistic Expression 28">
+          <img src="https://res.cloudinary.com/dksariyyz/image/upload/w_400,h_400,c_fill,q_auto/v1780060834/542073_424684737549230_1295039022_n_424684737549230_hfzfxg.jpg" alt="Artistic Expression 28" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- LEGACY DESIGNS -->
-  <section id="legacy" class="legacy section">
+  <section id="legacy" class="legacy section section-alt">
     <div class="container">
       <p class="section-label">The Archive</p>
       <h2 style="color: var(--color-accent-red)">Legacy Designs</h2>

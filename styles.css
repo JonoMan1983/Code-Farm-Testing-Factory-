@@ -523,14 +523,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-size: clamp(2.2rem, 3.8vw, 3.2rem);
 }
 
-.about-heading-pink {
-  color: var(--color-accent-red);
-}
-
-.about-heading-white {
-  color: #ffffff;
-}
-
 .about-text p {
   margin-bottom: 16px;
 }
@@ -1526,6 +1518,134 @@ h1, h2, h3, h4 { color: var(--color-text); }
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Figma workflow process — animated explainer */
+.process-flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding-top: 6px;
+}
+
+.process-line {
+  position: absolute;
+  top: 51px;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.process-dot {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px 2px rgba(46, 178, 234, 0.7);
+  animation: process-travel 8s linear infinite;
+}
+
+@keyframes process-travel {
+  0%   { left: 0%; }
+  100% { left: 100%; }
+}
+
+.process-stage {
+  position: relative;
+  z-index: 1;
+  padding: 24px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-bg);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.process-stage:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(49, 29, 115, 0.09);
+  border-color: var(--color-accent-light);
+}
+
+.process-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
+
+.process-icon-1 { animation: process-glow-1 8s ease-in-out infinite; }
+.process-icon-2 { animation: process-glow-2 8s ease-in-out infinite; }
+.process-icon-3 { animation: process-glow-3 8s ease-in-out infinite; }
+.process-icon-4 { animation: process-glow-4 8s ease-in-out infinite; }
+
+@keyframes process-glow-1 {
+  0%, 8%, 100% { box-shadow: none; border-color: var(--color-border); }
+  3%            { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+}
+@keyframes process-glow-2 {
+  0%, 29%, 37%, 100% { box-shadow: none; border-color: var(--color-border); }
+  33%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+}
+@keyframes process-glow-3 {
+  0%, 58%, 66%, 100% { box-shadow: none; border-color: var(--color-border); }
+  62%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+}
+@keyframes process-glow-4 {
+  0%, 87%, 95%, 100% { box-shadow: none; border-color: var(--color-border); }
+  91%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); border-color: var(--color-accent); }
+}
+
+.process-stage-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.process-stage h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.process-stage p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-dot {
+    animation-play-state: paused;
+  }
+  .process-icon-1, .process-icon-2, .process-icon-3, .process-icon-4 {
+    animation-play-state: paused;
+  }
+}
+
+@media (max-width: 768px) {
+  .process-flow {
+    grid-template-columns: 1fr;
+  }
+  .process-line {
+    display: none;
+  }
 }
 
 /* Section CTA block */
@@ -3778,6 +3898,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 8px 28px rgba(46, 178, 234, 0.15);
 }
 
+/* Process flow stage hover — swap purple shadow for brand blue */
+[data-theme="light"] .process-stage:hover {
+  box-shadow: 0 8px 28px rgba(46, 178, 234, 0.15);
+}
+
+/* UX step arrows — maroon → brand orange */
+[data-theme="light"] .ux-step-arrow {
+  color: #EA652C;
+  -webkit-text-stroke: 1px #EA652C;
+}
 
 /* UX wheel electron-near — orange bg with white stroke + white text */
 [data-theme="light"] .uw-node.electron-near {
