@@ -584,6 +584,43 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-align: left;
 }
 
+/* Logo marquee */
+.marquee-logos {
+  margin-bottom: 28px;
+}
+
+.marquee-logos .marquee-group {
+  align-items: center;
+  gap: 56px;
+  padding: 0 28px;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter var(--transition), opacity var(--transition);
+}
+
+.logo-mark:hover {
+  filter: none;
+  opacity: 1;
+}
+
+.logo-mark img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+}
+
 /* Marquee shell — full-bleed with edge fade */
 .marquee {
   position: relative;
@@ -861,6 +898,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .reference-modal-card {
     padding: 28px 20px;
+  }
+
+  .marquee-logos .marquee-group {
+    gap: 36px;
+    padding: 0 18px;
+  }
+
+  .logo-mark {
+    font-size: 0.92rem;
+  }
+
+  .logo-mark img {
+    height: 22px;
   }
 }
 
@@ -3819,6 +3869,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* Miro + Notion icons — white on dark bg, invert to black for light bg */
 [data-theme="light"] .logo-item img[alt="Miro"],
 [data-theme="light"] .logo-item img[alt="Notion"] {
+  filter: invert(1);
+}
+
+/* White-fill client logos — invert to dark for visibility on light bg */
+[data-theme="light"] .logo-mark img[alt="Wonderlabz"],
+[data-theme="light"] .logo-mark img[alt="Astria Systems"],
+[data-theme="light"] .logo-mark img[alt="Pantelotteriet"] {
   filter: invert(1);
 }
 
