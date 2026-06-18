@@ -22,7 +22,7 @@ button {
   --color-bg-dark: #041e2a;
   --color-bg-mid: #0b516f;
   --color-text: #D5F0FB;
-  --color-text-muted: rgba(255, 255, 255, 0.85);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
   --color-accent: #2EB2EA;
   --color-accent-hover: #6AC8F0;
   --color-accent-red: #EA652C;
@@ -1205,7 +1205,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   color: #ffffff;
 }
 .uw-node.electron-near .uw-node-text p {
-  color: rgba(255, 255, 255, 0.775);
+  color: rgba(255, 255, 255, 0.65);
 }
 .uw-node.electron-near .uw-node-icon {
   color: #ffffff;
@@ -3247,6 +3247,23 @@ h1, h2, h3, h4 { color: var(--color-text); }
   padding: 22px 20px;
   border-radius: 12px;
   background: var(--color-bg);
+}
+
+.ai-case-step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
+
+.ai-case-step-icon svg {
+  width: 30px;
+  height: 30px;
 }
 
 .ai-case-step-num {
