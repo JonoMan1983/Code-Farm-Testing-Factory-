@@ -3170,14 +3170,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ai-workflow-icon {
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
   background: var(--color-bg-alt);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
+}
+
+.ai-workflow-icon svg {
+  width: 34px;
+  height: 34px;
 }
 
 .ai-workflow-stage {
