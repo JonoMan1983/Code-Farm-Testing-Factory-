@@ -368,8 +368,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   width: 80px;
   height: 80px;
   border-radius: 16px;
-  padding: 12px;
-  background: rgba(234, 101, 44, 0.12);
+  padding: 16px;
+  background: var(--color-accent-red);
+  box-shadow: 0 6px 22px rgba(234, 101, 44, 0.4);
   animation: ai-pipeline-pulse 2.4s infinite;
 }
 
@@ -2197,26 +2198,62 @@ h1, h2, h3, h4 { color: var(--color-text); }
   top: 51px;
   left: 5%;
   right: 5%;
-  height: 1px;
-  background: var(--color-border);
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(46, 178, 234, 0.15) 0%,
+    rgba(46, 178, 234, 0.55) 25%,
+    rgba(234, 101, 44, 0.55) 75%,
+    rgba(234, 101, 44, 0.15) 100%
+  );
+  background-size: 220% 100%;
+  animation: process-line-flow 8s linear infinite;
   z-index: 0;
+  overflow: visible;
+}
+
+@keyframes process-line-flow {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -20% 0; }
 }
 
 .process-dot {
   position: absolute;
-  top: -3px;
+  top: -5px;
   left: 0;
-  width: 7px;
-  height: 7px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 10px 2px rgba(46, 178, 234, 0.7);
-  animation: process-travel 8s linear infinite;
+  box-shadow:
+    0 0 14px 4px rgba(46, 178, 234, 0.9),
+    0 0 30px 8px rgba(46, 178, 234, 0.45);
+  animation:
+    process-travel 8s cubic-bezier(0.65, 0, 0.35, 1) infinite,
+    process-dot-pulse 1.4s ease-in-out infinite;
+}
+
+.process-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(46, 178, 234, 0) 0%, rgba(46, 178, 234, 0.85) 100%);
 }
 
 @keyframes process-travel {
   0%   { left: 0%; }
   100% { left: 100%; }
+}
+
+@keyframes process-dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.4); }
 }
 
 .process-stage {
@@ -2243,28 +2280,29 @@ h1, h2, h3, h4 { color: var(--color-text); }
   justify-content: center;
   color: var(--color-accent);
   margin-bottom: 14px;
+  will-change: transform, box-shadow;
 }
 
-.process-icon-1 { animation: process-glow-1 8s ease-in-out infinite; }
-.process-icon-2 { animation: process-glow-2 8s ease-in-out infinite; }
-.process-icon-3 { animation: process-glow-3 8s ease-in-out infinite; }
-.process-icon-4 { animation: process-glow-4 8s ease-in-out infinite; }
+.process-icon-1 { animation: process-pop-1 8s ease-in-out infinite; }
+.process-icon-2 { animation: process-pop-2 8s ease-in-out infinite; }
+.process-icon-3 { animation: process-pop-3 8s ease-in-out infinite; }
+.process-icon-4 { animation: process-pop-4 8s ease-in-out infinite; }
 
-@keyframes process-glow-1 {
-  0%, 8%, 100% { box-shadow: none; }
-  3%            { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
+@keyframes process-pop-1 {
+  0%, 8%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  3%           { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
 }
-@keyframes process-glow-2 {
-  0%, 29%, 37%, 100% { box-shadow: none; }
-  33%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
+@keyframes process-pop-2 {
+  0%, 29%, 37%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  33%                { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
 }
-@keyframes process-glow-3 {
-  0%, 58%, 66%, 100% { box-shadow: none; }
-  62%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
+@keyframes process-pop-3 {
+  0%, 58%, 66%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  62%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
-@keyframes process-glow-4 {
-  0%, 87%, 95%, 100% { box-shadow: none; }
-  91%                 { box-shadow: 0 0 0 3px rgba(46, 178, 234, 0.35); }
+@keyframes process-pop-4 {
+  0%, 87%, 95%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  91%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
 
 .process-stage-label {
@@ -2291,7 +2329,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .process-dot {
+  .process-dot,
+  .process-line {
     animation-play-state: paused;
   }
   .process-icon-1, .process-icon-2, .process-icon-3, .process-icon-4 {
