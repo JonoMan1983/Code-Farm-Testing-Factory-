@@ -320,6 +320,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   flex-direction: column;
   align-items: center;
   gap: 0;
+  max-width: 1430px;
 }
 
 .hero-content {
@@ -542,13 +543,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .hero-container {
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 56px;
   }
 
   .hero-visual {
     flex: 0 0 auto;
     order: 1;
-    width: min(500px, 46vw);
+    width: min(650px, 46vw);
   }
 
   #heroCanvas {
@@ -559,7 +561,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .hero-content {
     text-align: right;
-    max-width: 560px;
+    max-width: 728px;
   }
 
   .hero-sub {
