@@ -1664,6 +1664,379 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
 }
 
+/* AI-Integrated Workflow Diagram — Figma Frames -> Journey Map -> Live Prototype */
+.ai-pipeline {
+  --ai-pipeline-bg: #0B0F19;
+  --ai-pipeline-card: #141B2D;
+  --ai-pipeline-border: #222F47;
+  --ai-pipeline-text: #F8FAFC;
+  --ai-pipeline-text-muted: #94A3B8;
+  --ai-pipeline-figma: #38BDF8;
+  --ai-pipeline-journey: #A855F7;
+  --ai-pipeline-ai: #EC4899;
+  --ai-pipeline-proto: #34D399;
+  position: relative;
+  margin: 48px 0;
+  padding: 40px;
+  border-radius: 20px;
+  background: var(--ai-pipeline-bg);
+  border: 1px solid var(--ai-pipeline-border);
+  overflow: hidden;
+}
+
+.ai-pipeline::before,
+.ai-pipeline::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ai-pipeline::before {
+  top: -100px;
+  left: -80px;
+  background: var(--ai-pipeline-figma);
+}
+
+.ai-pipeline::after {
+  bottom: -100px;
+  right: -80px;
+  background: var(--ai-pipeline-proto);
+}
+
+.ai-pipeline-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.ai-pipeline-header h3 {
+  color: var(--ai-pipeline-text);
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.ai-pipeline-header p {
+  color: var(--ai-pipeline-text-muted);
+  font-size: 14px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.ai-pipeline-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+
+.ai-pipeline-connector {
+  position: absolute;
+  top: 86px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ai-pipeline-figma), var(--ai-pipeline-journey), var(--ai-pipeline-ai), var(--ai-pipeline-proto));
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.ai-pipeline-step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--ai-pipeline-card);
+  border: 1px solid var(--ai-pipeline-border);
+  border-radius: 16px;
+  padding: 22px 18px;
+  text-align: center;
+}
+
+.ai-pipeline-step-number {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ai-pipeline-text-muted);
+  margin-bottom: 4px;
+}
+
+.ai-pipeline-step-title {
+  color: var(--ai-pipeline-text);
+  font-size: 1rem;
+  margin: 0 0 6px;
+}
+
+.ai-pipeline-step-desc {
+  color: var(--ai-pipeline-text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ai-pipeline-visual {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+/* Step 1 — Figma frame stack */
+.ai-pipeline-figma-stack {
+  position: relative;
+  width: 84px;
+  height: 70px;
+}
+
+.ai-pipeline-wf-layer {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--ai-pipeline-figma);
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.ai-pipeline-wf-layer:first-child {
+  top: 10px;
+  left: 10px;
+  opacity: 0.45;
+}
+
+.ai-pipeline-wf-layer:last-child {
+  top: 0;
+  left: 0;
+  background: rgba(20, 27, 45, 0.9);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ai-pipeline-wf-box {
+  height: 8px;
+  width: 50%;
+  border-radius: 2px;
+  background: var(--ai-pipeline-figma);
+  opacity: 0.8;
+}
+
+.ai-pipeline-wf-layout {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+}
+
+.ai-pipeline-wf-col {
+  flex: 1;
+  border-radius: 2px;
+  background: rgba(56, 189, 248, 0.25);
+}
+
+/* Step 2 — Journey map vector */
+.ai-pipeline-journey-vector {
+  position: relative;
+  width: 90px;
+  height: 76px;
+}
+
+.ai-pipeline-doc-base {
+  position: absolute;
+  top: 4px;
+  left: 14px;
+  width: 62px;
+  height: 68px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ai-pipeline-journey);
+  background: rgba(168, 85, 247, 0.08);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ai-pipeline-doc-line {
+  height: 5px;
+  border-radius: 2px;
+  background: rgba(168, 85, 247, 0.4);
+}
+
+.ai-pipeline-doc-line.short {
+  width: 60%;
+}
+
+.ai-pipeline-flow-node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ai-pipeline-journey);
+  background: var(--ai-pipeline-card);
+}
+
+.ai-pipeline-flow-node.start {
+  top: 2px;
+  right: 2px;
+}
+
+.ai-pipeline-flow-node.end {
+  bottom: 2px;
+  right: 2px;
+  background: var(--ai-pipeline-journey);
+}
+
+/* Step 3 — Prototype window */
+.ai-pipeline-proto-window {
+  width: 100px;
+  height: 78px;
+  border-radius: 8px;
+  border: 1.5px solid var(--ai-pipeline-proto);
+  background: rgba(20, 27, 45, 0.9);
+  overflow: hidden;
+  text-align: left;
+}
+
+.ai-pipeline-window-bar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px;
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.ai-pipeline-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ai-pipeline-proto);
+  opacity: 0.6;
+}
+
+.ai-pipeline-window-body {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-pipeline-code-string {
+  height: 4px;
+  width: 70%;
+  border-radius: 2px;
+  background: rgba(52, 211, 153, 0.35);
+}
+
+.ai-pipeline-code-string.short {
+  width: 45%;
+}
+
+.ai-pipeline-interactive-btn {
+  align-self: flex-start;
+  position: relative;
+  margin-top: 4px;
+  padding: 4px 10px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--ai-pipeline-bg);
+  background: var(--ai-pipeline-proto);
+  border: none;
+  border-radius: 10px;
+  cursor: default;
+}
+
+.ai-pipeline-btn-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: var(--ai-pipeline-proto);
+  animation: ai-pipeline-pulse 2s infinite;
+}
+
+/* Bridges between steps */
+.ai-pipeline-bridge {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ai-pipeline-text-muted);
+  z-index: 1;
+}
+
+.ai-pipeline-bridge svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ai-pipeline-bridge-ai {
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-pipeline-pulse-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ai-pipeline-ai);
+  color: #fff;
+  animation: ai-pipeline-pulse 2s infinite;
+}
+
+.ai-pipeline-pulse-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ai-pipeline-bridge-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ai-pipeline-ai);
+  white-space: nowrap;
+}
+
+@keyframes ai-pipeline-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+
+[data-theme="light"] .ai-pipeline {
+  background: linear-gradient(135deg, #0B0F19 0%, #141B2D 100%);
+}
+
+@media (max-width: 768px) {
+  .ai-pipeline {
+    padding: 28px 20px;
+  }
+
+  .ai-pipeline-wrapper {
+    flex-direction: column;
+  }
+
+  .ai-pipeline-connector {
+    display: none;
+  }
+
+  .ai-pipeline-bridge svg {
+    transform: rotate(90deg);
+  }
+
+  .ai-pipeline-step {
+    width: 100%;
+  }
+}
+
 /* Figma workflow process — animated explainer */
 .process-flow {
   position: relative;
