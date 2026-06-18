@@ -1918,7 +1918,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   flex: 1 1 0;
   min-width: 0;
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 22px 18px;
   text-align: center;
@@ -2192,13 +2191,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
+  color: var(--color-accent-red);
   z-index: 1;
 }
 
 .ai-pipeline-bridge svg {
-  width: 22px;
-  height: 22px;
+  width: 34px;
+  height: 34px;
+  stroke-width: 3;
 }
 
 .ai-pipeline-bridge-ai {
@@ -2273,69 +2273,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   padding-top: 6px;
 }
 
-.process-line {
-  position: absolute;
-  top: 51px;
-  left: 5%;
-  right: 5%;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(
-    90deg,
-    rgba(46, 178, 234, 0.15) 0%,
-    rgba(46, 178, 234, 0.55) 25%,
-    rgba(234, 101, 44, 0.55) 75%,
-    rgba(234, 101, 44, 0.15) 100%
-  );
-  background-size: 220% 100%;
-  animation: process-line-flow 8s linear infinite;
-  z-index: 2;
-  overflow: visible;
-}
-
-@keyframes process-line-flow {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -20% 0; }
-}
-
-.process-dot {
-  position: absolute;
-  top: -5px;
-  left: 0;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow:
-    0 0 14px 4px rgba(46, 178, 234, 0.9),
-    0 0 30px 8px rgba(46, 178, 234, 0.45);
-  animation:
-    process-travel 8s cubic-bezier(0.65, 0, 0.35, 1) infinite,
-    process-dot-pulse 1.4s ease-in-out infinite;
-}
-
-.process-dot::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 7px;
-  transform: translateY(-50%);
-  width: 54px;
-  height: 4px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, rgba(46, 178, 234, 0) 0%, rgba(46, 178, 234, 0.85) 100%);
-}
-
-@keyframes process-travel {
-  0%   { left: 0%; }
-  100% { left: 100%; }
-}
-
-@keyframes process-dot-pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.4); }
-}
-
 .process-stage {
   position: relative;
   z-index: 1;
@@ -2359,7 +2296,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
-  margin-top: 21px;
   margin-bottom: 14px;
   will-change: transform, box-shadow;
 }
@@ -2387,11 +2323,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 @keyframes process-pop-1 {
   0%, 10%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  5%            { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
+  5%            { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
 @keyframes process-pop-2 {
   0%, 32%, 40%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  36%                { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
+  36%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
 @keyframes process-pop-3 {
   0%, 51%, 59%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
@@ -2426,10 +2362,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .process-dot,
-  .process-line {
-    animation-play-state: paused;
-  }
   .process-icon-1, .process-icon-2, .process-icon-3, .process-icon-4 {
     animation-play-state: paused;
   }
@@ -2438,9 +2370,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 @media (max-width: 768px) {
   .process-flow {
     grid-template-columns: 1fr;
-  }
-  .process-line {
-    display: none;
   }
 }
 
