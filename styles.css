@@ -1296,6 +1296,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .uw-node-text p  { font-size: 0.75rem; }
 }
 
+.deployment-note {
+  margin: 0 0 36px;
+  padding: 14px 20px;
+  max-width: 720px;
+  border-left: 3px solid var(--color-accent-red);
+  background: var(--color-bg-alt);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
 /* UI work grid */
 .ui-grid {
   display: grid;
