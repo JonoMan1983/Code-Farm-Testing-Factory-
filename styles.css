@@ -467,8 +467,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .hero-sub-highlight {
-  color: var(--color-accent-red);
+  color: #ffffff;
   font-weight: 700;
+  background: var(--color-accent-red);
+  padding: 2px 7px;
+  border-radius: 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .hero .btn-ghost {
