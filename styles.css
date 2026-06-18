@@ -466,6 +466,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-bottom: 40px;
 }
 
+.hero-sub-highlight {
+  color: var(--color-accent-red);
+  font-weight: 700;
+}
+
 .hero .btn-ghost {
   color: #ffffff;
   border-color: rgba(255,255,255,0.35);
