@@ -22,7 +22,7 @@ button {
   --color-bg-dark: #041e2a;
   --color-bg-mid: #0b516f;
   --color-text: #D5F0FB;
-  --color-text-muted: rgba(255, 255, 255, 0.8);
+  --color-text-muted: rgba(255, 255, 255, 0.9);
   --color-accent: #2EB2EA;
   --color-accent-hover: #6AC8F0;
   --color-accent-red: #EA652C;
@@ -381,7 +381,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 899px) {
   .hero-ai-badge {
     flex-direction: row;
     gap: 8px;
