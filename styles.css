@@ -22,7 +22,7 @@ button {
   --color-bg-dark: #041e2a;
   --color-bg-mid: #0b516f;
   --color-text: #D5F0FB;
-  --color-text-muted: #5DC3EF;
+  --color-text-muted: rgba(255, 255, 255, 0.8);
   --color-accent: #2EB2EA;
   --color-accent-hover: #6AC8F0;
   --color-accent-red: #EA652C;
@@ -347,13 +347,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
 }
 
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .hero-ai-badge {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-  z-index: 1;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .hero-ai-badge img {
@@ -371,6 +378,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent-red);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .hero-ai-badge {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .hero-ai-badge span {
+    display: none;
+  }
 }
 
 .hero-location-badge {
@@ -543,13 +562,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
     margin-right: 0;
   }
 
-  .hero-ai-badge {
-    position: absolute;
-    left: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-bottom: 0;
-    z-index: 2;
+  .hero-title-row {
+    justify-content: flex-end;
   }
 
   .hero-actions {
