@@ -1,4 +1,4 @@
-# Jonathan Nestler Portfolio — Brand Guidelines
+# Jonathan Nestler — Brand Guidelines
 
 ## Logo Files
 
@@ -39,12 +39,12 @@
 
 | Name | Hex | Usage |
 |------|-----|-------|
-| Primary | `#2563eb` | Gradient start, CTA, accents |
-| Secondary | `#1d4ed8` | Gradient end, hover states |
-| Text (light bg) | `#ffffff` | Body text on white/light |
-| Text (dark bg) | `#111111` | Body text on dark |
+| Primary | `#ea580c` | Gradient start, CTA, accents |
+| Secondary | `#db2777` | Gradient end, hover states |
+| Text (light bg) | `#1c1917` | Body text on white/light |
+| Text (dark bg) | `#fef3c7` | Body text on dark |
 | Background (light) | `#ffffff` | Light mode |
-| Background (dark) | `#111111` | Dark mode |
+| Background (dark) | `#18120b` | Dark mode |
 
 ## Typography
 
