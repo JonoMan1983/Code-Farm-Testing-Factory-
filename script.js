@@ -189,6 +189,26 @@ const observer = new IntersectionObserver(
 
 revealEls.forEach(el => observer.observe(el));
 
+// Active nav link highlighting (scroll-spy)
+const navAnchorLinks = navLinks.querySelectorAll('a[href^="#"]');
+const spySections = Array.from(navAnchorLinks)
+  .map(link => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+const navSpyObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navAnchorLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = navLinks.querySelector(`a[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    });
+  },
+  { threshold: 0, rootMargin: '-45% 0px -45% 0px' }
+);
+
+spySections.forEach(section => navSpyObserver.observe(section));
+
 // Contact form — Web3Forms
 const form = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
