@@ -664,8 +664,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .about-photo-stamp {
   position: absolute;
-  bottom: -4px;
-  left: -4px;
+  bottom: 12px;
+  right: -110px;
   display: flex;
   flex-direction: column;
   align-items: center;
