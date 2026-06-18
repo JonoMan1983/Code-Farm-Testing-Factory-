@@ -1973,6 +1973,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .ai-pipeline-wf-layer {
   position: absolute;
   inset: 0;
+  border: 1.5px solid var(--color-accent-red);
   border-radius: 6px;
   background: rgba(234, 101, 44, 0.08);
 }
@@ -2029,6 +2030,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   width: 64px;
   height: 64px;
   border-radius: 10px;
+  border: 1.5px solid var(--color-accent-red);
   background: rgba(234, 101, 44, 0.08);
   padding: 0 12px;
   display: flex;
@@ -2095,7 +2097,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .ai-pipeline-flow-path path,
 .ai-pipeline-flow-path rect {
   fill: none;
-  stroke: none;
+  stroke: var(--color-accent-red);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 4 6;
+  opacity: 0.75;
+  animation: ai-pipeline-flow-dash 1s linear infinite;
+}
+
+@keyframes ai-pipeline-flow-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 
 /* Step 3 — Prototype window */
@@ -2112,6 +2125,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   width: 100px;
   height: 78px;
   border-radius: 8px;
+  border: 1.5px solid var(--color-accent-red);
   background: rgba(20, 27, 45, 0.9);
   overflow: hidden;
   text-align: left;
@@ -2345,6 +2359,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
+  margin-top: 21px;
   margin-bottom: 14px;
   will-change: transform, box-shadow;
 }
@@ -2371,20 +2386,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .process-icon-4 { animation: process-pop-4 8s ease-in-out infinite; }
 
 @keyframes process-pop-1 {
-  0%, 8%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  3%           { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
+  0%, 10%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  5%            { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
 }
 @keyframes process-pop-2 {
-  0%, 29%, 37%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  33%                { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
+  0%, 32%, 40%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  36%                { box-shadow: 0 0 0 4px rgba(46, 178, 234, 0.4), 0 8px 22px rgba(46, 178, 234, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #2EB2EA, #6AC8F0); color: #fff; }
 }
 @keyframes process-pop-3 {
-  0%, 58%, 66%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  62%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%, 51%, 59%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  55%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
 @keyframes process-pop-4 {
-  0%, 87%, 95%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  91%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%, 72%, 80%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  76%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
 }
 
 .process-stage-label {
