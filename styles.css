@@ -1831,27 +1831,30 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* Step 2 — Journey map vector */
 .ai-pipeline-journey-vector {
   position: relative;
-  width: 90px;
-  height: 76px;
+  width: 100px;
+  height: 80px;
 }
 
-.ai-pipeline-doc-base {
+.ai-pipeline-journey-card {
   position: absolute;
-  top: 4px;
-  left: 14px;
-  width: 62px;
-  height: 68px;
-  border-radius: 6px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
   border: 1.5px solid var(--color-accent-red);
   background: rgba(234, 101, 44, 0.08);
-  padding: 12px 10px;
+  padding: 0 12px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  justify-content: center;
+  gap: 8px;
 }
 
 .ai-pipeline-doc-line {
-  height: 5px;
+  height: 4px;
   border-radius: 2px;
   background: rgba(234, 101, 44, 0.4);
 }
@@ -1862,32 +1865,63 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .ai-pipeline-flow-node {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 2px solid var(--color-accent-red);
-  background: var(--color-bg);
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
 }
 
 .ai-pipeline-flow-node.start {
-  top: 2px;
-  right: 2px;
+  left: -4px;
+  border: 2px solid var(--color-accent-red);
+  background: var(--color-bg);
 }
 
-.ai-pipeline-flow-node.end {
-  bottom: 2px;
-  right: 2px;
+.ai-pipeline-flow-node.start::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: var(--color-accent-red);
 }
 
-.ai-pipeline-flow-line {
+.ai-pipeline-flow-node.end {
+  right: -4px;
+  background: var(--color-accent-red);
+}
+
+.ai-pipeline-flow-node.end svg {
+  width: 10px;
+  height: 10px;
+}
+
+.ai-pipeline-flow-path {
   position: absolute;
-  top: 14px;
-  bottom: 14px;
-  right: 7px;
-  border-left: 2px dotted var(--color-accent-red);
-  opacity: 0.6;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ai-pipeline-flow-path path {
+  fill: none;
+  stroke: var(--color-accent-red);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 4 6;
+  opacity: 0.75;
+  animation: ai-pipeline-flow-dash 1s linear infinite;
+}
+
+@keyframes ai-pipeline-flow-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 
 /* Step 3 — Prototype window */

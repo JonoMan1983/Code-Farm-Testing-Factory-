@@ -174,14 +174,20 @@
           <div class="ai-pipeline-step ai-pipeline-journey">
             <div class="ai-pipeline-visual">
               <div class="ai-pipeline-journey-vector">
-                <div class="ai-pipeline-doc-base">
+                <svg class="ai-pipeline-flow-path" viewBox="0 0 100 80" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M6,40 C26,18 36,62 50,40 C64,18 74,62 94,40" />
+                </svg>
+                <div class="ai-pipeline-flow-node start"></div>
+                <div class="ai-pipeline-journey-card">
                   <div class="ai-pipeline-doc-line"></div>
                   <div class="ai-pipeline-doc-line"></div>
                   <div class="ai-pipeline-doc-line short"></div>
                 </div>
-                <div class="ai-pipeline-flow-node start"></div>
-                <div class="ai-pipeline-flow-line"></div>
-                <div class="ai-pipeline-flow-node end"></div>
+                <div class="ai-pipeline-flow-node end">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12l5 5L20 6"/>
+                  </svg>
+                </div>
               </div>
             </div>
             <span class="ai-pipeline-step-number">02</span>
