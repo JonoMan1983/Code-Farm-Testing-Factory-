@@ -726,7 +726,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Logo marquee */
 .marquee-logos {
-  margin-bottom: 8px;
+  margin-top: -50px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  padding: 20px 0;
 }
 
 .marquee-logos .marquee-group {
