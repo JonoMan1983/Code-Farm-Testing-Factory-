@@ -390,10 +390,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .mascot-label-designa {
   color: #ffffff;
+  font-size: 0.8em;
 }
 
 .mascot-label-saurus {
   color: var(--color-accent-red);
+  font-size: 0.8em;
 }
 
 #heroCanvas {
