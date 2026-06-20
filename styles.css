@@ -796,7 +796,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .marquee-logos .marquee-track {
   background: #ffffff;
   margin: 48px 0;
-  padding: 0 28px;
+  padding: 20px 28px;
 }
 
 .marquee-track-reverse {
