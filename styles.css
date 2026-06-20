@@ -397,7 +397,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 #heroCanvas {
-  width: min(700px, 100%, 72vh);
+  width: min(560px, 100%, 57.6vh);
   max-width: 100%;
   max-height: none;
   height: auto;
@@ -405,6 +405,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: block;
   margin-bottom: 30px;
   margin-right: 30px;
+  transform: translate(-30px, -30px);
 }
 
 .hero-title-row {
