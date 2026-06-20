@@ -349,6 +349,31 @@ h1, h2, h3, h4 { color: var(--color-text); }
   pointer-events: none;
 }
 
+.hero-visual-mascot-label {
+  position: absolute;
+  bottom: 0;
+  right: calc(min(259px, 35.6%) + 15px);
+  margin: 0;
+  text-align: right;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  pointer-events: none;
+}
+
+.mascot-label-ux {
+  color: var(--color-accent);
+}
+
+.mascot-label-designa {
+  color: #ffffff;
+}
+
+.mascot-label-saurus {
+  color: var(--color-accent-red);
+}
+
 #heroCanvas {
   width: min(700px, 100%, 72vh);
   max-width: 100%;
