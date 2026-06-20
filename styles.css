@@ -386,6 +386,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .mascot-label-ux {
   color: var(--color-accent);
+  font-size: 2em;
 }
 
 .mascot-label-designa {
