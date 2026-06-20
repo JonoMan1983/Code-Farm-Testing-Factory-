@@ -635,6 +635,56 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
+/* Logo marquee */
+.marquee-logos {
+  margin-bottom: 28px;
+}
+
+.marquee-logos .marquee-group {
+  gap: 56px;
+  padding: 0 28px;
+}
+
+.logo-mark {
+  height: 28px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.logo-chip-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+.logo-chip-white .logo-mark {
+  height: 100%;
+  filter: none;
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .marquee-logos .marquee-group {
+    gap: 36px;
+    padding: 0 18px;
+  }
+
+  .logo-mark {
+    height: 22px;
+  }
+
+  .logo-chip-white {
+    height: 22px;
+  }
+}
+
 /* Quote/testimonial marquee */
 .marquee-quotes .marquee-group {
   align-items: stretch;
