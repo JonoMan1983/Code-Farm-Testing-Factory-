@@ -382,6 +382,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: auto;
   aspect-ratio: 1 / 1;
   display: block;
+  margin-bottom: 30px;
+  margin-right: 30px;
 }
 
 .hero-title-row {
