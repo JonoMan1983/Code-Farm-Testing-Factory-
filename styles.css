@@ -729,7 +729,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   margin-top: -50px;
   margin-bottom: 20px;
   background: var(--color-accent-red);
-  padding: 20px 0;
+  padding: 0;
 }
 
 .marquee-logos .marquee-group {
@@ -791,6 +791,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: flex;
   width: max-content;
   animation: marquee-scroll 36s linear infinite;
+}
+
+.marquee-logos .marquee-track {
+  background: #ffffff;
+  margin: 10px 0;
+  padding: 0 28px;
 }
 
 .marquee-track-reverse {
