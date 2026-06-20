@@ -770,6 +770,51 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
+   SECONDARY MASCOT ACCENTS
+   Desktop-only flourishes reusing the hero Designasaurus character set.
+   =========================== */
+.decor-mascot {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 14px rgba(4, 30, 42, 0.35));
+}
+
+.about-mascot {
+  top: -22px;
+  left: -34px;
+  width: 84px;
+  transform: rotate(-8deg);
+}
+
+.recommendations-mascot {
+  top: -8px;
+  right: 4%;
+  width: 78px;
+  transform: rotate(6deg);
+}
+
+.contact-mascot {
+  top: 64px;
+  right: 6%;
+  width: 100px;
+  transform: rotate(-6deg);
+}
+
+.footer-mascot {
+  top: -18px;
+  right: 5%;
+  width: 60px;
+  transform: rotate(8deg);
+}
+
+@media (max-width: 899px) {
+  .decor-mascot {
+    display: none;
+  }
+}
+
+/* ===========================
    RECOMMENDATIONS / TRUSTED BY
    =========================== */
 .recommendations {
@@ -777,6 +822,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .recommendations-intro {
+  position: relative;
   text-align: center;
   margin-bottom: 64px;
 }
@@ -3203,6 +3249,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .contact.section {
+  position: relative;
   padding-top: 24px;
 }
 
@@ -3277,6 +3324,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
    FOOTER
    =========================== */
 .footer {
+  position: relative;
   border-top: 1px solid var(--color-border);
   padding: 32px 0;
 }
