@@ -726,7 +726,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Logo marquee */
 .marquee-logos {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .marquee-logos .marquee-group {
@@ -744,13 +744,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   letter-spacing: 0.04em;
   color: var(--color-text-muted);
   white-space: nowrap;
-  filter: grayscale(1);
-  opacity: 0.6;
-  transition: filter var(--transition), opacity var(--transition);
+  opacity: 1;
+  transition: opacity var(--transition);
 }
 
 .logo-mark:hover {
-  filter: none;
   opacity: 1;
 }
 
