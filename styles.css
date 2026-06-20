@@ -345,15 +345,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
   position: absolute;
   bottom: 0;
   right: 0;
-  width: min(259px, 35.6%);
+  width: min(300px, 39%);
   height: auto;
   pointer-events: none;
+  filter: drop-shadow(0 16px 20px rgba(4, 30, 42, 0.45));
+  animation: mascot-float 6.5s ease-in-out infinite;
+  transform-origin: 50% 100%;
 }
 
 .hero-visual-mascot-label {
   position: absolute;
   bottom: 15px;
-  right: calc(min(259px, 35.6%) - 5px);
+  right: calc(min(300px, 39%) - 5px);
   margin: 0;
   text-align: right;
   line-height: 1.15;
@@ -361,6 +364,24 @@ h1, h2, h3, h4 { color: var(--color-text); }
   letter-spacing: 0.02em;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   pointer-events: none;
+  animation: mascot-label-float 6.5s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes mascot-label-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual-mascot,
+  .hero-visual-mascot-label {
+    animation: none;
+  }
 }
 
 .mascot-label-ux {
