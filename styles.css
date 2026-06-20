@@ -338,6 +338,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   align-items: center;
   min-width: 0;
   order: -1;
+  margin-bottom: 50px;
 }
 
 .hero-visual-mascot {
@@ -491,6 +492,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .title-pink { color: var(--color-accent-red); }
+.title-blue { color: var(--color-accent); }
 
 .hero-sub {
   font-size: 1.15rem;
@@ -603,6 +605,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     flex: 0 0 auto;
     order: 1;
     width: min(650px, 46vw);
+    margin-bottom: 0;
   }
 
   #heroCanvas {
