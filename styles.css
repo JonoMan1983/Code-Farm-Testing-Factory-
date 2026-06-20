@@ -391,11 +391,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .mascot-label-designa {
   color: #ffffff;
   font-size: 0.8em;
+  font-weight: 600;
 }
 
 .mascot-label-saurus {
   color: var(--color-accent-red);
   font-size: 0.8em;
+  font-weight: 400;
 }
 
 #heroCanvas {
