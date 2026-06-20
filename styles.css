@@ -761,6 +761,21 @@ h1, h2, h3, h4 { color: var(--color-text); }
   object-fit: contain;
 }
 
+.logo-chip-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+.logo-chip-white .logo-mark {
+  filter: none;
+  opacity: 1;
+}
+
 /* Marquee shell — full-bleed with edge fade */
 .marquee {
   position: relative;
@@ -1055,6 +1070,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .logo-mark img {
+    height: 22px;
+  }
+
+  .logo-chip-white {
     height: 22px;
   }
 }
