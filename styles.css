@@ -359,7 +359,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   right: calc(min(300px, 39%) - 5px);
   margin: 0;
   text-align: right;
-  line-height: 1.15;
+  line-height: 0.85;
   font-weight: 800;
   letter-spacing: 0.02em;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
