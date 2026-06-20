@@ -726,18 +726,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Logo marquee */
 .marquee-logos {
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 
 .marquee-logos .marquee-group {
   align-items: center;
-  gap: 56px;
+  gap: 40px;
   padding: 0 28px;
 }
 
 .logo-mark {
   display: flex;
   align-items: center;
+  height: 20px;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -755,9 +756,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .logo-mark img {
   display: block;
-  height: 28px;
+  height: 20px;
   width: auto;
-  max-width: 150px;
+  max-width: 120px;
   object-fit: contain;
 }
 
@@ -765,10 +766,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 28px;
-  padding: 4px 10px;
+  height: 20px;
+  padding: 2px 8px;
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .logo-chip-white .logo-mark {
@@ -1061,20 +1062,22 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 
   .marquee-logos .marquee-group {
-    gap: 36px;
+    gap: 28px;
     padding: 0 18px;
   }
 
   .logo-mark {
+    height: 16px;
     font-size: 0.92rem;
   }
 
   .logo-mark img {
-    height: 22px;
+    height: 16px;
   }
 
   .logo-chip-white {
-    height: 22px;
+    height: 16px;
+    padding: 2px 6px;
   }
 }
 
