@@ -809,8 +809,28 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (max-width: 899px) {
-  .decor-mascot {
-    display: none;
+  .about-mascot {
+    width: 56px;
+    top: -14px;
+    left: -18px;
+  }
+
+  .recommendations-mascot {
+    width: 52px;
+    top: -6px;
+    right: 2%;
+  }
+
+  .contact-mascot {
+    width: 60px;
+    top: -10px;
+    right: 2%;
+  }
+
+  .footer-mascot {
+    width: 44px;
+    top: -12px;
+    right: 3%;
   }
 }
 
