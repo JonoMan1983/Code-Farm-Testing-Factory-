@@ -332,11 +332,21 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .hero-visual {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 0;
   order: -1;
+}
+
+.hero-visual-mascot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: min(160px, 22%);
+  height: auto;
+  pointer-events: none;
 }
 
 #heroCanvas {
