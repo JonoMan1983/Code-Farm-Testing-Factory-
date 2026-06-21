@@ -791,28 +791,28 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .about-mascot {
   top: -22px;
   left: -34px;
-  width: 84px;
+  width: 252px;
   transform: rotate(-8deg);
 }
 
 .recommendations-mascot {
   top: -8px;
   right: 4%;
-  width: 78px;
+  width: 234px;
   transform: rotate(6deg);
 }
 
 .contact-mascot {
   top: 64px;
   right: 6%;
-  width: 100px;
+  width: 300px;
   transform: rotate(-6deg);
 }
 
 .footer-mascot {
   top: -18px;
   right: 5%;
-  width: 60px;
+  width: 180px;
   transform: rotate(8deg);
 }
 
@@ -837,219 +837,219 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .work-mascot {
   top: -28px;
   right: 2%;
-  width: 90px;
+  width: 270px;
   transform: rotate(-7deg);
 }
 
 .skills-mascot {
   top: -24px;
   right: 3%;
-  width: 80px;
+  width: 240px;
   transform: rotate(8deg);
 }
 
 .resume-mascot {
   top: -26px;
   right: 4%;
-  width: 86px;
+  width: 258px;
   transform: rotate(-6deg);
 }
 
 .workflow-mascot {
   top: -22px;
   right: 3%;
-  width: 82px;
+  width: 246px;
   transform: rotate(7deg);
 }
 
 .ux-mascot {
   top: -20px;
   left: 1%;
-  width: 78px;
+  width: 234px;
   transform: rotate(-7deg);
 }
 
 .igaming-mascot {
   top: -24px;
   right: 2%;
-  width: 92px;
+  width: 276px;
   transform: rotate(6deg);
 }
 
 .casework-mascot {
   top: -22px;
   left: 1%;
-  width: 80px;
+  width: 240px;
   transform: rotate(-8deg);
 }
 
 .credential-mascot {
   top: -26px;
   right: 3%;
-  width: 84px;
+  width: 252px;
   transform: rotate(8deg);
 }
 
 .software-mascot {
   top: -20px;
   left: 1%;
-  width: 70px;
+  width: 210px;
   transform: rotate(-6deg);
 }
 
 .certifications-mascot {
   top: -24px;
   right: 2%;
-  width: 78px;
+  width: 234px;
   transform: rotate(7deg);
 }
 
 .showreel-mascot {
   top: -22px;
   left: 1%;
-  width: 72px;
+  width: 216px;
   transform: rotate(-7deg);
 }
 
 .videos-mascot {
   top: -24px;
   right: 2%;
-  width: 80px;
+  width: 240px;
   transform: rotate(6deg);
 }
 
 .animations-mascot {
   top: -22px;
   left: 1%;
-  width: 76px;
+  width: 228px;
   transform: rotate(-8deg);
 }
 
 .artistic-mascot {
   top: -24px;
   right: 2%;
-  width: 86px;
+  width: 258px;
   transform: rotate(7deg);
 }
 
 .legacy-mascot {
   top: -22px;
   left: 1%;
-  width: 80px;
+  width: 240px;
   transform: rotate(-6deg);
 }
 
 @media (max-width: 899px) {
   .about-mascot {
-    width: 56px;
+    width: 168px;
     top: -14px;
     left: -18px;
   }
 
   .recommendations-mascot {
-    width: 52px;
+    width: 156px;
     top: -6px;
     right: 2%;
   }
 
   .contact-mascot {
-    width: 60px;
+    width: 180px;
     top: -10px;
     right: 2%;
   }
 
   .footer-mascot {
-    width: 44px;
+    width: 132px;
     top: -12px;
     right: 3%;
   }
 
   .work-mascot {
-    width: 56px;
+    width: 168px;
     top: -18px;
     right: 1%;
   }
 
   .skills-mascot {
-    width: 50px;
+    width: 150px;
     top: -16px;
     right: 1%;
   }
 
   .resume-mascot {
-    width: 54px;
+    width: 162px;
     top: -18px;
     right: 1%;
   }
 
   .workflow-mascot {
-    width: 50px;
+    width: 150px;
     top: -14px;
     right: 1%;
   }
 
   .ux-mascot {
-    width: 48px;
+    width: 144px;
     top: -12px;
     left: 0;
   }
 
   .igaming-mascot {
-    width: 54px;
+    width: 162px;
     top: -14px;
     right: 1%;
   }
 
   .casework-mascot {
-    width: 48px;
+    width: 144px;
     top: -12px;
     left: 0;
   }
 
   .credential-mascot {
-    width: 50px;
+    width: 150px;
     top: -16px;
     right: 1%;
   }
 
   .software-mascot {
-    width: 44px;
+    width: 132px;
     top: -12px;
     left: 0;
   }
 
   .certifications-mascot {
-    width: 48px;
+    width: 144px;
     top: -14px;
     right: 1%;
   }
 
   .showreel-mascot {
-    width: 44px;
+    width: 132px;
     top: -12px;
     left: 0;
   }
 
   .videos-mascot {
-    width: 48px;
+    width: 144px;
     top: -14px;
     right: 1%;
   }
 
   .animations-mascot {
-    width: 46px;
+    width: 138px;
     top: -12px;
     left: 0;
   }
 
   .artistic-mascot {
-    width: 52px;
+    width: 156px;
     top: -14px;
     right: 1%;
   }
 
   .legacy-mascot {
-    width: 48px;
+    width: 144px;
     top: -12px;
     left: 0;
   }
