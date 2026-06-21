@@ -5089,7 +5089,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   filter: invert(1);
 }
 
-[data-theme="light"] .logo-mark[src*="Xcellent-Media"] {
+/* Xcellent Media sits on the marquee's white track in every theme */
+.logo-mark[src*="Xcellent-Media"] {
   filter: invert(1);
 }
 
