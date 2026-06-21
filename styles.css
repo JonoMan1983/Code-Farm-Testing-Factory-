@@ -5100,3 +5100,17 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* Resume btn stays orange — visible on light */
+
+/* ===========================
+   HEADING / MASCOT VERTICAL ALIGNMENT
+   Heading margin-bottom would otherwise count toward the flex item's
+   margin box, pulling the text's visual center away from the mascot's.
+   =========================== */
+.heading-mascot-row h2,
+.heading-mascot-row .footer-name {
+  margin-bottom: 0 !important;
+}
+
+.heading-mascot-row {
+  margin-bottom: 32px;
+}
