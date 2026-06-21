@@ -779,308 +779,113 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* ===========================
    SECONDARY MASCOT ACCENTS
-   Desktop-only flourishes reusing the hero Designasaurus character set.
+   In-flow Designasaurus companions placed beside each section heading.
    =========================== */
+.heading-mascot-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 28px);
+  flex-wrap: wrap;
+}
+
 .decor-mascot {
-  position: absolute;
-  height: auto;
+  height: clamp(40px, 7vw, 96px);
+  width: auto;
+  max-width: 150px;
+  flex-shrink: 0;
   pointer-events: none;
   filter: drop-shadow(0 10px 14px rgba(4, 30, 42, 0.35));
 }
 
 .about-mascot {
-  right: -34px;
   transform: rotate(-8deg);
 }
 
 .recommendations-mascot {
-  left: 4%;
   transform: rotate(6deg);
 }
 
 .contact-mascot {
-  right: 6%;
   transform: rotate(-6deg);
 }
 
 .footer-mascot {
-  right: 5%;
+  height: clamp(28px, 4vw, 40px);
+  max-width: 60px;
   transform: rotate(8deg);
 }
 
-.work.section .container,
-.skills.section .container,
-.resume.section .container,
-#workflow .container,
-#ux .container,
-#igaming .container,
-#casework .container,
-#credential .container,
-#software .container,
-#certifications .container,
-#showreel .container,
-#videos .container,
-#animations .container,
-#artistic .container,
-#legacy .container {
-  position: relative;
-}
-
 .work-mascot {
-  right: 2%;
   transform: rotate(-7deg);
 }
 
 .skills-mascot {
-  right: 3%;
   transform: rotate(8deg);
 }
 
 .resume-mascot {
-  right: 4%;
   transform: rotate(-6deg);
 }
 
 .workflow-mascot {
-  right: 3%;
   transform: rotate(7deg);
 }
 
 .ux-mascot {
-  left: 1%;
   transform: rotate(-7deg);
 }
 
 .igaming-mascot {
-  right: 2%;
   transform: rotate(6deg);
 }
 
 .casework-mascot {
-  left: 1%;
   transform: rotate(-8deg);
 }
 
 .credential-mascot {
-  right: 3%;
   transform: rotate(8deg);
 }
 
 .software-mascot {
-  left: 1%;
   transform: rotate(-6deg);
 }
 
 .certifications-mascot {
-  right: 2%;
   transform: rotate(7deg);
 }
 
 .showreel-mascot {
-  left: 1%;
   transform: rotate(-7deg);
 }
 
 .videos-mascot {
-  right: 2%;
   transform: rotate(6deg);
 }
 
 .animations-mascot {
-  left: 1%;
   transform: rotate(-8deg);
 }
 
 .artistic-mascot {
-  right: 2%;
   transform: rotate(7deg);
 }
 
 .legacy-mascot {
-  left: 1%;
   transform: rotate(-6deg);
 }
 
-/* Shared safety sizing: keeps every mascot's bottom edge inside the
-   section's top padding gutter so it never overlaps the heading/copy below. */
-.about-mascot,
-.recommendations-mascot,
-.contact-mascot,
-.footer-mascot,
-.work-mascot,
-.skills-mascot,
-.resume-mascot,
-.workflow-mascot,
-.ux-mascot,
-.igaming-mascot,
-.casework-mascot,
-.credential-mascot,
-.software-mascot,
-.certifications-mascot,
-.showreel-mascot,
-.videos-mascot,
-.animations-mascot,
-.artistic-mascot,
-.legacy-mascot {
-  height: 90px;
-  top: -106px;
-  max-width: 200px;
-  width: auto;
-}
-
-@media (max-width: 899px) {
-  .about-mascot {
-    right: -18px;
+@media (max-width: 480px) {
+  .heading-mascot-row {
+    gap: 10px;
   }
 
-  .recommendations-mascot {
-    left: 2%;
-  }
-
-  .contact-mascot {
-    right: 2%;
+  .decor-mascot {
+    height: clamp(34px, 9vw, 50px);
   }
 
   .footer-mascot {
-    right: 3%;
-  }
-
-  .work-mascot {
-    right: 1%;
-  }
-
-  .skills-mascot {
-    right: 1%;
-  }
-
-  .resume-mascot {
-    right: 1%;
-  }
-
-  .workflow-mascot {
-    right: 1%;
-  }
-
-  .ux-mascot {
-    left: 0;
-  }
-
-  .igaming-mascot {
-    right: 1%;
-  }
-
-  .casework-mascot {
-    left: 0;
-  }
-
-  .credential-mascot {
-    right: 1%;
-  }
-
-  .software-mascot {
-    left: 0;
-  }
-
-  .certifications-mascot {
-    right: 1%;
-  }
-
-  .showreel-mascot {
-    left: 0;
-  }
-
-  .videos-mascot {
-    right: 1%;
-  }
-
-  .animations-mascot {
-    left: 0;
-  }
-
-  .artistic-mascot {
-    right: 1%;
-  }
-
-  .legacy-mascot {
-    left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-mascot,
-  .recommendations-mascot,
-  .contact-mascot,
-  .footer-mascot,
-  .work-mascot,
-  .skills-mascot,
-  .resume-mascot,
-  .workflow-mascot,
-  .ux-mascot,
-  .igaming-mascot,
-  .casework-mascot,
-  .credential-mascot,
-  .software-mascot,
-  .certifications-mascot,
-  .showreel-mascot,
-  .videos-mascot,
-  .animations-mascot,
-  .artistic-mascot,
-  .legacy-mascot {
-    height: 34px;
-    top: -48px;
-    max-width: 130px;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-mascot,
-  .recommendations-mascot,
-  .contact-mascot,
-  .footer-mascot,
-  .work-mascot,
-  .skills-mascot,
-  .resume-mascot,
-  .workflow-mascot,
-  .ux-mascot,
-  .igaming-mascot,
-  .casework-mascot,
-  .credential-mascot,
-  .software-mascot,
-  .certifications-mascot,
-  .showreel-mascot,
-  .videos-mascot,
-  .animations-mascot,
-  .artistic-mascot,
-  .legacy-mascot {
-    height: 30px;
-    top: -44px;
-    max-width: 110px;
-  }
-}
-
-@media (max-width: 380px) {
-  .about-mascot,
-  .recommendations-mascot,
-  .contact-mascot,
-  .footer-mascot,
-  .work-mascot,
-  .skills-mascot,
-  .resume-mascot,
-  .workflow-mascot,
-  .ux-mascot,
-  .igaming-mascot,
-  .casework-mascot,
-  .credential-mascot,
-  .software-mascot,
-  .certifications-mascot,
-  .showreel-mascot,
-  .videos-mascot,
-  .animations-mascot,
-  .artistic-mascot,
-  .legacy-mascot {
-    height: 26px;
-    top: -38px;
-    max-width: 90px;
+    height: clamp(24px, 7vw, 32px);
   }
 }
 
