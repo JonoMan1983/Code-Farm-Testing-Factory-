@@ -5148,3 +5148,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
   content: "\201D";
   margin-left: 0.05em;
 }
+
+/* ===========================
+   HEADING / MASCOT MOBILE CENTERING
+   On small screens, center the mascot + heading as a unit instead of
+   keeping them flush left.
+   =========================== */
+@media (max-width: 768px) {
+  .heading-mascot-row {
+    justify-content: center;
+  }
+
+  .heading-mascot-row,
+  .heading-mascot-row h2,
+  .heading-mascot-row .footer-name {
+    text-align: center;
+  }
+}
