@@ -797,7 +797,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .recommendations-mascot {
   top: -8px;
-  right: 4%;
+  left: 4%;
   width: 234px;
   transform: rotate(6deg);
 }
@@ -949,7 +949,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .recommendations-mascot {
     width: 156px;
     top: -6px;
-    right: 2%;
+    left: 2%;
   }
 
   .contact-mascot {
@@ -5245,6 +5245,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 [data-theme="light"] .logo-mark img[alt="Wonderlabz"],
 [data-theme="light"] .logo-mark img[alt="Astria Systems"],
 [data-theme="light"] .logo-mark img[alt="Pantelotteriet"] {
+  filter: invert(1);
+}
+
+[data-theme="light"] .logo-mark[src*="Xcellent-Media"] {
   filter: invert(1);
 }
 
