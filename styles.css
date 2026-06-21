@@ -790,8 +790,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .about-mascot {
   top: -22px;
-  left: -34px;
-  width: 252px;
+  right: -34px;
+  width: 176px;
   transform: rotate(-8deg);
 }
 
@@ -941,9 +941,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 @media (max-width: 899px) {
   .about-mascot {
-    width: 168px;
+    width: 118px;
     top: -14px;
-    left: -18px;
+    right: -18px;
   }
 
   .recommendations-mascot {
