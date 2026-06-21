@@ -5125,3 +5125,26 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .heading-mascot-row .footer-name {
   text-align: left;
 }
+
+/* ===========================
+   HEADING QUOTATION MARKS
+   Large orange curly quotes bracketing each section headline.
+   =========================== */
+.heading-mascot-row h2::before,
+.heading-mascot-row h2::after {
+  color: var(--color-accent-red);
+  font-size: 1.6em;
+  font-weight: 800;
+  line-height: 0;
+  vertical-align: -0.25em;
+}
+
+.heading-mascot-row h2::before {
+  content: "\201C";
+  margin-right: 0.05em;
+}
+
+.heading-mascot-row h2::after {
+  content: "\201D";
+  margin-left: 0.05em;
+}
