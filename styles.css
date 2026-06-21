@@ -816,6 +816,33 @@ h1, h2, h3, h4 { color: var(--color-text); }
   transform: rotate(8deg);
 }
 
+.work.section .container,
+.skills.section .container,
+.resume.section .container {
+  position: relative;
+}
+
+.work-mascot {
+  top: -28px;
+  right: 2%;
+  width: 90px;
+  transform: rotate(-7deg);
+}
+
+.skills-mascot {
+  top: -24px;
+  right: 3%;
+  width: 80px;
+  transform: rotate(8deg);
+}
+
+.resume-mascot {
+  top: -26px;
+  right: 4%;
+  width: 86px;
+  transform: rotate(-6deg);
+}
+
 @media (max-width: 899px) {
   .about-mascot {
     width: 56px;
@@ -839,6 +866,24 @@ h1, h2, h3, h4 { color: var(--color-text); }
     width: 44px;
     top: -12px;
     right: 3%;
+  }
+
+  .work-mascot {
+    width: 56px;
+    top: -18px;
+    right: 1%;
+  }
+
+  .skills-mascot {
+    width: 50px;
+    top: -16px;
+    right: 1%;
+  }
+
+  .resume-mascot {
+    width: 54px;
+    top: -18px;
+    right: 1%;
   }
 }
 
