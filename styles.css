@@ -805,7 +805,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .about-mascot {
-  transform: rotate(-8deg);
+  transform: scaleX(-1) rotate(-8deg);
 }
 
 .recommendations-mascot {
@@ -813,7 +813,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .contact-mascot {
-  transform: rotate(-6deg);
+  transform: scaleX(-1) rotate(-6deg);
 }
 
 .footer-mascot {
@@ -823,11 +823,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .work-mascot {
-  transform: rotate(-7deg);
+  transform: scaleX(-1) rotate(-7deg);
 }
 
 .skills-mascot {
-  transform: rotate(8deg);
+  transform: scaleX(-1) rotate(8deg);
 }
 
 .resume-mascot {
@@ -835,19 +835,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .workflow-mascot {
-  transform: rotate(7deg);
+  transform: scaleX(-1) rotate(7deg);
 }
 
 .ux-mascot {
-  transform: rotate(-7deg);
+  transform: scaleX(-1) rotate(-7deg);
 }
 
 .igaming-mascot {
-  transform: rotate(6deg);
+  transform: scaleX(-1) rotate(6deg);
 }
 
 .casework-mascot {
-  transform: rotate(-8deg);
+  transform: scaleX(-1) rotate(-8deg);
 }
 
 .credential-mascot {
@@ -855,27 +855,27 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .software-mascot {
-  transform: rotate(-6deg);
+  transform: scaleX(-1) rotate(-6deg);
 }
 
 .certifications-mascot {
-  transform: rotate(7deg);
+  transform: scaleX(-1) rotate(7deg);
 }
 
 .showreel-mascot {
-  transform: rotate(-7deg);
+  transform: scaleX(-1) rotate(-7deg);
 }
 
 .videos-mascot {
-  transform: rotate(6deg);
+  transform: scaleX(-1) rotate(6deg);
 }
 
 .animations-mascot {
-  transform: rotate(-8deg);
+  transform: scaleX(-1) rotate(-8deg);
 }
 
 .artistic-mascot {
-  transform: rotate(7deg);
+  transform: scaleX(-1) rotate(7deg);
 }
 
 .legacy-mascot {
@@ -5113,4 +5113,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .heading-mascot-row {
   margin-bottom: 32px;
+}
+
+/* ===========================
+   HEADING / MASCOT LEFT ALIGNMENT
+   A few section wrappers (.about-text, .recommendations-intro) center
+   their text; force the heading row's text flush left regardless.
+   =========================== */
+.heading-mascot-row,
+.heading-mascot-row h2,
+.heading-mascot-row .footer-name {
+  text-align: left;
 }
