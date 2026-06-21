@@ -905,12 +905,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .recommendations-intro {
   position: relative;
-  text-align: center;
+  text-align: left;
   margin-bottom: 64px;
 }
 
 .recommendations-intro .section-intro {
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 
@@ -5179,4 +5179,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .about .heading-mascot-row,
 .about .heading-mascot-row h2 {
   text-align: center;
+}
+
+/* ===========================
+   RECOMMENDATIONS SECTION — ALWAYS LEFT-ALIGNED
+   =========================== */
+.recommendations .heading-mascot-row {
+  justify-content: flex-start;
+}
+
+.recommendations .heading-mascot-row,
+.recommendations .heading-mascot-row h2 {
+  text-align: left;
 }
