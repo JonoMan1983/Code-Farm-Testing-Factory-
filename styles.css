@@ -449,6 +449,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (max-width: 899px) {
+  .hero-visual-mascot-label {
+    font-size: clamp(1rem, calc(5.5vw - 0.1rem), 2rem);
+  }
+
   .hero-ai-badge {
     flex-direction: row;
     gap: 8px;
