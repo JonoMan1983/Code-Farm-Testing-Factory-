@@ -5166,3 +5166,17 @@ h1, h2, h3, h4 { color: var(--color-text); }
     text-align: center;
   }
 }
+
+/* ===========================
+   ABOUT SECTION — ALWAYS CENTERED
+   Unlike other sections, the About heading/mascot row stays centered
+   at every viewport width, matching the rest of .about-text.
+   =========================== */
+.about .heading-mascot-row {
+  justify-content: center;
+}
+
+.about .heading-mascot-row,
+.about .heading-mascot-row h2 {
+  text-align: center;
+}
