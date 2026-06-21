@@ -818,7 +818,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .work.section .container,
 .skills.section .container,
-.resume.section .container {
+.resume.section .container,
+#workflow .container,
+#ux .container,
+#igaming .container,
+#casework .container,
+#credential .container,
+#software .container,
+#certifications .container,
+#showreel .container,
+#videos .container,
+#animations .container,
+#artistic .container,
+#legacy .container {
   position: relative;
 }
 
@@ -840,6 +852,90 @@ h1, h2, h3, h4 { color: var(--color-text); }
   top: -26px;
   right: 4%;
   width: 86px;
+  transform: rotate(-6deg);
+}
+
+.workflow-mascot {
+  top: -22px;
+  right: 3%;
+  width: 82px;
+  transform: rotate(7deg);
+}
+
+.ux-mascot {
+  top: -20px;
+  left: 1%;
+  width: 78px;
+  transform: rotate(-7deg);
+}
+
+.igaming-mascot {
+  top: -24px;
+  right: 2%;
+  width: 92px;
+  transform: rotate(6deg);
+}
+
+.casework-mascot {
+  top: -22px;
+  left: 1%;
+  width: 80px;
+  transform: rotate(-8deg);
+}
+
+.credential-mascot {
+  top: -26px;
+  right: 3%;
+  width: 84px;
+  transform: rotate(8deg);
+}
+
+.software-mascot {
+  top: -20px;
+  left: 1%;
+  width: 70px;
+  transform: rotate(-6deg);
+}
+
+.certifications-mascot {
+  top: -24px;
+  right: 2%;
+  width: 78px;
+  transform: rotate(7deg);
+}
+
+.showreel-mascot {
+  top: -22px;
+  left: 1%;
+  width: 72px;
+  transform: rotate(-7deg);
+}
+
+.videos-mascot {
+  top: -24px;
+  right: 2%;
+  width: 80px;
+  transform: rotate(6deg);
+}
+
+.animations-mascot {
+  top: -22px;
+  left: 1%;
+  width: 76px;
+  transform: rotate(-8deg);
+}
+
+.artistic-mascot {
+  top: -24px;
+  right: 2%;
+  width: 86px;
+  transform: rotate(7deg);
+}
+
+.legacy-mascot {
+  top: -22px;
+  left: 1%;
+  width: 80px;
   transform: rotate(-6deg);
 }
 
@@ -884,6 +980,78 @@ h1, h2, h3, h4 { color: var(--color-text); }
     width: 54px;
     top: -18px;
     right: 1%;
+  }
+
+  .workflow-mascot {
+    width: 50px;
+    top: -14px;
+    right: 1%;
+  }
+
+  .ux-mascot {
+    width: 48px;
+    top: -12px;
+    left: 0;
+  }
+
+  .igaming-mascot {
+    width: 54px;
+    top: -14px;
+    right: 1%;
+  }
+
+  .casework-mascot {
+    width: 48px;
+    top: -12px;
+    left: 0;
+  }
+
+  .credential-mascot {
+    width: 50px;
+    top: -16px;
+    right: 1%;
+  }
+
+  .software-mascot {
+    width: 44px;
+    top: -12px;
+    left: 0;
+  }
+
+  .certifications-mascot {
+    width: 48px;
+    top: -14px;
+    right: 1%;
+  }
+
+  .showreel-mascot {
+    width: 44px;
+    top: -12px;
+    left: 0;
+  }
+
+  .videos-mascot {
+    width: 48px;
+    top: -14px;
+    right: 1%;
+  }
+
+  .animations-mascot {
+    width: 46px;
+    top: -12px;
+    left: 0;
+  }
+
+  .artistic-mascot {
+    width: 52px;
+    top: -14px;
+    right: 1%;
+  }
+
+  .legacy-mascot {
+    width: 48px;
+    top: -12px;
+    left: 0;
   }
 }
 
