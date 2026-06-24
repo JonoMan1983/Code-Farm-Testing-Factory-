@@ -2634,20 +2634,24 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .process-icon-4 { animation: process-pop-4 2s ease-in-out infinite; }
 
 @keyframes process-pop-1 {
-  0%, 10%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  5%            { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%               { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  5%, 25%          { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  30%, 100%        { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
 }
 @keyframes process-pop-2 {
-  0%, 32%, 40%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  36%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%, 32%          { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  36%, 52%         { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  56%, 100%        { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
 }
 @keyframes process-pop-3 {
-  0%, 51%, 59%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  55%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%, 51%          { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  55%, 71%         { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  75%, 100%        { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
 }
 @keyframes process-pop-4 {
-  0%, 72%, 80%, 100% { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
-  76%                { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  0%, 72%          { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
+  76%, 92%         { box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.45), 0 8px 22px rgba(234, 101, 44, 0.5); transform: scale(1.14); background: linear-gradient(135deg, #EA652C, #EE8253); color: #fff; }
+  96%, 100%        { box-shadow: none; transform: scale(1); background: var(--color-bg-alt); color: var(--color-accent); }
 }
 
 .process-stage-label {
