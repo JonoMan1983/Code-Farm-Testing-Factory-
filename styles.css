@@ -2599,11 +2599,34 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 8px 28px rgba(49, 29, 115, 0.09);
 }
 
+.process-stage::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border-radius: 16px;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px);
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
+  animation: process-stage-dots 0.8s linear infinite;
+}
+
+@keyframes process-stage-dots {
+  to { background-position: 8px 0, -8px 100%, 0 -8px, 100% 8px; }
+}
+
 .process-icon {
   width: 84px;
   height: 84px;
   border-radius: 16px;
   background: var(--color-bg-alt);
+  border: 1px solid var(--color-accent-red);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2680,6 +2703,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 @media (prefers-reduced-motion: reduce) {
   .process-icon-1, .process-icon-2, .process-icon-3, .process-icon-4 {
     animation-play-state: paused;
+  }
+  .process-stage::before {
+    animation: none;
   }
 }
 
