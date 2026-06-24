@@ -3585,9 +3585,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .ai-workflow-icon::before {
   content: "";
   position: absolute;
-  inset: -5px;
+  inset: -10px;
   z-index: -1;
-  border-radius: 24px;
+  border-radius: 28px;
   pointer-events: none;
   background-image:
     repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
@@ -3596,7 +3596,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px);
   background-repeat: no-repeat;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
-  background-size: 100% 1.5px, 100% 1.5px, 1.5px 100%, 1.5px 100%;
+  background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
   animation: process-stage-dots 0.8s linear infinite;
 }
 
