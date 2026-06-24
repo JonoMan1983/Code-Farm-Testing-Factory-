@@ -2710,6 +2710,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .ai-workflow-icon::before {
     animation: none;
   }
+  .ai-case-step-icon::before {
+    animation: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -3676,6 +3679,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ai-case-step-icon {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3683,8 +3688,27 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 112px;
   border-radius: 20px;
   background: var(--color-bg-alt);
+  border: 1.5px solid var(--color-accent-red);
   color: var(--color-accent);
   margin-bottom: 14px;
+}
+
+.ai-case-step-icon::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: 28px;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px);
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+  animation: process-stage-dots 0.8s linear infinite;
 }
 
 .ai-case-step-icon svg {
