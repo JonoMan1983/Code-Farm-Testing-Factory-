@@ -2707,6 +2707,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .process-stage::before {
     animation: none;
   }
+  .ai-workflow-icon::before {
+    animation: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -3565,15 +3568,36 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .ai-workflow-icon {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   width: 128px;
   height: 128px;
   border-radius: 20px;
   background: var(--color-bg-alt);
+  border: 1.5px solid var(--color-accent-red);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
+}
+
+.ai-workflow-icon::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border-radius: 24px;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(180deg, var(--color-accent-red) 0 1px, transparent 1px 8px);
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-size: 100% 1.5px, 100% 1.5px, 1.5px 100%, 1.5px 100%;
+  animation: process-stage-dots 0.8s linear infinite;
 }
 
 .ai-workflow-icon svg {
