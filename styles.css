@@ -1497,6 +1497,22 @@ h1, h2, h3, h4 { color: var(--color-text); }
   fill: rgba(46, 178, 234, 0.35);
 }
 
+.uw-orbit-dotted {
+  animation: uw-orbit-dash-march 1.6s linear infinite;
+}
+
+.uw-hub-dotted {
+  animation: uw-hub-dash-march 1.6s linear infinite reverse;
+}
+
+@keyframes uw-orbit-dash-march {
+  to { stroke-dashoffset: -14; }
+}
+
+@keyframes uw-hub-dash-march {
+  to { stroke-dashoffset: -8; }
+}
+
 /* Step node cards */
 .uw-node {
   position: absolute;
@@ -2711,6 +2727,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
     animation: none;
   }
   .ai-case-step-icon::before {
+    animation: none;
+  }
+  .uw-orbit-dotted, .uw-hub-dotted {
     animation: none;
   }
 }
