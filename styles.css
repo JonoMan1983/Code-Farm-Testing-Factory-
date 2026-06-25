@@ -1498,11 +1498,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .uw-orbit-dotted {
-  animation: uw-orbit-dash-march 1.6s linear infinite;
+  animation: uw-orbit-dash-march 0.8s linear infinite;
 }
 
 .uw-hub-dotted {
-  animation: uw-hub-dash-march 1.6s linear infinite reverse;
+  animation: uw-hub-dash-march 0.8s linear infinite reverse;
 }
 
 @keyframes uw-orbit-dash-march {
