@@ -1855,6 +1855,25 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: 110px;
 }
 
+.diploma-seal-dotted {
+  animation: diploma-seal-dash-march 0.8s linear infinite;
+}
+
+@keyframes diploma-seal-dash-march {
+  to { stroke-dashoffset: -7; }
+}
+
+.diploma-seal-star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: diploma-seal-star-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes diploma-seal-star-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.12); opacity: 1; }
+}
+
 .diploma-cred-info {
   max-width: 100%;
 }
@@ -2730,6 +2749,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
     animation: none;
   }
   .uw-orbit-dotted, .uw-hub-dotted {
+    animation: none;
+  }
+  .diploma-seal-dotted, .diploma-seal-star {
     animation: none;
   }
 }
