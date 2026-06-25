@@ -3942,6 +3942,8 @@ h1, h2, h3, h4 { color: var(--color-text); }
   .nav-links.open {
     pointer-events: auto;
     transform: translateY(0);
+    max-height: calc(100dvh - 60px);
+    overflow-y: auto;
   }
 
   .nav-links > li {
