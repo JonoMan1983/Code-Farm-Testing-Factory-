@@ -156,9 +156,10 @@ navToggle.addEventListener('click', () => {
   }
 });
 
-// Close nav on link click or outside tap
+// Close nav on link click — but NOT for has-sub parent labels (accordion handles those)
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', closeNav);
+  const isParentLabel = link.parentElement.classList.contains('has-sub') && !link.closest('.nav-sub-links');
+  if (!isParentLabel) link.addEventListener('click', closeNav);
 });
 
 // Close nav on tap outside overlay
@@ -168,20 +169,40 @@ document.addEventListener('click', e => {
   }
 });
 
-// Accordion: toggle sub-menus one at a time on mobile
+// Accordion helpers
+function openAccordion(li) {
+  document.querySelectorAll('.has-sub.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  });
+  li.classList.add('open');
+  li.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'true');
+}
+
+function toggleAccordion(li) {
+  if (li.classList.contains('open')) {
+    li.classList.remove('open');
+    li.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  } else {
+    openAccordion(li);
+  }
+}
+
+// Tapping the parent label toggles the accordion on mobile (desktop uses hover)
+document.querySelectorAll('.has-sub > a').forEach(link => {
+  link.addEventListener('click', e => {
+    if (window.innerWidth > 1024) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleAccordion(link.closest('.has-sub'));
+  });
+});
+
+// Chevron button also toggles (extra click area)
 document.querySelectorAll('.sub-toggle').forEach(btn => {
   btn.addEventListener('click', e => {
     e.stopPropagation();
-    const li = btn.closest('.has-sub');
-    const isOpen = li.classList.contains('open');
-    document.querySelectorAll('.has-sub.open').forEach(el => {
-      el.classList.remove('open');
-      el.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false');
-    });
-    if (!isOpen) {
-      li.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-    }
+    toggleAccordion(btn.closest('.has-sub'));
   });
 });
 
