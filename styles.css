@@ -324,6 +324,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   scroll-margin-top: 100px;
 }
 
+/* Chevron toggle — desktop: hidden, hover handles the sub-menu */
+.sub-toggle {
+  display: none;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -4003,9 +4008,49 @@ h1, h2, h3, h4 { color: var(--color-text); }
     overflow-y: auto;
   }
 
-  /* Mobile sub-menu: always visible inline, no absolute positioning */
+  /* Mobile sub-menu accordion */
+  .has-sub {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .has-sub > a {
+    flex: 1;
+    border-bottom: none;
+  }
+
+  .sub-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(46, 178, 234, 0.1);
+    color: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s ease;
+  }
+
+  .sub-toggle svg {
+    transition: transform 0.25s ease;
+  }
+
+  .has-sub.open > .sub-toggle {
+    color: var(--color-accent);
+    border-bottom-color: transparent;
+  }
+
+  .has-sub.open > .sub-toggle svg {
+    transform: rotate(180deg);
+  }
+
   .nav-sub-links {
-    display: block;
+    display: none;
+    flex-basis: 100%;
     position: static;
     transform: none;
     min-width: 0;
@@ -4019,6 +4064,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
     padding: 0;
     margin: 0 0 4px 20px;
     z-index: auto;
+  }
+
+  .has-sub.open > .nav-sub-links {
+    display: block;
   }
 
   .nav-sub-links li a {

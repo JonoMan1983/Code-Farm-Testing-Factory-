@@ -136,6 +136,10 @@ function closeNav() {
   spans[0].style.transform = '';
   spans[1].style.opacity = '';
   spans[2].style.transform = '';
+  document.querySelectorAll('.has-sub.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  });
 }
 
 navToggle.addEventListener('click', () => {
@@ -162,6 +166,23 @@ document.addEventListener('click', e => {
   if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
     closeNav();
   }
+});
+
+// Accordion: toggle sub-menus one at a time on mobile
+document.querySelectorAll('.sub-toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const li = btn.closest('.has-sub');
+    const isOpen = li.classList.contains('open');
+    document.querySelectorAll('.has-sub.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
 });
 
 // Scroll reveal
