@@ -291,9 +291,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   z-index: 101;
 }
 
-.has-sub:hover .nav-sub-links,
-.has-sub:focus-within .nav-sub-links {
-  display: block;
+/* Desktop only: hover/focus opens the dropdown. On mobile (≤1024px) the
+   accordion is driven solely by the .open class so the chevron can collapse it
+   — a global :focus-within rule would keep the focused chevron's submenu open. */
+@media (min-width: 1025px) {
+  .has-sub:hover .nav-sub-links,
+  .has-sub:focus-within .nav-sub-links {
+    display: block;
+  }
 }
 
 .nav-sub-links li a {
