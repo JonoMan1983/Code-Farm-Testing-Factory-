@@ -450,7 +450,7 @@ window.addEventListener('scroll', () => {
 
   // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
   const T        = Math.PI * 2 / 3;
-  const PINK_RGB    = [46, 178, 234];  // light blue — same as accent
+  const PINK_RGB    = [244, 129, 31];  // light blue — same as accent
   const ELECTRON_RGB = [234, 101, 44]; // orange electrons #EA652C
 
   // Lerp between two [r,g,b] arrays and return an rgb() string
@@ -463,9 +463,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#F4811F', rgba: [244, 129, 31] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#F4811F', rgba: [244, 129, 31] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#F4811F', rgba: [244, 129, 31] },
   ];
 
   // Each orbit drifts independently with its own random walk speed and range
@@ -606,9 +606,9 @@ window.addEventListener('scroll', () => {
 
   function drawText(textRot, t, ux, uy) {
     const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#2386B0' : '#2EB2EA';  // darker blue glow in light theme
+    const glowHex     = isLight ? '#D86A12' : '#F4811F';  // darker blue glow in light theme
     const textHex     = '#EA652C';                          // orange on both
-    const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';  // dark teal / white
+    const subtitleHex = isLight ? '#7A3A12' : '#FFFFFF';  // dark teal / white
 
     ctx.save();
     ctx.textAlign    = 'center';
@@ -763,12 +763,12 @@ window.addEventListener('scroll', () => {
   // Star colours per theme — every particle is pure white in light mode;
   // dark mode keeps the blue/orange accent tones for variety
   const STAR_PALETTES = {
-    dark:  [[255, 255, 255], [46, 178, 234], [234, 101, 44]],
+    dark:  [[255, 255, 255], [244, 129, 31], [234, 101, 44]],
     light: [[255, 255, 255], [255, 255, 255], [255, 255, 255]],
   };
   // Glow halos use bright accent hues in dark mode, pure white in light mode
   const GLOW_PALETTES = {
-    dark:  [[46, 178, 234], [234, 101, 44]],
+    dark:  [[244, 129, 31], [234, 101, 44]],
     light: [[255, 255, 255], [255, 255, 255]],
   };
 
