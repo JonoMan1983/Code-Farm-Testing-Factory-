@@ -29,7 +29,11 @@ button {
   --color-accent-red-hover: #EE8253;
   --color-accent-light: #2EB2EA;
   --color-border: rgba(46, 178, 234, 0.18);
-  --font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Pharma Serif type system */
+  --font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;   /* headlines — elegant serif, set in italic */
+  --font-condensed: 'Barlow Condensed', 'Arial Narrow', sans-serif;        /* labels, badges, stats, nav, eyebrows, footer — utilitarian condensed (900) */
+  --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* body copy — light (300) */
+  --font: var(--font-body); /* legacy alias → body */
   --max-w: 1100px;
   --radius: 8px;
   --transition: 0.2s ease;
@@ -42,7 +46,8 @@ html {
 }
 
 body {
-  font-family: var(--font);
+  font-family: var(--font-body);
+  font-weight: 300;
   font-size: 16px;
   line-height: 1.7;
   color: var(--color-text);
@@ -50,6 +55,9 @@ body {
   overflow-x: hidden;
   min-width: 0;
 }
+
+/* Keep emphasis legible against the 300 body weight */
+strong, b { font-weight: 600; }
 
 a {
   color: inherit;
@@ -94,21 +102,71 @@ ul {
    TYPOGRAPHY
    =========================== */
 .section-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 12px;
 }
 
-h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 48px; }
-h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
-h4 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+/* Headlines — DM Serif Display, set in italic (the elegant serif that breaks the grid).
+   DM Serif Display ships a single 400 weight, so weight is fixed and letter-spacing relaxed. */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.08; }
+h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.18; margin-bottom: 48px; }
+h3 { font-size: 1.35rem; line-height: 1.25; margin-bottom: 8px; }
+h4 { font-size: 1.1rem; line-height: 1.3; margin-bottom: 12px; }
 
 p { color: var(--color-text-muted); }
 h1, h2, h3, h4 { color: var(--color-text); }
+
+/* ===========================
+   CONDENSED — labels, badges, stats, nav, eyebrows, footer
+   Barlow Condensed 900: the utilitarian voice of the system.
+   =========================== */
+.section-label,
+.hero-label,
+.sw-cat-label,
+.process-stage-label,
+.ai-case-compare-label,
+.ai-pipeline-bridge-label,
+.diploma-cred-skills-label,
+.video-lightbox-label,
+.music-label-play,
+.music-label-pause,
+.quote-badge,
+.hero-ai-badge,
+.hero-location-badge,
+.about-photo-badge,
+.badge-text, .badge-main, .badge-sub,
+.case-tag,
+.diploma-chip,
+.certs-chip,
+.legacy-tab,
+.diploma-module-num,
+.uw-node-num,
+.ai-case-step-num,
+.book-pagenum,
+.ai-pipeline-step-number,
+.nav-logo-name,
+.nav-links a,
+.nav-linkedin-text,
+.nav-cta,
+.section-nav-btn,
+.inline-action-btn,
+.btn,
+.footer,
+.footer p,
+.footer a {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+}
 
 /* ===========================
    BUTTONS
@@ -3084,8 +3142,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .form-group label {
-  font-size: 13px;
-  font-weight: 500;
+  font-family: var(--font-condensed);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--color-text);
 }
 
@@ -3870,10 +3931,10 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .legacy-tab {
   background: rgba(46, 178, 234, 0.08);
   color: var(--color-text-muted, #a0a0b8);
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-family: var(--font-condensed);
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
   padding: 9px 22px;
   border-radius: 40px;
   cursor: pointer;
@@ -4119,9 +4180,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-family: var(--font-condensed);
+  font-size: 0.82rem;
+  font-weight: 900;
   letter-spacing: 0.04em;
   color: var(--color-accent);
   text-decoration: none;
@@ -4243,9 +4304,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .music-label-play,
 .music-label-pause {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
