@@ -29,7 +29,7 @@ button {
   --color-accent-red-hover: #EE8253;
   --color-accent-light: #F4811F;
   --color-border: rgba(244, 129, 31, 0.18);
-  --font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font: 'Roboto Flex', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --max-w: 1100px;
   --radius: 8px;
   --transition: 0.2s ease;
@@ -49,6 +49,10 @@ body {
   background: var(--color-bg);
   overflow-x: hidden;
   min-width: 0;
+  /* Variable-font axes: let the optical-size (opsz) axis track font-size,
+     and smooth the weight (wght) axis transitions site-wide. */
+  font-optical-sizing: auto;
+  font-synthesis: none;
 }
 
 a {
@@ -109,6 +113,25 @@ h4 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
 
 p { color: var(--color-text-muted); }
 h1, h2, h3, h4 { color: var(--color-text); }
+
+/* ===========================
+   VARIABLE FONT — RESPONSIVE WIDTH (wdth) AXIS
+   Roboto Flex's width axis maps to the standard `font-stretch` property,
+   so headlines expand on wide viewports and condense on narrow ones —
+   long titles stay on fewer lines without shrinking the type. This is the
+   responsive flexibility a variable font provides from a single file.
+   =========================== */
+h1, h2, .hero-title { font-stretch: 100%; }
+
+@media (min-width: 1200px) {
+  h1, .hero-title { font-stretch: 112%; }
+  h2 { font-stretch: 106%; }
+}
+
+@media (max-width: 600px) {
+  h1, .hero-title { font-stretch: 88%; }
+  h2 { font-stretch: 92%; }
+}
 
 /* ===========================
    BUTTONS
@@ -3870,7 +3893,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .legacy-tab {
   background: rgba(244, 129, 31, 0.08);
   color: var(--color-text-muted, #a0a0b8);
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -4119,7 +4142,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;

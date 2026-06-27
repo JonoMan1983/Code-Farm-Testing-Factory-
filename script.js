@@ -617,7 +617,7 @@ window.addEventListener('scroll', () => {
     ctx.save();
     ctx.translate(cx + ux, cy + uy + 8);
     ctx.rotate(textRot);
-    ctx.font     = '900 256px Poppins, sans-serif';
+    ctx.font     = '900 256px "Roboto Flex", sans-serif';
     ctx.lineJoin = 'round';
 
     const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
@@ -675,7 +675,7 @@ window.addEventListener('scroll', () => {
     ctx.restore();
 
     // Subtitle — weight 900, white in dark / dark teal in light
-    ctx.font        = '900 34px Poppins, sans-serif';
+    ctx.font        = '900 34px "Roboto Flex", sans-serif';
     try { ctx.letterSpacing = '0.2em'; } catch (_) {}
 
     // Glow pass — same blue as "20+", on both light and dark
@@ -744,7 +744,7 @@ window.addEventListener('scroll', () => {
     }
   });
 
-  // Wait for Poppins to load before first draw
+  // Wait for Roboto Flex to load before first draw
   document.fonts.ready.then(() => {
     rafId = requestAnimationFrame(frame);
   });
