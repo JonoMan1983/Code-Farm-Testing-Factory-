@@ -5567,3 +5567,17 @@ h1, h2, h3, h4 { color: var(--color-text); }
   /* Hero heading: 40% smaller than the doubled headings above */
   .hero-title { font-size: clamp(2.88rem, 6vw, 4.56rem); }
 }
+
+/* ===========================
+   MASCOTS — 3x (200% bigger) on mobile responsive sizes
+   Triples the in-body section mascots on phones/small tablets (<=768px).
+   Excludes the footer mascot (not main body) and the hero mascot
+   (separate class). Width capped so nothing overflows the viewport.
+   Placed last to win over the earlier <=480px shrink rule.
+   =========================== */
+@media (max-width: 768px) {
+  .decor-mascot:not(.footer-mascot) {
+    height: clamp(240px, 42vw, 300px);
+    max-width: 88vw;
+  }
+}
