@@ -5553,3 +5553,16 @@ h1, h2, h3, h4 { color: var(--color-text); }
 .recommendations .heading-mascot-row h2 {
   text-align: left;
 }
+
+/* ===========================
+   HEADINGS — 2x scale on smaller responsive sizes
+   Doubles every heading on phones/small tablets (<=768px).
+   Placed last so it wins the cascade over the base heading rules.
+   =========================== */
+@media (max-width: 768px) {
+  h1 { font-size: clamp(4.8rem, 10vw, 7.6rem); }
+  h2 { font-size: clamp(3.6rem, 6vw, 5.2rem); }
+  h3 { font-size: 2.7rem; }
+  h4 { font-size: 2.2rem; }
+  .hero-title { font-size: clamp(4.8rem, 10vw, 7.6rem); }
+}
