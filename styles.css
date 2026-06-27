@@ -5564,5 +5564,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   h2 { font-size: clamp(3.6rem, 6vw, 5.2rem); }
   h3 { font-size: 2.7rem; }
   h4 { font-size: 2.2rem; }
-  .hero-title { font-size: clamp(4.8rem, 10vw, 7.6rem); }
+  /* Hero heading: 40% smaller than the doubled headings above */
+  .hero-title { font-size: clamp(2.88rem, 6vw, 4.56rem); }
 }
