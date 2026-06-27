@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Style Guide Light — Jonathan Nestler Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-condensed: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: var(--font-body);
+      font-weight: 300;
       background: #D5F0FB;
       display: flex;
       justify-content: center;
@@ -18,6 +25,15 @@
       min-height: 100vh;
       padding: 30px 16px;
     }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: normal;
+    }
+
+    strong, b { font-weight: 600; }
 
     .page {
       width: 794px;
@@ -52,24 +68,28 @@
       z-index: 1;
     }
     .gh-title {
+      font-family: var(--font-display);
+      font-style: italic;
       font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-weight: 400;
+      letter-spacing: normal;
       color: #041E2A;
     }
     .gh-title span { color: #EA652C; }
     .gh-subtitle {
+      font-family: var(--font-condensed);
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 900;
       color: #0b516f;
       margin-top: 6px;
       letter-spacing: 0.02em;
     }
     .gh-badge {
       display: inline-block;
+      font-family: var(--font-condensed);
       margin-top: 8px;
       font-size: 9px;
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #ffffff;
@@ -78,6 +98,8 @@
       padding: 3px 8px;
     }
     .gh-meta {
+      font-family: var(--font-condensed);
+      font-weight: 900;
       text-align: right;
       font-size: 10px;
       color: #0b516f;
@@ -87,8 +109,9 @@
 
     /* Section label */
     .sg-label {
+      font-family: var(--font-condensed);
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 900;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #2EB2EA;
@@ -116,8 +139,9 @@
       background: rgba(255, 255, 255, 0.45);
     }
     .swatch-name {
+      font-family: var(--font-condensed);
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 900;
       letter-spacing: 0.02em;
       color: #041E2A;
     }
@@ -142,12 +166,12 @@
     }
     .type-row:last-child { border-bottom: none; }
     .type-sample { color: #041E2A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .type-h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
-    .type-h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-    .type-h3 { font-size: 16px; font-weight: 600; }
-    .type-h4 { font-size: 13px; font-weight: 600; }
-    .type-body { font-size: 11.5px; font-weight: 400; color: #0b516f; }
-    .type-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #2EB2EA; }
+    .type-h1 { font-family: var(--font-display); font-style: italic; font-size: 28px; font-weight: 400; letter-spacing: normal; }
+    .type-h2 { font-family: var(--font-display); font-style: italic; font-size: 22px; font-weight: 400; letter-spacing: normal; }
+    .type-h3 { font-family: var(--font-display); font-style: italic; font-size: 16px; font-weight: 400; }
+    .type-h4 { font-family: var(--font-display); font-style: italic; font-size: 13px; font-weight: 400; }
+    .type-body { font-family: var(--font-body); font-size: 11.5px; font-weight: 300; color: #0b516f; }
+    .type-label { font-family: var(--font-condensed); font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: #2EB2EA; }
     .type-meta {
       font-size: 9px;
       color: #0b516f;
@@ -169,10 +193,11 @@
     .btn-demo {
       display: inline-flex;
       align-items: center;
+      font-family: var(--font-condensed);
       padding: 10px 20px;
       border-radius: 8px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 900;
       border: 2px solid transparent;
     }
     .btn-demo-primary { background: #EA652C; color: #fff; }
@@ -185,15 +210,17 @@
       border: 1px solid rgba(234, 101, 44, 0.4);
       border-radius: 999px;
       background: rgba(234, 101, 44, 0.08);
+      font-family: var(--font-condensed);
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 900;
       letter-spacing: 0.04em;
       color: #041E2A;
     }
     .pill-dot { width: 8px; height: 8px; border-radius: 50%; background: #EA652C; }
     .tag-demo {
+      font-family: var(--font-condensed);
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #2EB2EA;
@@ -217,16 +244,18 @@
       background: rgba(255, 255, 255, 0.4);
     }
     .token-card-title {
+      font-family: var(--font-condensed);
       font-size: 9.5px;
-      font-weight: 600;
+      font-weight: 900;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #2EB2EA;
       margin-bottom: 6px;
     }
     .token-card-value {
+      font-family: var(--font-condensed);
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 900;
       color: #041E2A;
     }
     .token-card-sub {
@@ -258,6 +287,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: var(--font-condensed);
+      font-weight: 900;
       font-size: 9px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -293,7 +324,7 @@
     </div>
     <div class="gh-meta">
       <div><a href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-</a></div>
-      <div>Complementary blue · Orange accent system · Poppins</div>
+      <div>Complementary blue · Orange accent system · Pharma Serif</div>
     </div>
   </div>
 
@@ -367,31 +398,31 @@
   </div>
 
   <!-- Typography -->
-  <div class="sg-label">Typography — Poppins</div>
+  <div class="sg-label">Typography — Pharma Serif</div>
   <div>
     <div class="type-row">
       <div class="type-sample type-h1">20+ years of design.</div>
-      <div class="type-meta">H1 · clamp(2.4–3.8rem) · 700 · -0.02em</div>
+      <div class="type-meta">H1 · DM Serif Display · italic 400</div>
     </div>
     <div class="type-row">
       <div class="type-sample type-h2">Selected Work</div>
-      <div class="type-meta">H2 · clamp(1.8–2.6rem) · 700 · -0.02em</div>
+      <div class="type-meta">H2 · DM Serif Display · italic 400</div>
     </div>
     <div class="type-row">
       <div class="type-sample type-h3">Senior Creative Designer</div>
-      <div class="type-meta">H3 · 1.2rem · 600</div>
+      <div class="type-meta">H3 · DM Serif Display · italic 400</div>
     </div>
     <div class="type-row">
       <div class="type-sample type-h4">Product Design · UX/UI</div>
-      <div class="type-meta">H4 · 1rem · 600</div>
+      <div class="type-meta">H4 · DM Serif Display · italic 400</div>
     </div>
     <div class="type-row">
       <div class="type-sample type-body">Translating complex problems into elegant, intuitive products.</div>
-      <div class="type-meta">Body · 16px · 400 · 1.7 line-height</div>
+      <div class="type-meta">Body · Barlow · 300 · 1.7 line-height</div>
     </div>
     <div class="type-row">
       <div class="type-sample type-label">Section Label</div>
-      <div class="type-meta">Label · 12px · 600 · 0.12em uppercase</div>
+      <div class="type-meta">Label · Barlow Condensed · 900 · 0.14em uppercase</div>
     </div>
   </div>
 
