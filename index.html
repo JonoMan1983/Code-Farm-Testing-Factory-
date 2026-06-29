@@ -7,7 +7,7 @@
   <meta name="description" content="Senior Product Designer (UX/UI) with 20+ years across iGaming, enterprise, and media. AI-integrated design workflows with Claude AI, Claude Code, and Figma — accessibility-conscious, outcome-driven product design." />
   <link rel="icon" type="image/svg+xml" href="assets/brand/logo/logo-full-light.svg" />
   <link rel="icon" type="image/x-icon" href="assets/brand/logo/favicon.ico" />
-  <!-- Google tag (gtag.js) --> <!-- write-test: 2026-06-29 -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -1540,6 +1540,150 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .case-link:hover {
   color: var(--color-accent-hover);
+}
+
+/* ===========================
+   CASE CARD — INDIEMODE OPTIMISATIONS
+   Before/after reveal · outcome-led hierarchy · restraint.
+   Additive only — base .case-* rules above are untouched.
+   =========================== */
+
+/* Outcome banner — leads each card with the result (conversion-aware) */
+.case-outcome {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.case-outcome::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px rgba(234, 101, 44, 0.18);
+}
+
+/* Before/after reveal — a hover/drag wipe over the case image.
+   Lives INSIDE .case-image so existing overlay-button JS still
+   targets the foreground <img>. */
+.case-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+/* The "before" layer sits beneath, clipped from the right by --pos */
+.case-reveal-before {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0 calc(100% - var(--pos, 0%)) 0 0);
+  transition: clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #062a3a 0%, #0b516f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.case-reveal-before img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Placeholder shown until a real "before" asset is dropped in */
+.case-reveal-before[data-placeholder] img { display: none; }
+.case-reveal-before[data-placeholder]::after {
+  content: attr(data-placeholder);
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(213, 240, 251, 0.55);
+  text-align: center;
+  padding: 0 24px;
+  line-height: 1.6;
+}
+/* BEFORE / AFTER corner labels */
+.case-reveal-tag {
+  position: absolute;
+  top: 12px;
+  z-index: 3;
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: rgba(3, 20, 28, 0.82);
+  backdrop-filter: blur(4px);
+  color: var(--color-text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.case-reveal-tag-before { left: 12px; color: var(--color-accent-hover); }
+.case-reveal-tag-after  { right: 12px; color: var(--color-accent-red); }
+.case-card:hover .case-reveal-tag,
+.case-card:focus-within .case-reveal-tag { opacity: 1; }
+
+/* Draggable handle */
+.case-reveal-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos, 0%);
+  width: 2px;
+  z-index: 3;
+  background: var(--color-accent-red);
+  transform: translateX(-1px);
+  transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.case-reveal-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--color-accent-red);
+  border: 3px solid rgba(3, 20, 28, 0.9);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+.case-reveal-handle::before {
+  content: '⇄';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+/* Interaction: hover/focus wipes the before layer open to ~62% */
+.case-card:hover .case-reveal-before,
+.case-card:focus-within .case-reveal-before { --pos: 62%; }
+.case-card:hover .case-reveal-handle,
+.case-card:focus-within .case-reveal-handle { left: 62%; }
+/* When a card is actively dragged, JS sets --pos inline and we kill transitions */
+.case-image.is-dragging .case-reveal-before,
+.case-image.is-dragging .case-reveal-handle { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .case-reveal-before,
+  .case-reveal-handle { transition: none; }
 }
 
 /* ===========================
@@ -6761,11 +6905,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
       <div class="work-grid">
 
         <article class="case-card">
-          <div class="case-image">
+          <div class="case-image" data-reveal>
+            <!-- BEFORE layer — drop a real "before" asset into the img src + remove data-placeholder when ready -->
+            <div class="case-reveal-before" data-placeholder="Before — brief &amp; early concepts">
+              <img src="" alt="" aria-hidden="true" loading="lazy" />
+            </div>
+            <span class="case-reveal-tag case-reveal-tag-before">Before</span>
+            <span class="case-reveal-tag case-reveal-tag-after">Shipped</span>
+            <span class="case-reveal-handle" aria-hidden="true"></span>
             <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_1/v1780033059/Big_Sexy_City_In_Game_tksnwc.jpg"
               alt="iGaming Product Design — Astria Systems" loading="lazy" />
           </div>
           <div class="case-body">
+            <span class="case-outcome">Promoted to Jr. Product Owner</span>
             <span class="case-tag">iGaming · UX/UI · Product Ownership · AI-Integrated</span>
             <h3 style="color: var(--color-accent-red)">iGaming Platform Design — Astria Systems</h3>
             <p>Promoted from Product Designer to Jr. Product Owner at Astria Systems. Led UX/UI across Wonderlabz, Playsafe, and Pantelotteriet brands — integrating Claude AI, Claude Code, and Figma MCP workflows, driving slot game animations, CI development, and cross-platform UI prototyping.</p>
@@ -6778,11 +6930,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
         </article>
 
         <article class="case-card">
-          <div class="case-image">
+          <div class="case-image" data-reveal>
+            <div class="case-reveal-before" data-placeholder="Before — wireframes &amp; raw assets">
+              <img src="" alt="" aria-hidden="true" loading="lazy" />
+            </div>
+            <span class="case-reveal-tag case-reveal-tag-before">Before</span>
+            <span class="case-reveal-tag case-reveal-tag-after">Shipped</span>
+            <span class="case-reveal-handle" aria-hidden="true"></span>
             <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_1/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.jpg"
               alt="3D Motion & Brand Identity — Wonderlabz" loading="lazy" />
           </div>
           <div class="case-body">
+            <span class="case-outcome">Full brand system shipped</span>
             <span class="case-tag">Brand Identity · Motion · VFX · 3D</span>
             <h3 style="color: var(--color-accent-red)">Brand Identity & Motion Design — Wonderlabz</h3>
             <p>Delivered full design collateral across multiple portfolio brands — UI/UX prototyping, corporate identity systems, character illustrations, slot game VFX animations, and 3D motion campaigns for Wonderlabz and Livescore SA.</p>
@@ -6795,11 +6954,18 @@ h1, h2, h3, h4 { color: var(--color-text); }
         </article>
 
         <article class="case-card">
-          <div class="case-image">
+          <div class="case-image" data-reveal>
+            <div class="case-reveal-before" data-placeholder="Before — classroom-first concept">
+              <img src="" alt="" aria-hidden="true" loading="lazy" />
+            </div>
+            <span class="case-reveal-tag case-reveal-tag-before">Before</span>
+            <span class="case-reveal-tag case-reveal-tag-after">Shipped</span>
+            <span class="case-reveal-handle" aria-hidden="true"></span>
             <img src="https://res.cloudinary.com/dksariyyz/video/upload/f_jpg,q_auto,w_800,h_440,c_fill,so_2/v1780033053/EduBox_New-Video_Animation_FINAL_hmrboj.jpg"
               alt="EdTech Multimedia — EduBoard" loading="lazy" />
           </div>
           <div class="case-body">
+            <span class="case-outcome">End-to-end multimedia delivery</span>
             <span class="case-tag">EdTech · Multimedia · UX · Video Production</span>
             <h3 style="color: var(--color-accent-red)">Interactive Classroom Platform — EduBoard</h3>
             <p>Full-service multimedia consultant for EduBoard Interactive Classroom Solutions — websites, interactive media, video production, social media marketing, and SEO for a classroom-first EdTech product.</p>
@@ -9508,6 +9674,78 @@ window.addEventListener('scroll', () => {
   }
 
   requestAnimationFrame(frame);
+})();
+
+// ===========================
+// CASE STUDY — BEFORE/AFTER DRAG REVEAL
+// Hover/focus auto-wipes (CSS). Pointer drag sets --pos live.
+// ===========================
+(function () {
+  const images = document.querySelectorAll('.case-image[data-reveal]');
+  if (!images.length) return;
+
+  images.forEach(ci => {
+    const handle = ci.querySelector('.case-reveal-handle');
+    if (!handle) return;
+    let dragging = false;
+
+    function setPos(clientX) {
+      const r = ci.getBoundingClientRect();
+      let pct = ((clientX - r.left) / r.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      ci.querySelector('.case-reveal-before').style.setProperty('--pos', pct + '%');
+      handle.style.left = pct + '%';
+    }
+
+    ci.addEventListener('pointerdown', (e) => {
+      // ignore clicks on the injected overlay buttons (zoom/download)
+      if (e.target.closest('.media-actions')) return;
+      dragging = true;
+      ci.classList.add('is-dragging');
+      ci.setPointerCapture(e.pointerId);
+      setPos(e.clientX);
+    });
+    ci.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      setPos(e.clientX);
+    });
+    function end(e) {
+      if (!dragging) return;
+      dragging = false;
+      ci.classList.remove('is-dragging');
+      // clear inline so CSS hover/focus state resumes control
+      ci.querySelector('.case-reveal-before').style.removeProperty('--pos');
+      handle.style.removeProperty('left');
+      try { ci.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    ci.addEventListener('pointerup', end);
+    ci.addEventListener('pointercancel', end);
+  });
+})();
+
+// ===========================
+// MASCOT SWAP CONFIG  ⟵  EDIT HERE when code-symbol SVGs are ready
+// Map any .decor-mascot / .hero-visual-mascot by its class to a new URL.
+// Leave empty to keep the current Designasaurus set live.
+// Example:  'work-mascot': 'https://.../code-symbol-rex.svg'
+// ===========================
+(function () {
+  const MASCOT_SWAPS = {
+    // 'hero-visual-mascot': '',
+    // 'about-mascot': '',
+    // 'workflow-mascot': '',
+    // 'recommendations-mascot': '',
+    // 'ux-mascot': '',
+    // 'credential-mascot': '',
+    // 'casework-mascot': '',
+    // 'igaming-mascot': '',
+    // 'work-mascot': '',
+    // 'skills-mascot': '',
+  };
+  Object.entries(MASCOT_SWAPS).forEach(([cls, url]) => {
+    if (!url) return;
+    document.querySelectorAll('.' + cls).forEach(img => { img.src = url; });
+  });
 })();
 
 </script>
