@@ -4167,6 +4167,71 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
+   INDIEMODE POLISH LAYER — site-wide
+   Staggered reveals · unified hover physics · calmer space.
+   Additive only. Before/after slider stays exclusive to #work.
+   =========================== */
+
+/* Staggered reveal: when a grid is in view, its direct card children
+   cascade in. JS adds .stagger-in to the container and sets --i per child. */
+.work-grid.reveal-stagger > *,
+.ui-grid.reveal-stagger > *,
+.skills-grid.reveal-stagger > *,
+.video-grid.reveal-stagger > *,
+.diploma-modules-grid.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.work-grid.reveal-stagger.in > *,
+.ui-grid.reveal-stagger.in > *,
+.skills-grid.reveal-stagger.in > *,
+.video-grid.reveal-stagger.in > *,
+.diploma-modules-grid.reveal-stagger.in > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Unified hover physics — richer easing on every showcase card.
+   Matches the existing -4px lift but smooths the curve and adds a
+   subtle accent edge so cards feel like one family. */
+.case-card,
+.ui-card {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ui-card { position: relative; }
+.ui-card::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--color-accent-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+  pointer-events: none;
+}
+.ui-card:hover::after,
+.ui-card:focus-within::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .work-grid.reveal-stagger > *,
+  .ui-grid.reveal-stagger > *,
+  .skills-grid.reveal-stagger > *,
+  .video-grid.reveal-stagger > *,
+  .diploma-modules-grid.reveal-stagger > * {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .ui-card::after { transition: none; }
+}
+
+/* ===========================
    RESPONSIVE
    =========================== */
 
@@ -8104,7 +8169,7 @@ document.querySelectorAll('.sub-toggle').forEach(btn => {
 const revealEls = document.querySelectorAll(
   '.hero-label, .hero-title, .hero-sub, .hero-actions, ' +
   '.section-label, h2, .about-text p, .image-placeholder, ' +
-  '.case-card, .skill-group, .timeline-item, .resume-download, ' +
+  '.timeline-item, .resume-download, ' +
   '.ai-workflow-card, ' +
   '.contact-sub, .contact-form'
 );
@@ -8124,6 +8189,40 @@ const observer = new IntersectionObserver(
 );
 
 revealEls.forEach(el => observer.observe(el));
+
+// ===========================
+// STAGGERED GRID REVEAL — indiemode polish
+// Cards within a grid cascade in sequence instead of all at once.
+// Container-level (replaces per-card reveal for these grids).
+// ===========================
+(function () {
+  const grids = document.querySelectorAll(
+    '.work-grid, .ui-grid, .skills-grid, .video-grid, .diploma-modules-grid'
+  );
+  if (!grids.length) return;
+
+  grids.forEach(grid => {
+    grid.classList.add('reveal-stagger');
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.setProperty('--i', i);
+    });
+  });
+
+  const staggerObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          staggerObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  grids.forEach(grid => staggerObserver.observe(grid));
+})();
+
 
 // Active nav link highlighting (scroll-spy)
 const navAnchorLinks = navLinks.querySelectorAll('a[href^="#"]');
@@ -9731,7 +9830,9 @@ window.addEventListener('scroll', () => {
 // ===========================
 (function () {
   const MASCOT_SWAPS = {
+    // Hero
     // 'hero-visual-mascot': '',
+    // In-flow section companions
     // 'about-mascot': '',
     // 'workflow-mascot': '',
     // 'recommendations-mascot': '',
@@ -9741,6 +9842,9 @@ window.addEventListener('scroll', () => {
     // 'igaming-mascot': '',
     // 'work-mascot': '',
     // 'skills-mascot': '',
+    // 'resume-mascot': '',
+    // 'contact-mascot': '',
+    // 'footer-mascot': '',
   };
   Object.entries(MASCOT_SWAPS).forEach(([cls, url]) => {
     if (!url) return;
