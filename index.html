@@ -6122,19 +6122,36 @@ a:hover { color: var(--color-accent-hover); }
 .imr-standards li { font-size: 13px; }
 .imr-ai-title { margin-top: 22px; }
 .imr-ai-copy { font-size: 13.5px; line-height: 1.55; color: var(--color-text-muted); margin: 0 0 20px; }
-.imr-links { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.imr-links { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
 .imr-link {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-  padding: 11px 14px; border: 1px solid var(--color-border-hi);
-  background: rgba(0,245,212,0.05); border-radius: 2px;
-  text-decoration: none; transition: background var(--transition), border-color var(--transition);
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px 18px; border: 2px solid transparent; border-radius: 2px;
+  text-decoration: none; position: relative; overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
 }
-.imr-link:hover { background: rgba(0,245,212,0.1); border-color: var(--color-accent); }
-.imr-link-alt { background: rgba(248,250,252,0.03); }
-.imr-link-alt:hover { background: rgba(248,250,252,0.07); border-color: var(--color-border-hi); }
-.imr-link-k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
-.imr-link-v { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-accent); white-space: nowrap; }
+.imr-link::after {
+  content: '\2197'; position: absolute; top: 50%; right: 16px; transform: translateY(-50%);
+  font-size: 22px; line-height: 1; transition: transform var(--transition);
+}
+.imr-link:hover { transform: translateY(-3px); }
+.imr-link:hover::after { transform: translate(3px, calc(-50% - 3px)); }
+
+/* PRIMARY — redesign: solid magenta button */
+.imr-link-primary { background: var(--color-accent-red); }
+.imr-link-primary::after { color: var(--color-bg); }
+.imr-link-primary:hover { box-shadow: 0 10px 30px rgba(255,0,110,0.4); background: #ff1f81; }
+.imr-link-primary .imr-link-k { color: rgba(15,23,42,0.7); }
+.imr-link-primary .imr-link-v { color: var(--color-bg); }
+
+/* SECONDARY — old site: strong teal-outlined button */
+.imr-link-alt { background: rgba(0,245,212,0.06); border-color: var(--color-accent); }
+.imr-link-alt::after { color: var(--color-accent); }
+.imr-link-alt:hover { background: rgba(0,245,212,0.14); box-shadow: 0 10px 30px rgba(0,245,212,0.22); }
+.imr-link-alt .imr-link-k { color: var(--color-accent); }
 .imr-link-alt .imr-link-v { color: var(--color-text); }
+
+.imr-link-k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+.imr-link-v { font-family: var(--font-mono); font-size: 16px; font-weight: 700; white-space: nowrap; padding-right: 28px; }
 
 @media (max-width: 900px) {
   .imr-grid { grid-template-columns: 1fr; }
@@ -6371,13 +6388,13 @@ a:hover { color: var(--color-accent-hover); }
           <p class="imr-ai-copy">AI ran through the project as a working tool, not a gimmick: rapid art-direction and layout exploration, generating and refining the editorial hero imagery, and pressure-testing microcopy against the brand voice. Purpose-built AI <strong>skills</strong> handled the repeatable work &mdash; codifying the brand palette, type scale and component rules so every screen stayed on-system. The build itself used the same AI-assisted prototyping pipeline detailed below &mdash; turning static Figma frames into a live, testable front-end.</p>
 
           <div class="imr-links">
-            <a class="imr-link" href="https://jonoman1983.github.io/indiemode/index.html" target="_blank" rel="noopener">
-              <span class="imr-link-k">Redesign — Live</span>
-              <span class="imr-link-v">jonoman1983.github.io/indiemode &#8599;</span>
+            <a class="imr-link imr-link-primary" href="https://jonoman1983.github.io/indiemode/index.html" target="_blank" rel="noopener">
+              <span class="imr-link-k">Redesign · Live</span>
+              <span class="imr-link-v">View the redesign</span>
             </a>
             <a class="imr-link imr-link-alt" href="https://www.indiemode.co.za" target="_blank" rel="noopener">
-              <span class="imr-link-k">Original site</span>
-              <span class="imr-link-v">indiemode.co.za &#8599;</span>
+              <span class="imr-link-k">Original · indiemode.co.za</span>
+              <span class="imr-link-v">View the original</span>
             </a>
           </div>
         </div>
