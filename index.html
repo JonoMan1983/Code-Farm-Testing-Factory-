@@ -6360,7 +6360,7 @@ a:hover { color: var(--color-accent-hover); }
           <span class="case-reveal-tag case-reveal-tag-before">Before</span>
           <span class="case-reveal-tag case-reveal-tag-after">After</span>
           <div class="case-reveal-handle"></div>
-          <span class="imr-hint">⇄ Drag to compare</span>
+          <span class="imr-hint">⇄ Drag or click to compare</span>
         </div>
 
         <!-- Data panel -->
@@ -9643,6 +9643,7 @@ window.addEventListener('scroll', () => {
   /* ── Certification reel tiles (PDF-based) ── */
   document.querySelectorAll('.cert-pdf-tile[data-cert-pdf]').forEach(tile => {
     const pdfUrl = tile.dataset.certPdf;
+    if (!window.pdfjsLib) { return; }
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
@@ -9745,7 +9746,7 @@ window.addEventListener('scroll', () => {
   function renderPdf(container) {
     const pdfUrl = container.dataset.pdf;
     const loading = container.querySelector('.ux-pdf-loading');
-
+    if (!window.pdfjsLib) { return; }
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
@@ -10183,7 +10184,7 @@ window.addEventListener('scroll', () => {
 // Hover/focus auto-wipes (CSS). Pointer drag sets --pos live.
 // ===========================
 (function () {
-  const images = document.querySelectorAll('.case-image[data-reveal]');
+  const images = document.querySelectorAll('.case-image[data-reveal]:not(.imr-reveal)');
   if (!images.length) return;
 
   images.forEach(ci => {
@@ -10222,6 +10223,61 @@ window.addEventListener('scroll', () => {
     }
     ci.addEventListener('pointerup', end);
     ci.addEventListener('pointercancel', end);
+  });
+})();
+
+// ===========================
+// INDIEMODE REDO - persistent before/after slider (desktop + touch)
+// Position holds after release; click anywhere to jump; keyboard arrows supported.
+// ===========================
+(function () {
+  const ci = document.querySelector('#indiemode-redo .imr-reveal');
+  if (!ci) return;
+  const before = ci.querySelector('.case-reveal-before');
+  const handle = ci.querySelector('.case-reveal-handle');
+  const hint   = ci.querySelector('.imr-hint');
+  if (!before || !handle) return;
+
+  let pos = 50;
+  let dragging = false;
+
+  function apply() {
+    before.style.setProperty('--pos', pos + '%');
+    handle.style.left = pos + '%';
+  }
+  function fromX(clientX) {
+    const r = ci.getBoundingClientRect();
+    pos = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
+    apply();
+  }
+
+  apply();
+
+  ci.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.media-actions')) return;
+    dragging = true;
+    ci.classList.add('is-dragging');
+    if (hint) hint.style.opacity = '0';
+    try { ci.setPointerCapture(e.pointerId); } catch (err) {}
+    fromX(e.clientX);
+    e.preventDefault();
+  });
+  ci.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    fromX(e.clientX);
+  });
+  function endDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    ci.classList.remove('is-dragging');
+    try { ci.releasePointerCapture(e.pointerId); } catch (err) {}
+  }
+  ci.addEventListener('pointerup', endDrag);
+  ci.addEventListener('pointercancel', endDrag);
+
+  ci.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { pos = Math.max(0, pos - 4); apply(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { pos = Math.min(100, pos + 4); apply(); e.preventDefault(); }
   });
 })();
 
