@@ -1173,6 +1173,17 @@ h1, h2, h3, h4 { color: var(--color-text); }
   filter: none;
   opacity: 1;
 }
+/* ── Recommendations marquee: all logos unified to brand teal ── */
+.marquee-logos .logo-mark img,
+.marquee-logos .logo-chip-white .logo-mark img {
+  filter: brightness(0) saturate(100%) invert(79%) sepia(55%) saturate(600%) hue-rotate(122deg) brightness(103%);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.marquee-logos .logo-mark img:hover,
+.marquee-logos .logo-chip-white .logo-mark img:hover {
+  opacity: 1;
+}
 
 /* Marquee shell — full-bleed with edge fade */
 .marquee {
@@ -6015,6 +6026,17 @@ a:hover { color: var(--color-accent-hover); }
 .recommendations .heading-mascot-row,
 .recommendations .heading-mascot-row h2 {
   text-align: left;
+}
+
+/* ── Fossils don't lie heading — all one teal colour ── */
+.recommendations .heading-mascot-row h2,
+.recommendations .heading-mascot-row h2 .title-pink {
+  color: var(--color-accent);
+  text-shadow: none;
+}
+.recommendations .heading-mascot-row h2::before,
+.recommendations .heading-mascot-row h2::after {
+  color: var(--color-accent);
 }
 
 /* ===========================
