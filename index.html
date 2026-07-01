@@ -8423,97 +8423,7 @@ window.addEventListener('scroll', () => {
     ctx.fill();
   }
 
-  function drawText(textRot, t, ux, uy) {
-    const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#2386B0' : '#2EB2EA';  // darker blue glow in light theme
-    const textHex     = '#EA652C';                          // orange on both
-    const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';  // dark teal / white
-
-    ctx.save();
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'middle';
-
-    ctx.save();
-    ctx.translate(cx + ux, cy + uy + 8);
-    ctx.rotate(textRot);
-    ctx.font     = '900 256px Poppins, sans-serif';
-    ctx.lineJoin = 'round';
-
-    const pulse     = Math.sin(t * 2.2) * 0.5 + 0.5;
-    const plusScale = 1 + 0.15 * Math.sin(t * 6.0);
-
-    // Light theme's pale background washes out the glow, so push it harder
-    const glowBlur  = isLight ? 90 + pulse * 200 : 55 + pulse * 140;
-    const glowAlpha = isLight ? 0.65 + pulse * 0.35 : 0.45 + pulse * 0.55;
-
-    // Measure with left alignment so glow + solid passes line up
-    ctx.textAlign = 'left';
-    const wFull  = ctx.measureText('20+').width;
-    const w20    = ctx.measureText('20').width;
-    const wPlus  = ctx.measureText('+').width;
-    const startX = -(wFull / 2);
-    const plusCx = startX + w20 + wPlus / 2;
-
-    // Glow pass — blue in dark, blue in light
-    ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = glowBlur;
-    ctx.globalAlpha = glowAlpha;
-    ctx.fillStyle   = glowHex;
-
-    // Glow for "20"
-    ctx.fillText('20', startX, 0);
-
-    // Glow for "+" — scaled with plusScale so the halo grows/shrinks with it
-    ctx.save();
-    ctx.translate(plusCx, 0);
-    ctx.scale(plusScale, plusScale);
-    ctx.textAlign = 'center';
-    ctx.fillText('+', 0, 0);
-    ctx.restore();
-
-    ctx.shadowBlur  = 0;
-    ctx.shadowColor = 'transparent';
-
-    // "20" — orange in dark, dark navy in light
-    ctx.globalAlpha = 1;
-    ctx.fillStyle   = textHex;
-    ctx.textAlign   = 'left';
-    ctx.fillText('20', startX, 0);
-
-    // "+" — scales ±15%, orange on both
-    ctx.save();
-    ctx.translate(plusCx, 0);
-    ctx.scale(plusScale, plusScale);
-    ctx.globalAlpha  = 1;
-    ctx.fillStyle    = '#EA652C';
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('+', 0, 0);
-    ctx.restore();
-
-    ctx.restore();
-
-    // Subtitle — weight 900, white in dark / dark teal in light
-    ctx.font        = '900 34px Poppins, sans-serif';
-    try { ctx.letterSpacing = '0.2em'; } catch (_) {}
-
-    // Glow pass — same blue as "20+", on both light and dark
-    ctx.save();
-    ctx.shadowColor = glowHex;
-    ctx.shadowBlur  = glowBlur;
-    ctx.globalAlpha = glowAlpha;
-    ctx.fillStyle   = glowHex;
-    ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    ctx.restore();
-
-    ctx.globalAlpha = 1;
-    ctx.fillStyle   = subtitleHex;
-    ctx.fillText('YEARS OF DESIGN', cx + ux, cy + uy + 108);
-    /* no-strokes: strokeText removed */
-
-    ctx.restore();
-  }
-
+  
   let rafId = null;
 
   function frame(timestamp) {
@@ -8549,7 +8459,6 @@ window.addEventListener('scroll', () => {
 
     drawOrbits(gRot, t, ux, uy);
     drawAtoms(gRot, t, ux, uy);
-    drawText(textRot, t, ux, uy);
     rafId = requestAnimationFrame(frame);
   }
 
