@@ -1612,6 +1612,52 @@ h1, h2, h3, h4 { color: var(--color-text); }
   transition: gap var(--transition);
 }
 
+/* Playsafe card — image hover overlay link */
+.case-image--linked {
+  position: relative;
+  overflow: hidden;
+}
+.case-site-link {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.72);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  text-decoration: none;
+}
+.case-image--linked:hover .case-site-link {
+  opacity: 1;
+}
+.case-site-link-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-family: var(--font-condensed);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid rgba(255,255,255,0.5);
+  padding: 10px 22px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.case-site-link:hover .case-site-link-inner {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.case-link--external {
+  color: var(--color-accent);
+}
+.case-link--external svg {
+  flex-shrink: 0;
+}
+
 .case-link:hover {
   color: var(--color-accent-hover);
 }
@@ -7624,6 +7670,33 @@ a:hover { color: var(--color-accent-hover); }
               <span>2018 – Present</span>
             </div>
             <a href="#animations" class="case-link">View Animation Work →</a>
+          </div>
+        </article>
+
+        <article class="case-card case-card--playsafe">
+          <div class="case-image case-image--linked">
+            <img src="assets/images/work/playsafe-website.jpg"
+              alt="Playsafe Group AS — Website UI Design" loading="lazy" />
+            <a href="https://playsafe.net" target="_blank" rel="noopener" class="case-site-link" aria-label="Visit playsafe.net">
+              <span class="case-site-link-inner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span>playsafe.net</span>
+              </span>
+            </a>
+          </div>
+          <div class="case-body">
+            <span class="case-outcome">Live · Production</span>
+            <span class="case-tag">iGaming · Web UI · Brand · Responsible Gaming</span>
+            <h3 style="color: var(--color-accent-red)">Playsafe Group AS — Website Design</h3>
+            <p>Designed the public-facing web presence for Playsafe Group AS — a Norwegian responsible-gaming platform driving positive environmental and behavioural change through incentive-based solutions. Delivered the full UI system, brand consistency, and page layout across the live site.</p>
+            <div class="case-meta">
+              <span>Playsafe Group AS · Norway</span>
+              <span>Astria Systems · 2021 – 2023</span>
+            </div>
+            <a href="https://playsafe.net" target="_blank" rel="noopener" class="case-link case-link--external">
+              Visit playsafe.net
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" aria-hidden="true" style="margin-left:5px;vertical-align:-1px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
           </div>
         </article>
 
