@@ -464,6 +464,12 @@ h1, h2, h3, h4 { color: var(--color-text); }
   pointer-events: none;
   display: block;
 }
+@media (max-width: 768px) {
+  #heroCanvas,
+  .hero-visual {
+    display: none !important;
+  }
+}
 
 .hero-container {
   display: flex;
@@ -5792,7 +5798,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
         </div>
       </div>
       <div class="hero-visual">
-        <canvas id="heroCanvas" aria-hidden="true"></canvas>
         <p class="hero-visual-mascot-label" aria-hidden="true"><span class="mascot-label-ux">UX</span><br /><span class="mascot-label-designa">designa</span><span class="mascot-label-saurus">saurus</span></p>
         <img class="hero-visual-mascot" src="https://res.cloudinary.com/dksariyyz/image/upload/v1781970331/UX_Designasauruses-12_ur5v5r.svg" alt="" aria-hidden="true" loading="lazy" />
       </div>
@@ -8252,232 +8257,6 @@ window.addEventListener('scroll', () => {
 
 // ===========================
 // HERO CANVAS — ATOMIC ORBIT
-// ===========================
-(function initHeroCanvas() {
-  const canvas = document.getElementById('heroCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  const dpr = window.devicePixelRatio || 1;
-  const SIZE = 920;
-  canvas.width  = SIZE * dpr;
-  canvas.height = SIZE * dpr;
-  ctx.scale(dpr, dpr);
-
-  const cx = SIZE / 2;
-  const cy = SIZE / 2;
-
-  // Three orbital rings evenly spaced at 120° (π*2/3 rad) apart
-  const T        = Math.PI * 2 / 3;
-  const PINK_RGB    = [46, 178, 234];  // light blue — same as accent
-  const ELECTRON_RGB = [234, 101, 44]; // orange electrons #EA652C
-
-  // Lerp between two [r,g,b] arrays and return an rgb() string
-  function lerpRGB(a, b, f) {
-    return `rgb(${~~(a[0]+(b[0]-a[0])*f)},${~~(a[1]+(b[1]-a[1])*f)},${~~(a[2]+(b[2]-a[2])*f)})`;
-  }
-
-  // Per-orbit colour oscillation frequencies and phase offsets
-  const CLR_FREQ = [0.38, 0.62, 0.91];
-  const CLR_PH   = [0, 2.1, 4.2];
-
-  const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
-  ];
-
-  // Each orbit drifts independently with its own random walk speed and range
-  const FLOAT_PARAMS = [
-    { range: 55, minInt:  700, intRange: 1800, lerp: 0.014 },
-    { range: 80, minInt: 1100, intRange: 2600, lerp: 0.009 },
-    { range: 45, minInt:  500, intRange: 1400, lerp: 0.019 },
-  ];
-  const floatStates = orbits.map(() => ({ x: 0, y: 0, tx: 0, ty: 0, next: 0 }));
-
-  // Single global float — whole assembly drifts as one unit
-  const unitFloat  = { x: 0, y: 0, tx: 0, ty: 0, next: 0 };
-  const UNIT_FLOAT = { range: 48, minInt: 3200, intRange: 4800, lerp: 0.004 };
-
-  // Ellipse perimeter (Ramanujan) — same for all orbits since rx/ry are equal
-  const _orbH    = ((orbits[0].rx - orbits[0].ry) / (orbits[0].rx + orbits[0].ry)) ** 2;
-  const ORB_PERIM = Math.PI * (orbits[0].rx + orbits[0].ry) *
-                    (1 + 3 * _orbH / (10 + Math.sqrt(4 - 3 * _orbH)));
-
-  const TRAIL_LEN = 28;
-  // Two electrons per orbit, offset 180° apart
-  const atoms = [];
-  orbits.forEach((_, i) => {
-    const base = (i * Math.PI * 2) / 3;
-    atoms.push({ orbitIdx: i, angle: base,             trail: [] });
-    atoms.push({ orbitIdx: i, angle: base + Math.PI,   trail: [] });
-  });
-
-  function orbitalPoint(o, angle, gRot, fx, fy) {
-    const ex   = o.rx * Math.cos(angle);
-    const ey   = o.ry * Math.sin(angle);
-    const tilt = o.tilt + gRot;
-    const c    = Math.cos(tilt);
-    const s    = Math.sin(tilt);
-    return { x: cx + fx + ex * c - ey * s, y: cy + fy + ex * s + ey * c };
-  }
-
-  function drawOrbits(gRot, t, ux, uy) {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    // Per-orbit animation: lineWidth and dash gap each oscillate independently
-    const ANIM = [
-      { dot:  5, gapMin:  8, gapMax: 24, lwFreq: 0.32, lwPh: 0.0, gFreq: 0.52, gPh: 0.0 },
-      { dot:  9, gapMin: 14, gapMax: 40, lwFreq: 0.57, lwPh: 2.1, gFreq: 0.88, gPh: 3.1 },
-      { dot: 14, gapMin: 18, gapMax: 56, lwFreq: 0.78, lwPh: 4.2, gFreq: 1.18, gPh: 5.8 },
-    ];
-    ctx.globalAlpha = isLight ? 1 : 0.72;
-    orbits.forEach((o, i) => {
-      const fs   = floatStates[i];
-      const a    = ANIM[i];
-      const lw   = 3.5 + (Math.sin(t * a.lwFreq + a.lwPh) * 0.5 + 0.5) * 4.5;  // 3.5–8.0
-      const gap  = a.gapMin + (Math.sin(t * a.gFreq + a.gPh) * 0.5 + 0.5) * (a.gapMax - a.gapMin);
-      if (isLight) {
-        ctx.strokeStyle = '#FFFFFF';
-      } else {
-        const frac = Math.sin(t * CLR_FREQ[i] + CLR_PH[i]) * 0.5 + 0.5;
-        ctx.strokeStyle = lerpRGB(PINK_RGB, o.rgba, frac);
-      }
-      ctx.lineWidth   = lw;
-      ctx.setLineDash([a.dot, gap]);
-      // Dash starts at electron, extends clockwise — dot leads, line follows
-      const p = (atoms[i * 2].angle / (2 * Math.PI)) * ORB_PERIM;
-      ctx.lineDashOffset = -p;
-      ctx.save();
-      ctx.translate(cx + fs.x + ux, cy + fs.y + uy);
-      ctx.rotate(o.tilt + gRot);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-    });
-    ctx.setLineDash([]);
-    ctx.lineDashOffset = 0;
-    ctx.globalAlpha    = 1;
-  }
-
-  const SPEED_MOD = [
-    { freq: 0.38, phase: 0.0 },
-    { freq: 0.55, phase: 2.1 },
-    { freq: 0.28, phase: 4.2 },
-  ];
-
-  function drawAtoms(gRot, t, ux, uy) {
-    const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
-    const [r, g, b] = isLight ? [255, 255, 255] : ELECTRON_RGB;
-    const coreDot  = isLight ? '#FFFFFF' : '#EA652C';
-    atoms.forEach((atom) => {
-      const i  = atom.orbitIdx;
-      const o  = orbits[i];
-      const fs = floatStates[i];
-
-      atom.trail.push(atom.angle);
-      if (atom.trail.length > TRAIL_LEN) atom.trail.shift();
-
-      const pos = orbitalPoint(o, atom.angle, gRot, fs.x + ux, fs.y + uy);
-
-      // Trail
-      atom.trail.forEach((a, ti) => {
-        const frac = ti / TRAIL_LEN;
-        const tp   = orbitalPoint(o, a, gRot, fs.x + ux, fs.y + uy);
-        ctx.beginPath();
-        ctx.arc(tp.x, tp.y, 3 + frac * 6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${frac * 0.55})`;
-        ctx.fill();
-      });
-
-      // Glow halo
-      const grd = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 40);
-      grd.addColorStop(0,    `rgba(${r},${g},${b},0.85)`);
-      grd.addColorStop(0.45, `rgba(${r},${g},${b},0.30)`);
-      grd.addColorStop(1,    `rgba(${r},${g},${b},0)`);
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 40, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
-      ctx.fill();
-
-      // Core dot
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
-      ctx.fillStyle = coreDot;
-      ctx.fill();
-
-      const sm = SPEED_MOD[i];
-      atom.angle += o.speed * (0.35 + (Math.sin(t * sm.freq + sm.phase) * 0.5 + 0.5) * 1.3);
-    });
-  }
-
-  function drawNucleus(ux, uy) {
-    const nx = cx + ux, ny = cy + uy;
-    const grd = ctx.createRadialGradient(nx, ny, 0, nx, ny, 190);
-    grd.addColorStop(0,   'rgba(100, 76, 220, 0.28)');
-    grd.addColorStop(0.5, 'rgba(70,  50, 170, 0.12)');
-    grd.addColorStop(1,   'rgba(20,  15,  50, 0)');
-    ctx.beginPath();
-    ctx.arc(nx, ny, 95, 0, Math.PI * 2);
-    ctx.fillStyle = grd;
-    ctx.fill();
-  }
-
-  
-  let rafId = null;
-
-  function frame(timestamp) {
-    const t    = timestamp * 0.001;
-    const gRot = t * 0.10;
-    const textRot = Math.sin(t * 0.35) * (5 * Math.PI / 180);
-
-    // Per-orbit independent drift
-    floatStates.forEach((fs, i) => {
-      const p = FLOAT_PARAMS[i];
-      if (timestamp > fs.next) {
-        fs.tx   = (Math.random() - 0.5) * p.range;
-        fs.ty   = (Math.random() - 0.5) * p.range;
-        fs.next = timestamp + p.minInt + Math.random() * p.intRange;
-      }
-      fs.x += (fs.tx - fs.x) * p.lerp;
-      fs.y += (fs.ty - fs.y) * p.lerp;
-    });
-
-    // Whole-assembly unit float
-    if (timestamp > unitFloat.next) {
-      unitFloat.tx   = (Math.random() - 0.5) * UNIT_FLOAT.range;
-      unitFloat.ty   = (Math.random() - 0.5) * UNIT_FLOAT.range;
-      unitFloat.next = timestamp + UNIT_FLOAT.minInt + Math.random() * UNIT_FLOAT.intRange;
-    }
-    unitFloat.x += (unitFloat.tx - unitFloat.x) * UNIT_FLOAT.lerp;
-    unitFloat.y += (unitFloat.ty - unitFloat.y) * UNIT_FLOAT.lerp;
-
-    const ux = unitFloat.x;
-    const uy = unitFloat.y;
-
-    ctx.clearRect(0, 0, SIZE, SIZE);
-
-    drawOrbits(gRot, t, ux, uy);
-    drawAtoms(gRot, t, ux, uy);
-    rafId = requestAnimationFrame(frame);
-  }
-
-  // Pause when tab is hidden to save CPU
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    } else if (!rafId) {
-      rafId = requestAnimationFrame(frame);
-    }
-  });
-
-  // Wait for Poppins to load before first draw
-  document.fonts.ready.then(() => {
-    rafId = requestAnimationFrame(frame);
-  });
-})();
-
 // ===========================
 // HERO STARFIELD — ambient particles across the full hero
 // ===========================
