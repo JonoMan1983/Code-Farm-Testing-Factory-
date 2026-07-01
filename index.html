@@ -823,7 +823,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
   .hero-title {
     margin-bottom: 32px;
-    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-size: clamp(2.4rem, 3.8vw, 3.6rem);
   }
 
   .hero-title-row {
@@ -963,6 +963,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
   font-weight: 400;
   color: var(--color-accent);
 }
+
+/* Hero title word-split styling */
+.ht-bold   { font-weight: 900; }
+.ht-light  { font-weight: 300; }
+.ht-regular{ font-weight: 400; }
+.ht-magenta{ color: var(--color-accent-red); text-shadow: 0 0 28px rgba(255,0,110,0.5); }
+.ht-white  { color: #ffffff; }
+.ht-teal   { color: var(--color-accent); font-weight: 300; letter-spacing: -0.01em; }
 
 .heading-mascot-row {
   display: flex;
@@ -6050,7 +6058,7 @@ a:hover { color: var(--color-accent-hover); }
   h3 { font-size: 2.7rem; }
   h4 { font-size: 2.2rem; }
   /* Hero heading: 40% smaller than the doubled headings above */
-  .hero-title { font-size: clamp(2.88rem, 6vw, 4.56rem); }
+  .hero-title { font-size: clamp(3.4rem, 7.5vw, 5.8rem); }
 }
 
 /* ===========================
@@ -6453,9 +6461,8 @@ a:hover { color: var(--color-accent-hover); }
     <div class="container hero-container">
       <div class="hero-content">
         <p class="hero-label">Senior Product Designer · UX/UI · AI-Integrated Workflows</p>
-        <p class="hero-pun-badge"><span class="hero-pun-design">Design</span><span class="hero-pun-asaurus">asaurus</span></p>
         <div class="hero-title-row">
-          <h1 class="hero-title"><span class="title-pink">20+ years of design.</span><br />Zero compromise.</h1>
+          <h1 class="hero-title"><span class="ht-bold ht-magenta">20+ years</span><span class="ht-light"> of design.</span><br /><span class="ht-bold ht-white">Zero</span><span class="ht-regular ht-teal"> compromise.</span></h1>
           <div class="hero-ai-badge">
             <img src="https://cdn.simpleicons.org/anthropic/FFFFFF" alt="Claude AI" loading="lazy" />
             <span>AI Integrated</span>
