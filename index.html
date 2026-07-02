@@ -6136,10 +6136,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
    ===================================================== */
 .hero-brand-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
-  gap: 10px;
-  padding: 12px 4px 0;
+  gap: 40px;
+  padding: 0 4px 0;
+  margin-top: -36px;
   width: 100%;
 }
 
@@ -6152,7 +6153,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 .hero-brand-text .mascot-label-ux {
-  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+  font-size: clamp(3.6rem, 7vw, 6.4rem);
   font-weight: 800;
   color: var(--color-accent);
   line-height: 0.88;
@@ -6161,7 +6162,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .hero-brand-text .mascot-label-sub {
   display: block;
-  font-size: clamp(0.75rem, 1.3vw, 1.15rem);
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -6177,9 +6178,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 .hero-brand-dino {
   flex-shrink: 0;
-  width: clamp(70px, 9vw, 120px);
+  width: clamp(120px, 13vw, 170px);
   filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));
-  animation: trex-bob 6s ease-in-out infinite;
+  animation: none;
 }
 
 .hero-brand-dino svg {
@@ -6188,20 +6189,21 @@ h1, h2, h3, h4 { color: var(--color-text); }
   height: auto;
 }
 
-/* Mobile: below canvas not visible, centre under content */
+/* Mobile: centre under content */
 @media (max-width: 899px) {
   .hero-brand-row {
     justify-content: center;
-    padding: 10px 0 0;
+    margin-top: 8px;
+    gap: 20px;
   }
   .hero-brand-dino {
-    width: clamp(55px, 16vw, 80px);
+    width: clamp(110px, 28vw, 160px);
   }
   .hero-brand-text .mascot-label-ux {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-size: clamp(2.8rem, 9vw, 4rem);
   }
   .hero-brand-text .mascot-label-sub {
-    font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
   }
 }
 
@@ -6218,15 +6220,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
   .hero-brand-row {
     width: 100%;
+    align-self: stretch;
     justify-content: flex-end;
-    padding: 14px 0 0;
-    gap: 12px;
-  }
-  .hero-brand-text .mascot-label-ux {
-    font-size: clamp(2rem, 3.8vw, 3.4rem);
-  }
-  .hero-brand-dino {
-    width: clamp(80px, 10vw, 130px);
+    padding: 0 0 0;
+    gap: 40px;
+    margin-top: -36px;
   }
 }
 
@@ -6239,6 +6237,39 @@ h1, h2, h3, h4 { color: var(--color-text); }
 #trexLayer {
   display: none !important;
 }
+
+/* ── HERO BRAND ROW FINAL OVERRIDE — wins cascade, no conflicts ── */
+.hero-visual .hero-brand-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  gap: 40px !important;
+  padding: 0 !important;
+  margin-top: -40px !important;
+  width: 100% !important;
+}
+
+.hero-visual .hero-brand-text {
+  flex-shrink: 0;
+}
+
+.hero-visual .hero-brand-dino {
+  flex-shrink: 0;
+  width: clamp(120px, 13vw, 170px) !important;
+}
+
+@media (max-width: 899px) {
+  .hero-visual .hero-brand-row {
+    justify-content: center !important;
+    margin-top: 8px !important;
+    gap: 24px !important;
+  }
+  .hero-visual .hero-brand-dino {
+    width: clamp(90px, 22vw, 130px) !important;
+  }
+}
+
 </style>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <script>
