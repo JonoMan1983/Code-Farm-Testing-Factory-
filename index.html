@@ -5822,6 +5822,139 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
+
+/* =====================================================
+   HERO VISUAL — COMPLETE DEFINITIVE RULES
+   Clean single source of truth, injected last to win.
+   ===================================================== */
+
+/* ── BASE: hero-visual container ── */
+.hero-visual {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* ── BASE: atom canvas hidden (mobile-first) ── */
+#heroCanvas {
+  display: none !important;
+}
+
+/* ── BASE: mascot label — absolutely positioned inside hero-visual ── */
+.hero-visual-mascot-label {
+  position: absolute !important;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ── BASE: dino div — absolutely positioned inside hero-visual ── */
+.hero-visual-mascot {
+  position: absolute !important;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+}
+
+/* ── BASE: inline SVG fills its container ── */
+.hero-dino-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── MOBILE (< 768px) ── */
+.hero-visual {
+  width: 100%;
+  height: 280px;
+  order: -1;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-visual-mascot {
+  bottom: 0;
+  left: 50%;
+  right: auto;
+  top: auto;
+  width: clamp(260px, 75vw, 340px);
+  transform: translateX(-50%);
+  animation: mascot-float-mobile 6s ease-in-out infinite;
+}
+.hero-visual-mascot-label {
+  bottom: 12px;
+  left: 50%;
+  right: auto;
+  top: auto;
+  transform: translateX(-90px);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  line-height: 0.85;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: right;
+}
+
+@keyframes mascot-float-mobile {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+  50%       { transform: translateX(-50%) translateY(-8px) rotate(1deg); }
+}
+
+/* ── TABLET (768px–899px) ── */
+@media (min-width: 768px) and (max-width: 899px) {
+  .hero-visual {
+    height: 300px;
+    margin-bottom: 24px;
+  }
+  .hero-visual-mascot {
+    width: clamp(280px, 42vw, 360px);
+  }
+}
+
+/* ── DESKTOP (≥ 900px): canvas on, dino overlaid ── */
+@media (min-width: 900px) {
+  #heroCanvas {
+    display: block !important;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-visual {
+    flex: 0 0 auto;
+    order: 1;
+    width: min(650px, 46vw);
+    height: auto !important;
+    margin-bottom: 0;
+  }
+  .hero-visual-mascot {
+    bottom: -10px !important;
+    right: -10px !important;
+    left: auto !important;
+    top: auto !important;
+    width: min(340px, 48%) !important;
+    transform: none !important;
+    animation: mascot-float 6.5s ease-in-out infinite !important;
+  }
+  .hero-visual-mascot-label {
+    bottom: 15px !important;
+    right: calc(min(320px, 45%) - 10px) !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+  }
+}
+
+/* ── LARGE DESKTOP (≥ 1280px) ── */
+@media (min-width: 1280px) {
+  .hero-visual {
+    width: min(700px, 48vw);
+  }
+  .hero-visual-mascot {
+    width: min(380px, 50%) !important;
+  }
+}
+
 </style>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <script>
