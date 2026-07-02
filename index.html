@@ -6261,10 +6261,21 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 @media (max-width: 899px) {
+  /* Collapse visual height and push brand-row to bottom so it sits close to content below */
+  .hero-visual {
+    align-items: flex-end !important;
+    justify-content: center !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
   .hero-visual .hero-brand-row {
     justify-content: center !important;
-    margin-top: 8px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     gap: 18px !important;
+    padding: 0 !important;
   }
   .hero-visual .hero-brand-dino {
     width: clamp(108px, 26vw, 156px) !important;
