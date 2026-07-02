@@ -8414,8 +8414,8 @@ window.addEventListener('scroll', () => {
   const cy = SIZE / 2;
 
   const T        = Math.PI * 2 / 3;
-  const PINK_RGB    = [46, 178, 234];
-  const ELECTRON_RGB = [234, 101, 44];
+  const PINK_RGB    = [0, 245, 212];
+  const ELECTRON_RGB = [255, 0, 110];
 
   function lerpRGB(a, b, f) {
     return `rgb(${~~(a[0]+(b[0]-a[0])*f)},${~~(a[1]+(b[1]-a[1])*f)},${~~(a[2]+(b[2]-a[2])*f)})`;
@@ -8425,9 +8425,9 @@ window.addEventListener('scroll', () => {
   const CLR_PH   = [0, 2.1, 4.2];
 
   const orbits = [
-    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#2EB2EA', rgba: [46, 178, 234] },
-    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#2EB2EA', rgba: [46, 178, 234] },
+    { rx: 373, ry: 143, tilt: 0,     speed:  0.0120, dash: [5,  14], color: '#00F5D4', rgba: [0, 245, 212] },
+    { rx: 373, ry: 143, tilt: T,     speed: -0.0093, dash: [9,  24], color: '#00F5D4', rgba: [0, 245, 212] },
+    { rx: 373, ry: 143, tilt: T * 2, speed:  0.0072, dash: [14, 36], color: '#00F5D4', rgba: [0, 245, 212] },
   ];
 
   const FLOAT_PARAMS = [
@@ -8506,7 +8506,7 @@ window.addEventListener('scroll', () => {
   function drawAtoms(gRot, t, ux, uy) {
     const isLight  = document.documentElement.getAttribute('data-theme') === 'light';
     const [r, g, b] = isLight ? [255, 255, 255] : ELECTRON_RGB;
-    const coreDot  = isLight ? '#FFFFFF' : '#EA652C';
+    const coreDot  = isLight ? '#FFFFFF' : '#FF006E';
     atoms.forEach((atom) => {
       const i  = atom.orbitIdx;
       const o  = orbits[i];
@@ -8553,8 +8553,8 @@ window.addEventListener('scroll', () => {
 
   function drawText(textRot, t, ux, uy) {
     const isLight     = document.documentElement.getAttribute('data-theme') === 'light';
-    const glowHex     = isLight ? '#2386B0' : '#2EB2EA';
-    const textHex     = '#EA652C';
+    const glowHex     = isLight ? '#009E88' : '#00F5D4';
+    const textHex     = '#FF006E';
     const subtitleHex = isLight ? '#0b516f' : '#FFFFFF';
 
     ctx.save();
@@ -8602,7 +8602,7 @@ window.addEventListener('scroll', () => {
     ctx.translate(plusCx, 0);
     ctx.scale(plusScale, plusScale);
     ctx.globalAlpha  = 1;
-    ctx.fillStyle    = '#EA652C';
+    ctx.fillStyle    = '#FF006E';
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('+', 0, 0);
