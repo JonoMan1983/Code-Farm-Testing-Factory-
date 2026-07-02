@@ -5649,6 +5649,19 @@ h1, h2, h3, h4 { color: var(--color-text); }
   opacity: 0.92;
 }
 
+/* "of design. Zero" — smaller, single line */
+.hero-title .hero-title-mid {
+  display: block;
+  font-size: clamp(1.8rem, 3.0vw, 3.6rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.hero-title .hero-title-mid .title-mid-inner {
+  display: inline;
+  font-size: inherit;
+}
+
 /* ===========================
    HERO DESIGNASAURUS LOCKUP
    Visual identity block — sits between h1 and body copy.
@@ -6271,7 +6284,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
     margin-bottom: 0 !important;
   }
   .hero-visual .hero-brand-row {
-    justify-content: center !important;
+    justify-content: flex-end !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     gap: 18px !important;
@@ -6399,8 +6412,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
         <div class="hero-title-row">
           <h1 class="hero-title">
             <span class="title-weight-bold title-teal">20+ years</span>
-            <span class="title-weight-light">of design.</span>
-            <span class="title-weight-bold">Zero</span>
+            <span class="hero-title-mid"><span class="title-weight-light title-mid-inner">of design.</span> <span class="title-weight-bold title-mid-inner">Zero</span></span>
             <span class="title-weight-light title-pink">compromise.</span>
           </h1>
           <div class="hero-ai-badge">
