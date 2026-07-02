@@ -464,7 +464,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
   pointer-events: none;
   display: block;
 }
-@media (max-width: 768px) {
+@media (max-width: 899px) {
   #heroCanvas,
   .hero-visual {
     display: none !important;
@@ -8251,7 +8251,7 @@ window.addEventListener('scroll', () => {
   const ctx = canvas.getContext('2d');
 
   // Star colours per theme — every particle is pure white in light mode;
-  // dark mode keeps the blue/orange accent tones for variety
+  // dark mode uses teal/magenta brand accents
   const STAR_PALETTES = {
     dark:  [[255, 255, 255], [0, 245, 212], [255, 0, 110]],
     light: [[255, 255, 255], [255, 255, 255], [255, 255, 255]],
