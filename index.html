@@ -6091,15 +6091,15 @@ h1, h2, h3, h4 { color: var(--color-text); }
   }
 }
 
-/* Desktop ≥900: bottom-right corner, clear of canvas centre */
+/* Desktop ≥900: locked to canvas bottom-right corner */
 @media (min-width: 900px) {
   #trexLayer {
-    top: auto;
-    bottom: 40px;
+    top: 560px;
+    bottom: auto;
     left: auto;
-    right: 20px;
+    right: 16px;
     transform: none;
-    width: min(300px, 24vw);
+    width: min(260px, 26vw);
     animation: trex-bob-desktop 6.5s ease-in-out infinite;
   }
   @keyframes trex-bob-desktop {
@@ -6111,18 +6111,20 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* Large desktop ≥1200 */
 @media (min-width: 1200px) {
   #trexLayer {
-    bottom: 40px;
-    width: min(320px, 25vw);
-    right: 40px;
+    top: 570px;
+    bottom: auto;
+    width: min(300px, 23vw);
+    right: 20px;
   }
 }
 
 /* Wide ≥1440 */
 @media (min-width: 1440px) {
   #trexLayer {
-    bottom: 48px;
-    width: min(340px, 22vw);
-    right: 60px;
+    top: 580px;
+    bottom: auto;
+    width: min(320px, 22vw);
+    right: 30px;
   }
 }
 
