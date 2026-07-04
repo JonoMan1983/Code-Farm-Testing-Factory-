@@ -5743,7 +5743,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
 /* Atom canvas: hidden by default (mobile-first), shown on desktop */
 #heroCanvas {
-  display: none;
+  display: block;
+  width: clamp(280px, 88vw, 420px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Dino mascot div + inline SVG */
@@ -5764,7 +5770,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* ── MOBILE (default, <768px) ── */
 .hero-visual {
   width: 100%;
-  height: 260px;
+  height: auto;
   margin-bottom: 12px;
   order: -1;
 }
@@ -5848,9 +5854,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
   overflow: visible !important;
 }
 
-/* ── BASE: atom canvas hidden (mobile-first) ── */
+/* ── BASE: atom canvas visible all sizes ── */
 #heroCanvas {
-  display: none !important;
+  display: block !important;
 }
 
 /* ── BASE: mascot label — absolutely positioned inside hero-visual ── */
