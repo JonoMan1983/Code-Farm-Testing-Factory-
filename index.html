@@ -5854,6 +5854,23 @@ h1, h2, h3, h4 { color: var(--color-text); }
   overflow: visible !important;
 }
 
+/* ── MOBILE: hero-visual as block so canvas isn't flex-shrunk weirdly ── */
+@media (max-width: 899px) {
+  .hero-visual {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  #heroCanvas {
+    display: block !important;
+    width: clamp(280px, 92vw, 400px) !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+}
+
 /* ── BASE: atom canvas visible all sizes ── */
 #heroCanvas {
   display: block !important;
@@ -10072,8 +10089,9 @@ window.addEventListener('scroll', () => {
 
   function apply() {
     if (window.innerWidth < 900) {
-      heroCanvas.style.removeProperty('width');
-      heroCanvas.style.removeProperty('height');
+      const mobileSize = Math.min(window.innerWidth * 0.92, 400);
+      heroCanvas.style.width  = mobileSize + 'px';
+      heroCanvas.style.height = mobileSize + 'px';
       return;
     }
 
