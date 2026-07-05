@@ -5548,9 +5548,119 @@ h1, h2, h3, h4 { color: var(--color-text); }
   text-align: center;
 }
 
+/* =====================================================================
+   INDIEMODE BEFORE / AFTER
+   ===================================================================== */
+.indiemode-ba-wrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+.indiemode-ba-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.indiemode-ba-card--before {
+  border: 1px solid rgba(255,255,255,0.1);
+  filter: grayscale(0.4) brightness(0.82);
+}
+.indiemode-ba-card--after {
+  border: 1px solid rgba(255,0,110,0.4);
+  box-shadow: 0 0 40px rgba(255,0,110,0.2), 0 0 80px rgba(255,0,110,0.08);
+}
+.indiemode-ba-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+.indiemode-ba-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.75rem;
+  border-radius: 4px;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.indiemode-ba-badge--before {
+  background: rgba(0,0,0,0.6);
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.indiemode-ba-badge--after {
+  background: rgba(255,0,110,0.9);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.indiemode-ba-caption {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  padding: 0.85rem 1rem;
+  margin: 0;
+}
+.indiemode-ba-card--before .indiemode-ba-caption {
+  color: rgba(255,255,255,0.38);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.02);
+}
+.indiemode-ba-card--after .indiemode-ba-caption {
+  color: rgba(255,255,255,0.75);
+  border-top: 1px solid rgba(255,0,110,0.25);
+  background: rgba(255,0,110,0.04);
+}
+.indiemode-ba-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 1.1rem;
+  flex-shrink: 0;
+}
+.indiemode-ba-arrow svg {
+  width: 30px;
+  height: 30px;
+  color: #FF006E;
+  filter: drop-shadow(0 0 8px rgba(255,0,110,0.65));
+  animation: indiearrow 1.8s ease-in-out infinite;
+}
+.indiemode-ba-arrow-label {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FF006E;
+  opacity: 0.65;
+  text-align: center;
+  line-height: 1.35;
+}
+@keyframes indiearrow {
+  0%, 100% { transform: translateX(0); opacity: 0.65; }
+  50% { transform: translateX(5px); opacity: 1; }
+}
+@media (max-width: 700px) {
+  .indiemode-ba-wrap { grid-template-columns: 1fr; }
+  .indiemode-ba-arrow { flex-direction: row; padding: 0.25rem 0; }
+  .indiemode-ba-arrow svg { width: 22px; height: 22px; transform: rotate(90deg); animation: indiearrow-v 1.8s ease-in-out infinite; }
+  @keyframes indiearrow-v {
+    0%, 100% { transform: rotate(90deg) translateX(0); opacity: 0.65; }
+    50% { transform: rotate(90deg) translateX(5px); opacity: 1; }
+  }
+}
+
 /* ===========================
    RECOMMENDATIONS SECTION — ALWAYS LEFT-ALIGNED
-   =========================== */
+   ===========================
 .recommendations .heading-mascot-row {
   justify-content: flex-start;
 }
@@ -6795,28 +6905,35 @@ h1, h2, h3, h4 { color: var(--color-text); }
         </div>
 
         <!-- Before / After screenshots -->
-        <div class="indiemode-ba-grid">
+        <div class="indiemode-ba-wrap">
 
-          <div class="indiemode-ba-card">
-            <div class="indiemode-ba-label indiemode-ba-label--before">Before</div>
+          <div class="indiemode-ba-card indiemode-ba-card--before">
+            <span class="indiemode-ba-badge indiemode-ba-badge--before">Before</span>
             <img
               src="assets/images/indiemode-before.jpg"
               alt="Indiemode original site — dated layout with cluttered header and flat product grid"
               loading="lazy"
               class="indiemode-ba-img"
             />
-            <p class="indiemode-ba-caption">The original site — functional but flat. A dated header, cluttered navigation, and no visual hierarchy to match the brand's ambition.</p>
+            <p class="indiemode-ba-caption">The original site. Functional, but flat — no visual identity to match the brand's ambition.</p>
           </div>
 
-          <div class="indiemode-ba-card">
-            <div class="indiemode-ba-label indiemode-ba-label--after">After</div>
+          <div class="indiemode-ba-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span class="indiemode-ba-arrow-label">Claude<br/>Sprint</span>
+          </div>
+
+          <div class="indiemode-ba-card indiemode-ba-card--after">
+            <span class="indiemode-ba-badge indiemode-ba-badge--after">After</span>
             <img
               src="assets/images/indiemode-after.jpg"
               alt="Indiemode redesigned site — dark editorial hero with bold type and neon accent colour"
               loading="lazy"
               class="indiemode-ba-img"
             />
-            <p class="indiemode-ba-caption">The redesign — editorial dark mode, bold serif type, and a neon accent palette that actually reflects independent SA fashion. Built with Claude in a two-day sprint.</p>
+            <p class="indiemode-ba-caption">Editorial dark mode, bold serif type, neon palette. Built with Claude — two-day sprint, zero compromise.</p>
           </div>
 
         </div>
