@@ -5048,55 +5048,9 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* ===========================
    THEME TOGGLE BUTTON (fixed, below music btn)
    =========================== */
-.theme-toggle {
-  position: fixed;
-  top: 212px;
-  right: 40px;
-  z-index: 90;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  background: rgba(4, 30, 42, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--color-accent);
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.theme-toggle:hover {
-  background: rgba(0, 245, 212, 0.18);
-  transform: scale(1.04);
-}
-
-.theme-toggle svg {
-  width: 18px;
-  height: 18px;
-  display: none;
-  pointer-events: none;
-}
-
 /* Dark mode: show moon (click → go light) */
-.theme-toggle .icon-moon { display: block; }
-.theme-toggle .icon-sun  { display: none;  }
-
 /* Light mode: show sun (click → go dark) */
-[data-theme="light"] .theme-toggle .icon-moon { display: none;  }
-[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
-
-[data-theme="light"] .theme-toggle {
-  background: rgba(234, 247, 254, 0.92);
-  color: #0b516f;
-}
-
-[data-theme="light"] .theme-toggle:hover {
-  background: rgba(0, 245, 212, 0.18);
-}
-
-/* ===========================
+[data-theme="light"] [data-theme="light"] [data-theme="light"] [data-theme="light"] /* ===========================
    SITE CONTROLS (mobile) — collapsible accordion for the fixed
    resume / music / theme / section-nav buttons
    =========================== */
@@ -5138,7 +5092,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   /* Collapsed by default — accordion slide-out targets */
   .resume-btn,
   .music-btn,
-  .theme-toggle,
   .section-nav {
     opacity: 0;
     transform: translateY(-12px) scale(0.95);
@@ -5149,13 +5102,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
   /* Stack below the Site Controls button */
   .resume-btn      { top: 156px; right: 40px; }
   .music-btn       { top: 212px; right: 40px; }
-  .theme-toggle    { top: 268px; right: 40px; }
   .section-nav     { top: 324px; right: 40px; }
   .section-nav-btn { width: 44px; height: 44px; }
 
   body.site-controls-open .resume-btn,
   body.site-controls-open .music-btn,
-  body.site-controls-open .theme-toggle,
   body.site-controls-open .section-nav {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -5165,7 +5116,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
   /* Stagger the reveal for an accordion cascade */
   body.site-controls-open .resume-btn    { transition-delay: 0.03s; }
   body.site-controls-open .music-btn     { transition-delay: 0.08s; }
-  body.site-controls-open .theme-toggle  { transition-delay: 0.13s; }
   body.site-controls-open .section-nav   { transition-delay: 0.18s; }
 }
 
@@ -6411,18 +6361,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -8488,42 +8426,11 @@ h1, h2, h3, h4 { color: var(--color-text); }
     <span class="music-label-play">Play Music</span>
     <span class="music-label-pause">Pause Music</span>
   </button>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
-    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-    </svg>
-  </button>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script>
-// ===========================
-// THEME TOGGLE
-// ===========================
-(function () {
-  const root   = document.documentElement;
-  const btn    = document.getElementById('themeToggle');
-  if (!btn) return;
-
-  function applyTheme(theme) {
-    if (theme === 'light') root.setAttribute('data-theme', 'light');
-    else root.removeAttribute('data-theme');
-    localStorage.setItem('jn-theme', theme);
-  }
-
-  btn.addEventListener('click', () => {
-    const isLight = root.getAttribute('data-theme') === 'light';
-    applyTheme(isLight ? 'dark' : 'light');
-  });
-})();
 
 // ===========================
 // PLYR VIDEO PLAYERS
