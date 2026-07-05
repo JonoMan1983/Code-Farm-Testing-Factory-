@@ -1926,17 +1926,13 @@ h1, h2, h3, h4 { color: var(--color-text); }
 /* UX|UI Design Showcase sub-section header */
 .ui-strip-header {
   margin-top: 96px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
-.ui-strip-header h3 {
-  margin: 8px 0 6px;
-  font-size: 1.2rem;
-}
-
-.ui-strip-header p {
-  font-size: 14px;
-  max-width: 600px;
+.ui-strip-mascot {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
 }
 
 /* Horizontal scroll strip for portfolio slides */
@@ -7503,9 +7499,14 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
       <!-- UI PORTFOLIO 2022 — Horizontal Scroll Strip -->
       <div class="ui-strip-header">
-        <span class="case-tag">UI Portfolio · 2022</span>
-        <h3><span class="title-pink">UX | UI</span> Design Showcase</h3>
-        <p>A selection of interface explorations and visual design work from across the iGaming portfolio, spanning lobby layouts, in-game HUDs, and promotional screens.</p>
+        <p class="section-label">UI Portfolio · 2022</p>
+        <div class="heading-mascot-row">
+          <div class="mascot-box">
+            <img class="decor-mascot ui-strip-mascot" src="assets/brand/icons/dino/dino06.svg" alt="" aria-hidden="true" loading="lazy" />
+          </div>
+          <h2><span class="title-pink">UX | UI</span><br />Design Showcase</h2>
+        </div>
+        <p class="section-dino-tagline">Interface explorations and visual design work from across the iGaming portfolio.</p>
       </div>
       <div class="ui-strip">
         <div class="ui-strip-item"><img src="https://res.cloudinary.com/dksariyyz/image/upload/q_auto,w_640/v1780042536/UI_Portfolio_2022-02_dh0wod.jpg" alt="UI Portfolio 2022 — slide 02" loading="lazy" /></div>
