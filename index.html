@@ -6794,22 +6794,31 @@ h1, h2, h3, h4 { color: var(--color-text); }
 
         </div>
 
-        <!-- Site screenshots stacked -->
-        <div style="display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2.5rem;">
-          <img
-            src="https://res.cloudinary.com/dksariyyz/image/upload/v1780033052/indiemode-desktop_yjwqch.jpg"
-            alt="Indiemode website desktop view"
-            loading="lazy"
-            onerror="this.src='https://placehold.co/1200x700/0F172A/FF006E?text=Indiemode+Desktop'"
-            style="width:100%; border-radius:12px; border:1px solid rgba(255,0,110,0.15); display:block;"
-          />
-          <img
-            src="https://res.cloudinary.com/dksariyyz/image/upload/v1780033052/indiemode-mobile_yjwqch.jpg"
-            alt="Indiemode website mobile view"
-            loading="lazy"
-            onerror="this.src='https://placehold.co/1200x700/0F172A/00F5D4?text=Indiemode+Mobile'"
-            style="width:100%; border-radius:12px; border:1px solid rgba(0,245,212,0.15); display:block;"
-          />
+        <!-- Before / After screenshots -->
+        <div class="indiemode-ba-grid">
+
+          <div class="indiemode-ba-card">
+            <div class="indiemode-ba-label indiemode-ba-label--before">Before</div>
+            <img
+              src="assets/images/indiemode-before.jpg"
+              alt="Indiemode original site — dated layout with cluttered header and flat product grid"
+              loading="lazy"
+              class="indiemode-ba-img"
+            />
+            <p class="indiemode-ba-caption">The original site — functional but flat. A dated header, cluttered navigation, and no visual hierarchy to match the brand's ambition.</p>
+          </div>
+
+          <div class="indiemode-ba-card">
+            <div class="indiemode-ba-label indiemode-ba-label--after">After</div>
+            <img
+              src="assets/images/indiemode-after.jpg"
+              alt="Indiemode redesigned site — dark editorial hero with bold type and neon accent colour"
+              loading="lazy"
+              class="indiemode-ba-img"
+            />
+            <p class="indiemode-ba-caption">The redesign — editorial dark mode, bold serif type, and a neon accent palette that actually reflects independent SA fashion. Built with Claude in a two-day sprint.</p>
+          </div>
+
         </div>
 
         <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
