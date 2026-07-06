@@ -7675,6 +7675,54 @@ h1, h2, h3, h4 { color: var(--color-text); }
     </div>
   </section>
 
+  <!-- BRAND GUIDES -->
+  <section id="brand-guides" class="section section-alt" style="scroll-margin-top:80px;">
+    <div class="container">
+      <p class="section-label">Corporate Identity</p>
+      <div class="heading-mascot-row">
+        <div class="mascot-box">
+          <img class="decor-mascot" src="assets/brand/icons/dino/dino06.svg" alt="" aria-hidden="true" loading="lazy" />
+        </div>
+        <h2><span class="title-pink">Brand</span><br />Guides</h2>
+      </div>
+      <p class="section-intro">Full corporate identity systems delivered for iGaming and sustainability brands — colour systems, typography, logo construction rules, and partner integration frameworks.</p>
+
+      <div class="legacy-tabs ci-tabs" role="tablist">
+        <button class="legacy-tab ci-tab active" role="tab" aria-selected="true"  data-ci="0">Wonderlabz CI</button>
+        <button class="legacy-tab ci-tab"        role="tab" aria-selected="false" data-ci="1">Recycling Lottery CI</button>
+      </div>
+
+      <div class="legacy-panels">
+        <div class="ci-panel book-panel active" id="ci-panel-0" role="tabpanel"
+             data-pdf="assets/docs/brand-guide-wonderlabz.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="ci-book-0"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+
+        <div class="ci-panel book-panel" id="ci-panel-1" role="tabpanel"
+             data-pdf="assets/docs/brand-guide-recycling-lottery.pdf">
+          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
+          <div class="book-stage">
+            <div class="stf-container" id="ci-book-1"></div>
+          </div>
+          <div class="book-controls">
+            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+            <span class="book-pagenum"></span>
+            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CASE STUDIES -->
   <section id="work" class="work section">
     <div class="container">
@@ -8027,54 +8075,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
           <div class="logo-item">
             <img src="https://cdn.simpleicons.org/notion/ffffff" alt="Notion" loading="lazy" />
             <span>Notion</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- BRAND GUIDES -->
-  <section id="brand-guides" class="section section-alt" style="scroll-margin-top:80px;">
-    <div class="container">
-      <p class="section-label">Corporate Identity</p>
-      <div class="heading-mascot-row">
-        <div class="mascot-box">
-          <img class="decor-mascot" src="https://res.cloudinary.com/dksariyyz/image/upload/v1781970327/UX_Designasauruses-03_slpxrh.svg" alt="" aria-hidden="true" loading="lazy" />
-        </div>
-        <h2><span class="title-pink">Brand</span><br />Guides</h2>
-      </div>
-      <p class="section-intro">Full corporate identity systems delivered for iGaming and sustainability brands — colour systems, typography, logo construction rules, and partner integration frameworks.</p>
-
-      <div class="legacy-tabs" role="tablist">
-        <button class="legacy-tab active" role="tab" aria-selected="true"  data-ci-book="0" aria-controls="ci-panel-0">Wonderlabz CI</button>
-        <button class="legacy-tab"        role="tab" aria-selected="false" data-ci-book="1" aria-controls="ci-panel-1">Recycling Lottery CI</button>
-      </div>
-
-      <div class="legacy-panels">
-        <div class="book-panel active" id="ci-panel-0" role="tabpanel"
-             data-pdf="assets/docs/brand-guide-wonderlabz.pdf">
-          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
-          <div class="book-stage">
-            <div class="stf-container" id="ci-book-0"></div>
-          </div>
-          <div class="book-controls">
-            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
-            <span class="book-pagenum"></span>
-            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
-          </div>
-        </div>
-
-        <div class="book-panel" id="ci-panel-1" role="tabpanel"
-             data-pdf="assets/docs/brand-guide-recycling-lottery.pdf">
-          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
-          <div class="book-stage">
-            <div class="stf-container" id="ci-book-1"></div>
-          </div>
-          <div class="book-controls">
-            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
-            <span class="book-pagenum"></span>
-            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
           </div>
         </div>
       </div>
@@ -9784,6 +9784,113 @@ window.addEventListener('scroll', () => {
   }
 })();
 
+/* ─── CI BRAND GUIDE FLIPBOOKS ──────────────────────────────── */
+(function () {
+  const ciTabs   = Array.from(document.querySelectorAll('.ci-tab'));
+  const ciPanels = Array.from(document.querySelectorAll('.ci-panel'));
+  if (!ciTabs.length) return;
+
+  const ciState = ciPanels.map(() => ({ loaded: false, pageFlip: null, totalPages: 0 }));
+
+  ciTabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      ciTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      ciPanels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      ciPanels[i].classList.add('active');
+      if (!ciState[i].loaded) ciLoadBook(i);
+    });
+  });
+
+  ciPanels.forEach((panel, i) => {
+    const prevBtn = panel.querySelector('.book-prev');
+    const nextBtn = panel.querySelector('.book-next');
+    const pageNum = panel.querySelector('.book-pagenum');
+    prevBtn.addEventListener('click', () => { if (ciState[i].pageFlip) ciState[i].pageFlip.flipPrev('bottom'); });
+    nextBtn.addEventListener('click', () => { if (ciState[i].pageFlip) ciState[i].pageFlip.flipNext('bottom'); });
+    ciState[i].prevBtn = prevBtn;
+    ciState[i].nextBtn = nextBtn;
+    ciState[i].pageNum = pageNum;
+  });
+
+  function ciUpdateControls(i) {
+    const state = ciState[i];
+    const pf = state.pageFlip;
+    if (!pf) return;
+    const cur = pf.getCurrentPageIndex();
+    const total = state.totalPages;
+    const spread = pf.getOrientation() === 'portrait' ? 1 : 2;
+    state.prevBtn.disabled = cur <= 0;
+    state.nextBtn.disabled = cur + spread >= total;
+    state.pageNum.textContent = `${cur + 1} / ${total}`;
+  }
+
+  function ciLoadBook(i) {
+    if (ciState[i].loaded) return;
+    ciState[i].loaded = true;
+    const panel     = ciPanels[i];
+    const loadingEl = panel.querySelector('.book-loading');
+    const container = panel.querySelector('.stf-container');
+    if (!window.pdfjsLib || !window.St) {
+      loadingEl.querySelector('span').textContent = 'Libraries not available.';
+      return;
+    }
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdfUrl = panel.dataset.pdf;
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+      const totalPages = pdf.numPages;
+      ciState[i].totalPages = totalPages;
+      return pdf.getPage(1).then(firstPage => {
+        const vp    = firstPage.getViewport({ scale: 1 });
+        const maxW  = Math.min(container.offsetWidth || window.innerWidth * 0.9, 960);
+        const isPort = window.innerWidth < 640;
+        const bookW = isPort ? Math.floor(maxW) : Math.floor(maxW / 2);
+        const scale = bookW / vp.width;
+        const pageW = Math.round(vp.width  * scale);
+        const pageH = Math.round(vp.height * scale);
+        const canvases = [];
+        for (let p = 0; p < totalPages; p++) {
+          const c = document.createElement('canvas');
+          c.width = pageW; c.height = pageH;
+          canvases.push(c);
+        }
+        const pf = new St.PageFlip(container, {
+          width: pageW, height: pageH, size: 'fixed',
+          minWidth: pageW, maxWidth: pageW, minHeight: pageH, maxHeight: pageH,
+          usePortrait: isPort, drawShadow: true, flippingTime: 700,
+          useMouseEvents: true, swipeDistance: 40, showCover: false, mobileScrollSupport: true, startPage: 0,
+        });
+        pf.loadFromHTML(canvases);
+        pf.on('flip', () => ciUpdateControls(i));
+        pf.on('changeState', () => ciUpdateControls(i));
+        ciState[i].pageFlip = pf;
+        loadingEl.classList.add('hidden');
+        ciUpdateControls(i);
+        async function renderPages() {
+          for (let p = 0; p < totalPages; p++) {
+            const page = await pdf.getPage(p + 1);
+            const vpS  = page.getViewport({ scale });
+            await page.render({ canvasContext: canvases[p].getContext('2d'), viewport: vpS }).promise;
+            pf.update();
+          }
+        }
+        renderPages();
+      });
+    }).catch(err => {
+      console.error('CI PDF load error:', err);
+      loadingEl.querySelector('span').textContent = 'Could not load PDF.';
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => ciLoadBook(0));
+  } else {
+    ciLoadBook(0);
+  }
+})();
+
 /* ─── MEDIA OPEN / DOWNLOAD ACTIONS ────────────────────────── */
 (function () {
   const ICON_OPEN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
@@ -10074,8 +10181,8 @@ window.addEventListener('scroll', () => {
   if (!upBtn || !downBtn) return;
 
   const sectionIds = [
-    'hero','about','workflow','recommendations','ux','igaming','casework',
-    'work','credential','skills','software','brand-guides','resume',
+    'hero','about','workflow','recommendations','ux','igaming','brand-guides','casework',
+    'work','credential','skills','software','resume',
     'showreel','videos','animations','artistic','legacy','contact'
   ];
 
