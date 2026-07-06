@@ -4648,6 +4648,36 @@ h1, h2, h3, h4 { color: var(--color-text); }
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
+/* ── CI Brand Guide side-by-side flipbooks ── */
+.ci-books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 40px;
+}
+.ci-book-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ci-book-label h3 {
+  font-size: 1.05rem;
+  margin: 6px 0 0;
+}
+.ci-flipbook {
+  background: var(--color-bg);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 24px 16px 20px;
+}
+@media (max-width: 860px) {
+  .ci-books-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+
 .book-controls {
   display: flex;
   align-items: center;
@@ -6396,7 +6426,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
         document.documentElement.setAttribute('data-theme', 'light');
     })();
   </script>
-<!-- build:3 -->
+<!-- build:1 -->
 </head>
 <body>
 
@@ -7687,37 +7717,40 @@ h1, h2, h3, h4 { color: var(--color-text); }
       </div>
       <p class="section-intro">Full corporate identity systems delivered for iGaming and sustainability brands — colour systems, typography, logo construction rules, and partner integration frameworks.</p>
 
-      <div class="legacy-tabs ci-tabs" role="tablist">
-        <button class="legacy-tab ci-tab active" role="tab" aria-selected="true"  data-ci="0">Wonderlabz CI</button>
-        <button class="legacy-tab ci-tab"        role="tab" aria-selected="false" data-ci="1">Recycling Lottery CI</button>
-      </div>
+      <div class="ci-books-grid">
 
-      <div class="legacy-panels">
-        <div class="ci-panel book-panel active" id="ci-panel-0" role="tabpanel"
-             data-pdf="assets/docs/brand-guide-wonderlabz.pdf">
-          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
-          <div class="book-stage">
-            <div class="stf-container" id="ci-book-0"></div>
+        <div class="ci-book-wrap">
+          <div class="ci-book-label">
+            <span class="case-tag">iGaming · Corporate Identity · 2020</span>
+            <h3>Wonderlabz Brand Guide</h3>
           </div>
-          <div class="book-controls">
-            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
-            <span class="book-pagenum"></span>
-            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          <div class="ci-flipbook" id="ci-flip-0" data-pdf="assets/docs/brand-guide-wonderlabz.pdf">
+            <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading…</span></div>
+            <div class="book-stage"><div class="stf-container" id="ci-stf-0"></div></div>
+            <div class="book-controls">
+              <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+              <span class="book-pagenum"></span>
+              <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+            </div>
           </div>
         </div>
 
-        <div class="ci-panel book-panel" id="ci-panel-1" role="tabpanel"
-             data-pdf="assets/docs/brand-guide-recycling-lottery.pdf">
-          <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading book…</span></div>
-          <div class="book-stage">
-            <div class="stf-container" id="ci-book-1"></div>
+        <div class="ci-book-wrap">
+          <div class="ci-book-label">
+            <span class="case-tag">Sustainability · Corporate Identity · Brand Manual</span>
+            <h3>The Recycling Lottery Brand Guide</h3>
           </div>
-          <div class="book-controls">
-            <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
-            <span class="book-pagenum"></span>
-            <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+          <div class="ci-flipbook" id="ci-flip-1" data-pdf="assets/docs/brand-guide-recycling-lottery.pdf">
+            <div class="book-loading" aria-live="polite"><div class="book-spinner"></div><span>Loading…</span></div>
+            <div class="book-stage"><div class="stf-container" id="ci-stf-1"></div></div>
+            <div class="book-controls">
+              <button class="book-btn book-prev" aria-label="Previous page">&#x2039;</button>
+              <span class="book-pagenum"></span>
+              <button class="book-btn book-next" aria-label="Next page">&#x203A;</button>
+            </div>
           </div>
         </div>
+
       </div>
 
     </div>
@@ -9786,27 +9819,15 @@ window.addEventListener('scroll', () => {
 
 /* ─── CI BRAND GUIDE FLIPBOOKS ──────────────────────────────── */
 (function () {
-  const ciTabs   = Array.from(document.querySelectorAll('.ci-tab'));
-  const ciPanels = Array.from(document.querySelectorAll('.ci-panel'));
-  if (!ciTabs.length) return;
+  const flips = Array.from(document.querySelectorAll('.ci-flipbook'));
+  if (!flips.length) return;
 
-  const ciState = ciPanels.map(() => ({ loaded: false, pageFlip: null, totalPages: 0 }));
+  const ciState = flips.map(() => ({ loaded: false, pageFlip: null, totalPages: 0 }));
 
-  ciTabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => {
-      ciTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-      ciPanels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      ciPanels[i].classList.add('active');
-      if (!ciState[i].loaded) ciLoadBook(i);
-    });
-  });
-
-  ciPanels.forEach((panel, i) => {
-    const prevBtn = panel.querySelector('.book-prev');
-    const nextBtn = panel.querySelector('.book-next');
-    const pageNum = panel.querySelector('.book-pagenum');
+  flips.forEach((flip, i) => {
+    const prevBtn = flip.querySelector('.book-prev');
+    const nextBtn = flip.querySelector('.book-next');
+    const pageNum = flip.querySelector('.book-pagenum');
     prevBtn.addEventListener('click', () => { if (ciState[i].pageFlip) ciState[i].pageFlip.flipPrev('bottom'); });
     nextBtn.addEventListener('click', () => { if (ciState[i].pageFlip) ciState[i].pageFlip.flipNext('bottom'); });
     ciState[i].prevBtn = prevBtn;
@@ -9814,80 +9835,89 @@ window.addEventListener('scroll', () => {
     ciState[i].pageNum = pageNum;
   });
 
-  function ciUpdateControls(i) {
-    const state = ciState[i];
-    const pf = state.pageFlip;
+  function ciUpdate(i) {
+    const s = ciState[i], pf = s.pageFlip;
     if (!pf) return;
-    const cur = pf.getCurrentPageIndex();
-    const total = state.totalPages;
+    const cur = pf.getCurrentPageIndex(), total = s.totalPages;
     const spread = pf.getOrientation() === 'portrait' ? 1 : 2;
-    state.prevBtn.disabled = cur <= 0;
-    state.nextBtn.disabled = cur + spread >= total;
-    state.pageNum.textContent = `${cur + 1} / ${total}`;
+    s.prevBtn.disabled = cur <= 0;
+    s.nextBtn.disabled = cur + spread >= total;
+    s.pageNum.textContent = (cur + 1) + ' / ' + total;
   }
 
-  function ciLoadBook(i) {
+  function ciLoad(i) {
     if (ciState[i].loaded) return;
     ciState[i].loaded = true;
-    const panel     = ciPanels[i];
-    const loadingEl = panel.querySelector('.book-loading');
-    const container = panel.querySelector('.stf-container');
+    const flip      = flips[i];
+    const loadingEl = flip.querySelector('.book-loading');
+    const container = flip.querySelector('.stf-container');
     if (!window.pdfjsLib || !window.St) {
       loadingEl.querySelector('span').textContent = 'Libraries not available.';
       return;
     }
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    const pdfUrl = panel.dataset.pdf;
-    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-      const totalPages = pdf.numPages;
+
+    pdfjsLib.getDocument(flip.dataset.pdf).promise.then(function(pdf) {
+      var totalPages = pdf.numPages;
       ciState[i].totalPages = totalPages;
-      return pdf.getPage(1).then(firstPage => {
-        const vp    = firstPage.getViewport({ scale: 1 });
-        const maxW  = Math.min(container.offsetWidth || window.innerWidth * 0.9, 960);
-        const isPort = window.innerWidth < 640;
-        const bookW = isPort ? Math.floor(maxW) : Math.floor(maxW / 2);
-        const scale = bookW / vp.width;
-        const pageW = Math.round(vp.width  * scale);
-        const pageH = Math.round(vp.height * scale);
-        const canvases = [];
-        for (let p = 0; p < totalPages; p++) {
-          const c = document.createElement('canvas');
+      return pdf.getPage(1).then(function(firstPage) {
+        var vp = firstPage.getViewport({ scale: 1 });
+        /* Use the flipbook container's actual rendered width */
+        var containerW = flip.offsetWidth - 32;
+        var isMobile   = window.innerWidth < 640;
+        /* Each page = half the container in spread mode */
+        var pageW = isMobile ? containerW : Math.floor(containerW / 2);
+        var scale = pageW / vp.width;
+        var pageH = Math.round(vp.height * scale);
+
+        var canvases = [];
+        for (var p = 0; p < totalPages; p++) {
+          var c = document.createElement('canvas');
           c.width = pageW; c.height = pageH;
           canvases.push(c);
         }
-        const pf = new St.PageFlip(container, {
+
+        var pf = new St.PageFlip(container, {
           width: pageW, height: pageH, size: 'fixed',
           minWidth: pageW, maxWidth: pageW, minHeight: pageH, maxHeight: pageH,
-          usePortrait: isPort, drawShadow: true, flippingTime: 700,
-          useMouseEvents: true, swipeDistance: 40, showCover: false, mobileScrollSupport: true, startPage: 0,
+          usePortrait: isMobile, drawShadow: true, flippingTime: 700,
+          useMouseEvents: true, swipeDistance: 40, showCover: false,
+          mobileScrollSupport: true, startPage: 0,
         });
+
         pf.loadFromHTML(canvases);
-        pf.on('flip', () => ciUpdateControls(i));
-        pf.on('changeState', () => ciUpdateControls(i));
+        pf.on('flip',        function() { ciUpdate(i); });
+        pf.on('changeState', function() { ciUpdate(i); });
         ciState[i].pageFlip = pf;
         loadingEl.classList.add('hidden');
-        ciUpdateControls(i);
-        async function renderPages() {
-          for (let p = 0; p < totalPages; p++) {
-            const page = await pdf.getPage(p + 1);
-            const vpS  = page.getViewport({ scale });
-            await page.render({ canvasContext: canvases[p].getContext('2d'), viewport: vpS }).promise;
-            pf.update();
-          }
+        ciUpdate(i);
+
+        var pageIdx = 0;
+        function renderNext() {
+          if (pageIdx >= totalPages) return;
+          var idx = pageIdx++;
+          pdf.getPage(idx + 1).then(function(page) {
+            var vpS = page.getViewport({ scale: scale });
+            page.render({ canvasContext: canvases[idx].getContext('2d'), viewport: vpS }).promise.then(function() {
+              pf.update();
+              renderNext();
+            });
+          });
         }
-        renderPages();
+        renderNext();
       });
-    }).catch(err => {
+    }).catch(function(err) {
       console.error('CI PDF load error:', err);
       loadingEl.querySelector('span').textContent = 'Could not load PDF.';
     });
   }
 
+  function loadAll() { flips.forEach(function(_, i) { ciLoad(i); }); }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => ciLoadBook(0));
+    document.addEventListener('DOMContentLoaded', loadAll);
   } else {
-    ciLoadBook(0);
+    loadAll();
   }
 })();
 
