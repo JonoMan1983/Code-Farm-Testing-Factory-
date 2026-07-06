@@ -6426,7 +6426,7 @@ h1, h2, h3, h4 { color: var(--color-text); }
         document.documentElement.setAttribute('data-theme', 'light');
     })();
   </script>
-<!-- build:4 -->
+<!-- build:1 -->
 </head>
 <body>
 
@@ -10004,6 +10004,22 @@ window.addEventListener('scroll', () => {
     if (!pdfUrl) return;
     const filename = pdfUrl.split('/').pop();
     const controls = panel.querySelector('.book-controls');
+    if (!controls) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'inline-actions';
+    wrap.style.justifyContent = 'center';
+    wrap.innerHTML = `
+      <a class="inline-action-btn" href="${pdfUrl}" target="_blank" rel="noopener">${ICON_OPEN}&nbsp;Open PDF</a>
+      <a class="inline-action-btn" href="${pdfUrl}" download="${filename}">${ICON_DL}&nbsp;Download PDF</a>`;
+    controls.insertAdjacentElement('afterend', wrap);
+  });
+
+  /* ── CI Brand Guide flipbooks ── */
+  document.querySelectorAll('.ci-flipbook').forEach(flip => {
+    const pdfUrl = flip.dataset.pdf;
+    if (!pdfUrl) return;
+    const filename = pdfUrl.split('/').pop();
+    const controls = flip.querySelector('.book-controls');
     if (!controls) return;
     const wrap = document.createElement('div');
     wrap.className = 'inline-actions';
