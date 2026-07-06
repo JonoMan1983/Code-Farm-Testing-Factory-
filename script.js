@@ -136,6 +136,10 @@ function closeNav() {
   spans[0].style.transform = '';
   spans[1].style.opacity = '';
   spans[2].style.transform = '';
+  document.querySelectorAll('.has-sub.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  });
 }
 
 navToggle.addEventListener('click', () => {
@@ -152,9 +156,10 @@ navToggle.addEventListener('click', () => {
   }
 });
 
-// Close nav on link click or outside tap
+// Close nav on link click — but NOT for has-sub parent labels (accordion handles those)
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', closeNav);
+  const isParentLabel = link.parentElement.classList.contains('has-sub') && !link.closest('.nav-sub-links');
+  if (!isParentLabel) link.addEventListener('click', closeNav);
 });
 
 // Close nav on tap outside overlay
@@ -162,6 +167,43 @@ document.addEventListener('click', e => {
   if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
     closeNav();
   }
+});
+
+// Accordion helpers
+function openAccordion(li) {
+  document.querySelectorAll('.has-sub.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  });
+  li.classList.add('open');
+  li.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'true');
+}
+
+function toggleAccordion(li) {
+  if (li.classList.contains('open')) {
+    li.classList.remove('open');
+    li.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+  } else {
+    openAccordion(li);
+  }
+}
+
+// Tapping the parent label toggles the accordion on mobile (desktop uses hover)
+document.querySelectorAll('.has-sub > a').forEach(link => {
+  link.addEventListener('click', e => {
+    if (window.innerWidth > 1024) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleAccordion(link.closest('.has-sub'));
+  });
+});
+
+// Chevron button also toggles (extra click area)
+document.querySelectorAll('.sub-toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleAccordion(btn.closest('.has-sub'));
+  });
 });
 
 // Scroll reveal

@@ -1,1 +1,2 @@
-# Code-Farm-Portfolio-2026
+# Jonathan Edward Nestler — Portfolio
+CORE Project · portfolio-build branch · PAT verified ✓

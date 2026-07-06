@@ -5,12 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jonathan Nestler — Cover Letter · Brandtech+</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-condensed: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+      --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* Pharma Serif type system */
+    h1, h2, h3, h4, h5, h6,
+    .hero-name, .sig-name, .salutation {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: normal;
+    }
+    .logo-type, .contact-link, .role-label, .date-label,
+    .ai-cell-tool, .value-tag, .sig-url, .footer-text, .footer-accent {
+      font-family: var(--font-condensed);
+      font-weight: 900;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
+      font-weight: 300;
       background: #e0e0e0;
       display: flex;
       justify-content: center;
@@ -37,8 +58,9 @@
       flex-shrink: 0;
     }
     .logo-type {
+      font-family: var(--font-condensed);
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 900;
       color: #000000;
       letter-spacing: -0.03em;
       line-height: 1;
@@ -51,14 +73,16 @@
     }
     .header-right { text-align: right; }
     .contact-line {
+      font-family: var(--font-body);
       font-size: 9.5px;
-      font-weight: 400;
+      font-weight: 300;
       color: #888888;
       line-height: 1.85;
     }
     .contact-link {
+      font-family: var(--font-condensed);
       font-size: 9.5px;
-      font-weight: 700;
+      font-weight: 900;
       color: #000000;
       text-decoration: none;
     }
@@ -69,12 +93,13 @@
       flex-shrink: 0;
     }
     .hero-name {
+      font-family: var(--font-display);
       font-size: 42px;
-      font-weight: 900;
+      font-weight: 400;
+      font-style: italic;
       color: #000000;
-      letter-spacing: -0.04em;
+      letter-spacing: normal;
       line-height: 0.92;
-      text-transform: uppercase;
     }
     .hero-name-highlight {
       display: inline-block;
@@ -98,17 +123,20 @@
       flex-shrink: 0;
     }
     .role-label {
+      font-family: var(--font-condensed);
       font-size: 9px;
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #000000;
     }
     .date-label {
+      font-family: var(--font-condensed);
       font-size: 9px;
-      font-weight: 400;
+      font-weight: 900;
       color: #aaaaaa;
       letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     /* ── Body ── */
@@ -119,24 +147,27 @@
       flex-direction: column;
     }
     .salutation {
-      font-size: 12.5px;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 400;
+      font-style: italic;
       color: #000000;
       margin-bottom: 14px;
-      letter-spacing: -0.01em;
+      letter-spacing: normal;
     }
     p {
+      font-family: var(--font-body);
       font-size: 10.5px;
       line-height: 1.78;
       color: #333333;
       margin-bottom: 11px;
-      font-weight: 400;
+      font-weight: 300;
     }
-    p strong { color: #000000; font-weight: 700; }
+    p strong { color: #000000; font-weight: 600; }
     .hl {
       background: #F5C300;
       padding: 1px 3px;
-      font-weight: 700;
+      font-weight: 600;
       color: #000000;
     }
 
@@ -147,8 +178,9 @@
       border: 2px solid #000000;
     }
     .statement p {
+      font-family: var(--font-body);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 600;
       color: #000000;
       line-height: 1.58;
       margin-bottom: 0;
@@ -168,16 +200,18 @@
       padding: 7px 10px;
     }
     .ai-cell-tool {
+      font-family: var(--font-condensed);
       font-size: 9px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #000000;
       margin-bottom: 2px;
     }
     .ai-cell-desc {
+      font-family: var(--font-body);
       font-size: 9px;
-      font-weight: 400;
+      font-weight: 300;
       color: #555555;
       line-height: 1.5;
     }
@@ -190,8 +224,9 @@
       margin: 10px 0;
     }
     .value-tag {
+      font-family: var(--font-condensed);
       font-size: 8px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 4px 10px;
@@ -207,17 +242,19 @@
     .closing { margin-top: 14px; }
     .closing p { margin-bottom: 3px; color: #555555; }
     .sig-name {
-      font-size: 16px;
-      font-weight: 900;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
       color: #000000;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
+      letter-spacing: normal;
       margin-top: 10px;
       line-height: 1;
     }
     .sig-url {
+      font-family: var(--font-condensed);
       font-size: 9.5px;
-      font-weight: 700;
+      font-weight: 900;
       color: #000000;
       margin-top: 4px;
       text-decoration: underline;
@@ -234,15 +271,17 @@
       flex-shrink: 0;
     }
     .footer-text {
+      font-family: var(--font-condensed);
       font-size: 8.5px;
-      font-weight: 600;
+      font-weight: 900;
       color: #ffffff;
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
     .footer-accent {
+      font-family: var(--font-condensed);
       font-size: 8.5px;
-      font-weight: 800;
+      font-weight: 900;
       color: #F5C300;
       letter-spacing: 0.1em;
       text-transform: uppercase;
