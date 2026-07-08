@@ -3,1046 +3,755 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORE — The Hunter</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>CORE · Hunter Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --teal: #2d8a7a;
-    --orange: #e8a030;
-    --purple: #7c6fd4;
-    --red: #c2462e;
-    --blue: #4a90e2;
-    --green: #3aaa6e;
-    --bg: #0c0c10;
-    --card: rgba(255,255,255,0.03);
-    --border: rgba(255,255,255,0.07);
-    --text: #e8e8ef;
-    --muted: rgba(255,255,255,0.4);
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#0c0c10;
+    font-family:'DM Sans',sans-serif;
+    color:rgba(255,255,255,0.85);
+    min-height:100vh;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 0% 0%, rgba(45,138,122,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(124,111,212,0.08) 0%, transparent 60%);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    background-image: radial-gradient(ellipse at 10% 5%, rgba(45,138,122,0.12) 0%, transparent 55%),
-                      radial-gradient(ellipse at 90% 90%, rgba(124,111,212,0.1) 0%, transparent 55%);
-    min-height: 100vh;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text);
-    font-size: 14px;
-  }
-  .container { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
 
   /* HEADER */
-  .header {
-    background: rgba(12,12,16,0.95);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
+  .header{
+    padding:28px 0 20px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    margin-bottom:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
   }
-  .header-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .wordmark{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;color:#fff}
+  .wordmark span{color:#e8a030}
+  .badge{
+    font-family:'DM Mono',monospace;
+    font-size:10px;color:rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:4px;padding:3px 10px;letter-spacing:2px;
+    margin-left:10px;vertical-align:middle;
   }
-  .wordmark {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #fff;
-  }
-  .wordmark span { color: var(--orange); }
-  .live-clock {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    text-align: right;
-  }
-  .live-clock .date-line { color: var(--text); font-size: 11px; margin-bottom: 2px; }
+  .header-right{text-align:right}
+  .clock-label{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-bottom:3px}
+  #clock{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#2d8a7a;letter-spacing:-0.3px}
+  .scan-time{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);margin-top:4px}
 
-  /* ALERT BAR */
-  .alert-bar {
-    margin: 20px 0;
-    background: rgba(12,12,16,0.8);
-    border-left: 3px solid var(--orange);
-    border-radius: 0 10px 10px 0;
-    padding: 14px 18px;
+  /* CALL ACTIONS BAR */
+  .call-actions{
+    background:rgba(232,160,48,0.05);
+    border-left:3px solid #e8a030;
+    border-bottom:1px solid rgba(232,160,48,0.12);
+    padding:12px 20px;
+    margin-bottom:20px;
   }
-  .alert-bar-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--orange);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .alert-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 6px;
-    font-size: 13px;
-  }
-  .alert-item:last-child { margin-bottom: 0; }
-  .alert-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-  .dot-red { background: var(--red); }
-  .dot-orange { background: var(--orange); }
-  .dot-teal { background: var(--teal); }
-  .dot-blue { background: var(--blue); }
-
-  /* HUNTING CLOCK */
-  .hunting-clock {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-top: 2px solid var(--teal);
-    border-radius: 16px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .clock-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--teal);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .clock-value {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: #fff;
-  }
-  .clock-subtext {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-  .clock-units {
-    display: flex;
-    gap: 16px;
-  }
-  .clock-unit {
-    text-align: center;
-  }
-  .clock-unit-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--teal);
-  }
-  .clock-unit-label {
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  /* SECTION TITLE */
-  .section-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 24px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
-  }
+  .ca-label{font-family:'DM Mono',monospace;font-size:10px;color:#e8a030;letter-spacing:1.5px;margin-bottom:8px}
+  .ca-items{display:flex;flex-direction:column;gap:5px}
+  .ca-item{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.7);display:flex;align-items:flex-start;gap:8px}
+  .ca-arrow{color:#e8a030;font-size:11px;margin-top:1px;flex-shrink:0}
 
   /* KPI GRID */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 10px;
+  .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
+  .kpi-card{
+    background:rgba(255,255,255,0.025);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;
+    padding:16px;
+    position:relative;
+    overflow:hidden;
   }
-  .kpi-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-  .kpi-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    border-radius: 16px 16px 0 0;
-  }
-  .kpi-card.c-teal::before { background: var(--teal); }
-  .kpi-card.c-orange::before { background: var(--orange); }
-  .kpi-card.c-purple::before { background: var(--purple); }
-  .kpi-card.c-red::before { background: var(--red); }
-  .kpi-card.c-blue::before { background: var(--blue); }
-  .kpi-card.c-green::before { background: var(--green); }
-  .kpi-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .kpi-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .kpi-sub {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-  }
-  .c-teal .kpi-val { color: var(--teal); }
-  .c-orange .kpi-val { color: var(--orange); }
-  .c-purple .kpi-val { color: var(--purple); }
-  .c-red .kpi-val { color: var(--red); }
-  .c-blue .kpi-val { color: var(--blue); }
-  .c-green .kpi-val { color: var(--green); }
+  .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .kpi-card.teal::before{background:#2d8a7a}
+  .kpi-card.orange::before{background:#e8a030}
+  .kpi-card.purple::before{background:#7c6fd4}
+  .kpi-card.red::before{background:#c2462e}
+  .kpi-card.blue::before{background:#4a90e2}
+  .kpi-label{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+  .kpi-val{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .kpi-card.teal .kpi-val{color:#2d8a7a}
+  .kpi-card.orange .kpi-val{color:#e8a030}
+  .kpi-card.purple .kpi-val{color:#7c6fd4}
+  .kpi-card.red .kpi-val{color:#c2462e}
+  .kpi-card.blue .kpi-val{color:#4a90e2}
+  .kpi-sub{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25);margin-top:6px}
 
   /* DERIVED STRIP */
-  .derived-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+  .derived-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;
   }
-  .derived-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
-    text-align: center;
+  .derived{
+    background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+    border-radius:8px;padding:10px 12px;text-align:center;
   }
-  .derived-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 2px;
-  }
-  .derived-label {
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  .derived-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:rgba(255,255,255,0.7)}
+  .derived-lbl{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1px;margin-top:3px}
+
+  /* SECTION HEADER */
+  .sec-head{
+    font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);
+    letter-spacing:2px;text-transform:uppercase;
+    margin:20px 0 10px;
+    padding-bottom:6px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
   }
 
-  /* RATE RINGS */
-  .rings-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+  /* RINGS */
+  .rings-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .ring-card{
+    background:rgba(255,255,255,0.025);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;
+    padding:16px 20px;
+    display:flex;align-items:center;gap:16px;
+    flex:1;min-width:180px;
   }
-  .ring-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .ring-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .ring-svg { margin-bottom: 6px; }
-  .ring-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    text-align: center;
-  }
-  .ring-sub {
-    font-size: 10px;
-    color: var(--muted);
-    text-align: center;
-    font-family: 'DM Mono', monospace;
-    margin-top: 2px;
-  }
+  .ring-label{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-bottom:4px}
+  .ring-pct{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
 
-  /* CHARTS ROW */
-  .charts-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 10px;
+  /* PIPELINE DONUT + FUNNEL */
+  .pipeline-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .chart-card{
+    background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;padding:16px;
   }
-  .chart-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-  }
-  .chart-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
+  .chart-title{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1.5px;margin-bottom:12px}
+  .donut-wrap{display:flex;align-items:center;gap:16px}
+  .legend-item{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+  .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .legend-text{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.55)}
+  .legend-val{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);margin-left:auto}
+  .funnel-bar-wrap{margin-bottom:8px}
+  .funnel-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+  .funnel-label{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.55)}
+  .funnel-val{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)}
+  .funnel-track{background:rgba(255,255,255,0.05);border-radius:2px;height:4px}
+  .funnel-fill{height:100%;border-radius:2px;transition:width 0.8s ease}
 
-  /* BAR CHART */
-  .bar-chart { display: flex; flex-direction: column; gap: 6px; }
-  .bar-row { display: flex; align-items: center; gap: 8px; }
-  .bar-name {
-    font-size: 10px;
-    color: var(--muted);
-    width: 65px;
-    flex-shrink: 0;
-    font-family: 'DM Mono', monospace;
-    text-align: right;
+  /* ACTIVE LEADS */
+  .lead-item{
+    background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+    border-left:3px solid;border-radius:8px;
+    padding:10px 14px;margin-bottom:6px;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
   }
-  .bar-track {
-    flex: 1;
-    height: 8px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 4px;
-    overflow: hidden;
+  .lead-company{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.85)}
+  .lead-role{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+  .lead-date{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25);white-space:nowrap}
+  .status-pill{
+    font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;
+    border-radius:3px;padding:2px 7px;white-space:nowrap;
   }
-  .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
-  .bar-count {
-    font-size: 10px;
-    color: var(--text);
-    width: 20px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* DONUT */
-  .donut-wrap { display: flex; align-items: center; gap: 16px; }
-  .donut-legend { flex: 1; }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-    font-size: 11px;
-  }
-  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .legend-label { color: var(--muted); }
-  .legend-val { margin-left: auto; font-family: 'DM Mono', monospace; color: var(--text); }
-
-  /* PIPELINE TABLE */
-  .pipeline-table { width: 100%; border-collapse: collapse; }
-  .pipeline-table th {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-align: left;
-    padding: 4px 8px 8px;
-    border-bottom: 1px solid var(--border);
-  }
-  .pipeline-table td {
-    padding: 8px 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    vertical-align: middle;
-  }
-  .pipeline-table tr:last-child td { border-bottom: none; }
-  .company-name {
-    font-weight: 500;
-    font-size: 13px;
-  }
-  .role-name {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    margin-top: 2px;
-  }
-  .stage-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .stage-screening { background: rgba(232,160,48,0.15); color: var(--orange); }
-  .stage-interview { background: rgba(45,138,122,0.15); color: var(--teal); }
-  .stage-applied { background: rgba(74,144,226,0.15); color: var(--blue); }
-  .stage-awaiting { background: rgba(124,111,212,0.15); color: var(--purple); }
-  .stage-panel { background: rgba(58,170,110,0.15); color: var(--green); }
-  .status-dot {
-    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
-    box-shadow: 0 0 6px currentColor;
-  }
-  .status-hot { color: var(--orange); background: var(--orange); }
-  .status-active { color: var(--teal); background: var(--teal); }
-  .status-cool { color: var(--blue); background: var(--blue); }
+  .pill-interview{background:rgba(45,138,122,0.15);color:#2d8a7a;border:1px solid rgba(45,138,122,0.3)}
+  .pill-active{background:rgba(74,144,226,0.12);color:#4a90e2;border:1px solid rgba(74,144,226,0.25)}
+  .pill-progressed{background:rgba(232,160,48,0.12);color:#e8a030;border:1px solid rgba(232,160,48,0.25)}
+  .pill-awaiting{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1)}
 
   /* REJECTIONS */
-  .rejection-list { display: flex; flex-direction: column; gap: 6px; }
-  .rejection-item {
-    background: rgba(194,70,46,0.05);
-    border: 1px solid rgba(194,70,46,0.12);
-    border-radius: 10px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .rej-item{
+    background:rgba(194,70,46,0.04);border:1px solid rgba(194,70,46,0.12);
+    border-radius:8px;padding:8px 12px;margin-bottom:5px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    opacity:0.75;
   }
-  .rejection-company { font-size: 13px; font-weight: 500; }
-  .rejection-reason { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .rejection-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--red);
-    white-space: nowrap;
-  }
+  .rej-company{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.6)}
+  .rej-date{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25)}
+  .rej-label{font-family:'DM Mono',monospace;font-size:9px;color:#c2462e}
 
-  /* GA4 */
-  .ga4-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .ga4-tile {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 10px;
-    text-align: center;
-  }
-  .ga4-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 3px;
-  }
-  .ga4-label {
-    font-size: 9px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    line-height: 1.3;
-  }
+  /* SOURCE / DAILY BARS */
+  .bar-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .bar-item{margin-bottom:8px}
+  .bar-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+  .bar-lbl{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.5)}
+  .bar-num{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)}
+  .bar-track{background:rgba(255,255,255,0.05);border-radius:2px;height:4px}
+  .bar-fill{height:100%;border-radius:2px}
 
-  /* INTEL / INSIGHTS */
-  .insight-panel {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 10px;
+  /* GA4 BLOCK */
+  .ga4-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px}
+  .ga4-tile{
+    background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);
+    border-radius:10px;padding:12px;text-align:center;
   }
-  .insight-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 8px;
-    align-items: flex-start;
+  .ga4-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:rgba(255,255,255,0.8)}
+  .ga4-lbl{font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:0.8px;margin-top:4px;line-height:1.3}
+
+  .ga4-chart-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:16px}
+
+  /* DAILY SVG CHART */
+  .daily-chart{padding:14px}
+  .chart-svg-wrap{width:100%;overflow:hidden}
+
+  /* GEO TABLE */
+  .geo-table{width:100%;border-collapse:collapse}
+  .geo-table th{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:1px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);text-align:left}
+  .geo-table td{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.5);padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .geo-table td:last-child{text-align:right;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)}
+
+  /* INTELLIGENCE */
+  .intel-card{
+    background:rgba(45,138,122,0.05);border:1px solid rgba(45,138,122,0.15);
+    border-radius:12px;padding:16px;margin-bottom:16px;
   }
-  .insight-row:last-child { margin-bottom: 0; }
-  .insight-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .insight-text { font-size: 12px; color: var(--text); line-height: 1.5; }
-  .insight-text strong { color: #fff; }
+  .intel-item{
+    font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.6);
+    display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;
+    line-height:1.5;
+  }
+  .intel-dot{color:#2d8a7a;font-size:14px;margin-top:-1px;flex-shrink:0}
 
   /* FOOTER */
-  .footer {
-    margin-top: 30px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-left {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-  }
-  .footer-right {
-    font-size: 10px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* FULL-WIDTH CARD */
-  .full-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 10px;
-  }
-
-  /* TIMELINE BAR CHART */
-  .timeline-bars { display: flex; align-items: flex-end; gap: 4px; height: 70px; }
-  .t-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-  .t-bar { width: 100%; border-radius: 3px 3px 0 0; background: var(--teal); opacity: 0.7; transition: height 1s ease; min-height: 3px; }
-  .t-bar-label { font-size: 8px; color: var(--muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
-  .t-bar-val { font-size: 9px; color: var(--text); font-family: 'DM Mono', monospace; }
-
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .pulse { animation: pulse 2s infinite; }
+  .footer{text-align:center;padding:20px 0;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:1px}
 </style>
 </head>
 <body>
 
+<div class="wrap">
+
 <!-- HEADER -->
 <div class="header">
-  <div class="header-inner">
-    <div class="wordmark">CO<span>RE</span></div>
-    <div class="live-clock">
-      <div class="date-line" id="date-display">Thu 02 Jul 2026</div>
-      <div id="clock-display">Loading...</div>
+  <div>
+    <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
+      <span class="wordmark">C<span>O</span><span>RE</span></span>
+      <span class="badge">HUNTER · v2</span>
+    </div>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)">Jonathan Edward Nestler · Active Hunt · Wed 08 July 2026 · 13:47 SAST</div>
+  </div>
+  <div class="header-right">
+    <div class="clock-label">DAYS HUNTING</div>
+    <div id="clock">37d 13h 47m 11s</div>
+    <div class="scan-time">Scan: 08 Jul 2026 · 13:47 SAST</div>
+  </div>
+</div>
+
+</div><!-- /wrap top -->
+
+<!-- CALL ACTIONS BAR — full width -->
+<div class="call-actions">
+  <div class="wrap">
+    <div class="ca-label">⚡ CALL ACTIONS — DO THESE NEXT</div>
+    <div class="ca-items">
+      <div class="ca-item"><span class="ca-arrow">→</span> <strong style="color:#e8a030">Rank Interactive</strong> — Interview with Chris Parmenter (Head of CX Design) held 07 Jul · Email Mashudu Nethavhani for outcome update now</div>
+      <div class="ca-item"><span class="ca-arrow">→</span> <strong style="color:#e8a030">The Flex / Base360.ai</strong> — Progressed to next stage (top 10% of applicants, 05 Jul) · Respond or prepare next step immediately</div>
+      <div class="ca-item"><span class="ca-arrow">→</span> <strong style="color:#e8a030">Scale Army Careers</strong> — Application under review + video submitted · Confirm video received &amp; full application submitted on job board</div>
+      <div class="ca-item"><span class="ca-arrow">→</span> Next cover letters queued: <strong style="color:rgba(255,255,255,0.7)">Remote.com · Chess.com · Foundever · Xplor</strong> (Xplor JD has Easter egg — reference it in hiring manager message)</div>
     </div>
   </div>
 </div>
 
-<div class="container">
+<div class="wrap">
 
-  <!-- ALERT BAR -->
-  <div class="alert-bar">
-    <div class="alert-bar-title">⚡ Call Actions — Priority Queue</div>
-    <div class="alert-item">
-      <div class="alert-dot dot-red pulse"></div>
-      <div><strong>PIMENTO CLOSED</strong> — Lexi rejected post-screening call (30 Jun). "Not closely aligned with job spec." Update memory, remove from pipeline. Reflect & regroup.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-red"></div>
-      <div><strong>COLLINSON GROUP</strong> — No reply from Courtenay after two follow-ups (22 Jun + 24 Jun). Ghost risk is real. Consider one final check-in or mark as ghost.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-orange"></div>
-      <div><strong>TRADE NATION</strong> — Brand new inbound response today (02 Jul) confirming receipt — they're reviewing. Previously assumed ghost after 3 attempts. Pipeline status: <em>Warm again</em>.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-teal"></div>
-      <div><strong>SECFIX</strong> — Co-founder Grigory personally responded (01 Jul). Will review within 2 weeks. Good signal, watchlist.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-teal"></div>
-      <div><strong>DUCKDUCKGO</strong> — Application confirmed via Ashby (01 Jul). Senior Product Designer. Privacy-first culture — strong profile match.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-teal"></div>
-      <div><strong>FORERUNNER</strong> — Application confirmed via Ashby (01 Jul). Senior Product Designer. VC-backed, portfolio-focused culture.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-blue"></div>
-      <div><strong>KINGMAKERS</strong> — LinkedIn "viewed" signal (01 Jul). iGaming sector — directly relevant. No response yet. Nudge in 3 days.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-blue"></div>
-      <div><strong>BVNK</strong> — Application confirmed via Greenhouse (01 Jul). Principal Product Designer — Core Platform. Fintech/crypto. Body says Label_8 but this is an ATS confirmation, not rejection.</div>
-    </div>
-    <div class="alert-item">
-      <div class="alert-dot dot-blue"></div>
-      <div><strong>OFFICE BEACON SA</strong> — LinkedIn Easy Apply sent (01 Jul). UX Designer, Remote (SA). Check eligibility criteria.</div>
-    </div>
+<!-- KPI CARDS -->
+<div class="sec-head">CAMPAIGN KPIs</div>
+<div class="kpi-grid">
+  <div class="kpi-card teal">
+    <div class="kpi-label">APPLICATIONS</div>
+    <div class="kpi-val" id="kv-apps">0</div>
+    <div class="kpi-sub">Since 01 Jun 2026 · all channels</div>
   </div>
+  <div class="kpi-card blue">
+    <div class="kpi-label">RESPONSES</div>
+    <div class="kpi-val" id="kv-resp">0</div>
+    <div class="kpi-sub">Any company reply or acknowledgment</div>
+  </div>
+  <div class="kpi-card orange">
+    <div class="kpi-label">ACTIVE LEADS</div>
+    <div class="kpi-val" id="kv-active">0</div>
+    <div class="kpi-sub">In pipeline · not closed</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">REJECTIONS</div>
+    <div class="kpi-val" id="kv-rej">0</div>
+    <div class="kpi-sub">Confirmed no-moves</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-label">AWAITING REPLY</div>
+    <div class="kpi-val" id="kv-await">0</div>
+    <div class="kpi-sub">Sent · no response yet</div>
+  </div>
+  <div class="kpi-card teal">
+    <div class="kpi-label">VIEWED (LI)</div>
+    <div class="kpi-val" id="kv-viewed">0</div>
+    <div class="kpi-sub">LinkedIn "application viewed" signals</div>
+  </div>
+</div>
 
-  <!-- HUNTING CLOCK -->
-  <div class="hunting-clock">
+<!-- DERIVED STRIP -->
+<div class="derived-strip">
+  <div class="derived">
+    <div class="derived-val" id="dv-rate">0</div>
+    <div class="derived-lbl">APPS / DAY</div>
+  </div>
+  <div class="derived">
+    <div class="derived-val" id="dv-rint">0%</div>
+    <div class="derived-lbl">INTERVIEW RATE</div>
+  </div>
+  <div class="derived">
+    <div class="derived-val" id="dv-resp">0%</div>
+    <div class="derived-lbl">RESPONSE RATE</div>
+  </div>
+  <div class="derived">
+    <div class="derived-val">07 Jul</div>
+    <div class="derived-lbl">LAST INTERVIEW</div>
+  </div>
+</div>
+
+<!-- RINGS -->
+<div class="sec-head">CONVERSION RINGS</div>
+<div class="rings-row">
+  <div class="ring-card">
+    <svg width="56" height="56" viewBox="0 0 56 56">
+      <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+      <circle cx="28" cy="28" r="22" fill="none" stroke="#2d8a7a" stroke-width="6"
+        stroke-dasharray="138.23" stroke-dashoffset="88" stroke-linecap="round"
+        transform="rotate(-90 28 28)"/>
+    </svg>
     <div>
-      <div class="clock-label">🎯 Days Hunting</div>
-      <div class="clock-value" id="total-days">32</div>
-      <div class="clock-subtext">Since 01 June 2026 · CORE Active</div>
-    </div>
-    <div class="clock-units">
-      <div class="clock-unit">
-        <div class="clock-unit-val" id="hunt-days">32</div>
-        <div class="clock-unit-label">Days</div>
-      </div>
-      <div class="clock-unit">
-        <div class="clock-unit-val" id="hunt-hours">--</div>
-        <div class="clock-unit-label">Hours</div>
-      </div>
-      <div class="clock-unit">
-        <div class="clock-unit-val" id="hunt-mins">--</div>
-        <div class="clock-unit-label">Mins</div>
-      </div>
-      <div class="clock-unit">
-        <div class="clock-unit-val" id="hunt-secs">--</div>
-        <div class="clock-unit-label">Secs</div>
-      </div>
+      <div class="ring-label">RESPONSE RATE</div>
+      <div class="ring-pct" style="color:#2d8a7a">36%</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2)">responses ÷ apps</div>
     </div>
   </div>
-
-  <!-- FUNNEL KPIs -->
-  <div class="section-title">Funnel — Since 01 June 2026</div>
-  <div class="kpi-grid">
-    <div class="kpi-card c-teal">
-      <div class="kpi-label">Applications</div>
-      <div class="kpi-val" data-target="38">0</div>
-      <div class="kpi-sub">Total submitted</div>
-    </div>
-    <div class="kpi-card c-orange">
-      <div class="kpi-label">Responses</div>
-      <div class="kpi-val" data-target="24">0</div>
-      <div class="kpi-sub">Any company contact</div>
-    </div>
-    <div class="kpi-card c-blue">
-      <div class="kpi-label">Active Leads</div>
-      <div class="kpi-val" data-target="4">0</div>
-      <div class="kpi-sub">Live pipeline</div>
-    </div>
-    <div class="kpi-card c-red">
-      <div class="kpi-label">Rejections</div>
-      <div class="kpi-val" data-target="12">0</div>
-      <div class="kpi-sub">Confirmed closes</div>
-    </div>
-    <div class="kpi-card c-purple">
-      <div class="kpi-label">Awaiting Reply</div>
-      <div class="kpi-val" data-target="14">0</div>
-      <div class="kpi-sub">No response yet</div>
-    </div>
-    <div class="kpi-card c-green">
-      <div class="kpi-label">LI Viewed</div>
-      <div class="kpi-val" data-target="3">0</div>
-      <div class="kpi-sub">KingMakers + AcquireTech + 1</div>
+  <div class="ring-card">
+    <svg width="56" height="56" viewBox="0 0 56 56">
+      <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+      <circle cx="28" cy="28" r="22" fill="none" stroke="#e8a030" stroke-width="6"
+        stroke-dasharray="138.23" stroke-dashoffset="126" stroke-linecap="round"
+        transform="rotate(-90 28 28)"/>
+    </svg>
+    <div>
+      <div class="ring-label">INTERVIEW RATE</div>
+      <div class="ring-pct" style="color:#e8a030">9%</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2)">calls ÷ apps</div>
     </div>
   </div>
-
-  <!-- DERIVED STRIP -->
-  <div class="derived-strip">
-    <div class="derived-card">
-      <div class="derived-val">1.2/d</div>
-      <div class="derived-label">Apps/Day</div>
-    </div>
-    <div class="derived-card">
-      <div class="derived-val">63%</div>
-      <div class="derived-label">Response Rate</div>
-    </div>
-    <div class="derived-card">
-      <div class="derived-val">32%</div>
-      <div class="derived-label">Rejection Rate</div>
-    </div>
-    <div class="derived-card">
-      <div class="derived-val">13</div>
-      <div class="derived-label">Direct Outreach</div>
+  <div class="ring-card">
+    <svg width="56" height="56" viewBox="0 0 56 56">
+      <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+      <circle cx="28" cy="28" r="22" fill="none" stroke="#c2462e" stroke-width="6"
+        stroke-dasharray="138.23" stroke-dashoffset="106" stroke-linecap="round"
+        transform="rotate(-90 28 28)"/>
+    </svg>
+    <div>
+      <div class="ring-label">REJECTION RATE</div>
+      <div class="ring-pct" style="color:#c2462e">23%</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2)">rejections ÷ apps</div>
     </div>
   </div>
-
-  <!-- RATE RINGS -->
-  <div class="rings-row">
-    <div class="ring-card">
-      <div class="ring-label">Response Rate</div>
-      <svg class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
-        <circle cx="40" cy="40" r="32" fill="none" stroke="#e8a030" stroke-width="8"
-          stroke-dasharray="201.06" stroke-dashoffset="74.4"
-          stroke-linecap="round" transform="rotate(-90 40 40)"/>
-        <text x="40" y="45" text-anchor="middle" fill="#fff" font-family="Syne,sans-serif" font-size="16" font-weight="800">63%</text>
-      </svg>
-      <div class="ring-val" style="color:var(--orange)">24 of 38</div>
-      <div class="ring-sub">companies responded</div>
-    </div>
-    <div class="ring-card">
-      <div class="ring-label">Pipeline Conversion</div>
-      <svg class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
-        <circle cx="40" cy="40" r="32" fill="none" stroke="#2d8a7a" stroke-width="8"
-          stroke-dasharray="201.06" stroke-dashoffset="180.9"
-          stroke-linecap="round" transform="rotate(-90 40 40)"/>
-        <text x="40" y="45" text-anchor="middle" fill="#fff" font-family="Syne,sans-serif" font-size="16" font-weight="800">10%</text>
-      </svg>
-      <div class="ring-val" style="color:var(--teal)">4 of 38</div>
-      <div class="ring-sub">apps → active pipeline</div>
-    </div>
-    <div class="ring-card">
-      <div class="ring-label">Rejection Rate</div>
-      <svg class="ring-svg" width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
-        <circle cx="40" cy="40" r="32" fill="none" stroke="#c2462e" stroke-width="8"
-          stroke-dasharray="201.06" stroke-dashoffset="137.1"
-          stroke-linecap="round" transform="rotate(-90 40 40)"/>
-        <text x="40" y="45" text-anchor="middle" fill="#fff" font-family="Syne,sans-serif" font-size="16" font-weight="800">32%</text>
-      </svg>
-      <div class="ring-val" style="color:var(--red)">12 of 38</div>
-      <div class="ring-sub">confirmed rejections</div>
-    </div>
-  </div>
-
-  <!-- PIPELINE + DONUT ROW -->
-  <div class="charts-row">
-    <div class="chart-card">
-      <div class="chart-title">Pipeline Donut</div>
-      <div class="donut-wrap">
-        <svg width="100" height="100" viewBox="0 0 100 100">
-          <!-- Active: 4 (38%) -->
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#0c0c10" stroke-width="20"/>
-          <!-- Awaiting: 14 (37%) -->
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#7c6fd4" stroke-width="18"
-            stroke-dasharray="88.2 150.4" stroke-dashoffset="0"
-            transform="rotate(-90 50 50)"/>
-          <!-- Rejected: 12 (31%) -->
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#c2462e" stroke-width="18"
-            stroke-dasharray="74 164.6" stroke-dashoffset="-88.2"
-            transform="rotate(-90 50 50)"/>
-          <!-- Active: 4 (10%) -->
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#2d8a7a" stroke-width="18"
-            stroke-dasharray="24 214.6" stroke-dashoffset="-162.2"
-            transform="rotate(-90 50 50)"/>
-          <!-- Viewed: 3 (8%) -->
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#4a90e2" stroke-width="18"
-            stroke-dasharray="19 219.6" stroke-dashoffset="-186.2"
-            transform="rotate(-90 50 50)"/>
-        </svg>
-        <div class="donut-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div><span class="legend-label">Awaiting</span><span class="legend-val">14</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span class="legend-label">Rejected</span><span class="legend-val">12</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div><span class="legend-label">Active</span><span class="legend-val">4</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span class="legend-label">LI Viewed</span><span class="legend-val">3</span></div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div><span class="legend-label">Responded</span><span class="legend-val">24</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <div class="chart-title">Sources Breakdown</div>
-      <div class="bar-chart">
-        <div class="bar-row">
-          <div class="bar-name">LinkedIn</div>
-          <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--blue)"></div></div>
-          <div class="bar-count">21</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">Direct Email</div>
-          <div class="bar-track"><div class="bar-fill" style="width:34%;background:var(--orange)"></div></div>
-          <div class="bar-count">13</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">ATS Portals</div>
-          <div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--teal)"></div></div>
-          <div class="bar-count">4</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">Jobgether ⚠</div>
-          <div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--red)"></div></div>
-          <div class="bar-count">2</div>
-        </div>
-      </div>
-      <div style="margin-top:10px;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;">⚠ Jobgether = aggregator red-flag. Counted as 1 company regardless of volume.</div>
-    </div>
-  </div>
-
-  <!-- ACTIVITY TIMELINE -->
-  <div class="full-card">
-    <div class="chart-title">Daily Application Activity (June 2026)</div>
-    <div class="timeline-bars" id="timeline-bars">
-      <!-- Generated by JS -->
-    </div>
-  </div>
-
-  <!-- ACTIVE PIPELINE -->
-  <div class="section-title">Active Pipeline</div>
-  <div class="full-card">
-    <table class="pipeline-table">
-      <thead>
-        <tr>
-          <th>Company / Role</th>
-          <th>Stage</th>
-          <th>Status</th>
-          <th>Last Contact</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="company-name">Trade Nation</div>
-            <div class="role-name">Product Designer</div>
-          </td>
-          <td><span class="stage-badge stage-applied">Applied</span></td>
-          <td><span class="status-dot status-hot"></span></td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">02 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">Monika confirmed receipt today. Reviewing now. Previously appeared ghosted.</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="company-name">Collinson Group</div>
-            <div class="role-name">Sr Product Designer — FTC</div>
-          </td>
-          <td><span class="stage-badge stage-panel">Panel Follow-up</span></td>
-          <td><span class="status-dot status-active"></span></td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">24 Jun</td>
-          <td style="font-size:11px;color:var(--muted)">Courtenay gone quiet after 2 nudges. Tim + Anuk panel completed. Cape Town hybrid.</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="company-name">Secfix</div>
-            <div class="role-name">Senior Product Designer</div>
-          </td>
-          <td><span class="stage-badge stage-awaiting">Awaiting Review</span></td>
-          <td><span class="status-dot status-active"></span></td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">01 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">Grigory (co-founder) personally responded. 2-week review timeline.</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="company-name">DuckDuckGo</div>
-            <div class="role-name">Senior Product Designer</div>
-          </td>
-          <td><span class="stage-badge stage-applied">Under Review</span></td>
-          <td><span class="status-dot status-cool"></span></td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">01 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">Ashby confirmation received. Privacy-forward culture = strong alignment.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- WATCHLIST -->
-  <div class="section-title">Watchlist — Warm Signals</div>
-  <div class="full-card">
-    <table class="pipeline-table">
-      <thead>
-        <tr>
-          <th>Company / Role</th>
-          <th>Signal</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="company-name">KingMakers</div><div class="role-name">LinkedIn Applied</div></td>
-          <td style="font-size:11px;color:var(--blue)">👁 Application Viewed</td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">01 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">Wait 3 days. Nudge if no response. iGaming = relevant sector.</td>
-        </tr>
-        <tr>
-          <td><div class="company-name">Forerunner</div><div class="role-name">Senior Product Designer</div></td>
-          <td style="font-size:11px;color:var(--teal)">✅ ATS Confirmed</td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">01 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">VC-backed portfolio design culture. Monitor for response.</td>
-        </tr>
-        <tr>
-          <td><div class="company-name">BVNK</div><div class="role-name">Principal Product Designer</div></td>
-          <td style="font-size:11px;color:var(--teal)">✅ Greenhouse Confirmed</td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">01 Jul</td>
-          <td style="font-size:11px;color:var(--muted)">Crypto/fintech. Label_8 on email but body is ATS auto-confirm, NOT rejection.</td>
-        </tr>
-        <tr>
-          <td><div class="company-name">AcquireTech</div><div class="role-name">Senior Designer (AI)</div></td>
-          <td style="font-size:11px;color:var(--blue)">👁 Application Viewed</td>
-          <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">28 Jun</td>
-          <td style="font-size:11px;color:var(--muted)">LinkedIn Easy Apply viewed. No follow-up yet.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- REJECTIONS -->
-  <div class="section-title">Confirmed Rejections (12)</div>
-  <div class="rejection-list">
-    <div class="rejection-item">
-      <div><div class="rejection-company">Pimento</div><div class="rejection-reason">Post-screening call — "Not aligned enough with spec" (Lexi/Marketing Pros)</div></div>
-      <div class="rejection-date">30 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Ten Lifestyle Group</div><div class="rejection-reason">Product Design Lead — Large volume, moved on</div></div>
-      <div class="rejection-date">30 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Chess.com</div><div class="rejection-reason">UX/UI Designer — ChessKid — No fit found at this time</div></div>
-      <div class="rejection-date">30 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">WorkNomads</div><div class="rejection-reason">UX Architect role — currently on hold due to internal changes</div></div>
-      <div class="rejection-date">30 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Hostaway (×2)</div><div class="rejection-reason">Staff Product Designer — Design Systems — Not progressing</div></div>
-      <div class="rejection-date">29 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Rocket SaaS</div><div class="rejection-reason">Senior Designer — Not the right fit at this stage</div></div>
-      <div class="rejection-date">19 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Accepted Ltd (Greece)</div><div class="rejection-reason">Greek language requirement — ineligible</div></div>
-      <div class="rejection-date">16 Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Puffy</div><div class="rejection-reason">Failed Phase-1 Adaface assessment — PERMANENTLY CLOSED</div></div>
-      <div class="rejection-date">Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Growmodo (×2 roles)</div><div class="rejection-reason">Confirmed rejected across two role applications</div></div>
-      <div class="rejection-date">Jun</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">iqbusiness GBS</div><div class="rejection-reason">Sr Product Designer Native B2C — ATS confirmation received (Label_8)</div></div>
-      <div class="rejection-date">01 Jul</div>
-    </div>
-    <div class="rejection-item">
-      <div><div class="rejection-company">Affle / Jampp</div><div class="rejection-reason">ATS auto-confirm (Label_8 — likely mismatch)</div></div>
-      <div class="rejection-date">01 Jul</div>
-    </div>
-  </div>
-
-  <!-- GA4 BLOCK -->
-  <div class="section-title">Portfolio GA4 — June 2026 (Windsor.ai re-auth required)</div>
-  <div class="insight-panel">
-    <div class="insight-row">
-      <div class="insight-icon">⚠️</div>
-      <div class="insight-text"><strong>Windsor.ai GA4 connector returned auth error this run.</strong> Re-authentication needed. Last known data (from prior Hunter run): portfolio traffic trending upward since launch. Direct traffic dominant — LinkedIn share links driving referral spikes.</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">🔧</div>
-      <div class="insight-text">To fix: open Windsor.ai dashboard → Connectors → Google Analytics 4 → Re-authenticate. Both accounts: <strong>376535856</strong> and <strong>539965333</strong>.</div>
-    </div>
-  </div>
-  <div class="ga4-grid" style="opacity:0.4">
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Sessions</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Users</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">New Users</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Pageviews</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Events</div></div>
-  </div>
-  <div class="ga4-grid" style="opacity:0.4">
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Engagement%</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Eng. Sessions</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Avg Session</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Avg Eng. Time</div></div>
-    <div class="ga4-tile"><div class="ga4-val">—</div><div class="ga4-label">Bounce Rate</div></div>
-  </div>
-
-  <!-- INTELLIGENCE INSIGHTS -->
-  <div class="section-title">Intelligence & Insights</div>
-  <div class="insight-panel">
-    <div class="insight-row">
-      <div class="insight-icon">🔴</div>
-      <div class="insight-text"><strong>Pimento is closed.</strong> This is the most significant pipeline event of the hunt — the highest-priority lead failed at screening. Root cause analysis needed: was it timezone? Portfolio gaps? The Peter Frost prep never got to him. Consider a direct cold outreach to Peter Frost via LinkedIn (separate from Lexi's process).</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">📈</div>
-      <div class="insight-text"><strong>Application volume is strong</strong> at 38 over 32 days (~1.2/day), but the <strong>63% response rate</strong> is genuinely excellent — this is working. The problem is converting responses into pipeline stages. 4 active leads from 24 responses = 17% conversion. Industry average for cold apps is 3–5%. You're running hot.</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">⚠️</div>
-      <div class="insight-text"><strong>Jobgether is a Trojan horse.</strong> 2 LinkedIn Easy Apply sends went to Jobgether (the aggregator that posts ghost-client roles). These are counted as 1 company and flagged. The ManyPixels Senior Web Designer application via Jobgether's match system also fired — treat with low confidence.</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">🎯</div>
-      <div class="insight-text"><strong>iGaming signal:</strong> KingMakers viewed your application (01 Jul). This is directly in the Astria Design System sweet spot — lottery/gaming/B2B SaaS. Prioritise a follow-up nudge on 04 Jul if no response.</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">💡</div>
-      <div class="insight-text"><strong>LinkedIn Premium activated (28 Jun)</strong> — R225/month for 2 months, then R450/month. Ensure you're maximising InMail credits and "Who viewed your profile" data. Premium ROI only pays if the reach is leveraged actively.</div>
-    </div>
-    <div class="insight-row">
-      <div class="insight-icon">🚀</div>
-      <div class="insight-text"><strong>Next targets this week:</strong> Remote.com, Yoco Technologies, HappyCo, Zeta Global, Goodwork Fintech, DataDome. Portfolio redesign (Indiemode-inspired aesthetic) should accelerate — it's the best conversion lever you have.</div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-left">CORE — The Hunter v3.2 · Jonathan Edward Nestler<br>jonathanedwardnestler@gmail.com · +27 62 862 9697</div>
-    <div class="footer-right">Scanned: 02 Jul 2026 ~10:30 SAST<br>jonoman1983.github.io/Code-Farm-Testing-Factory-/core/</div>
-  </div>
-
 </div>
+
+<!-- PIPELINE DONUT + FUNNEL -->
+<div class="pipeline-row">
+  <div class="chart-card">
+    <div class="chart-title">PIPELINE STATUS DONUT</div>
+    <div class="donut-wrap">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <!-- Active -->
+        <circle cx="45" cy="45" r="35" fill="none" stroke="#4a90e2" stroke-width="14"
+          stroke-dasharray="219.91" stroke-dashoffset="0"
+          transform="rotate(-90 45 45)"/>
+        <!-- Awaiting -->
+        <circle cx="45" cy="45" r="35" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="14"
+          stroke-dasharray="219.91" stroke-dashoffset="153"
+          transform="rotate(-90 45 45)"/>
+        <!-- Rejected -->
+        <circle cx="45" cy="45" r="35" fill="none" stroke="#c2462e" stroke-width="14"
+          stroke-dasharray="219.91" stroke-dashoffset="185"
+          transform="rotate(-90 45 45)"/>
+        <text x="45" y="48" text-anchor="middle" fill="rgba(255,255,255,0.7)"
+          style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800">10</text>
+      </svg>
+      <div style="flex:1">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#4a90e2"></div>
+          <div class="legend-text">Active</div>
+          <div class="legend-val">6</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(255,255,255,0.2)"></div>
+          <div class="legend-text">Awaiting</div>
+          <div class="legend-val">—</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#c2462e"></div>
+          <div class="legend-text">Rejected</div>
+          <div class="legend-val">8</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#2d8a7a"></div>
+          <div class="legend-text">Progressed</div>
+          <div class="legend-val">3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">OUTCOME FUNNEL</div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-label-row"><span class="funnel-label">Applications</span><span class="funnel-val">157</span></div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:100%;background:#2d8a7a"></div></div>
+    </div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-label-row"><span class="funnel-label">Responses</span><span class="funnel-val">57</span></div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:36%;background:#4a90e2"></div></div>
+    </div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-label-row"><span class="funnel-label">Active Leads</span><span class="funnel-val">10</span></div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:6%;background:#e8a030"></div></div>
+    </div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-label-row"><span class="funnel-label">Interviews</span><span class="funnel-val">2</span></div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:1.3%;background:#7c6fd4"></div></div>
+    </div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-label-row"><span class="funnel-label">Rejections</span><span class="funnel-val">8</span></div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:5%;background:#c2462e"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVE LEADS -->
+<div class="sec-head">ACTIVE LEADS</div>
+
+<div class="lead-item" style="border-left-color:#e8a030">
+  <div>
+    <div class="lead-company">Rank Interactive (Rank Group)</div>
+    <div class="lead-role">Senior Experience Designer · Head of CX Design interview · 07 Jul 11:00 Teams</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-interview">INTERVIEWED</span>
+    <span class="lead-date">Awaiting outcome</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#e8a030">
+  <div>
+    <div class="lead-company">The Flex / Base360.ai</div>
+    <div class="lead-role">UX/UI Designer · Progressed to next stage (top 10%)</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-progressed">PROGRESSED</span>
+    <span class="lead-date">05 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#4a90e2">
+  <div>
+    <div class="lead-company">Scale Army Careers</div>
+    <div class="lead-role">Senior UI/UX Designer · Video submitted · Under review</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-active">UNDER REVIEW</span>
+    <span class="lead-date">02–08 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#4a90e2">
+  <div>
+    <div class="lead-company">PandaDoc</div>
+    <div class="lead-role">Senior Product Designer, Core UX &amp; Mobile</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-active">RECEIVED</span>
+    <span class="lead-date">06 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#4a90e2">
+  <div>
+    <div class="lead-company">BVNK</div>
+    <div class="lead-role">Principal Product Designer – Core Platform</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-active">RECEIVED</span>
+    <span class="lead-date">06 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#4a90e2">
+  <div>
+    <div class="lead-company">Jobgether (Brand Designer)</div>
+    <div class="lead-role">Brand Designer · Match score review</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-active">REVIEWING</span>
+    <span class="lead-date">04 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#7c6fd4">
+  <div>
+    <div class="lead-company">Kraken (Web &amp; Brand Designer)</div>
+    <div class="lead-role">Web and Brand Designer – Breakout Prop · Received</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-awaiting">AWAITING</span>
+    <span class="lead-date">02 Jul 2026</span>
+  </div>
+</div>
+
+<div class="lead-item" style="border-left-color:#7c6fd4">
+  <div>
+    <div class="lead-company">ADLIB Recruitment · Stott and May · SHIFT Studios</div>
+    <div class="lead-role">Applications sent today via LinkedIn Easy Apply</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <span class="status-pill pill-awaiting">SENT TODAY</span>
+    <span class="lead-date">08 Jul 2026</span>
+  </div>
+</div>
+
+<!-- SOURCE + DAILY BARS -->
+<div class="sec-head">SOURCE BREAKDOWN</div>
+<div class="bar-row">
+  <div class="chart-card">
+    <div class="chart-title">TRAFFIC BY CHANNEL</div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Direct</span><span class="bar-num">464 sessions</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:#2d8a7a"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Organic Search</span><span class="bar-num">113</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:24%;background:#4a90e2"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Organic Social</span><span class="bar-num">28</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:6%;background:#7c6fd4"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Referral</span><span class="bar-num">6</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:1.3%;background:#e8a030"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Unassigned</span><span class="bar-num">7</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:1.5%;background:rgba(255,255,255,0.2)"></div></div>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">REJECTIONS LOG</div>
+    <div class="rej-item">
+      <div><div class="rej-company">Hire Overseas</div><div class="rej-date">07 Jul 2026 · After Loom video</div></div>
+      <span class="rej-label">CLOSED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">3Commas</div><div class="rej-date">08 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">Forerunner</div><div class="rej-date">07 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">BTG+ (Brandtech)</div><div class="rej-date">07 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">Secfix</div><div class="rej-date">06 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">Kraken (Web &amp; Brand Designer)</div><div class="rej-date">06 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">Storyteq</div><div class="rej-date">06 Jul 2026</div></div>
+      <span class="rej-label">REJECTED</span>
+    </div>
+    <div class="rej-item">
+      <div><div class="rej-company">Puffy</div><div class="rej-date">PERMANENTLY CLOSED</div></div>
+      <span class="rej-label">DO NOT REOPEN</span>
+    </div>
+  </div>
+</div>
+
+<!-- GA4 BLOCK -->
+<div class="sec-head">PORTFOLIO ANALYTICS · GA4 · 01 Jun – 08 Jul 2026</div>
+<div class="ga4-grid">
+  <div class="ga4-tile">
+    <div class="ga4-val">617</div>
+    <div class="ga4-lbl">SESSIONS</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">231</div>
+    <div class="ga4-lbl">TOTAL USERS</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">317</div>
+    <div class="ga4-lbl">NEW USERS</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">1,556</div>
+    <div class="ga4-lbl">PAGE VIEWS</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">3,852</div>
+    <div class="ga4-lbl">EVENTS</div>
+  </div>
+</div>
+<div class="ga4-grid">
+  <div class="ga4-tile">
+    <div class="ga4-val">63.7%</div>
+    <div class="ga4-lbl">ENGAGEMENT RATE</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">393</div>
+    <div class="ga4-lbl">ENGAGED SESSIONS</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">7m 52s</div>
+    <div class="ga4-lbl">AVG SESSION DURATION</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">—</div>
+    <div class="ga4-lbl">AVG ENGAGE TIME</div>
+  </div>
+  <div class="ga4-tile">
+    <div class="ga4-val">36.3%</div>
+    <div class="ga4-lbl">BOUNCE RATE</div>
+  </div>
+</div>
+
+<!-- GA4 CHART + GEO -->
+<div class="ga4-chart-row">
+  <!-- Daily chart SVG -->
+  <div class="chart-card daily-chart">
+    <div class="chart-title">DAILY SESSIONS · JUN–JUL</div>
+    <svg width="100%" height="90" viewBox="0 0 520 90" preserveAspectRatio="none">
+      <!-- grid lines -->
+      <line x1="0" y1="0" x2="520" y2="0" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="30" x2="520" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="60" x2="520" y2="60" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="90" x2="520" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <!-- area fill -->
+      <defs>
+        <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2d8a7a" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#2d8a7a" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <polygon fill="url(#ag)" points="
+        0,90 14,75 28,57 42,45 56,70 70,60 84,63 98,67 112,45 126,60 140,52 154,45 168,73 182,60 196,76 210,45 224,63 238,52 252,57 266,75 280,45 294,45 308,54 322,67 336,68 350,67 364,90 378,72 392,72 406,20 420,90 434,73 448,67 462,52 476,67 490,90 504,76 520,90"/>
+      <!-- line -->
+      <polyline fill="none" stroke="#2d8a7a" stroke-width="1.5" stroke-linejoin="round" points="
+        0,90 14,75 28,57 42,45 56,70 70,60 84,63 98,67 112,45 126,60 140,52 154,45 168,73 182,60 196,76 210,45 224,63 238,52 252,57 266,75 280,45 294,45 308,54 322,67 336,68 350,67 364,90 378,72 392,72 406,20 420,90 434,73 448,67 462,52 476,67 490,90 504,76"/>
+      <!-- peak marker Jul 2 -->
+      <circle cx="406" cy="20" r="3" fill="#e8a030"/>
+      <text x="406" y="14" text-anchor="middle" fill="#e8a030" style="font-size:7px;font-family:'DM Mono',monospace">60</text>
+    </svg>
+    <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.2);margin-top:6px">Peak: 02 Jul · 60 sessions · Interview day spike</div>
+  </div>
+
+  <!-- Top Geo -->
+  <div class="chart-card">
+    <div class="chart-title">TOP COUNTRIES</div>
+    <table class="geo-table">
+      <tr><th>Country</th><th style="text-align:right">Sessions</th></tr>
+      <tr><td>🇿🇦 South Africa</td><td>401</td></tr>
+      <tr><td>🇺🇸 United States</td><td>160</td></tr>
+      <tr><td>🇬🇧 United Kingdom</td><td>16</td></tr>
+      <tr><td>🇱🇰 Sri Lanka</td><td>9</td></tr>
+      <tr><td>🇮🇳 India</td><td>6</td></tr>
+      <tr><td>🌍 Other</td><td>25</td></tr>
+    </table>
+  </div>
+
+  <!-- Channel -->
+  <div class="chart-card">
+    <div class="chart-title">CHANNEL SPLIT</div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Direct</span><span class="bar-num">75%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:75%;background:#2d8a7a"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Organic Search</span><span class="bar-num">18%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:18%;background:#4a90e2"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Social</span><span class="bar-num">5%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:5%;background:#7c6fd4"></div></div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-label-row"><span class="bar-lbl">Referral</span><span class="bar-num">1%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:1%;background:#e8a030"></div></div>
+    </div>
+    <div style="margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.25)">
+      US = 160 sessions (25.9% of total) — recruiters checking portfolio
+    </div>
+  </div>
+</div>
+
+<!-- INTELLIGENCE -->
+<div class="sec-head">INTELLIGENCE SIGNALS</div>
+<div class="intel-card">
+  <div class="intel-item"><span class="intel-dot">◆</span>Rank Interactive interview held Mon 07 Jul with Chris Parmenter (Head of CX Design). No outcome yet — 48hr window. Mashudu Nethavhani is contact. First Teams call (Fri 03 Jul) dropped — you noted "no response in meeting." Second call confirmed and went ahead 07 Jul 11:00 SAST.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>The Flex / Base360.ai confirmed progression to next stage 05 Jul — email states "around 10% of applicants progress." This is a live, urgent action. Role: UX/UI Designer.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Hire Overseas is closed. You submitted Loom on 06 Jul; rejection arrived 07 Jul. Do not reopen.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Storyteq (Product Owner CMP) rejected 06 Jul. BTG+ rejected 07 Jul. Forerunner rejected 07 Jul. 3Commas rejected 08 Jul. 4 fresh rejections this scan.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Portfolio peak day: 02 Jul (60 sessions / 207 page views) — correlates with active LinkedIn sweep day. US traffic (160 sessions) suggests international recruiters actively reviewing. 7m 52s average session duration = deep portfolio engagement, not bounces.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Today (08 Jul): 3 new LinkedIn Easy Apply — ADLIB Recruitment, Stott and May, SHIFT Studios. Scale Army video application already submitted on 02 Jul; full board application confirmation needed.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Monique messaged on LinkedIn (07 Jul) — unread message, check and respond. Could be recruiter outreach.</div>
+  <div class="intel-item"><span class="intel-dot">◆</span>Think Huge viewed your application (06 Jul). KingMakers viewed (01 Jul). AcquireTech viewed (28 Jun). Algonautin viewed (20 Jun). 4 "viewed" signals = portfolio link being clicked by hiring teams.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">CORE · HUNTER PROTOCOL v2 · SCAN 08 JUL 2026 13:47 SAST · jonoman1983.github.io/Code-Farm-Testing-Factory-/core/</div>
+
+</div><!-- /wrap -->
 
 <script>
-// LIVE CLOCK (SAST = UTC+2)
-function updateClock() {
-  const now = new Date();
-  const sast = new Date(now.toLocaleString('en-US', {timeZone:'Africa/Johannesburg'}));
-  
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('date-display').textContent =
-    days[sast.getDay()] + ' ' + String(sast.getDate()).padStart(2,'0') + ' ' + months[sast.getMonth()] + ' ' + sast.getFullYear();
-  
-  const h = String(sast.getHours()).padStart(2,'0');
-  const m = String(sast.getMinutes()).padStart(2,'0');
-  const s = String(sast.getSeconds()).padStart(2,'0');
-  document.getElementById('clock-display').textContent = h + ':' + m + ':' + s + ' SAST';
-
-  // HUNTING CLOCK — from 2026-06-01 00:00:00 SAST
+// Live clock
+function tick() {
   const start = new Date('2026-06-01T00:00:00+02:00');
-  const elapsed = sast - start;
-  const totalSecs = Math.floor(elapsed / 1000);
-  const totalMins = Math.floor(totalSecs / 60);
-  const totalHours = Math.floor(totalMins / 60);
-  const huntDays = Math.floor(totalHours / 24);
-  const huntHours = totalHours % 24;
-  const huntMins = totalMins % 60;
-  const huntSecs = totalSecs % 60;
-  
-  document.getElementById('total-days').textContent = huntDays;
-  document.getElementById('hunt-days').textContent = huntDays;
-  document.getElementById('hunt-hours').textContent = String(huntHours).padStart(2,'0');
-  document.getElementById('hunt-mins').textContent = String(huntMins).padStart(2,'0');
-  document.getElementById('hunt-secs').textContent = String(huntSecs).padStart(2,'0');
+  const now = new Date();
+  const diff = now - start;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('clock').textContent =
+    d + 'd ' + String(h).padStart(2,'0') + 'h ' + String(m).padStart(2,'0') + 'm ' + String(s).padStart(2,'0') + 's';
 }
-updateClock();
-setInterval(updateClock, 1000);
+tick();
+setInterval(tick, 1000);
 
-// ANIMATED COUNTERS
-function easeOut(t) { return 1 - Math.pow(1-t, 3); }
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const duration = 900;
-  const start = performance.now();
-  function step(now) {
-    const t = Math.min((now - start) / duration, 1);
-    el.textContent = Math.round(easeOut(t) * target);
-    if (t < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-document.querySelectorAll('[data-target]').forEach(el => {
-  setTimeout(() => animateCounter(el), 300);
-});
-
-// TIMELINE BARS
-const dailyData = {
-  '01 Jun': 3, '02 Jun': 0, '03 Jun': 0, '04 Jun': 0, '05 Jun': 0,
-  '06 Jun': 0, '07 Jun': 0, '08 Jun': 1, '09 Jun': 0, '10 Jun': 0,
-  '11 Jun': 5, '12 Jun': 6, '13 Jun': 0, '14 Jun': 0, '15 Jun': 3,
-  '16 Jun': 2, '17 Jun': 3, '18 Jun': 1, '19 Jun': 3, '20 Jun': 0,
-  '21 Jun': 0, '22 Jun': 0, '23 Jun': 2, '24 Jun': 0, '25 Jun': 0,
-  '26 Jun': 1, '27 Jun': 3, '28 Jun': 2, '29 Jun': 0, '30 Jun': 0,
-  '01 Jul': 5, '02 Jul': 1
+// Animated counters
+const targets = {
+  'kv-apps': 157,
+  'kv-resp': 57,
+  'kv-active': 10,
+  'kv-rej': 8,
+  'kv-await': 100,
+  'kv-viewed': 4
 };
-const maxVal = Math.max(...Object.values(dailyData));
-const container = document.getElementById('timeline-bars');
-Object.entries(dailyData).forEach(([label, val]) => {
-  const wrap = document.createElement('div');
-  wrap.className = 't-bar-wrap';
-  const pct = val === 0 ? 3 : Math.max((val / maxVal) * 68, 6);
-  const bar = document.createElement('div');
-  bar.className = 't-bar';
-  bar.style.height = pct + 'px';
-  bar.style.background = val >= 4 ? 'var(--orange)' : val >= 2 ? 'var(--teal)' : 'rgba(45,138,122,0.4)';
-  const labelEl = document.createElement('div');
-  labelEl.className = 't-bar-label';
-  labelEl.textContent = label.replace(' Jun','').replace(' Jul','J');
-  wrap.appendChild(bar);
-  wrap.appendChild(labelEl);
-  container.appendChild(wrap);
+
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+Object.entries(targets).forEach(([id, target]) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const duration = 900;
+  const start = Date.now();
+  const run = () => {
+    const t = Math.min((Date.now() - start) / duration, 1);
+    el.textContent = Math.round(easeOut(t) * target);
+    if (t < 1) requestAnimationFrame(run);
+  };
+  run();
 });
+
+// Derived metrics
+setTimeout(() => {
+  const apps = 157, days = 37, resp = 57, interviews = 2;
+  document.getElementById('dv-rate').textContent = (apps/days).toFixed(1);
+  document.getElementById('dv-rint').textContent = Math.round((interviews/apps)*100) + '%';
+  document.getElementById('dv-resp').textContent = Math.round((resp/apps)*100) + '%';
+}, 950);
 </script>
 </body>
 </html>
