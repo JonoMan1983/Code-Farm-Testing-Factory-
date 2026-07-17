@@ -773,37 +773,6 @@ h1, h2, h3, h4 { color: var(--color-text); }
 }
 
 /* ===========================
-   HERO — tablet portrait (600px–899px)
-   Right-align label text; place label + dino side-by-side centred
-   =========================== */
-@media (min-width: 600px) and (max-width: 899px) {
-  .hero-visual {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-
-  .hero-visual-mascot-label {
-    position: static;
-    text-align: right;
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    animation: mascot-label-float 6.5s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  .hero-visual-mascot {
-    position: static;
-    width: min(210px, 30vw);
-    flex-shrink: 0;
-    animation: mascot-float 6.5s ease-in-out infinite;
-  }
-}
-
-/* ===========================
    HERO — tablet landscape + desktop (≥900px)
    =========================== */
 @media (min-width: 900px) {
