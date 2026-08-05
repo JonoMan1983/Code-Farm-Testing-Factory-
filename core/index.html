@@ -2,87 +2,89 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CORE — The Hunter // 2-Week Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORE — Hunter Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0c0c10;
-    --card:rgba(255,255,255,0.03);
-    --border:rgba(255,255,255,0.07);
-    --teal:#2d8a7a;
-    --orange:#e8a030;
-    --purple:#7c6fd4;
-    --red:#c2462e;
-    --blue:#4a90e2;
-    --text:#eef0f2;
-    --sub:#9aa0a8;
+    --teal:#2d8a7a; --orange:#e8a030; --purple:#7c6fd4; --red:#c2462e; --blue:#4a90e2;
+    --bg:#0c0c10; --card:rgba(255,255,255,0.03); --border:rgba(255,255,255,0.07);
+    --text:#eceef1; --sub:#9a9ea8;
   }
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box; margin:0; padding:0;}
   body{
-    margin:0; padding:0;
-    background:var(--bg);
+    background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif;
     background-image:
-      radial-gradient(circle at 8% 0%, rgba(45,138,122,0.18), transparent 40%),
-      radial-gradient(circle at 95% 100%, rgba(124,111,212,0.16), transparent 45%);
-    color:var(--text);
-    font-family:'DM Sans', sans-serif;
-    display:flex; justify-content:center;
+      radial-gradient(circle at 0% 0%, rgba(45,138,122,0.16), transparent 45%),
+      radial-gradient(circle at 100% 100%, rgba(124,111,212,0.16), transparent 45%);
+    min-height:100vh; padding:24px 12px 60px;
   }
-  .wrap{ max-width:900px; width:100%; padding:0 0 60px 0; }
+  .wrap{max-width:900px; margin:0 auto;}
   header{
-    background:#08080b;
-    border-bottom:1px solid var(--border);
-    padding:22px 28px;
-    display:flex; justify-content:space-between; align-items:center;
+    background:#111116; border:1px solid var(--border); border-radius:16px;
+    padding:20px 24px; display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:18px; flex-wrap:wrap; gap:10px;
   }
-  .wordmark{ font-family:'Syne',sans-serif; font-weight:800; font-size:22px; letter-spacing:1px; }
-  .wordmark span{ color:var(--orange); }
-  #clock{ font-family:'DM Mono',monospace; color:var(--sub); font-size:13px; }
-  .titleblock{ padding:34px 28px 10px 28px; }
-  .titleblock h1{ font-family:'Syne',sans-serif; font-weight:800; font-size:30px; margin:0 0 6px 0; }
-  .titleblock p{ color:var(--sub); margin:0; font-size:14px; }
-  .huntclock{
-    margin:20px 28px 0 28px; padding:18px 22px;
-    background:var(--card); border:1px solid var(--border); border-radius:16px;
-    border-top:3px solid var(--orange);
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+  .wordmark{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; letter-spacing:1px;}
+  .wordmark span{color:var(--orange);}
+  .clock{font-family:'DM Mono',monospace; font-size:13px; color:var(--sub); text-align:right;}
+  .clock b{color:var(--text); font-size:15px; display:block;}
+
+  .actions{
+    background:#0f1420; border-left:4px solid var(--orange); border-radius:12px;
+    padding:16px 20px; margin-bottom:18px;
   }
-  .huntclock .label{ font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--sub); }
-  .huntclock .value{ font-family:'DM Mono',monospace; font-size:22px; font-weight:500; color:var(--orange); }
-  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:20px 28px; }
-  @media(max-width:640px){ .stats{ grid-template-columns:repeat(2,1fr);} }
-  .stat{
-    background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px;
-    border-top:3px solid var(--accent, var(--teal));
-  }
-  .stat .n{ font-family:'Syne',sans-serif; font-weight:800; font-size:30px; }
-  .stat .l{ font-size:12px; color:var(--sub); margin-top:4px; }
-  section{ margin:28px 28px 0 28px; }
-  h2{ font-family:'Syne',sans-serif; font-size:16px; letter-spacing:0.5px; text-transform:uppercase; color:var(--sub); margin:0 0 12px 0; }
+  .actions h3{font-family:'Syne',sans-serif; font-size:14px; letter-spacing:.5px; margin-bottom:10px; color:var(--orange);}
+  .actions ul{list-style:none;}
+  .actions li{font-size:13.5px; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text);}
+  .actions li:last-child{border-bottom:none;}
+  .actions li b{color:var(--orange);}
+
+  .flags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
+  .flag{font-size:11px; font-family:'DM Mono',monospace; padding:5px 12px; border-radius:20px; border:1px solid var(--border); color:var(--sub);}
+  .flag.ok{color:var(--teal); border-color:rgba(45,138,122,0.4);}
+  .flag.down{color:var(--red); border-color:rgba(194,70,46,0.4);}
+
+  .grid6{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;}
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px;}
   .card{
-    background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 20px; margin-bottom:12px;
-    border-top:3px solid var(--accent, var(--teal));
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:16px; position:relative; overflow:hidden;
   }
-  .card .top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
-  .card h3{ margin:0; font-size:16px; font-weight:700; }
-  .card .role{ color:var(--sub); font-size:13px; margin-top:2px;}
-  .tag{
-    font-family:'DM Mono',monospace; font-size:11px; padding:3px 9px; border-radius:20px;
-    border:1px solid var(--border); white-space:nowrap;
-  }
-  .tag.urgent{ background:rgba(194,70,46,0.15); color:#ff8a70; border-color:rgba(194,70,46,0.4);}
-  .tag.pending{ background:rgba(232,160,48,0.13); color:var(--orange); border-color:rgba(232,160,48,0.4);}
-  .tag.closed{ background:rgba(154,160,168,0.1); color:var(--sub); border-color:var(--border);}
-  .tag.scam{ background:rgba(194,70,46,0.2); color:#ff8a70; border-color:rgba(194,70,46,0.5);}
-  .card p{ font-size:13.5px; line-height:1.55; margin:10px 0 0 0; color:#d6d9dc; }
-  .card .meta{ font-size:12px; color:var(--sub); margin-top:8px; font-family:'DM Mono',monospace; }
-  .callbar{
-    background:#0f0f13; border-left:4px solid var(--orange); border-radius:10px;
-    padding:14px 18px; margin:8px 0; font-size:13.5px; line-height:1.6;
-  }
-  .callbar b{ color:var(--orange); }
-  footer{ text-align:center; color:var(--sub); font-size:12px; padding:30px 20px 10px 20px; font-family:'DM Mono',monospace;}
+  .card::before{content:''; position:absolute; top:0; left:0; right:0; height:3px;}
+  .card.blue::before{background:var(--blue);} .card.orange::before{background:var(--orange);}
+  .card.teal::before{background:var(--teal);} .card.red::before{background:var(--red);}
+  .card.grey::before{background:#5a5f6a;} .card.purple::before{background:var(--purple);}
+  .stat-label{font-size:11px; color:var(--sub); text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px;}
+  .stat-num{font-family:'Syne',sans-serif; font-weight:800; font-size:30px;}
+  .stat-sub{font-size:11px; color:var(--sub); margin-top:4px; font-family:'DM Mono',monospace;}
+
+  .section-title{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; margin:22px 0 10px; color:var(--text); display:flex; align-items:center; gap:8px;}
+  .section-title::before{content:''; width:4px; height:14px; background:var(--orange); border-radius:2px;}
+
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .panel{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px;}
+  .panel h4{font-family:'Syne',sans-serif; font-size:13px; margin-bottom:12px; color:var(--sub); text-transform:uppercase; letter-spacing:.5px;}
+
+  .leadlist{list-style:none;}
+  .leadlist li{padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);}
+  .leadlist li:last-child{border-bottom:none;}
+  .leadlist .co{font-weight:700; font-size:13.5px;}
+  .leadlist .role{font-size:12px; color:var(--sub); margin-top:2px;}
+  .leadlist .meta{font-size:11px; font-family:'DM Mono',monospace; margin-top:4px;}
+  .meta.active{color:var(--teal);}
+  .meta.rejected{color:var(--red);}
+  .meta.awaiting{color:var(--orange);}
+
+  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px;}
+  .bar-track{flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:4px;}
+
+  footer{text-align:center; font-size:11px; color:var(--sub); margin-top:30px; font-family:'DM Mono',monospace;}
+  .note{font-size:11.5px; color:var(--sub); background:rgba(232,160,48,0.08); border:1px solid rgba(232,160,48,0.25); border-radius:10px; padding:12px 16px; margin-bottom:18px; line-height:1.5;}
+
+  @media(max-width:640px){ .grid6{grid-template-columns:repeat(2,1fr);} .grid4{grid-template-columns:repeat(2,1fr);} .row2{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -90,171 +92,122 @@
 
   <header>
     <div class="wordmark">CO<span>RE</span></div>
-    <div id="clock">--</div>
+    <div class="clock">Days Hunting<b id="clockDisplay">—</b></div>
   </header>
 
-  <div class="titleblock">
-    <h1>The Hunter — 2-Week Report</h1>
-    <p>Scan window: 17 – 31 July 2026 &nbsp;·&nbsp; Full pipeline snapshot as of scan run &nbsp;·&nbsp; Jonathan Edward Nestler</p>
+  <div class="note">
+    <b>Fast-turnaround pipeline patch</b> — this rebuild corrects two confirmed pipeline items (Sanlam/Glacier added as active, Collinson moved to rejected) verified against direct Gmail thread reads and an in-app SuccessFactors screenshot. Top-of-funnel volume KPIs (Applications / Responses / Viewed) are approximate floor values from this session's LinkedIn sweep, not a full ground-up recount — flag if you want a complete precision re-scan next run.
   </div>
 
-  <div class="huntclock">
-    <div>
-      <div class="label">Days Hunting (since 1 June 2026, 00:00 SAST)</div>
-      <div class="value" id="huntTimer">calculating…</div>
+  <div class="actions">
+    <h3>⚡ CALL ACTIONS — DO THESE NEXT</h3>
+    <ul>
+      <li><b>Sanlam/Glacier</b> — Req 33413, applied 6 Jul, "reviewing all applications." No recruiter contact identified yet — worth a LinkedIn search for Glacier's design/product leadership for a direct-outreach follow-up.</li>
+      <li><b>Herotel</b> — heroHome submission delivered &amp; confirmed received 4 Aug. Ball is in their court — no action, just watch for next-stage invite.</li>
+      <li><b>Rank Interactive</b> — closed out gracefully 2 Aug. No further action; relationship left warm with Chris Parmenter for future roles.</li>
+    </ul>
+  </div>
+
+  <div class="flags">
+    <span class="flag ok">● Gmail sweep live</span>
+    <span class="flag down">● GA4 — blocked (multi-property free plan limit)</span>
+    <span class="flag ok">● Pipeline verified 05 Aug 2026</span>
+  </div>
+
+  <div class="grid6">
+    <div class="card blue"><div class="stat-label">Applications</div><div class="stat-num" data-target="207">0</div><div class="stat-sub">since 01 Jun 2026 (approx)</div></div>
+    <div class="card orange"><div class="stat-label">Responses</div><div class="stat-num" data-target="25">0</div><div class="stat-sub">incl. LinkedIn viewed signals</div></div>
+    <div class="card teal"><div class="stat-label">Active Leads</div><div class="stat-num" data-target="2">0</div><div class="stat-sub">Herotel · Sanlam</div></div>
+    <div class="card red"><div class="stat-label">Rejections</div><div class="stat-num" data-target="2">0</div><div class="stat-sub">Rank · Collinson</div></div>
+    <div class="card grey"><div class="stat-label">Awaiting Reply</div><div class="stat-num" data-target="182">0</div><div class="stat-sub">no response yet</div></div>
+    <div class="card teal"><div class="stat-label">Viewed</div><div class="stat-num" data-target="19">0</div><div class="stat-sub">LinkedIn profile views</div></div>
+  </div>
+
+  <div class="section-title">PIPELINE — ACTIVE</div>
+  <div class="row2">
+    <div class="panel">
+      <h4>Active Leads</h4>
+      <ul class="leadlist">
+        <li>
+          <div class="co">Sanlam / Glacier</div>
+          <div class="role">Senior UX/UI Designer — JG 11 · Req 33413</div>
+          <div class="meta active">ACTIVE — applied 6 Jul, under review</div>
+        </li>
+        <li>
+          <div class="co">Herotel</div>
+          <div class="role">Senior UI/UX Designer</div>
+          <div class="meta active">ACTIVE — heroHome submission delivered &amp; confirmed 4 Aug, awaiting next stage</div>
+        </li>
+      </ul>
     </div>
-    <div style="text-align:right;">
-      <div class="label">Scan run</div>
-      <div class="value" style="font-size:14px;">31 Jul 2026, 09:31 SAST</div>
+    <div class="panel">
+      <h4>Rejections / Closed</h4>
+      <ul class="leadlist">
+        <li>
+          <div class="co">Collinson (Priority Pass)</div>
+          <div class="role">Senior Product Designer, UI/UX</div>
+          <div class="meta rejected">REJECTED — 24 Jun 2026, not progressing past hiring manager review</div>
+        </li>
+        <li>
+          <div class="co">Rank Interactive (Rank Group)</div>
+          <div class="role">Senior Experience Designer</div>
+          <div class="meta rejected">REJECTED — 30 Jul 2026, proceeded with other candidates. Two interview rounds.</div>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat" style="--accent:var(--red)"><div class="n" data-target="6">0</div><div class="l">Rejections this window</div></div>
-    <div class="stat" style="--accent:var(--orange)"><div class="n" data-target="1">0</div><div class="l">Deadline at risk</div></div>
-    <div class="stat" style="--accent:var(--teal)"><div class="n" data-target="2">0</div><div class="l">New applications sent</div></div>
-    <div class="stat" style="--accent:var(--purple)"><div class="n" data-target="3">0</div><div class="l">Leads still awaiting reply</div></div>
+  <div class="section-title">DEEP PIPELINE (UNCONFIRMED STATUS)</div>
+  <div class="panel">
+    <ul class="leadlist">
+      <li>
+        <div class="co">Arilo (via ABC Worldwide / James Knoll)</div>
+        <div class="role">Senior Product Designer, UI/UX — V&amp;A Waterfront, Cape Town</div>
+        <div class="meta awaiting">AWAITING — assessment submitted, two follow-ups sent, no verdict yet</div>
+      </li>
+      <li>
+        <div class="co">Rhino Africa (via ABC Worldwide / James Knoll)</div>
+        <div class="role">Separate pipeline, distinct from Arilo</div>
+        <div class="meta awaiting">AWAITING — status not re-verified this run</div>
+      </li>
+    </ul>
   </div>
 
-  <section>
-    <h2>⚠ Most Urgent — Needs Your Eyes Today</h2>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div>
-          <h3>Herotel — Senior UX/UI Designer</h3>
-          <div class="role">heroHome Design Challenge · Natasha Verster</div>
-        </div>
-        <span class="tag urgent">DEADLINE STATUS UNCONFIRMED</span>
-      </div>
-      <p>Deadline was <b>COB Monday 27 July</b>. You committed to submitting on time in your 25 July reply, but there is <b>no submission trail in Gmail or Sent mail</b> after that message, and no acknowledgement from Natasha since. Either it went out through the Breezy portal directly (untracked by Gmail) and Herotel has gone quiet post-deadline, or it's still sitting in a draft folder somewhere it shouldn't be. This is a soft 404 that needs resolving — a component with no visible state is worse than an error state.</p>
-      <div class="meta">Last email: 25 Jul (your commitment reply) · No reply from Herotel since 22 Jul</div>
-    </div>
-  </section>
+  <footer>
+    CORE Hunter Dashboard · Pipeline patch generated 05 Aug 2026 · Job Search started 01 Jun 2026
+  </footer>
 
-  <section>
-    <h2>🟢 New Since Last Scan</h2>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div><h3>Rank Interactive — Senior Experience Designer</h3><div class="role">Chris Parmenter</div></div>
-        <span class="tag closed">REJECTED · 30 Jul</span>
-      </div>
-      <p>Closed out after your two check-ins (15 & 25 Jul). Chris cited a gap on the research/data-synthesis side relative to other candidates, and — separately — that he's leaving Rank for a startup himself, so the role is being backfilled from scratch anyway. A clean, honest rejection: rare, and worth filing under "at least the error state was legible."</p>
-    </div>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div><h3>Electrum Software — Head of Product</h3></div>
-        <span class="tag closed">REJECTED · 30 Jul</span>
-      </div>
-      <p>Standard "not proceeding" — no reasoning given. First time this one's surfaced in a Hunter scan; wasn't previously on the tracked pipeline.</p>
-    </div>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div><h3>TalentPop — Creative Growth Assistant</h3></div>
-        <span class="tag closed">REJECTED · 29 Jul</span>
-      </div>
-      <p>Rejected 29 Jul. Off-profile role (not senior UX/UI) — likely a legacy application outside your 95% filter; low signal either way.</p>
-    </div>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div><h3>Remote.com — Senior Product Designer</h3></div>
-        <span class="tag closed">REJECTED · 24 Jul</span>
-      </div>
-      <p>High-volume role, generic rejection template ("large volume of applicants"). No action needed.</p>
-    </div>
-    <div class="card" style="--accent:var(--teal)">
-      <div class="top">
-        <div><h3>Tangent International — UI/UX Designer</h3></div>
-        <span class="tag pending">APPLIED · 19 Jul (LinkedIn)</span>
-      </div>
-      <p>New application via LinkedIn Easy Apply. No response yet — too early to expect one.</p>
-    </div>
-    <div class="card" style="--accent:var(--teal)">
-      <div class="top">
-        <div><h3>Futureheads Recruitment — Product Designer</h3></div>
-        <span class="tag pending">APPLIED · 19 Jul (LinkedIn)</span>
-      </div>
-      <p>New application via LinkedIn Easy Apply. No response yet.</p>
-    </div>
-    <div class="callbar">Also closed earlier in this window (already reported in the prior scan): <b>DuckDuckGo — Senior Product Designer</b> (rejected 21 Jul) and <b>Rhino Africa — UX Architect, direct GoHire application</b> (rejected 21 Jul, separate from the still-open ABC Worldwide pipeline below). Counted in the tally above, not re-detailed here.</div>
-  </section>
-
-  <section>
-    <h2>🟡 Still In Motion — Awaiting Reply</h2>
-    <div class="card" style="--accent:var(--orange)">
-      <div class="top">
-        <div><h3>Arilo — Senior Product Designer</h3><div class="role">via James Knoll, ABC Worldwide</div></div>
-        <span class="tag pending">SILENT SINCE 25 JUL</span>
-      </div>
-      <p>Assessment submitted 22 Jul (Drive folder), follow-up sent 25 Jul asking James to confirm the folder opened cleanly — sharing permissions being the one UX pattern the whole recruitment industry still hasn't solved. No reply since his last "thanks for getting back to me" on 20 Jul.</p>
-    </div>
-    <div class="card" style="--accent:var(--orange)">
-      <div class="top">
-        <div><h3>Rhino Africa — UX Architect</h3><div class="role">via James Knoll, ABC Worldwide (separate pipeline)</div></div>
-        <span class="tag pending">SILENT SINCE 24 JUL</span>
-      </div>
-      <p>Screening questions completed and sent 24 Jul. This is distinct from the direct GoHire application, which was already rejected 21 Jul — two separate doors into the same building, one now closed, this one still ajar.</p>
-    </div>
-    <div class="card" style="--accent:var(--orange)">
-      <div class="top">
-        <div><h3>OAM — UX–UI Specialist Web Designer</h3><div class="role">Natasha Khan</div></div>
-        <span class="tag pending">3 FOLLOW-UPS · NO REPLY</span>
-      </div>
-      <p>Screening submitted 8 Jul. Third and — per your own message — final check-in sent 25 Jul. No response at any point in six weeks. This one's reading as a ghost thread; worth letting it lapse rather than a fourth nudge.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>🚩 Security Flag</h2>
-    <div class="card" style="--accent:var(--red)">
-      <div class="top">
-        <div><h3>"Havas Group" — Director of Digital</h3><div class="role">careers@globalwork.business</div></div>
-        <span class="tag scam">ACTIVE SCAM — STILL ENGAGING</span>
-      </div>
-      <p>Flagged previously (booking-link TLD mismatch). You replied 24 Jul asking about salary range after finding the message in spam — the scammer replied same day inviting you to a "next stage." <b>Recommend cutting contact entirely</b>: no further replies, no salary info, no calls. This one's dressed convincingly but the domain never matches a real Havas address.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>🔧 System Health</h2>
-    <div class="callbar"><b>Windsor.ai / GA4:</b> Both portfolio properties are currently blocked — "connected more accounts than your Free plan allows." Analytics pull for this scan returned zero across the board because of the plan limit, not because your portfolio went quiet. Upgrade the plan or drop to a single tracked property to restore the feed.</div>
-    <div class="callbar"><b>GitHub PAT:</b> Both fine-grained tokens on file ("Portfolio Jonno" and "CORE-Portfolio") expired 29–30 Jul. The dashboard auto-push to <code>portfolio-build</code> will fail until a new PAT is generated and reissued to CORE.</div>
-    <div class="callbar"><b>Calendar:</b> No interviews, screens, or calls scheduled in the next two weeks on the primary calendar. Nothing to prep for — which is its own kind of signal.</div>
-  </section>
-
-  <footer>CORE // The Hunter — jonoman1983.github.io/Code-Farm-Testing-Factory-</footer>
 </div>
 
 <script>
-  // live clock
-  function pad(n){return n.toString().padStart(2,'0');}
-  function tick(){
-    const now = new Date();
-    const sast = new Date(now.toLocaleString('en-US',{timeZone:'Africa/Johannesburg'}));
-    document.getElementById('clock').textContent =
-      sast.getFullYear()+'-'+pad(sast.getMonth()+1)+'-'+pad(sast.getDate())+' '+pad(sast.getHours())+':'+pad(sast.getMinutes())+':'+pad(sast.getSeconds())+' SAST';
-
-    const start = new Date('2026-06-01T00:00:00+02:00');
-    const diff = now.getTime() - start.getTime();
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor((diff%86400000)/3600000);
-    const m = Math.floor((diff%3600000)/60000);
-    const s = Math.floor((diff%60000)/1000);
-    document.getElementById('huntTimer').textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
-  }
-  setInterval(tick,1000); tick();
-
-  // counter animation
-  function easeOutCubic(x){ return 1 - Math.pow(1-x,3); }
-  document.querySelectorAll('.stat .n').forEach(el=>{
-    const target = parseInt(el.getAttribute('data-target'));
-    const dur = 900; const start = performance.now();
-    function frame(t){
-      const p = Math.min((t-start)/dur,1);
-      el.textContent = Math.round(target*easeOutCubic(p));
-      if(p<1) requestAnimationFrame(frame);
+  // Animated counters
+  document.querySelectorAll('.stat-num').forEach(el=>{
+    const target = parseInt(el.getAttribute('data-target'),10);
+    let start=null; const duration=900;
+    function step(ts){
+      if(!start) start=ts;
+      const progress = Math.min((ts-start)/duration,1);
+      const eased = 1 - Math.pow(1-progress,3);
+      el.textContent = Math.round(eased*target);
+      if(progress<1) requestAnimationFrame(step);
     }
-    requestAnimationFrame(frame);
+    requestAnimationFrame(step);
   });
+
+  // Live "days hunting" clock — from 00:00:00 1 June 2026
+  const startDate = new Date('2026-06-01T00:00:00');
+  function updateClock(){
+    const now = new Date();
+    let diff = now - startDate;
+    const days = Math.floor(diff/86400000); diff -= days*86400000;
+    const hrs = Math.floor(diff/3600000); diff -= hrs*3600000;
+    const mins = Math.floor(diff/60000); diff -= mins*60000;
+    const secs = Math.floor(diff/1000);
+    document.getElementById('clockDisplay').textContent =
+      `${days}d ${String(hrs).padStart(2,'0')}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
+  }
+  updateClock();
+  setInterval(updateClock,1000);
 </script>
 </body>
 </html>
