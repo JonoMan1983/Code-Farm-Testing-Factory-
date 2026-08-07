@@ -3,211 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORE — Hunter Dashboard</title>
+<title>CORE — The Hunter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --teal:#2d8a7a; --orange:#e8a030; --purple:#7c6fd4; --red:#c2462e; --blue:#4a90e2;
-    --bg:#0c0c10; --card:rgba(255,255,255,0.03); --border:rgba(255,255,255,0.07);
-    --text:#eceef1; --sub:#9a9ea8;
+    --bg:#0c0c10;
+    --card:rgba(255,255,255,0.03);
+    --border:rgba(255,255,255,0.07);
+    --teal:#2d8a7a;
+    --orange:#e8a030;
+    --purple:#7c6fd4;
+    --red:#c2462e;
+    --blue:#4a90e2;
+    --text:#f2f2f4;
+    --sub:#9a9aa4;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
   body{
-    background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif;
+    background:var(--bg);
     background-image:
-      radial-gradient(circle at 0% 0%, rgba(45,138,122,0.16), transparent 45%),
-      radial-gradient(circle at 100% 100%, rgba(124,111,212,0.16), transparent 45%);
-    min-height:100vh; padding:24px 12px 60px;
+      radial-gradient(circle at 0% 0%, rgba(45,138,122,0.18) 0%, transparent 45%),
+      radial-gradient(circle at 100% 100%, rgba(124,111,212,0.16) 0%, transparent 45%);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    padding:0 0 60px;
   }
-  .wrap{max-width:900px; margin:0 auto;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+
+  /* HEADER */
   header{
-    background:#111116; border:1px solid var(--border); border-radius:16px;
-    padding:20px 24px; display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:18px; flex-wrap:wrap; gap:10px;
+    background:#08080b;
+    border-bottom:1px solid var(--border);
+    padding:22px 0;
+    margin-bottom:24px;
   }
-  .wordmark{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; letter-spacing:1px;}
+  .header-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .wordmark{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:1px;}
   .wordmark span{color:var(--orange);}
-  .clock{font-family:'DM Mono',monospace; font-size:13px; color:var(--sub); text-align:right;}
-  .clock b{color:var(--text); font-size:15px; display:block;}
+  .clock-block{text-align:right;}
+  .clock-label{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:2px;}
+  .clock{font-family:'DM Mono',monospace;font-size:20px;color:var(--teal);}
+  .scan-time{font-family:'DM Mono',monospace;font-size:12px;color:var(--sub);margin-top:6px;}
 
-  .actions{
-    background:#0f1420; border-left:4px solid var(--orange); border-radius:12px;
-    padding:16px 20px; margin-bottom:18px;
+  /* CALL ACTIONS */
+  .call-actions{
+    background:#111114;
+    border-left:4px solid var(--orange);
+    border-radius:8px;
+    padding:18px 20px;
+    margin-bottom:28px;
   }
-  .actions h3{font-family:'Syne',sans-serif; font-size:14px; letter-spacing:.5px; margin-bottom:10px; color:var(--orange);}
-  .actions ul{list-style:none;}
-  .actions li{font-size:13.5px; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text);}
-  .actions li:last-child{border-bottom:none;}
-  .actions li b{color:var(--orange);}
-
-  .flags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
-  .flag{font-size:11px; font-family:'DM Mono',monospace; padding:5px 12px; border-radius:20px; border:1px solid var(--border); color:var(--sub);}
-  .flag.ok{color:var(--teal); border-color:rgba(45,138,122,0.4);}
-  .flag.down{color:var(--red); border-color:rgba(194,70,46,0.4);}
-
-  .grid6{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px;}
-  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px;}
-  .card{
-    background:var(--card); border:1px solid var(--border); border-radius:16px;
-    padding:16px; position:relative; overflow:hidden;
+  .call-actions h3{
+    font-family:'Syne',sans-serif;font-size:13px;text-transform:uppercase;
+    letter-spacing:1.5px;color:var(--orange);margin-bottom:12px;
   }
-  .card::before{content:''; position:absolute; top:0; left:0; right:0; height:3px;}
-  .card.blue::before{background:var(--blue);} .card.orange::before{background:var(--orange);}
-  .card.teal::before{background:var(--teal);} .card.red::before{background:var(--red);}
-  .card.grey::before{background:#5a5f6a;} .card.purple::before{background:var(--purple);}
-  .stat-label{font-size:11px; color:var(--sub); text-transform:uppercase; letter-spacing:.6px; margin-bottom:6px;}
-  .stat-num{font-family:'Syne',sans-serif; font-weight:800; font-size:30px;}
-  .stat-sub{font-size:11px; color:var(--sub); margin-top:4px; font-family:'DM Mono',monospace;}
+  .call-actions ul{list-style:none;}
+  .call-actions li{
+    font-size:14px;line-height:1.6;padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    display:flex;gap:10px;
+  }
+  .call-actions li:last-child{border-bottom:none;}
+  .call-actions li b{color:var(--text);}
+  .call-actions .tag{
+    font-family:'DM Mono',monospace;font-size:10px;color:var(--bg);
+    background:var(--orange);padding:2px 7px;border-radius:4px;
+    height:fit-content;white-space:nowrap;
+  }
 
-  .section-title{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; margin:22px 0 10px; color:var(--text); display:flex; align-items:center; gap:8px;}
-  .section-title::before{content:''; width:4px; height:14px; background:var(--orange); border-radius:2px;}
+  h2.section-title{
+    font-family:'Syne',sans-serif;font-weight:800;font-size:15px;
+    text-transform:uppercase;letter-spacing:1.5px;color:var(--sub);
+    margin:36px 0 14px;
+  }
 
-  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-  .panel{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px;}
-  .panel h4{font-family:'Syne',sans-serif; font-size:13px; margin-bottom:12px; color:var(--sub); text-transform:uppercase; letter-spacing:.5px;}
+  /* KPI GRID */
+  .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .kpi-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:18px 16px;position:relative;overflow:hidden;
+  }
+  .kpi-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;}
+  .kpi-card.c-teal::before{background:var(--teal);}
+  .kpi-card.c-orange::before{background:var(--orange);}
+  .kpi-card.c-purple::before{background:var(--purple);}
+  .kpi-card.c-red::before{background:var(--red);}
+  .kpi-card.c-blue::before{background:var(--blue);}
+  .kpi-card.c-grey::before{background:var(--sub);}
+  .kpi-num{
+    font-family:'Syne',sans-serif;font-weight:800;font-size:34px;line-height:1;
+    margin-bottom:6px;
+  }
+  .kpi-label{font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:0.8px;}
 
-  .leadlist{list-style:none;}
-  .leadlist li{padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);}
-  .leadlist li:last-child{border-bottom:none;}
-  .leadlist .co{font-weight:700; font-size:13.5px;}
-  .leadlist .role{font-size:12px; color:var(--sub); margin-top:2px;}
-  .leadlist .meta{font-size:11px; font-family:'DM Mono',monospace; margin-top:4px;}
-  .meta.active{color:var(--teal);}
-  .meta.rejected{color:var(--red);}
-  .meta.awaiting{color:var(--orange);}
+  /* DERIVED STRIP */
+  .derived-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;
+  }
+  .derived-card{
+    background:rgba(255,255,255,0.02);border:1px solid var(--border);
+    border-radius:12px;padding:14px;text-align:center;
+  }
+  .derived-num{font-family:'DM Mono',monospace;font-size:20px;color:var(--teal);}
+  .derived-label{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:0.6px;margin-top:4px;}
 
-  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px;}
-  .bar-track{flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden;}
-  .bar-fill{height:100%; border-radius:4px;}
+  /* RINGS */
+  .rings-row{display:flex;justify-content:space-around;gap:12px;margin-top:20px;flex-wrap:wrap;}
+  .ring-block{text-align:center;}
+  .ring-val{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;margin-top:8px;}
+  .ring-label{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:0.6px;margin-top:2px;}
 
-  footer{text-align:center; font-size:11px; color:var(--sub); margin-top:30px; font-family:'DM Mono',monospace;}
-  .note{font-size:11.5px; color:var(--sub); background:rgba(232,160,48,0.08); border:1px solid rgba(232,160,48,0.25); border-radius:10px; padding:12px 16px; margin-bottom:18px; line-height:1.5;}
+  /* CHART CARDS */
+  .chart-card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:20px;margin-bottom:16px;
+  }
+  .chart-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:14px;color:var(--text);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;} .kpi-grid{grid-template-columns:repeat(2,1fr);} .derived-strip{grid-template-columns:repeat(2,1fr);}}
 
-  @media(max-width:640px){ .grid6{grid-template-columns:repeat(2,1fr);} .grid4{grid-template-columns:repeat(2,1fr);} .row2{grid-template-columns:1fr;} }
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .bar-label{width:110px;font-size:12px;color:var(--sub);flex-shrink:0;}
+  .bar-track{flex:1;height:10px;background:rgba(255,255,255,0.05);border-radius:5px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:5px;}
+  .bar-val{font-family:'DM Mono',monospace;font-size:12px;width:36px;text-align:right;flex-shrink:0;}
+
+  /* LISTS */
+  .lead-list{list-style:none;}
+  .lead-item{
+    padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+    display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+  }
+  .lead-item:last-child{border-bottom:none;}
+  .lead-name{font-weight:700;font-size:14px;}
+  .lead-detail{font-size:12px;color:var(--sub);margin-top:3px;line-height:1.5;}
+  .status-pill{
+    font-family:'DM Mono',monospace;font-size:10px;padding:3px 9px;border-radius:20px;
+    white-space:nowrap;height:fit-content;
+  }
+  .status-active{background:rgba(45,138,122,0.18);color:var(--teal);border:1px solid rgba(45,138,122,0.4);}
+  .status-flag{background:rgba(232,160,48,0.18);color:var(--orange);border:1px solid rgba(232,160,48,0.4);}
+  .status-rejected{background:rgba(194,70,46,0.18);color:var(--red);border:1px solid rgba(194,70,46,0.4);}
+
+  /* GA4 BLOCK */
+  .ga4-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  @media(max-width:640px){.ga4-grid{grid-template-columns:repeat(2,1fr);}}
+  .ga4-tile{
+    background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;
+    padding:14px 10px;text-align:center;
+  }
+  .ga4-val{font-family:'DM Mono',monospace;font-size:18px;color:var(--blue);}
+  .ga4-label{font-size:10px;color:var(--sub);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
+  .ga4-note{
+    grid-column:1/-1;text-align:center;padding:20px;color:var(--sub);font-size:13px;
+    border:1px dashed var(--border);border-radius:12px;
+  }
+
+  footer{text-align:center;color:var(--sub);font-size:11px;margin-top:40px;font-family:'DM Mono',monospace;}
 </style>
 </head>
 <body>
+
+<header>
+  <div class="wrap header-row">
+    <div class="wordmark">CO<span>RE</span></div>
+    <div class="clock-block">
+      <div class="clock-label">Days Hunting</div>
+      <div class="clock" id="huntClock">—</div>
+      <div class="scan-time" id="scanTime"></div>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
 
-  <header>
-    <div class="wordmark">CO<span>RE</span></div>
-    <div class="clock">Days Hunting<b id="clockDisplay">—</b></div>
-  </header>
-
-  <div class="note">
-    <b>Fast-turnaround pipeline patch</b> — this rebuild corrects two confirmed pipeline items (Sanlam/Glacier added as active, Collinson moved to rejected) verified against direct Gmail thread reads and an in-app SuccessFactors screenshot. Top-of-funnel volume KPIs (Applications / Responses / Viewed) are approximate floor values from this session's LinkedIn sweep, not a full ground-up recount — flag if you want a complete precision re-scan next run.
-  </div>
-
-  <div class="actions">
-    <h3>⚡ CALL ACTIONS — DO THESE NEXT</h3>
+  <div class="call-actions">
+    <h3>Call Actions</h3>
     <ul>
-      <li><b>Sanlam/Glacier</b> — Req 33413, applied 6 Jul, "reviewing all applications." No recruiter contact identified yet — worth a LinkedIn search for Glacier's design/product leadership for a direct-outreach follow-up.</li>
-      <li><b>Herotel</b> — heroHome submission delivered &amp; confirmed received 4 Aug. Ball is in their court — no action, just watch for next-stage invite.</li>
-      <li><b>Rank Interactive</b> — closed out gracefully 2 Aug. No further action; relationship left warm with Chris Parmenter for future roles.</li>
+      <li><span class="tag">WATCH</span> <b>Herotel:</b> heroHome submission confirmed received (Brink, 4 Aug). Sitting quiet — normal. Nudge only if silent past ~13 Aug.</li>
+      <li><span class="tag">FLAG</span> <b>Arilo / Rhino Africa:</b> a direct "UX Architect" application to Rhino Africa was rejected 21 Jul (Dean Van Rooyen, Gohire) — separate ATS from the James Knoll/ABC Worldwide recruiter pipeline. Confirm with James whether this affects the Arilo-fronted role before assuming it's dead.</li>
+      <li><span class="tag">ADMIN</span> <b>Superhuman Mail:</b> $30 card payment has failed twice (12 Jul, 15 Jul, 6 Aug) — update billing before it lapses.</li>
+      <li><span class="tag">SKIP?</span> <b>Micro1.ai:</b> "Enterprise AI Workflow Expert" outreach fails the 95% title filter — mass-recruiter pattern. Recommend skip.</li>
     </ul>
   </div>
 
-  <div class="flags">
-    <span class="flag ok">● Gmail sweep live</span>
-    <span class="flag down">● GA4 — blocked (multi-property free plan limit)</span>
-    <span class="flag ok">● Pipeline verified 05 Aug 2026</span>
-  </div>
-
-  <div class="grid6">
-    <div class="card blue"><div class="stat-label">Applications</div><div class="stat-num" data-target="207">0</div><div class="stat-sub">since 01 Jun 2026 (approx)</div></div>
-    <div class="card orange"><div class="stat-label">Responses</div><div class="stat-num" data-target="25">0</div><div class="stat-sub">incl. LinkedIn viewed signals</div></div>
-    <div class="card teal"><div class="stat-label">Active Leads</div><div class="stat-num" data-target="2">0</div><div class="stat-sub">Herotel · Sanlam</div></div>
-    <div class="card red"><div class="stat-label">Rejections</div><div class="stat-num" data-target="2">0</div><div class="stat-sub">Rank · Collinson</div></div>
-    <div class="card grey"><div class="stat-label">Awaiting Reply</div><div class="stat-num" data-target="182">0</div><div class="stat-sub">no response yet</div></div>
-    <div class="card teal"><div class="stat-label">Viewed</div><div class="stat-num" data-target="19">0</div><div class="stat-sub">LinkedIn profile views</div></div>
-  </div>
-
-  <div class="section-title">PIPELINE — ACTIVE</div>
-  <div class="row2">
-    <div class="panel">
-      <h4>Active Leads</h4>
-      <ul class="leadlist">
-        <li>
-          <div class="co">Sanlam / Glacier</div>
-          <div class="role">Senior UX/UI Designer — JG 11 · Req 33413</div>
-          <div class="meta active">ACTIVE — applied 6 Jul, under review</div>
-        </li>
-        <li>
-          <div class="co">Herotel</div>
-          <div class="role">Senior UI/UX Designer</div>
-          <div class="meta active">ACTIVE — heroHome submission delivered &amp; confirmed 4 Aug, awaiting next stage</div>
-        </li>
-      </ul>
+  <h2 class="section-title">Hunt Funnel — Since 1 June 2026</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card c-teal">
+      <div class="kpi-num" data-count="173">0</div>
+      <div class="kpi-label">Applications</div>
     </div>
-    <div class="panel">
-      <h4>Rejections / Closed</h4>
-      <ul class="leadlist">
-        <li>
-          <div class="co">Collinson (Priority Pass)</div>
-          <div class="role">Senior Product Designer, UI/UX</div>
-          <div class="meta rejected">REJECTED — 24 Jun 2026, not progressing past hiring manager review</div>
-        </li>
-        <li>
-          <div class="co">Rank Interactive (Rank Group)</div>
-          <div class="role">Senior Experience Designer</div>
-          <div class="meta rejected">REJECTED — 30 Jul 2026, proceeded with other candidates. Two interview rounds.</div>
-        </li>
-      </ul>
+    <div class="kpi-card c-blue">
+      <div class="kpi-num" data-count="38">0</div>
+      <div class="kpi-label">Responses</div>
+    </div>
+    <div class="kpi-card c-purple">
+      <div class="kpi-num" data-count="3">0</div>
+      <div class="kpi-label">Active Leads</div>
+    </div>
+    <div class="kpi-card c-red">
+      <div class="kpi-num" data-count="15">0</div>
+      <div class="kpi-label">Rejections</div>
+    </div>
+    <div class="kpi-card c-grey">
+      <div class="kpi-num" data-count="155">0</div>
+      <div class="kpi-label">Awaiting Reply</div>
+    </div>
+    <div class="kpi-card c-orange">
+      <div class="kpi-num" data-count="19">0</div>
+      <div class="kpi-label">Viewed</div>
     </div>
   </div>
 
-  <div class="section-title">DEEP PIPELINE (UNCONFIRMED STATUS)</div>
-  <div class="panel">
-    <ul class="leadlist">
-      <li>
-        <div class="co">Arilo (via ABC Worldwide / James Knoll)</div>
-        <div class="role">Senior Product Designer, UI/UX — V&amp;A Waterfront, Cape Town</div>
-        <div class="meta awaiting">AWAITING — assessment submitted, two follow-ups sent, no verdict yet</div>
+  <div class="derived-strip">
+    <div class="derived-card"><div class="derived-num" data-count="2.6" data-decimal="1">0</div><div class="derived-label">Apps / Day</div></div>
+    <div class="derived-card"><div class="derived-num" data-count="8.7" data-decimal="1">0</div><div class="derived-label">Rejection Rate %</div></div>
+    <div class="derived-card"><div class="derived-num" style="font-size:15px;">8 Jun</div><div class="derived-label">Peak Day</div></div>
+    <div class="derived-card"><div class="derived-num" data-count="4">0</div><div class="derived-label">Direct Outreach</div></div>
+  </div>
+
+  <div class="rings-row">
+    <div class="ring-block">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+        <circle class="ring-anim" cx="45" cy="45" r="38" fill="none" stroke="#4a90e2" stroke-width="8"
+          stroke-dasharray="238.76" stroke-dashoffset="238.76" stroke-linecap="round" transform="rotate(-90 45 45)" data-pct="22"/>
+      </svg>
+      <div class="ring-val">22%</div>
+      <div class="ring-label">Response Rate</div>
+    </div>
+    <div class="ring-block">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+        <circle class="ring-anim" cx="45" cy="45" r="38" fill="none" stroke="#7c6fd4" stroke-width="8"
+          stroke-dasharray="238.76" stroke-dashoffset="238.76" stroke-linecap="round" transform="rotate(-90 45 45)" data-pct="2"/>
+      </svg>
+      <div class="ring-val">1.7%</div>
+      <div class="ring-label">Active Rate</div>
+    </div>
+    <div class="ring-block">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+        <circle class="ring-anim" cx="45" cy="45" r="38" fill="none" stroke="#2d8a7a" stroke-width="8"
+          stroke-dasharray="238.76" stroke-dashoffset="238.76" stroke-linecap="round" transform="rotate(-90 45 45)" data-pct="8"/>
+      </svg>
+      <div class="ring-val">7.9%</div>
+      <div class="ring-label">Conversion</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Pipeline &amp; Outcome</h2>
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Pipeline Split</div>
+      <div class="bar-row"><div class="bar-label">Active</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--purple);"></div></div><div class="bar-val">3</div></div>
+      <div class="bar-row"><div class="bar-label">Rejected</div><div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--red);"></div></div><div class="bar-val">15</div></div>
+      <div class="bar-row"><div class="bar-label">Awaiting</div><div class="bar-track"><div class="bar-fill" style="width:90%;background:var(--sub);"></div></div><div class="bar-val">155</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Outcome Funnel</div>
+      <div class="bar-row"><div class="bar-label">Applications</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--teal);"></div></div><div class="bar-val">173</div></div>
+      <div class="bar-row"><div class="bar-label">Responses</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--blue);"></div></div><div class="bar-val">38</div></div>
+      <div class="bar-row"><div class="bar-label">Active</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--purple);"></div></div><div class="bar-val">3</div></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Source Breakdown</div>
+      <div class="bar-row"><div class="bar-label">LinkedIn</div><div class="bar-track"><div class="bar-fill" style="width:84%;background:var(--blue);"></div></div><div class="bar-val">146</div></div>
+      <div class="bar-row"><div class="bar-label">Indeed</div><div class="bar-track"><div class="bar-fill" style="width:13%;background:var(--teal);"></div></div><div class="bar-val">23</div></div>
+      <div class="bar-row"><div class="bar-label">Direct</div><div class="bar-track"><div class="bar-fill" style="width:2%;background:var(--orange);"></div></div><div class="bar-val">4</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Last 7 Days — Daily Applications</div>
+      <div class="bar-row"><div class="bar-label">31 Jul</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--teal);"></div></div><div class="bar-val">6</div></div>
+      <div class="bar-row"><div class="bar-label">1 Aug</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--teal);"></div></div><div class="bar-val">5</div></div>
+      <div class="bar-row"><div class="bar-label">2 Aug</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--teal);"></div></div><div class="bar-val">1</div></div>
+      <div class="bar-row"><div class="bar-label">3 Aug</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--teal);"></div></div><div class="bar-val">1</div></div>
+      <div class="bar-row"><div class="bar-label">4 Aug</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--teal);"></div></div><div class="bar-val">5</div></div>
+      <div class="bar-row"><div class="bar-label">5 Aug</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--teal);"></div></div><div class="bar-val">3</div></div>
+      <div class="bar-row"><div class="bar-label">6 Aug</div><div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--teal);"></div></div><div class="bar-val">5</div></div>
+      <div class="bar-row"><div class="bar-label">7 Aug</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--teal);"></div></div><div class="bar-val">1</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Active Leads</h2>
+  <div class="chart-card">
+    <ul class="lead-list">
+      <li class="lead-item">
+        <div>
+          <div class="lead-name">Herotel — Senior UX/UI Designer</div>
+          <div class="lead-detail">heroHome Design Challenge submitted 4 Aug (Natasha Verster / Brink van Zyl). Receipt confirmed same day. Awaiting review.</div>
+        </div>
+        <span class="status-pill status-active">ACTIVE</span>
       </li>
-      <li>
-        <div class="co">Rhino Africa (via ABC Worldwide / James Knoll)</div>
-        <div class="role">Separate pipeline, distinct from Arilo</div>
-        <div class="meta awaiting">AWAITING — status not re-verified this run</div>
+      <li class="lead-item">
+        <div>
+          <div class="lead-name">Arilo / Rhino Africa — Senior Product Designer</div>
+          <div class="lead-detail">Assessment submitted to James Knoll (ABC Worldwide) 22 Jul, thanked 25 Jul. Now WhatsApp channel. Note: a separate direct "UX Architect" application to Rhino Africa was rejected 21 Jul — confirm this doesn't overlap.</div>
+        </div>
+        <span class="status-pill status-flag">UNCONFIRMED</span>
+      </li>
+      <li class="lead-item">
+        <div>
+          <div class="lead-name">Sanlam/Glacier — Senior UX/UI Designer (JG 11)</div>
+          <div class="lead-detail">Applied 6 Jul via SuccessFactors portal. No Gmail confirmation — portal-only, unverifiable via email.</div>
+        </div>
+        <span class="status-pill status-active">ACTIVE</span>
       </li>
     </ul>
   </div>
 
-  <footer>
-    CORE Hunter Dashboard · Pipeline patch generated 05 Aug 2026 · Job Search started 01 Jun 2026
-  </footer>
+  <h2 class="section-title">Recent Rejections</h2>
+  <div class="chart-card">
+    <ul class="lead-list">
+      <li class="lead-item"><div><div class="lead-name">Rank Interactive</div><div class="lead-detail">Senior Experience Designer — 30 Jul, detailed feedback given</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">TalentPop</div><div class="lead-detail">Creative Growth Assistant — 29 Jul</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">DuckDuckGo</div><div class="lead-detail">Senior Product Designer — 21 Jul</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">Rhino Africa</div><div class="lead-detail">UX Architect (direct/Gohire) — 21 Jul</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">Forerunner</div><div class="lead-detail">Senior Product Designer — 7 Jul</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">Profecia</div><div class="lead-detail">Graphic Designer — 6 Aug</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+      <li class="lead-item"><div><div class="lead-name">+ 9 more</div><div class="lead-detail">Hostaway, Constructor, MY.GAMES, Legacybox, Paddle, WorkFlex, Twin Health, Dayforce-hosted role, Collinson — 21 Jun–24 Jun window</div></div><span class="status-pill status-rejected">CLOSED</span></li>
+    </ul>
+  </div>
+
+  <h2 class="section-title">Portfolio Analytics — GA4</h2>
+  <div class="chart-card">
+    <div class="ga4-grid">
+      <div class="ga4-note">
+        GA4 data unavailable this run — Windsor.ai connector call was blocked (no approval received). Known issue persists: properties 376535856 and 539965333 may still be simultaneously connected on the Free plan, causing zero-data returns. Manual fix: windsor.ai → Connectors → Google Analytics 4 → disconnect the duplicate property, then re-run.
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<script>
-  // Animated counters
-  document.querySelectorAll('.stat-num').forEach(el=>{
-    const target = parseInt(el.getAttribute('data-target'),10);
-    let start=null; const duration=900;
-    function step(ts){
-      if(!start) start=ts;
-      const progress = Math.min((ts-start)/duration,1);
-      const eased = 1 - Math.pow(1-progress,3);
-      el.textContent = Math.round(eased*target);
-      if(progress<1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  });
+<footer>CORE — The Hunter · Jonathan Edward Nestler · Dashboard rebuilt on scan</footer>
 
-  // Live "days hunting" clock — from 00:00:00 1 June 2026
-  const startDate = new Date('2026-06-01T00:00:00');
+<script>
+  // Days Hunting live clock
+  const startDate = new Date('2026-06-01T00:00:00+02:00');
   function updateClock(){
     const now = new Date();
     let diff = now - startDate;
-    const days = Math.floor(diff/86400000); diff -= days*86400000;
-    const hrs = Math.floor(diff/3600000); diff -= hrs*3600000;
-    const mins = Math.floor(diff/60000); diff -= mins*60000;
-    const secs = Math.floor(diff/1000);
-    document.getElementById('clockDisplay').textContent =
-      `${days}d ${String(hrs).padStart(2,'0')}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
+    const days = Math.floor(diff / 86400000);
+    diff -= days*86400000;
+    const hours = String(Math.floor(diff/3600000)).padStart(2,'0');
+    diff -= Math.floor(diff/3600000)*3600000;
+    const mins = String(Math.floor(diff/60000)).padStart(2,'0');
+    diff -= Math.floor(diff/60000)*60000;
+    const secs = String(Math.floor(diff/1000)).padStart(2,'0');
+    document.getElementById('huntClock').textContent = `${days}d ${hours}:${mins}:${secs}`;
   }
-  updateClock();
   setInterval(updateClock,1000);
+  updateClock();
+  document.getElementById('scanTime').textContent = 'Scanned ' + new Date().toLocaleString('en-ZA',{ timeZone:'Africa/Johannesburg', dateStyle:'medium', timeStyle:'short'});
+
+  // Animated counters
+  function easeOutCubic(t){return 1-Math.pow(1-t,3);}
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseFloat(el.getAttribute('data-count'));
+    const decimals = parseInt(el.getAttribute('data-decimal')||"0");
+    const duration = 900;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/duration,1);
+      const val = target * easeOutCubic(p);
+      el.textContent = decimals ? val.toFixed(decimals) : Math.round(val);
+      if(p<1) requestAnimationFrame(tick);
+      else el.textContent = decimals ? target.toFixed(decimals) : target;
+    }
+    requestAnimationFrame(tick);
+  });
+
+  // Rings
+  document.querySelectorAll('.ring-anim').forEach(c=>{
+    const pct = parseFloat(c.getAttribute('data-pct'));
+    const circumference = 238.76;
+    const offset = circumference - (pct/100)*circumference;
+    setTimeout(()=>{ c.style.transition='stroke-dashoffset 1.1s ease'; c.style.strokeDashoffset = offset; }, 150);
+  });
 </script>
+
 </body>
 </html>
