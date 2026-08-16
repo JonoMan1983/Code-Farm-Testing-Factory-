@@ -9589,11 +9589,12 @@ window.addEventListener('scroll', () => {
     const roll = Math.random();
     const colorIdx = glow ? (roll < 0.55 ? 0 : 1) : (roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2);
     const depth = Math.random();
-    // Line identity — accent stars keep their own hue; neutral/white stars are
-    // assigned a stable teal/magenta identity so the polygon mesh stays lively
+    // Line identity — accent stars keep their own hue; neutral/white stars get
+    // a stable teal/magenta identity, weighted toward magenta (65%) so pink
+    // reads as a clear, unmistakable part of the mesh rather than a rare accent
     const lineRgb = glow
       ? (colorIdx === 0 ? LINE_TEAL : LINE_MAGENTA)
-      : (colorIdx === 1 ? LINE_TEAL : colorIdx === 2 ? LINE_MAGENTA : (Math.random() < 0.5 ? LINE_TEAL : LINE_MAGENTA));
+      : (colorIdx === 1 ? LINE_TEAL : colorIdx === 2 ? LINE_MAGENTA : (Math.random() < 0.35 ? LINE_TEAL : LINE_MAGENTA));
     return {
       x: Math.random() * w,
       y: Math.random() * h,
@@ -9722,7 +9723,7 @@ window.addEventListener('scroll', () => {
     // Pass 2 — thin polygon-mesh lines between nearby dots, drawn as a
     // gradient stroke from each endpoint's own teal/magenta identity colour
     // so every connecting edge is literally "made of" its two dots' colours
-    const lineBase = isLight ? 0.30 : 0.19;
+    const lineBase = isLight ? 0.42 : 0.23;
     for (let i = 0; i < stars.length; i++) {
       const a = stars[i];
       for (let j = i + 1; j < stars.length; j++) {
@@ -9738,7 +9739,7 @@ window.addEventListener('scroll', () => {
         const proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
         // Note: a._alpha / b._alpha already incorporate alphaMul from pass 1 —
         // don't multiply it in again here or light-mode lines go too faint
-        const lineAlpha = Math.min(0.34, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+        const lineAlpha = Math.min(0.42, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
         if (lineAlpha < 0.012) continue;
 
         const grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
