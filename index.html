@@ -9748,7 +9748,7 @@ window.addEventListener('scroll', () => {
         ctx.moveTo(a._px, a._py);
         ctx.lineTo(b._px, b._py);
         ctx.strokeStyle = grad;
-        ctx.lineWidth = 0.9 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 0.6;
+        ctx.lineWidth = 1.5 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 1.0;
         ctx.stroke();
       }
     }
