@@ -9577,17 +9577,30 @@ window.addEventListener('scroll', () => {
   let W = 0, H = 0;
   let stars = [];
 
+  // Brand accent duo used for the constellation lines — every line's identity
+  // colour is drawn from this pair regardless of theme, so the mesh always
+  // reads as teal/magenta even where a dot itself renders white for contrast
+  const LINE_TEAL    = [0, 245, 212];
+  const LINE_MAGENTA = [255, 0, 110];
+  const CONNECT_MAX_DIST = 165; // px — only nearby dots get threaded together
+
   // depth 0 = far (small, dim, slow, low parallax) — 1 = near (large, bright, fast, high parallax)
   function makeStar(w, h, glow) {
     const roll = Math.random();
     const colorIdx = glow ? (roll < 0.55 ? 0 : 1) : (roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2);
     const depth = Math.random();
+    // Line identity — accent stars keep their own hue; neutral/white stars are
+    // assigned a stable teal/magenta identity so the polygon mesh stays lively
+    const lineRgb = glow
+      ? (colorIdx === 0 ? LINE_TEAL : LINE_MAGENTA)
+      : (colorIdx === 1 ? LINE_TEAL : colorIdx === 2 ? LINE_MAGENTA : (Math.random() < 0.5 ? LINE_TEAL : LINE_MAGENTA));
     return {
       x: Math.random() * w,
       y: Math.random() * h,
       r: (glow ? 1.6 + Math.random() * 2.4 : 0.5 + Math.random() * 1.6) * (0.6 + depth * 0.9),
       glow,
       colorIdx,
+      lineRgb,
       depth,
       baseAlpha: glow ? 0.3 + Math.random() * 0.25 : 0.2 + Math.random() * 0.5,
       twFreq: 0.2 + Math.random() * 1.3,
@@ -9665,6 +9678,9 @@ window.addEventListener('scroll', () => {
 
     ctx.clearRect(0, 0, W, H);
 
+    // Pass 1 — advance motion for every star and cache this frame's draw
+    // data on the object so the connector pass and the dot pass below can
+    // both read it without re-rolling any of the drift/twinkle randomness
     stars.forEach(s => {
       // Organic drift — periodically re-roll a target velocity and ease toward it
       if (timestamp > s.nextRoll) {
@@ -9699,6 +9715,47 @@ window.addEventListener('scroll', () => {
       const r     = s.r * (1 + proximity * 1.3);
       const glowPalette = isLight ? GLOW_PALETTES.light : GLOW_PALETTES.dark;
       const rgb   = s.glow ? glowPalette[s.colorIdx] : palette[s.colorIdx];
+
+      s._px = px; s._py = py; s._alpha = alpha; s._r = r; s._rgb = rgb; s._prox = proximity;
+    });
+
+    // Pass 2 — thin polygon-mesh lines between nearby dots, drawn as a
+    // gradient stroke from each endpoint's own teal/magenta identity colour
+    // so every connecting edge is literally "made of" its two dots' colours
+    const lineBase = isLight ? 0.30 : 0.19;
+    for (let i = 0; i < stars.length; i++) {
+      const a = stars[i];
+      for (let j = i + 1; j < stars.length; j++) {
+        const b = stars[j];
+        const ddx = a._px - b._px;
+        if (ddx > CONNECT_MAX_DIST || ddx < -CONNECT_MAX_DIST) continue;
+        const ddy = a._py - b._py;
+        if (ddy > CONNECT_MAX_DIST || ddy < -CONNECT_MAX_DIST) continue;
+        const dist = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (dist >= CONNECT_MAX_DIST) continue;
+
+        const falloff   = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.7);
+        const proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
+        // Note: a._alpha / b._alpha already incorporate alphaMul from pass 1 —
+        // don't multiply it in again here or light-mode lines go too faint
+        const lineAlpha = Math.min(0.34, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+        if (lineAlpha < 0.012) continue;
+
+        const grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
+        grad.addColorStop(0, `rgba(${a.lineRgb[0]},${a.lineRgb[1]},${a.lineRgb[2]},${lineAlpha})`);
+        grad.addColorStop(1, `rgba(${b.lineRgb[0]},${b.lineRgb[1]},${b.lineRgb[2]},${lineAlpha})`);
+        ctx.beginPath();
+        ctx.moveTo(a._px, a._py);
+        ctx.lineTo(b._px, b._py);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 0.5 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 0.4;
+        ctx.stroke();
+      }
+    }
+
+    // Pass 3 — dots (+ glow halos) render on top of the connecting lines
+    stars.forEach(s => {
+      const px = s._px, py = s._py, alpha = s._alpha, r = s._r, rgb = s._rgb;
 
       if (s.glow) {
         // Slow independent breathing pulse on the glow halo
