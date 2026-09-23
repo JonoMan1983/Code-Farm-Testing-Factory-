@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pantelotteriet — dig report · Jonathan Nestler</title>
+<meta name="description" content="A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.">
+<!-- V2 STAGING: remove the robots line at swap time -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Pantelotteriet — dig report · Jonathan Nestler">
+<meta property="og:description" content="A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.">
+<meta property="og:image" content="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/assets/brand/logo/og-image.png">
+<meta name="theme-color" content="#15110E">
+<link rel="icon" href="/Code-Farm-Testing-Factory-/assets/brand/logo/favicon.ico">
+<link rel="apple-touch-icon" href="/Code-Farm-Testing-Factory-/assets/brand/logo/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/dig.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VR87BLZQG1',{site_version:'v2'});</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="../index.html" aria-label="Designasaurus Rex — home">
+<span class="brand-mark" aria-hidden="true">DR</span>
+<span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
+</a>
+<button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="../index.html#work" aria-current="page">Work</a>
+<a href="../index.html#ai">AI Practice</a>
+<a href="../archive.html">Archive</a>
+<a href="../index.html#about">About</a>
+<a href="../resume.html">Field notes (CV)</a>
+<a class="btn btn--fill" href="../index.html#contact">Hire the raptor</a>
+</nav>
+</header>
+<div class="rail" aria-hidden="true"><span class="rail-fill"></span><span class="rail-read"></span></div>
+<div class="progress" aria-hidden="true"></div>
+
+<main id="main">
+<section class="section cs-hero" data-depth="0.0m" data-era="pantelotteriet">
+<a class="mono small" href="../index.html#work">← Back to the dig site</a>
+<p class="eyebrow" style="margin-top:36px">Specimen 01 · Mobile app + raffle site · Scandinavia</p>
+<h1 class="h-mega">Pantelotteriet</h1>
+<p class="lede">A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.</p>
+<div class="strata" aria-hidden="true"><i></i><i></i><i></i></div>
+</section>
+<div class="cs-meta"><div><span class="mono">ROLE</span><b>Product Designer → Jr. PO</b></div><div><span class="mono">CLIENT</span><b>Astria Systems</b></div><div><span class="mono">SURFACES</span><b>Mobile app, web raffle</b></div><div><span class="mono">AI STACK</span><b>Claude Code · Figma MCP</b></div><div><span class="mono">YEAR</span><b>[YEAR]</b></div></div>
+
+<section class="section" data-depth="0.6m" data-era="the problem">
+<div class="cs-split reveal"><div><p class="eyebrow">The surface problem</p><div style="margin-top:28px"><figure class="guide guide--left" aria-hidden="true"><img src="../assets/dino/dino07-fossil.svg" alt="" width="176" height="138"><figcaption>Specimen 07 · Unguis intentus</figcaption></figure></div></div><p class="h-l">Static Figma frames couldn't show a countdown, a claim window or a state change. Engineering would have found the timing bugs — late and expensively.</p></div>
+</section>
+
+<section class="section section--alt" data-depth="1.2m" data-era="excavation log">
+<div class="sec-head reveal"><div><p class="eyebrow">Excavation log</p><h2 class="h-l">Four layers, top to bottom</h2></div><figure class="guide" aria-hidden="true"><img src="../assets/dino/dino05-fossil.svg" alt="" width="176" height="138"><figcaption>Specimen 05 · Stegosaurus systema</figcaption></figure></div>
+<div class="log reveal"><div class="log-row"><span class="n">01</span><span class="h-m">Figma structure</span><p>One cover page indexes every flow. Rows, fields and dropdowns are built once as slot-variant components and reused everywhere.</p></div><div class="log-row"><span class="n">02</span><span class="h-m">Journey mapping</span><p>Registration → claim, profile, support, history. Each journey scoped in one line — happy path and every edge case — before a screen is drawn.</p></div><div class="log-row is-ai"><span class="n">03</span><span class="h-m">AI prototype</span><p>A self-contained HTML prototype built with Claude Code: real tab switching, live countdown logic and state transitions to pressure-test timing.</p></div><div class="log-row"><span class="n">04</span><span class="h-m">Dev handoff</span><p>Flows, edge cases and timing logic shipped to engineering already proven against real interaction.</p></div></div>
+</section>
+
+<section class="section" id="research" data-depth="1.8m" data-era="journey research">
+<div class="sec-head reveal"><div><p class="eyebrow">Journey research</p><h2 class="h-l">Every journey, mapped before a screen</h2></div>
+<p class="lede">Registration → claim, profile, support and history — each scoped with its happy path and every edge case.</p><figure class="guide" aria-hidden="true"><img src="../assets/dino/dino06-fossil.svg" alt="" width="176" height="138"><figcaption>Specimen 06 · Tyrannosaurus personae</figcaption></figure></div>
+<!-- PENDING: journey research boards from RLI Mobile App.fig (needs Figma link) -->
+<div class="embed reveal">[ Journey research boards — pending Figma import ]</div>
+</section>
+<section class="section section--deep" data-depth="2.1m" data-era="live specimen">
+<div class="cs-split reveal">
+<div><p class="eyebrow">The specimen, alive</p><h2 class="h-l" style="margin-top:10px">Try the prototype, not a screenshot</h2>
+<p class="body-2" style="margin-top:16px">The Claude Code prototype, embedded. Tap between draws, claims and profile; watch the countdown hit zero.</p></div>
+<!-- PENDING: embed the Claude Code prototype here as <iframe src="pantelotteriet-prototype.html"> -->
+<div style="display:flex;justify-content:center"><div class="phone" aria-hidden="true">
+<div class="phone-top"><span class="mono">NEXT DRAW IN</span><span class="count" data-countdown>02:14:36</span></div>
+<div class="phone-card"></div><div class="phone-line" style="width:120px"></div><div class="phone-line" style="width:150px"></div>
+<div class="phone-tabs"><span>DRAWS</span><span>CLAIM</span><span>PROFILE</span></div>
+</div></div>
+</div>
+</section>
+
+<section class="section" data-depth="2.4m" data-era="field notes">
+<div class="sec-head reveal"><div><p class="eyebrow">Field notes — AI proposed / I decided</p><h2 class="h-l">Where the judgment happened</h2></div><figure class="guide" aria-hidden="true"><img src="../assets/dino/dino08-fossil.svg" alt="" width="176" height="138"><figcaption>Specimen 08 · Triceratops annotata</figcaption></figure></div>
+<div class="notes reveal"><div class="note"><div><span class="mono">AI PROPOSED</span>Claude Code generated the countdown and tab logic from my journey notes.</div><div><span class="mono">I DECIDED</span>Which states exist, what happens at zero, and every edge case it had to survive.</div></div><div class="note"><div><span class="mono">AI PROPOSED</span>[Add a specific suggestion you rejected]</div><div><span class="mono">I DECIDED</span>[Why it was cut — user, brand or technical reason]</div></div><div class="note"><div><span class="mono">AI PROPOSED</span>Dev-ready annotations drafted from Figma via MCP.</div><div><span class="mono">I DECIDED</span>Reviewed every spec before engineering saw it.</div></div></div>
+</section>
+
+<section class="section section--alt" data-depth="3.0m" data-era="outcomes">
+<div class="sec-head reveal"><div><p class="eyebrow">Outcomes</p><h2 class="h-l" style="margin-top:10px">What came out of the ground</h2></div><figure class="guide" aria-hidden="true"><img src="../assets/dino/dino03-fossil.svg" alt="" width="176" height="138"><figcaption>Specimen 03 · Vestigium metricum</figcaption></figure></div>
+<div class="metrics reveal"><div><b>[X]</b><span>journeys scoped before build</span></div><div><b>[X%]</b><span>fewer timing issues in QA</span></div><div><b>[X]</b><span>days from flow to testable prototype</span></div></div>
+<a class="next" href="astria-platform.html">Next specimen: Astria platform →</a>
+</section>
+</main>
+<footer class="site-footer">
+<span>© <span data-year>2026</span> Jonathan Edward Nestler · Designasaurus Rex</span>
+<span>Jeffreys Bay, ZA · Remote worldwide · Open to relocate anywhere in South Africa</span>
+</footer>
+<script src="../assets/js/dig.js" defer></script>
+</body>
+</html>
