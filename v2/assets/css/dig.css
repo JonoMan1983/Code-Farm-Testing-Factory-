@@ -160,6 +160,8 @@ main { display: block; }
 
 /* ---------- Hero ---------- */
 .hero { min-height: calc(100svh - 72px); padding-top: clamp(48px, 7vw, 88px); padding-bottom: 0; display: flex; flex-direction: column; overflow: hidden; }
+.hero-welcome { font-family: var(--f-disp); font-weight: 800; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--s3); max-width: max-content; }
+.hero-welcome .ochre { white-space: nowrap; }
 .hero-title { --w: 900; font-variation-settings: 'wght' var(--w); margin-top: 18px; }
 .hero-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; margin-top: 36px; }
 .hero-data { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-left: 1px solid var(--s4); padding-left: 20px; display: grid; gap: 8px; }
