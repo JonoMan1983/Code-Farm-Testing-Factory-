@@ -147,7 +147,7 @@ main { display: block; }
 
 /* Designasaurus guides — two-tone SVGs recoloured to the Dig Site palette (assets/dino/) */
 .guide { margin: 0; display: grid; gap: 8px; justify-items: end; width: clamp(120px, 12vw, 176px); flex-shrink: 0; }
-.guide img { width: 100%; height: auto; }
+.guide img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; filter: none; border: 0; }
 .guide figcaption { font-family: var(--f-mono); font-size: 10px; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: right; }
 .guide--left { justify-items: start; }
 .guide--left figcaption { text-align: left; }
@@ -233,7 +233,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 56px; align-items: start; }
-.about img { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(1) sepia(.35) contrast(1.05); border: 1px solid var(--s4); }
+.about .portrait { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(1) sepia(.35) contrast(1.05); border: 1px solid var(--s4); }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
 .facts div { padding: 20px; border-top: 3px solid var(--ochre); background: var(--s1); }
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
@@ -361,7 +361,8 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .spec-small { grid-template-columns: 1fr; }
   .log-row { grid-template-columns: 56px minmax(0, 1fr); gap: 8px 16px; padding: 22px; }
   .log-row .n { font-size: 40px; grid-row: span 2; }
-  .about img { max-width: 220px; }
+  .about .portrait { max-width: 220px; }
+  .facts { grid-template-columns: 1fr; }
   .hero-ground .hero-dino { right: 6%; }
   .hero-guide { position: static; width: 180px; margin-top: 24px; }
   .sec-head { grid-template-columns: 1fr; }

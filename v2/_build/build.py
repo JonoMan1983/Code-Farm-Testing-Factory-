@@ -220,7 +220,7 @@ def home():
 
 <section class="section" id="about" data-depth="4.6m" data-era="2007–now" aria-labelledby="about-title">
 <div class="about reveal">
-<div><img src="{A}/images/about/Jonathan_Nestler.jpg" alt="Portrait of Jonathan Nestler" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
+<div><img class="portrait" src="{A}/images/about/Jonathan_Nestler.jpg" alt="Portrait of Jonathan Nestler" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
 <div>
 <p class="eyebrow">Layer 03 — The specimen</p>
 <h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
