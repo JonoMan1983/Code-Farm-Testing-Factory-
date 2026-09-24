@@ -18,6 +18,7 @@ GA = """<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZ
 
 
 DINO_NAMES = {
+    '04': 'Designasaurus rex',
     '02': 'Tyrannosaurus codex', '03': 'Vestigium metricum', '05': 'Stegosaurus systema', '06': 'Tyrannosaurus personae',
     '07': 'Unguis intentus', '08': 'Triceratops annotata', '09': 'Velociraptor designii', '10': 'Pterodactylus promptus', '11': 'Ankylosaurus archivum',
 }
@@ -32,6 +33,8 @@ def guide(n, pre, variant='fossil', left=False):
 def dino_img(n, pre, cls, variant='fossil', alt=''):
     return f'<img class="{cls}" src="{pre}assets/dino/dino{n}-{variant}.svg" alt="{alt}">'
 
+
+SHOVEL = '<svg class="shovel" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V12.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.4 12.4h9.2v3.9c0 3.1-2 5.6-4.6 6.6-2.6-1-4.6-3.5-4.6-6.6z" fill="currentColor"/></svg>'
 
 def head(title, desc, pre):
     return f"""<!doctype html>
@@ -60,28 +63,50 @@ def head(title, desc, pre):
 """
 
 
-def header(pre, active, home=False):
+def header(pre, active, home=False, crumbs=None):
     h = '' if home else f'{pre}index.html'
+    arc = f'{pre}archive.html'
+
     def cur(k):
         return ' aria-current="page"' if k == active else ''
+
+    menu = [
+        ('work', 'Work', f'{h}#work', [('Pantelotteriet', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
+        ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
+        ('about', 'About', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
+    ]
+    items = []
+    for key, label, href, subs in menu:
+        sub = ''.join(f'<li><a href="{u}">{t}</a></li>' for t, u in subs)
+        items.append(f'<li class="has-drop"><a class="nav-top" href="{href}"{cur(key)}>{label}</a>'
+                     f'<button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-{key}" aria-label="{label} submenu">'
+                     f'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>'
+                     f'<ul class="drop" id="drop-{key}">{sub}</ul></li>')
+    items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field notes (CV)</a></li>')
+    items.append(f'<li><a class="btn btn--fill" href="{h}#contact">Hire the raptor</a></li>')
+
+    trail = [f'<li><a href="{pre}index.html">{SHOVEL}<span>Dig site</span></a></li>']
+    for label, href in (crumbs or []):
+        trail.append(f'<li><a href="{href}">{label}</a></li>' if href else f'<li><span aria-current="page">{label}</span></li>')
+    trail.append('<li class="crumb-live" hidden><span data-crumb-live></span></li>')
     return f"""<header class="site-header">
 <a class="brand" href="{pre}index.html" aria-label="Designasaurus Rex — home">
 <span class="brand-mark" aria-hidden="true">DR</span>
 <span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
 </a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
-<nav class="nav" id="site-nav" aria-label="Main">
-<a href="{h}#work"{cur('work')}>Work</a>
-<a href="{h}#ai"{cur('ai')}>AI Practice</a>
-<a href="{pre}archive.html"{cur('archive')}>Creative Archive</a>
-<a href="{h}#about"{cur('about')}>About</a>
-<a href="{pre}resume.html"{cur('cv')}>Field notes (CV)</a>
-<a class="btn btn--fill" href="{h}#contact">Hire the raptor</a>
-</nav>
+<nav class="nav" id="site-nav" aria-label="Main"><ul class="nav-list">{''.join(items)}</ul></nav>
 </header>
+<nav class="crumbs" aria-label="Breadcrumb"><ol>{''.join(trail)}</ol><span class="crumbs-hint mono" aria-hidden="true">You are here</span></nav>
 <div class="rail" aria-hidden="true"><span class="rail-fill"></span><span class="rail-read"></span></div>
 <div class="progress" aria-hidden="true"></div>
 """
+
+
+def _plain(t):
+    import re as _r
+    return _r.sub(r'<[^>]+>', '', t)
 
 
 def footer(pre):
@@ -115,8 +140,46 @@ UI_SHOTS = ['v1780042536/UI_Portfolio_2022-02_dh0wod', 'v1780042536/UI_Portfolio
             'v1780042654/UI_Portfolio_2022-07_gfwpyt', 'v1780042654/UI_Portfolio_2022-08_i9r9dc', 'v1780042655/UI_Portfolio_2022-09_gvww35']
 
 
-def slabs():
-    return '\n'.join(f'<div class="slab"><img src="{u}" alt="{n} — game UI" loading="lazy"><span>{n}</span></div>' for n, u in SLOTS)
+IGAMING = [
+    # (title, cloudinary video id or None, local image or None)
+    ('Samurai', 'v1780033053/Samurai_Winning_xjzc3w', None),
+    ('Big Sexy City', 'v1780033062/Big_Sexy_City_Reelframe_p6gb6u', None),
+    ('Rose of the West', 'v1780033054/Rose_of_the_West_pu7mna', None),
+    ('Bellas Bachelorette', None, 'assets/images/igaming/bellas-bachelorette.jpg'),
+    ('Americana', None, 'assets/images/igaming/americana.jpg'),
+]
+
+
+def slabs(pre=''):
+    tiles = []
+    for n, vid, img in IGAMING:
+        if vid:
+            thumb = f'{CDN}/video/upload/f_jpg,q_auto,w_600,h_860,c_fill,so_1/{vid}.jpg'
+            attrs = f'data-gal-type="video" data-gal-src="{CDN}/video/upload/q_auto,vc_auto,w_1280/{vid}.mp4" data-gal-poster="{CDN}/video/upload/f_jpg,q_auto,w_1280,so_1/{vid}.jpg"'
+        elif img and os.path.exists(os.path.join(ROOT, img)):
+            thumb = pre + img
+            attrs = f'data-gal-type="image" data-gal-src="{pre}{img}"'
+        else:
+            tiles.append(f'<div class="slab slab--pending"><span class="slab-pending mono">Image to come</span><span class="slab-name">{n}</span></div>')
+            continue
+        tiles.append(f'<button type="button" class="slab" data-gal-item data-gal-title="{n}" {attrs} aria-label="View {n} larger">'
+                     f'<img src="{thumb}" alt="" loading="lazy"><span class="slab-view mono" aria-hidden="true">View ↗</span><span class="slab-name">{n}</span></button>')
+    return '<div class="slabs" data-gal>' + ''.join(tiles) + '</div>'
+
+
+IGAMING_HEAD = ('<div class="ig-caption reveal"><h3 class="h-l">iGaming UI implementation</h3>'
+                '<p class="lede">Reel frames, win states, wild and scatter animations designed, built and handed off for live slot titles — '
+                'shipped to regulated markets in Scandinavia, South Africa and the UK. Tap any title to see it running.</p></div>')
+
+
+def gal_dialog():
+    return """<dialog class="gal-dialog" aria-label="Game preview">
+<div class="gal-box">
+<header class="gal-head"><span class="mono" data-gal-count></span><h3 data-gal-name></h3><button class="gal-x" type="button" data-gal-close aria-label="Close preview">×</button></header>
+<div class="gal-media" data-gal-media></div>
+<footer class="gal-foot"><button class="gal-nav" type="button" data-gal-prev>← Previous</button><button class="gal-nav" type="button" data-gal-next>Next →</button></footer>
+</div>
+</dialog>"""
 
 
 # ---------------------------------------------------------------- REFERENCES
@@ -178,15 +241,84 @@ def ref_dialog():
 <script type="application/json" id="refs-data">{data}</script>"""
 
 
+# ---------------------------------------------------------------- ABOUT (V1 content, V2 style)
+_LOGOS = json.load(open(os.path.join(HERE, 'v1logos.json'), encoding='utf-8'))['logos']
+_TOOLS = json.load(open(os.path.join(HERE, 'v1tools.json'), encoding='utf-8'))
+_TIMELINE = json.load(open(os.path.join(HERE, 'v1timeline.json'), encoding='utf-8'))
+_TIMELINE[0]['dates'] = 'Nov 2023 – Present'
+CERTS = ['UX Experience Design Fundamentals', 'Become a Product Manager', 'Gamification &amp; Motivation Psychology', 'Adobe XD Masterclass',
+         'Product Management Frameworks', 'Ultimate AI Art &amp; Content Creation', 'Web Accessibility &amp; Inclusive Design (WCAG Principles)']
+
+
+def _tools_v2():
+    cats = {c['cat']: c['items'] for c in _TOOLS}
+    by = {i['name']: i for c in _TOOLS for i in c['items']}
+    figma_icon = by['Figma']['icon']
+    ai = [by['Claude AI'], by['Claude Code'], {'name': 'Figma MCP', 'icon': figma_icon}, by['ChatGPT'], by['Gemini'], by['Figma AI'], by['Midjourney'], by['DALL·E']]
+    order = [
+        ('AI &amp; emerging tools', ai, ['Claude AI', 'Claude Code', 'Figma MCP']),
+        ('Design &amp; prototyping', [i for i in cats['Design & Prototyping'] if i['name'] not in ('Claude AI', 'Gemini')], []),
+        ('Adobe Creative Suite', cats['Adobe Creative Suite'], []),
+        ('Web &amp; front-end', cats['Web & Front-End'], []),
+        ('Productivity &amp; project management', cats['Productivity & Project Management'], []),
+    ]
+    rows = []
+    for label, items, primary in order:
+        tiles = ''.join(
+            f'<li class="tool-chip{" tool-chip--primary" if it["name"] in primary else ""}{" tool-chip--low" if it["name"] in ("Midjourney", "DALL·E") else ""}">'
+            f'<span class="tool-chip-icon" aria-hidden="true">{it["icon"]}</span><span>{it["name"].replace("draw. io", "draw.io")}</span></li>' for it in items)
+        rows.append(f'<div class="toolkit-row"><h4>{label}</h4><ul>{tiles}</ul></div>')
+    return ''.join(rows)
+
+
+def _timeline():
+    def row(t, i):
+        return (f'<li class="tl-row tl-row--{i % 4}"><span class="tl-date">{html.escape(t["dates"])}</span>'
+                f'<div class="tl-role"><b>{html.escape(t["role"])}</b><span>{html.escape(t["org"])}</span></div>'
+                f'<p>{html.escape(t["desc"])}</p></li>')
+    top = ''.join(row(t, i) for i, t in enumerate(_TIMELINE[:6]))
+    deep = ''.join(row(t, i + 6) for i, t in enumerate(_TIMELINE[6:]))
+    return (f'<ol class="tl">{top}</ol>'
+            f'<details class="tl-more"><summary><span>Dig deeper</span> — {len(_TIMELINE) - 6} earlier roles, 2007–2013</summary><ol class="tl">{deep}</ol></details>')
+
+
+def about_more():
+    logos = ''.join(f'<img src="{u}" alt="{html.escape(a)}" loading="lazy">' for u, a in _LOGOS)
+    logos_dup = ''.join(f'<img src="{u}" alt="" loading="lazy">' for u, a in _LOGOS)
+    certs = ''.join(f'<li>{c}</li>' for c in CERTS)
+    ticks = ''.join(f'<span class="{"on" if i < 7 else ""}"></span>' for i in range(27))
+    return f"""<div class="about-more">
+<div class="sub-block reveal" id="clients">
+<div class="sec-head"><div><p class="eyebrow">Clients &amp; employers</p><h3 class="h-l" style="margin-top:10px">Respected by the people I work with</h3></div></div>
+<div class="logo-belt" role="region" aria-label="Clients and employers"><div class="logo-track"><div class="logo-set">{logos}</div><div class="logo-set" aria-hidden="true">{logos_dup}</div></div></div>
+</div>
+<div class="sub-block reveal" id="toolkit">
+<div class="sec-head"><div><p class="eyebrow">Software proficiency</p><h3 class="h-l" style="margin-top:10px">Tools of the trade</h3><p class="lede" style="margin-top:12px">The armoury. Wielded, not just installed — Claude first.</p></div>{guide('02', '')}</div>
+<div class="toolkit">{_tools_v2()}</div>
+</div>
+<div class="sub-block reveal" id="timeline">
+<div class="sec-head"><div><p class="eyebrow">Career timeline · {len(_TIMELINE)} roles</p><h3 class="h-l" style="margin-top:10px">Two decades. No two projects alike.</h3></div>{guide('05', '')}</div>
+{_timeline()}
+</div>
+<div class="sub-block reveal" id="certs">
+<div class="certs">
+<div class="certs-count"><b>27</b><span class="h-m">Certifications<br>&amp; counting</span><div class="cert-ticks" aria-hidden="true">{ticks}</div></div>
+<div><p class="eyebrow">Continuous learning</p><p class="lede" style="margin-top:12px">Still learning. Still hungry. Still Rex. Beyond the diploma — a standing habit of structured upskilling across UX research, product management, AI tooling and accessibility.</p>
+<ul class="cert-list">{certs}<li class="cert-more">+ 20 more</li></ul></div>
+</div>
+</div>
+</div>"""
+
+
 # ------------------------------------------------------------------ HOME
 def home():
     return head('Jonathan Nestler — Senior Product Designer · UX/UI · AI integration',
                 'Senior Product Designer and Jr. Product Owner. UX/UI, product and AI-integrated workflows. Jeffreys Bay, remote worldwide, open to relocate anywhere in South Africa.', '') + header('', '', home=True) + f"""
 <main id="main">
 
-<section class="section hero" data-depth="0.0m" data-era="2026" aria-labelledby="hero-title">
-<p class="hero-welcome">Welcome to the <span class="nw">Designasaurus</span> <span class="dig-stamp">Dig Site</span></p>
-<p class="eyebrow">Specimen 09 · Velociraptor designii · excavated Jeffreys Bay, ZA</p>
+<section class="section hero" data-crumb="Welcome" data-depth="0.0m" data-era="2026" aria-labelledby="hero-title">
+<p class="hero-welcome">Welcome to the <span class="nw">Designasaurus</span> <span class="dig-stamp"><svg class="shovel" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V12.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.4 12.4h9.2v3.9c0 3.1-2 5.6-4.6 6.6-2.6-1-4.6-3.5-4.6-6.6z" fill="currentColor"/></svg>Dig Site</span></p>
+<p class="eyebrow">Specimen 04 · Designasaurus rex · excavated Jeffreys Bay, ZA</p>
 <h1 class="h-mega hero-title" id="hero-title">I design<br><span class="outline">the system</span><br><span class="ochre">before the screen.</span></h1>
 <div class="hero-meta">
 <div>
@@ -197,12 +329,12 @@ def home():
 </div>
 <div class="hero-ground" aria-hidden="true">
 <div class="strata"><i></i><i></i><i></i><i></i></div>
-{dino_img('09', '', 'hero-dino', alt='')}
-<span class="tag tag--hot">TAG 09 · INTACT</span>
+{dino_img('04', '', 'hero-dino', alt='Designasaurus rex — a T-rex roaring code, the site mascot')}
+<span class="tag tag--hot">TAG 04 · STILL ROARING</span>
 </div>
 </section>
 
-<section class="section" id="work" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
+<section class="section" id="work" data-crumb="Selected work" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 00 — Surface</p><h2 class="h-xl" id="work-title">Specimens recovered</h2></div>
 <p class="lede">Three flagship digs. Each one logged: the brief, what AI proposed, what I kept and what shipped.</p>{guide('02', '')}</div>
 
@@ -240,7 +372,7 @@ def home():
 </div>
 </section>
 
-<section class="section section--alt" id="ai" data-depth="2.1m" data-era="AI layer" aria-labelledby="ai-title">
+<section class="section section--alt" id="ai" data-crumb="AI Practice" data-depth="2.1m" data-era="AI layer" aria-labelledby="ai-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 01 — The AI stratum</p><h2 class="h-xl" id="ai-title">AI is bedded in.<br><span class="ochre">Judgment is mine.</span></h2></div>
 <p class="lede">Claude runs through every stage — chat, Claude Code, Figma MCP and custom skills — with ChatGPT and Gemini in the daily rotation. Here is exactly where AI sits, and where it doesn't.</p>{guide('10', '')}</div>
 <div class="stratum reveal" role="table" aria-label="What AI does and what I decide at each stage">
@@ -257,7 +389,7 @@ def home():
 <div class="me" role="cell" data-stage="Handoff">Every spec, before engineering sees it.</div>
 </div>
 <div class="nodig reveal"><span class="mono">NO-DIG ZONE<br>never automated</span><ul class="nodig-list"><li>{ICON_TALK}<span class="h-m">User interviews</span></li><li>{ICON_PRIORITY}<span class="h-m">Prioritisation</span></li><li>{ICON_EYE}<span class="h-m">Final visual judgment</span></li></ul></div>
-<div class="toolstrata reveal" aria-label="AI tools by how much of my work they touch">
+<div class="toolstrata reveal" id="ai-tools" aria-label="AI tools by how much of my work they touch">
 <p class="eyebrow" style="color:var(--muted)">Tool strata — thickness = how much of the work it touches</p>
 <div class="ts-row ts-1"><span class="h-m">Claude</span><span class="ts-bar"><i></i></span><span class="ts-note">Primary · every stage<br><b>Chat · Claude Code · Figma MCP · custom skills</b></span></div>
 <div class="ts-row ts-2"><span class="h-m">ChatGPT</span><span class="ts-bar"><i></i></span><span class="ts-note">Daily rotation</span></div>
@@ -265,7 +397,7 @@ def home():
 <div class="ts-row ts-3"><span class="h-m">Midjourney · DALL·E</span><span class="ts-bar"><i></i></span><span class="ts-note">Occasional · mood reference</span></div>
 </div>
 <p class="eyebrow reveal" style="margin-top:48px;color:var(--muted)">Tools I've built with Claude</p>
-<div class="tools reveal">
+<div class="tools reveal" id="ai-builds">
 <div class="tool">{ICON_SITE}<span class="h-m">This site</span><p>Designer-directed, Claude-built, shipped to GitHub Pages in push sessions.</p></div>
 <div class="tool">{ICON_HUNTER}<span class="h-m">The Hunter</span><p>A React command centre wired to Gmail through MCP.</p></div>
 <div class="tool">{ICON_CENTRAL}<span class="h-m">Central</span><p>Inbox triage that turns email into ClickUp tasks with Claude.</p></div>
@@ -273,7 +405,7 @@ def home():
 </div>
 </section>
 
-<section class="section refs" id="proof" data-depth="3.0m" data-era="reports" aria-labelledby="proof-title">
+<section class="section refs" id="proof" data-crumb="Field reports" data-depth="3.0m" data-era="reports" aria-labelledby="proof-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
 <p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
 {ref_belts()}
@@ -281,14 +413,16 @@ def home():
 {ref_dialog()}
 </section>
 
-<section class="section section--deep" id="craft" data-depth="3.4m" data-era="2018–25" aria-labelledby="craft-title">
+<section class="section section--deep" id="craft" data-crumb="iGaming bedrock" data-depth="3.4m" data-era="2018–25" aria-labelledby="craft-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 02 — iGaming bedrock · 2018–2025</p><h2 class="h-xl" id="craft-title">Six years of high-stakes pixels</h2></div>
 <p class="lede">Live products for lottery and gaming audiences in Scandinavia, South Africa and the UK. Plus the motion, brand and personal work underneath.</p>{guide('05', '')}</div>
-<div class="slabs reveal">{slabs()}</div>
+<div class="reveal">{slabs()}</div>
+{IGAMING_HEAD}
+{gal_dialog()}
 <div class="btn-row reveal" style="margin-top:40px"><a class="btn btn--bone" href="archive.html">Open the Creative Archive →</a><a class="btn" href="archive.html#reel">Motion reel</a><a class="btn" href="archive.html#art">Artistic expression</a></div>
 </section>
 
-<section class="section" id="about" data-depth="4.6m" data-era="2007–now" aria-labelledby="about-title">
+<section class="section" id="about" data-crumb="About" data-depth="4.6m" data-era="2007–now" aria-labelledby="about-title">
 <div class="about reveal">
 <div><img class="portrait" src="assets/images/portrait.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky" width="900" height="900" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
 <div>
@@ -299,17 +433,10 @@ def home():
 <div class="facts"><div><b>20+</b><span>years shipping design</span></div><div><b>3</b><span>markets: Scandinavia, SA, UK</span></div><div><b>27</b><span>certifications</span></div></div>
 </div>
 </div>
-<div class="fossils reveal" style="margin-top:64px">
-<div><span class="mono">2007</span><b>Peermont</b><span>Casino promo, Emperors Palace</span></div>
-<div><span class="mono">2008</span><b>8 Image</b><span>Coca-Cola, Vodacom, MTN</span></div>
-<div><span class="mono">2010</span><b>Digineering</b><span>GSK, BASF — new media</span></div>
-<div><span class="mono">2013</span><b>Telkom SA</b><span>Brand + responsive web</span></div>
-<div><span class="mono">2017</span><b>EduBoard</b><span>EdTech web and video</span></div>
-<div><span class="mono">2018→</span><b>Astria Systems</b><span>Product Designer → Jr. PO</span></div>
-</div>
+{about_more()}
 </section>
 
-<section class="section contact" id="contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
+<section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
 <h2 class="h-mega" id="contact-title" style="margin-top:10px">You've hit bedrock.<br><span class="ochre">Let's build on it.</span></h2>
 <div class="btn-row" style="margin-top:40px"><a class="btn btn--fill" href="mailto:{EMAIL}">Start a conversation</a><a class="btn" href="resume.html">Field notes (CV)</a><a class="btn" href="{LINKEDIN}">LinkedIn</a></div>
@@ -331,7 +458,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
     notes_html = ''.join(
         f'<div class="note"><div class="note-ai"><span class="mono">AI proposed</span>{a}</div><div class="note-me"><span class="note-me-label"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8A33D"/><path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#15110E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>I decided</span><p>{b}</p></div></div>' for a, b in notes)
     met_html = ''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in metrics)
-    return head(title, lede, pre) + header(pre, 'work') + f"""
+    return head(title, lede, pre) + header(pre, 'work', crumbs=[('Work', '../index.html#work'), (_plain(name), None)]) + f"""
 <main id="main">
 <section class="section cs-hero" data-depth="0.0m" data-era="{slug}">
 <a class="mono small" href="../index.html#work">← Back to the dig site</a>
@@ -402,7 +529,9 @@ def astria():
     extra = f"""<section class="section section--deep" data-depth="1.8m" data-era="bedrock">
 <div class="sec-head reveal"><div><p class="eyebrow">The bedrock</p><h2 class="h-l">Shipped, live, regulated</h2></div>
 <p class="lede">Slot UI, VFX and product screens for live audiences — plus the identity systems holding it together.</p></div>
-<div class="slabs reveal">{slabs()}</div>
+<div class="reveal">{slabs('../')}</div>
+{IGAMING_HEAD}
+{gal_dialog()}
 <div class="gallery reveal" style="margin-top:24px">{shots}</div>
 <div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
 </section>"""
@@ -472,7 +601,7 @@ def archive():
     docs_html = ''.join(doc_card(k, n, f) for k, n, f in docs)
     reel = f'{CDN}/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4'
     return head('Creative Archive — motion, brand, legacy and personal work · Jonathan Nestler',
-                'Motion reel, 32 animations, brand guides, legacy work and artistic expression by Jonathan Nestler.', '') + header('', 'archive') + f"""
+                'Motion reel, 32 animations, brand guides, legacy work and artistic expression by Jonathan Nestler.', '') + header('', 'archive', crumbs=[('Creative Archive', None)]) + f"""
 <main id="main">
 <section class="section cs-hero" data-depth="0.0m" data-era="creative archive" style="position:relative">
 <p class="eyebrow">Layer 04 — The fossil record</p>
@@ -513,63 +642,184 @@ def archive():
 
 
 # ----------------------------------------------------------------- RESUME
-def resume():
-    css = """<style>
-.paper-wrap{padding:48px var(--pad-x) 64px var(--pad-l)}
-.paper-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.paper{width:210mm;min-height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;font-size:12.5px;line-height:1.45;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.paper a{color:#15110E}
-.p-head{background:#15110E;color:#EDE4D3;padding:28px 36px 20px;position:relative;overflow:hidden}
-.p-head .dino-cv{position:absolute;right:26px;top:14px;width:150px}
-.p-name{font-family:var(--f-disp);font-weight:900;font-size:46px;line-height:.9;margin-top:6px;text-transform:uppercase}
-.p-strip{display:flex;height:18px}.p-strip i{flex:1;background:#3A2C21}.p-strip i:nth-child(2){flex:2;background:#4A3827}.p-strip i:nth-child(3){background:#E8A33D}
-.p-contact{padding:9px 36px;font-family:var(--f-mono);font-size:10px;display:flex;flex-wrap:wrap;gap:4px 16px;border-bottom:1px solid #C9BBA5}
-.p-body{display:grid;grid-template-columns:1fr 210px;gap:26px;padding:18px 36px 16px;flex:1}
-.p-h{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:#9A5F12;border-bottom:1px solid #15110E;padding-bottom:3px;margin:0 0 7px}
-.p-col{display:flex;flex-direction:column;gap:14px}
-.job{margin-bottom:8px}.job div:first-child{display:flex;justify-content:space-between;gap:12px}.job .mono{font-size:10px;white-space:nowrap}
-.p-ai{background:#15110E;color:#EDE4D3;padding:14px}
-.p-foot{display:flex;height:12px}.p-foot i{flex:2;background:#4A3827}.p-foot i:nth-child(2){flex:1;background:#3A2C21}.p-foot i:nth-child(3){flex:3;background:#231B16}
-@media (max-width:760px){.p-body{grid-template-columns:1fr}.p-name{font-size:34px}.p-head .dino-cv{display:none}}
+# Two A4 pages. Single reading order (label column, then content) so ATS / AI
+# parsers read it top-to-bottom. All text is real text; standard section names.
+
+CV_PDF = 'assets/documents/Jonathan_Nestler_Resume_2026.pdf'
+
+CV_SKILLS = [
+    ('UX &amp; UI design', 'User research, usability testing, heuristic evaluation, benchmarking, information architecture, journey mapping, wireframing, prototyping, interaction design, UI design, design systems, responsive design, accessibility (WCAG)'),
+    ('Product', 'Product ownership, backlog prioritisation, journey scoping, stakeholder alignment, developer handoff and design QA'),
+    ('AI integration', 'Claude (extensive, daily), Claude Code, Figma MCP, AI-assisted prototyping, prompt design for UX copy, custom Claude skills, ChatGPT, Gemini; occasionally Midjourney and DALL·E'),
+    ('Visual &amp; motion', 'Brand and corporate identity, brand guidelines, illustration, motion graphics, VFX, slot-game UI and animation, video production'),
+    ('Tools', 'Figma, Adobe Creative Cloud (After Effects, Photoshop, Illustrator, Premiere Pro, XD), Miro, Jira, Notion, HTML5, CSS3, JavaScript, GitHub'),
+    ('Industries', 'iGaming, lottery, telecoms, EdTech, fashion e-commerce, brand and advertising agencies'),
+]
+
+CV_JOBS_P1 = [
+    ('Jr. Product Owner <span>(promoted from Product Designer)</span>', 'Astria Systems (formerly Wonderlabz)', 'Remote', 'Nov 2023 – Present', [
+        'Lead UX/UI product design across three portfolio brands: Wonderlabz, Playsafe and Pantelotteriet.',
+        'Integrated Claude, Claude Code and Figma MCP into the design workflow; AI-assisted HTML prototypes validate timing-heavy flows before engineering builds them.',
+        'Scope user journeys, prioritise the backlog and align product, design and engineering.',
+        'Drive CI development, slot-game animation and cross-platform UI prototyping.']),
+    ('Product Designer — VFX · UX &amp; UI', 'Wonderlabz SA (now Livescore SA)', 'Table View, Cape Town', 'Oct 2018 – Nov 2023', [
+        'Led design collateral across multiple portfolio brands for live Scandinavian, South African and UK audiences.',
+        'UI/UX prototyping, corporate identity, illustration and animation for online slot games (Samurai, Geisha, Atlantis, Mayan Madness).',
+        'Authored brand guides for Wonderlabz and The Recycling Lottery.']),
+]
+
+CV_JOBS_P2 = [
+    ('Multimedia Consultant', 'EduBoard Interactive Classroom Solutions', 'East London', 'Aug 2017 – Sep 2018', [
+        'Websites, print and interactive media, video production, social media marketing and SEO for a classroom EdTech product.']),
+    ('Owner — Freelance Designer', 'jonathanedwardnestler.com', 'Jeffreys Bay', 'Sep 2015 – May 2016', [
+        'Graphic and web design, illustration, photography and video production for a range of clients; concurrently Graphic Artist at Thinklocal.']),
+    ('Web &amp; Graphic Designer', 'Falcorp Technologies · Telkom SA', 'Pretoria', 'Aug 2013 – Jun 2015', [
+        'All design for Telkom\'s brand identity; responsive websites in Bootstrap, HTML5/CSS3 and JavaScript.']),
+]
+
+CV_EARLY = ('Brand, new media &amp; print designer', '2007 – 2015',
+            'Kashan Advertising (RAF, SABS, SARS) · Betelgeuse Advertising · Xcellent Media · Digineering (GSK, BASF) · Global Designs · 44 Stanley (stadium LED motion, IPL) · '
+            '8 Image Brand Consulting (Coca-Cola, Vodacom, MTN, 2010 FIFA World Cup) · Peermont Global (Emperors Palace) · Shocking Pink')
+
+
+def _job(title, org, place, dates, bullets):
+    lis = ''.join(f'<li>{b}</li>' for b in bullets)
+    return (f'<div class="cv-job"><div class="cv-job-head"><h3>{title}</h3><span class="cv-date">{dates}</span></div>'
+            f'<p class="cv-org">{org} · {place}</p><ul>{lis}</ul></div>')
+
+
+def _sec(title, depth, body, cls=''):
+    return (f'<section class="cv-sec {cls}"><div class="cv-label"><span class="cv-depth" aria-hidden="true">{depth}</span>'
+            f'<h2>{title}</h2></div><div class="cv-content">{body}</div></section>')
+
+
+PERSON_LD = {
+    '@context': 'https://schema.org', '@type': 'Person',
+    'name': 'Jonathan Edward Nestler', 'alternateName': 'Jonno Nestler',
+    'jobTitle': 'Senior Product Designer',
+    'description': 'Senior Product Designer, UX/UI Designer and Jr. Product Owner with 20+ years of design experience, specialising in AI-integrated product design with Claude, Claude Code and Figma MCP.',
+    'worksFor': {'@type': 'Organization', 'name': 'Astria Systems'},
+    'hasOccupation': [{'@type': 'Occupation', 'name': t} for t in ['Senior Product Designer', 'UX/UI Designer', 'Product Owner']],
+    'knowsAbout': ['Product design', 'UX design', 'UI design', 'User research', 'Usability testing', 'Information architecture', 'Journey mapping',
+                   'Prototyping', 'Design systems', 'Accessibility (WCAG)', 'Product ownership', 'AI integration', 'Claude', 'Claude Code', 'Figma MCP',
+                   'ChatGPT', 'Gemini', 'Figma', 'Brand identity', 'Motion graphics', 'iGaming'],
+    'alumniOf': {'@type': 'EducationalOrganization', 'name': 'UX Design Institute'},
+    'hasCredential': {'@type': 'EducationalOccupationalCredential', 'name': 'Professional Diploma in UX Design', 'recognizedBy': {'@type': 'Organization', 'name': 'UX Design Institute'}},
+    'address': {'@type': 'PostalAddress', 'addressLocality': 'Jeffreys Bay', 'addressRegion': 'Eastern Cape', 'addressCountry': 'ZA'},
+    'email': 'mailto:' + EMAIL, 'url': 'https://jonoman1983.github.io/Code-Farm-Testing-Factory-/',
+    'sameAs': [LINKEDIN, 'https://github.com/JonoMan1983'],
+}
+
+
+def person_ld():
+    return '<script type="application/ld+json">' + json.dumps(PERSON_LD, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+
+
+CV_CSS = """<style>
+.cv-wrap{padding:48px var(--pad-x) 72px var(--pad-l)}
+.cv-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.cv-pages{display:grid;grid-template-columns:minmax(0,max-content);gap:40px;justify-items:start}
+.paper{width:210mm;height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;display:flex;flex-direction:column;overflow:hidden;
+  font-family:var(--f-body);font-size:9.6pt;line-height:1.5;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.paper a{color:#15110E;text-decoration:none}
+.cv-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center;background:#15110E;color:#EDE4D3;padding:26px 40px 24px}
+.cv-photo{width:112px;height:112px;border-radius:50%;object-fit:cover;border:4px solid #E8A33D}
+.cv-kicker{font-family:var(--f-mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:#E8A33D}
+.cv-name{margin:6px 0 0;font-family:var(--f-disp);font-weight:900;font-size:31pt;line-height:.9;text-transform:uppercase;letter-spacing:.01em}
+.cv-title{margin-top:10px;font-size:12pt;font-weight:600;color:#EDE4D3}
+.cv-tag{margin-top:4px;font-size:9.4pt;color:#D9CDB9}
+.cv-raptor{align-self:end;width:104px;margin:0 -10px -8px 0;opacity:.95}
+.cv-strip{display:flex;height:14px}.cv-strip i{flex:1;background:#3A2C21}.cv-strip i:nth-child(2){flex:2;background:#4A3827}.cv-strip i:nth-child(3){background:#E8A33D}
+.cv-contact{list-style:none;margin:0;padding:12px 40px;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--f-mono);font-size:8.2pt;border-bottom:1px solid #C9BBA5}
+.cv-contact b{font-weight:500;color:#9A5F12}
+.cv-body{flex:1;padding:20px 40px 0;display:flex;flex-direction:column;gap:17px}
+.cv-sec{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px}
+.cv-label{border-top:2px solid #15110E;padding-top:7px}
+.cv-depth{display:block;font-family:var(--f-mono);font-size:7pt;color:#9A5F12;letter-spacing:0}
+.cv-label h2{margin:3px 0 0;font-family:var(--f-disp);font-weight:800;font-size:12.5pt;line-height:1;text-transform:uppercase;letter-spacing:0}
+.cv-content{border-top:1px solid #C9BBA5;padding-top:8px}
+.cv-content>p+p{margin-top:8px}
+.cv-skills{display:grid;gap:6px}
+.cv-skills p b{font-weight:600}
+.cv-job+.cv-job{margin-top:13px;padding-top:12px;border-top:1px dashed #C9BBA5}
+.cv-job-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.cv-job h3{margin:0;font-size:11.5pt;font-weight:600;line-height:1.3}
+.cv-job h3 span{font-weight:400;font-size:9.5pt;color:#5B4A3A}
+.cv-date{flex-shrink:0;font-family:var(--f-mono);font-size:8pt;color:#9A5F12;white-space:nowrap}
+.cv-org{margin-top:2px;font-size:9.5pt;color:#5B4A3A}
+.cv-job ul{margin:7px 0 0;padding-left:16px}
+.cv-job li+li{margin-top:4px}
+.cv-job li::marker{color:#E8A33D}
+.cv-ai{background:#15110E;color:#EDE4D3;padding:14px 16px}
+.cv-ai p+p{margin-top:6px}
+.cv-ai b{color:#E8A33D;font-weight:600}
+.cv-ai .muted{color:#BCAE99}
+.cv-run{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 40px;background:#15110E;color:#EDE4D3}
+.cv-run b{font-family:var(--f-disp);font-weight:900;font-size:15pt;text-transform:uppercase}
+.cv-run span{font-family:var(--f-mono);font-size:8pt;color:#E8A33D}
+.cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 40px 14px;margin-top:14px;font-family:var(--f-mono);font-size:7.5pt;color:#5B4A3A;border-top:1px solid #C9BBA5}
+.cv-foot img{width:56px}
+@media screen and (max-width:860px){.cv-pages{grid-template-columns:minmax(0,1fr)}.paper{width:100%}}
+@media screen and (max-width:760px){.paper{height:auto;font-size:15px}.cv-head{padding:24px 20px}.cv-body,.cv-contact,.cv-foot,.cv-run{padding-left:20px;padding-right:20px}.cv-head{grid-template-columns:1fr}.cv-raptor{display:none}.cv-sec{grid-template-columns:1fr;gap:8px}.cv-name{font-size:40px}}
 @page{size:A4;margin:0}
-@media print{body{background:#EDE4D3}.paper-wrap{padding:0}.paper{box-shadow:none;width:210mm;height:297mm}}
+@media print{
+  html,body{background:#EDE4D3!important}
+  .cv-wrap{padding:0!important}.cv-pages{display:block}
+  .paper{box-shadow:none;width:210mm;height:297mm;page-break-after:always;break-after:page}
+  .paper:last-child{page-break-after:auto;break-after:auto}
+}
 </style>"""
-    return head('Field notes (CV) — Jonathan Edward Nestler', 'Resume of Jonathan Edward Nestler, Senior Product Designer and Jr. Product Owner.', '').replace('</head>', css + '\n</head>') + header('', 'cv') + f"""
-<main id="main" class="paper-wrap" data-depth="0.0m" data-era="field notes">
-<div class="paper-actions no-print"><button class="btn btn--fill" type="button" data-print>Download as PDF</button><a class="btn" href="index.html">Back to the dig site</a></div>
-<article class="paper" aria-label="Resume">
-<header class="p-head">
-<p class="eyebrow" style="font-size:10px">Field notes · curriculum vitae · 2026</p>
-<h1 class="p-name">Jonathan Edward Nestler</h1>
-<p style="font-size:14px;margin-top:6px;color:#D9CDB9">Senior Product Designer · Jr. Product Owner — UX/UI · Product · AI integration</p>
-{dino_img('09', '', 'dino-cv')}
+
+
+def resume():
+    skills = ''.join(f'<p><b>{k}:</b> {v}</p>' for k, v in CV_SKILLS)
+    p1 = ''.join(_job(*j) for j in CV_JOBS_P1)
+    p2 = ''.join(_job(*j) for j in CV_JOBS_P2)
+    early = f'<div class="cv-job"><div class="cv-job-head"><h3>{CV_EARLY[0]}</h3><span class="cv-date">{CV_EARLY[1]}</span></div><p class="cv-org">{CV_EARLY[2]}</p></div>'
+    contact = (f'<ul class="cv-contact"><li>Jeffreys Bay, Eastern Cape, South Africa</li><li><b>Remote worldwide</b></li>'
+               f'<li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>[PHONE]</li>'
+               f'<li><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a></li><li><a href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-</a></li></ul>')
+    page1 = f"""<article class="paper" aria-label="Resume page 1">
+<header class="cv-head">
+<img class="cv-photo" src="assets/images/portrait.jpg" alt="Jonathan Nestler">
+<div>
+<p class="cv-kicker">Designasaurus Rex · Curriculum vitae 2026</p>
+<h1 class="cv-name">Jonathan Edward Nestler</h1>
+<p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner</p>
+<p class="cv-tag">20+ years · AI-integrated product design with Claude, Claude Code and Figma MCP</p>
+</div>
+<img class="cv-raptor" src="assets/dino/dino09-fossil.svg" alt="">
 </header>
-<div class="p-strip" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="p-contact"><span>Jeffreys Bay, ZA</span><span>Remote worldwide</span><b>Open to relocate anywhere in RSA</b><a href="mailto:{EMAIL}">{EMAIL}</a><span>[PHONE]</span><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a><span>jonoman1983.github.io/Code-Farm-Testing-Factory-</span></div>
-<div class="p-body">
-<div class="p-col">
-<section><h2 class="p-h">SURFACE — PROFILE</h2><p>Product designer with 20+ years across iGaming, lottery, enterprise and edtech. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them. Promoted to Jr. Product Owner at Astria Systems.</p></section>
-<section><h2 class="p-h">LAYERS — EXPERIENCE</h2>
-<div class="job"><div><b>Jr. Product Owner — Astria Systems (formerly Wonderlabz)</b><span class="mono">2023–PRESENT</span></div><div>Lead UX/UI across Wonderlabz, Playsafe and Pantelotteriet. Brought Claude, Claude Code and Figma MCP into the design workflow; built AI-assisted HTML prototypes to validate timing-heavy flows before handoff. Own CI development and cross-platform UI prototyping.</div></div>
-<div class="job"><div><b>Product Designer, VFX · UX &amp; UI — Wonderlabz SA</b><span class="mono">2018–2023</span></div><div>UI/UX prototyping, corporate identity, illustration and slot-game animation (Samurai, Geisha, Atlantis, Mayan Madness) for live Scandinavian, SA and UK audiences.</div></div>
-<div class="job"><div><b>Multimedia Consultant — EduBoard Interactive</b><span class="mono">2017–2018</span></div><div>Websites, interactive media, video production and SEO for a classroom EdTech product.</div></div>
-<div class="job"><div><b>Freelance Designer · Graphic Artist, Thinklocal</b><span class="mono">2015–2016</span></div></div>
-<div class="job"><div><b>Web &amp; Graphic Designer — Falcorp · Telkom SA</b><span class="mono">2013–2015</span></div><div>Telkom brand design and responsive sites (Bootstrap, HTML5/CSS3, JS).</div></div>
-<div class="job"><div><b>Brand, new media &amp; print — agency roles</b><span class="mono">2007–2013</span></div><div>8 Image (Coca-Cola, Vodacom, MTN), Digineering (GSK, BASF), 44 Stanley, Xcellent Media, Betelgeuse, Global Designs, Peermont, Kashan.</div></div>
-</section>
-<section><h2 class="p-h">TOOLS I'VE BUILT WITH CLAUDE</h2><p><b>This portfolio</b> — designer-directed, Claude-built. <b>The Hunter</b> — React command centre wired to Gmail via MCP. <b>Central</b> — Gmail-to-ClickUp triage with Claude. <b>Studio</b> — custom Claude skills for Figma scripting.</p></section>
-<section><h2 class="p-h">SPECIMENS — SELECTED WORK</h2><p><b>Pantelotteriet</b> — recycling-lottery app + raffle site; journeys proven in a Claude Code prototype. <b>Indiemode</b> — full redesign with Claude, a week of build in two days. <b>Wonderlabz.com</b> — research, IA and hi-fi redesign.</p></section>
+<div class="cv-strip" aria-hidden="true"><i></i><i></i><i></i></div>
+{contact}
+<div class="cv-body">
+{_sec('Professional summary', '0.0m · SURFACE', '<p>Senior Product Designer and Jr. Product Owner with 20+ years across iGaming, lottery, telecoms, EdTech and brand. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them.</p><p>Promoted from Product Designer to Jr. Product Owner at Astria Systems, leading UX/UI across three live brands. Professional Diploma in UX Design (UX Design Institute, Dublin).</p>')}
+{_sec('Core skills', '0.9m · TOOLKIT', f'<div class="cv-skills">{skills}</div>')}
+{_sec('Experience', '1.8m · LAYERS', p1)}
 </div>
-<div class="p-col">
-<section class="p-ai"><h2 class="p-h" style="color:#E8A33D;border-color:#4A3827">AI STRATUM</h2><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy</p><p style="margin-top:6px"><b>Daily:</b> ChatGPT · Gemini</p><p style="margin-top:6px;opacity:.75">Occasional: Midjourney · DALL·E</p><p class="mono" style="font-size:10px;margin-top:8px;color:#FF3D6E">NEVER AUTOMATED: interviews, prioritisation, final visual calls</p></section>
-<section><h2 class="p-h">CORE</h2><p>UX research · IA · interaction design · design systems · usability testing · WCAG · journey mapping · product ownership · motion &amp; VFX · brand identity</p></section>
-<section><h2 class="p-h">TOOLS</h2><p>Figma · Adobe CC (AE, PS, AI, PR, XD) · Miro · Jira · Notion · HTML/CSS/JS · GitHub</p></section>
-<section><h2 class="p-h">EDUCATION</h2><p><b>Professional Diploma in UX Design</b><br>UX Design Institute, Dublin · SCQF L8 · 2023</p><p style="margin-top:6px">27 certifications incl. Product Management Frameworks, WCAG Accessibility, Gamification Psychology</p></section>
-<section><h2 class="p-h">REFERENCES</h2><p>Nicolaas Du Plessis, Head of Product · Hendrik Groenewald, Art Director — on request</p></section>
+<footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer</span><span>Page 1 of 2</span></footer>
+</article>"""
+    page2 = f"""<article class="paper" aria-label="Resume page 2">
+<div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration</span></div>
+<div class="cv-body">
+{_sec('Experience <span class="sr-only">(continued)</span>', '2.6m · DEEPER', p2 + early)}
+{_sec('AI toolkit', '3.2m · AI STRATUM', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p><p><b>Built with Claude:</b> this portfolio (GitHub Pages) · The Hunter, a React job-search command centre wired to Gmail via MCP · Central, Gmail-to-ClickUp triage · Studio, custom Claude skills for Figma scripting.</p></div>')}
+{_sec('Selected work', '4.0m · SPECIMENS', '<p><b>Pantelotteriet</b> — recycling-lottery app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
+{_sec('Education', '4.6m · BEDROCK', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
+{_sec('References', '5.1m · FIELD REPORTS', '<p>Nicolaas Du Plessis (Head of Product) · Anne Jacobson (General Manager) · Hendrik Groenewald (Art Director). Contact details on request; ten written references on the portfolio.</p>')}
 </div>
+<footer class="cv-foot"><img src="assets/dino/dino06-ink.svg" alt=""><span>Page 2 of 2</span></footer>
+</article>"""
+    page_head = head('Jonathan Edward Nestler — Senior Product Designer, UX/UI, AI integration — Resume',
+                     'Resume of Jonathan Edward Nestler: Senior Product Designer, UX/UI Designer and Jr. Product Owner. AI-integrated product design with Claude, Claude Code and Figma MCP. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.', '')
+    page_head = page_head.replace('</head>', CV_CSS + '\n' + person_ld() + '\n</head>')
+    return page_head + header('', 'cv', crumbs=[('Field notes (CV)', None)]) + f"""
+<main id="main" class="cv-wrap" data-depth="0.0m" data-era="field notes">
+<div class="cv-actions no-print"><a class="btn btn--fill" href="{CV_PDF}" download>Download PDF (2 pages)</a><button class="btn" type="button" data-print>Print</button><a class="btn" href="index.html">Back to the dig site</a></div>
+<div class="cv-pages">
+{page1}
+{page2}
 </div>
-<div class="p-foot" aria-hidden="true"><i></i><i></i><i></i></div>
-</article>
 </main>
 """ + footer('')
 
@@ -583,6 +833,9 @@ if __name__ == '__main__':
     for path, fn in PAGES.items():
         full = os.path.join(ROOT, path)
         os.makedirs(os.path.dirname(full), exist_ok=True)
+        out = fn()
+        if path == 'index.html':
+            out = out.replace('</head>', person_ld() + '\n</head>', 1)
         with open(full, 'w', encoding='utf-8') as f:
-            f.write(fn())
+            f.write(out)
         print('wrote', path)

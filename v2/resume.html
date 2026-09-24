@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Field notes (CV) — Jonathan Edward Nestler</title>
-<meta name="description" content="Resume of Jonathan Edward Nestler, Senior Product Designer and Jr. Product Owner.">
+<title>Jonathan Edward Nestler — Senior Product Designer, UX/UI, AI integration — Resume</title>
+<meta name="description" content="Resume of Jonathan Edward Nestler: Senior Product Designer, UX/UI Designer and Jr. Product Owner. AI-integrated product design with Claude, Claude Code and Figma MCP. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.">
 <!-- V2 STAGING: remove the robots line at swap time -->
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Field notes (CV) — Jonathan Edward Nestler">
-<meta property="og:description" content="Resume of Jonathan Edward Nestler, Senior Product Designer and Jr. Product Owner.">
+<meta property="og:title" content="Jonathan Edward Nestler — Senior Product Designer, UX/UI, AI integration — Resume">
+<meta property="og:description" content="Resume of Jonathan Edward Nestler: Senior Product Designer, UX/UI Designer and Jr. Product Owner. AI-integrated product design with Claude, Claude Code and Figma MCP. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.">
 <meta property="og:image" content="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/assets/brand/logo/og-image.png">
 <meta name="theme-color" content="#15110E">
 <link rel="icon" href="/Code-Farm-Testing-Factory-/assets/brand/logo/favicon.ico">
@@ -20,25 +20,60 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-VR87BLZQG1',{site_version:'v2'});</script>
 <style>
-.paper-wrap{padding:48px var(--pad-x) 64px var(--pad-l)}
-.paper-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.paper{width:210mm;min-height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;font-size:12.5px;line-height:1.45;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.paper a{color:#15110E}
-.p-head{background:#15110E;color:#EDE4D3;padding:28px 36px 20px;position:relative;overflow:hidden}
-.p-head .dino-cv{position:absolute;right:26px;top:14px;width:150px}
-.p-name{font-family:var(--f-disp);font-weight:900;font-size:46px;line-height:.9;margin-top:6px;text-transform:uppercase}
-.p-strip{display:flex;height:18px}.p-strip i{flex:1;background:#3A2C21}.p-strip i:nth-child(2){flex:2;background:#4A3827}.p-strip i:nth-child(3){background:#E8A33D}
-.p-contact{padding:9px 36px;font-family:var(--f-mono);font-size:10px;display:flex;flex-wrap:wrap;gap:4px 16px;border-bottom:1px solid #C9BBA5}
-.p-body{display:grid;grid-template-columns:1fr 210px;gap:26px;padding:18px 36px 16px;flex:1}
-.p-h{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:#9A5F12;border-bottom:1px solid #15110E;padding-bottom:3px;margin:0 0 7px}
-.p-col{display:flex;flex-direction:column;gap:14px}
-.job{margin-bottom:8px}.job div:first-child{display:flex;justify-content:space-between;gap:12px}.job .mono{font-size:10px;white-space:nowrap}
-.p-ai{background:#15110E;color:#EDE4D3;padding:14px}
-.p-foot{display:flex;height:12px}.p-foot i{flex:2;background:#4A3827}.p-foot i:nth-child(2){flex:1;background:#3A2C21}.p-foot i:nth-child(3){flex:3;background:#231B16}
-@media (max-width:760px){.p-body{grid-template-columns:1fr}.p-name{font-size:34px}.p-head .dino-cv{display:none}}
+.cv-wrap{padding:48px var(--pad-x) 72px var(--pad-l)}
+.cv-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.cv-pages{display:grid;grid-template-columns:minmax(0,max-content);gap:40px;justify-items:start}
+.paper{width:210mm;height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;display:flex;flex-direction:column;overflow:hidden;
+  font-family:var(--f-body);font-size:9.6pt;line-height:1.5;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.paper a{color:#15110E;text-decoration:none}
+.cv-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center;background:#15110E;color:#EDE4D3;padding:26px 40px 24px}
+.cv-photo{width:112px;height:112px;border-radius:50%;object-fit:cover;border:4px solid #E8A33D}
+.cv-kicker{font-family:var(--f-mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:#E8A33D}
+.cv-name{margin:6px 0 0;font-family:var(--f-disp);font-weight:900;font-size:31pt;line-height:.9;text-transform:uppercase;letter-spacing:.01em}
+.cv-title{margin-top:10px;font-size:12pt;font-weight:600;color:#EDE4D3}
+.cv-tag{margin-top:4px;font-size:9.4pt;color:#D9CDB9}
+.cv-raptor{align-self:end;width:104px;margin:0 -10px -8px 0;opacity:.95}
+.cv-strip{display:flex;height:14px}.cv-strip i{flex:1;background:#3A2C21}.cv-strip i:nth-child(2){flex:2;background:#4A3827}.cv-strip i:nth-child(3){background:#E8A33D}
+.cv-contact{list-style:none;margin:0;padding:12px 40px;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--f-mono);font-size:8.2pt;border-bottom:1px solid #C9BBA5}
+.cv-contact b{font-weight:500;color:#9A5F12}
+.cv-body{flex:1;padding:20px 40px 0;display:flex;flex-direction:column;gap:17px}
+.cv-sec{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px}
+.cv-label{border-top:2px solid #15110E;padding-top:7px}
+.cv-depth{display:block;font-family:var(--f-mono);font-size:7pt;color:#9A5F12;letter-spacing:0}
+.cv-label h2{margin:3px 0 0;font-family:var(--f-disp);font-weight:800;font-size:12.5pt;line-height:1;text-transform:uppercase;letter-spacing:0}
+.cv-content{border-top:1px solid #C9BBA5;padding-top:8px}
+.cv-content>p+p{margin-top:8px}
+.cv-skills{display:grid;gap:6px}
+.cv-skills p b{font-weight:600}
+.cv-job+.cv-job{margin-top:13px;padding-top:12px;border-top:1px dashed #C9BBA5}
+.cv-job-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.cv-job h3{margin:0;font-size:11.5pt;font-weight:600;line-height:1.3}
+.cv-job h3 span{font-weight:400;font-size:9.5pt;color:#5B4A3A}
+.cv-date{flex-shrink:0;font-family:var(--f-mono);font-size:8pt;color:#9A5F12;white-space:nowrap}
+.cv-org{margin-top:2px;font-size:9.5pt;color:#5B4A3A}
+.cv-job ul{margin:7px 0 0;padding-left:16px}
+.cv-job li+li{margin-top:4px}
+.cv-job li::marker{color:#E8A33D}
+.cv-ai{background:#15110E;color:#EDE4D3;padding:14px 16px}
+.cv-ai p+p{margin-top:6px}
+.cv-ai b{color:#E8A33D;font-weight:600}
+.cv-ai .muted{color:#BCAE99}
+.cv-run{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 40px;background:#15110E;color:#EDE4D3}
+.cv-run b{font-family:var(--f-disp);font-weight:900;font-size:15pt;text-transform:uppercase}
+.cv-run span{font-family:var(--f-mono);font-size:8pt;color:#E8A33D}
+.cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 40px 14px;margin-top:14px;font-family:var(--f-mono);font-size:7.5pt;color:#5B4A3A;border-top:1px solid #C9BBA5}
+.cv-foot img{width:56px}
+@media screen and (max-width:860px){.cv-pages{grid-template-columns:minmax(0,1fr)}.paper{width:100%}}
+@media screen and (max-width:760px){.paper{height:auto;font-size:15px}.cv-head{padding:24px 20px}.cv-body,.cv-contact,.cv-foot,.cv-run{padding-left:20px;padding-right:20px}.cv-head{grid-template-columns:1fr}.cv-raptor{display:none}.cv-sec{grid-template-columns:1fr;gap:8px}.cv-name{font-size:40px}}
 @page{size:A4;margin:0}
-@media print{body{background:#EDE4D3}.paper-wrap{padding:0}.paper{box-shadow:none;width:210mm;height:297mm}}
+@media print{
+  html,body{background:#EDE4D3!important}
+  .cv-wrap{padding:0!important}.cv-pages{display:block}
+  .paper{box-shadow:none;width:210mm;height:297mm;page-break-after:always;break-after:page}
+  .paper:last-child{page-break-after:auto;break-after:auto}
+}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Jonathan Edward Nestler", "alternateName": "Jonno Nestler", "jobTitle": "Senior Product Designer", "description": "Senior Product Designer, UX/UI Designer and Jr. Product Owner with 20+ years of design experience, specialising in AI-integrated product design with Claude, Claude Code and Figma MCP.", "worksFor": {"@type": "Organization", "name": "Astria Systems"}, "hasOccupation": [{"@type": "Occupation", "name": "Senior Product Designer"}, {"@type": "Occupation", "name": "UX/UI Designer"}, {"@type": "Occupation", "name": "Product Owner"}], "knowsAbout": ["Product design", "UX design", "UI design", "User research", "Usability testing", "Information architecture", "Journey mapping", "Prototyping", "Design systems", "Accessibility (WCAG)", "Product ownership", "AI integration", "Claude", "Claude Code", "Figma MCP", "ChatGPT", "Gemini", "Figma", "Brand identity", "Motion graphics", "iGaming"], "alumniOf": {"@type": "EducationalOrganization", "name": "UX Design Institute"}, "hasCredential": {"@type": "EducationalOccupationalCredential", "name": "Professional Diploma in UX Design", "recognizedBy": {"@type": "Organization", "name": "UX Design Institute"}}, "address": {"@type": "PostalAddress", "addressLocality": "Jeffreys Bay", "addressRegion": "Eastern Cape", "addressCountry": "ZA"}, "email": "mailto:jonathanedwardnestler@gmail.com", "url": "https://jonoman1983.github.io/Code-Farm-Testing-Factory-/", "sameAs": ["https://www.linkedin.com/in/jonoman1983", "https://github.com/JonoMan1983"]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -48,53 +83,47 @@
 <span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
 </a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
-<nav class="nav" id="site-nav" aria-label="Main">
-<a href="index.html#work">Work</a>
-<a href="index.html#ai">AI Practice</a>
-<a href="archive.html">Creative Archive</a>
-<a href="index.html#about">About</a>
-<a href="resume.html" aria-current="page">Field notes (CV)</a>
-<a class="btn btn--fill" href="index.html#contact">Hire the raptor</a>
-</nav>
+<nav class="nav" id="site-nav" aria-label="Main"><ul class="nav-list"><li class="has-drop"><a class="nav-top" href="index.html#work">Work</a><button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-work" aria-label="Work submenu"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><ul class="drop" id="drop-work"><li><a href="work/pantelotteriet.html">Pantelotteriet</a></li><li><a href="work/astria-platform.html">Astria platform</a></li><li><a href="work/indiemode.html">Indiemode</a></li></ul></li><li class="has-drop"><a class="nav-top" href="index.html#ai">AI Practice</a><button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-ai" aria-label="AI Practice submenu"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><ul class="drop" id="drop-ai"><li><a href="index.html#ai">How AI fits each stage</a></li><li><a href="index.html#ai-tools">Tool strata</a></li><li><a href="index.html#ai-builds">Built with Claude</a></li></ul></li><li class="has-drop"><a class="nav-top" href="archive.html">Creative Archive</a><button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-archive" aria-label="Creative Archive submenu"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><ul class="drop" id="drop-archive"><li><a href="archive.html#reel">Motion reel</a></li><li><a href="archive.html#videos">Video</a></li><li><a href="archive.html#anims">Animation</a></li><li><a href="archive.html#art">Artistic expression</a></li><li><a href="archive.html#docs">Brand &amp; legacy</a></li></ul></li><li class="has-drop"><a class="nav-top" href="index.html#about">About</a><button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-about" aria-label="About submenu"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><ul class="drop" id="drop-about"><li><a href="index.html#about">The specimen</a></li><li><a href="index.html#clients">Clients</a></li><li><a href="index.html#toolkit">Tools of the trade</a></li><li><a href="index.html#timeline">Career timeline</a></li><li><a href="index.html#certs">Certifications</a></li><li><a href="index.html#proof">References</a></li></ul></li><li><a class="nav-top" href="resume.html" aria-current="page">Field notes (CV)</a></li><li><a class="btn btn--fill" href="index.html#contact">Hire the raptor</a></li></ul></nav>
 </header>
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html"><svg class="shovel" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V12.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.4 12.4h9.2v3.9c0 3.1-2 5.6-4.6 6.6-2.6-1-4.6-3.5-4.6-6.6z" fill="currentColor"/></svg><span>Dig site</span></a></li><li><span aria-current="page">Field notes (CV)</span></li><li class="crumb-live" hidden><span data-crumb-live></span></li></ol><span class="crumbs-hint mono" aria-hidden="true">You are here</span></nav>
 <div class="rail" aria-hidden="true"><span class="rail-fill"></span><span class="rail-read"></span></div>
 <div class="progress" aria-hidden="true"></div>
 
-<main id="main" class="paper-wrap" data-depth="0.0m" data-era="field notes">
-<div class="paper-actions no-print"><button class="btn btn--fill" type="button" data-print>Download as PDF</button><a class="btn" href="index.html">Back to the dig site</a></div>
-<article class="paper" aria-label="Resume">
-<header class="p-head">
-<p class="eyebrow" style="font-size:10px">Field notes · curriculum vitae · 2026</p>
-<h1 class="p-name">Jonathan Edward Nestler</h1>
-<p style="font-size:14px;margin-top:6px;color:#D9CDB9">Senior Product Designer · Jr. Product Owner — UX/UI · Product · AI integration</p>
-<img class="dino-cv" src="assets/dino/dino09-fossil.svg" alt="">
+<main id="main" class="cv-wrap" data-depth="0.0m" data-era="field notes">
+<div class="cv-actions no-print"><a class="btn btn--fill" href="assets/documents/Jonathan_Nestler_Resume_2026.pdf" download>Download PDF (2 pages)</a><button class="btn" type="button" data-print>Print</button><a class="btn" href="index.html">Back to the dig site</a></div>
+<div class="cv-pages">
+<article class="paper" aria-label="Resume page 1">
+<header class="cv-head">
+<img class="cv-photo" src="assets/images/portrait.jpg" alt="Jonathan Nestler">
+<div>
+<p class="cv-kicker">Designasaurus Rex · Curriculum vitae 2026</p>
+<h1 class="cv-name">Jonathan Edward Nestler</h1>
+<p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner</p>
+<p class="cv-tag">20+ years · AI-integrated product design with Claude, Claude Code and Figma MCP</p>
+</div>
+<img class="cv-raptor" src="assets/dino/dino09-fossil.svg" alt="">
 </header>
-<div class="p-strip" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="p-contact"><span>Jeffreys Bay, ZA</span><span>Remote worldwide</span><b>Open to relocate anywhere in RSA</b><a href="mailto:jonathanedwardnestler@gmail.com">jonathanedwardnestler@gmail.com</a><span>[PHONE]</span><a href="https://www.linkedin.com/in/jonoman1983">linkedin.com/in/jonoman1983</a><span>jonoman1983.github.io/Code-Farm-Testing-Factory-</span></div>
-<div class="p-body">
-<div class="p-col">
-<section><h2 class="p-h">SURFACE — PROFILE</h2><p>Product designer with 20+ years across iGaming, lottery, enterprise and edtech. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them. Promoted to Jr. Product Owner at Astria Systems.</p></section>
-<section><h2 class="p-h">LAYERS — EXPERIENCE</h2>
-<div class="job"><div><b>Jr. Product Owner — Astria Systems (formerly Wonderlabz)</b><span class="mono">2023–PRESENT</span></div><div>Lead UX/UI across Wonderlabz, Playsafe and Pantelotteriet. Brought Claude, Claude Code and Figma MCP into the design workflow; built AI-assisted HTML prototypes to validate timing-heavy flows before handoff. Own CI development and cross-platform UI prototyping.</div></div>
-<div class="job"><div><b>Product Designer, VFX · UX &amp; UI — Wonderlabz SA</b><span class="mono">2018–2023</span></div><div>UI/UX prototyping, corporate identity, illustration and slot-game animation (Samurai, Geisha, Atlantis, Mayan Madness) for live Scandinavian, SA and UK audiences.</div></div>
-<div class="job"><div><b>Multimedia Consultant — EduBoard Interactive</b><span class="mono">2017–2018</span></div><div>Websites, interactive media, video production and SEO for a classroom EdTech product.</div></div>
-<div class="job"><div><b>Freelance Designer · Graphic Artist, Thinklocal</b><span class="mono">2015–2016</span></div></div>
-<div class="job"><div><b>Web &amp; Graphic Designer — Falcorp · Telkom SA</b><span class="mono">2013–2015</span></div><div>Telkom brand design and responsive sites (Bootstrap, HTML5/CSS3, JS).</div></div>
-<div class="job"><div><b>Brand, new media &amp; print — agency roles</b><span class="mono">2007–2013</span></div><div>8 Image (Coca-Cola, Vodacom, MTN), Digineering (GSK, BASF), 44 Stanley, Xcellent Media, Betelgeuse, Global Designs, Peermont, Kashan.</div></div>
-</section>
-<section><h2 class="p-h">TOOLS I'VE BUILT WITH CLAUDE</h2><p><b>This portfolio</b> — designer-directed, Claude-built. <b>The Hunter</b> — React command centre wired to Gmail via MCP. <b>Central</b> — Gmail-to-ClickUp triage with Claude. <b>Studio</b> — custom Claude skills for Figma scripting.</p></section>
-<section><h2 class="p-h">SPECIMENS — SELECTED WORK</h2><p><b>Pantelotteriet</b> — recycling-lottery app + raffle site; journeys proven in a Claude Code prototype. <b>Indiemode</b> — full redesign with Claude, a week of build in two days. <b>Wonderlabz.com</b> — research, IA and hi-fi redesign.</p></section>
+<div class="cv-strip" aria-hidden="true"><i></i><i></i><i></i></div>
+<ul class="cv-contact"><li>Jeffreys Bay, Eastern Cape, South Africa</li><li><b>Remote worldwide</b></li><li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:jonathanedwardnestler@gmail.com">jonathanedwardnestler@gmail.com</a></li><li>[PHONE]</li><li><a href="https://www.linkedin.com/in/jonoman1983">linkedin.com/in/jonoman1983</a></li><li><a href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-</a></li></ul>
+<div class="cv-body">
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">0.0m · SURFACE</span><h2>Professional summary</h2></div><div class="cv-content"><p>Senior Product Designer and Jr. Product Owner with 20+ years across iGaming, lottery, telecoms, EdTech and brand. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them.</p><p>Promoted from Product Designer to Jr. Product Owner at Astria Systems, leading UX/UI across three live brands. Professional Diploma in UX Design (UX Design Institute, Dublin).</p></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">0.9m · TOOLKIT</span><h2>Core skills</h2></div><div class="cv-content"><div class="cv-skills"><p><b>UX &amp; UI design:</b> User research, usability testing, heuristic evaluation, benchmarking, information architecture, journey mapping, wireframing, prototyping, interaction design, UI design, design systems, responsive design, accessibility (WCAG)</p><p><b>Product:</b> Product ownership, backlog prioritisation, journey scoping, stakeholder alignment, developer handoff and design QA</p><p><b>AI integration:</b> Claude (extensive, daily), Claude Code, Figma MCP, AI-assisted prototyping, prompt design for UX copy, custom Claude skills, ChatGPT, Gemini; occasionally Midjourney and DALL·E</p><p><b>Visual &amp; motion:</b> Brand and corporate identity, brand guidelines, illustration, motion graphics, VFX, slot-game UI and animation, video production</p><p><b>Tools:</b> Figma, Adobe Creative Cloud (After Effects, Photoshop, Illustrator, Premiere Pro, XD), Miro, Jira, Notion, HTML5, CSS3, JavaScript, GitHub</p><p><b>Industries:</b> iGaming, lottery, telecoms, EdTech, fashion e-commerce, brand and advertising agencies</p></div></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">1.8m · LAYERS</span><h2>Experience</h2></div><div class="cv-content"><div class="cv-job"><div class="cv-job-head"><h3>Jr. Product Owner <span>(promoted from Product Designer)</span></h3><span class="cv-date">Nov 2023 – Present</span></div><p class="cv-org">Astria Systems (formerly Wonderlabz) · Remote</p><ul><li>Lead UX/UI product design across three portfolio brands: Wonderlabz, Playsafe and Pantelotteriet.</li><li>Integrated Claude, Claude Code and Figma MCP into the design workflow; AI-assisted HTML prototypes validate timing-heavy flows before engineering builds them.</li><li>Scope user journeys, prioritise the backlog and align product, design and engineering.</li><li>Drive CI development, slot-game animation and cross-platform UI prototyping.</li></ul></div><div class="cv-job"><div class="cv-job-head"><h3>Product Designer — VFX · UX &amp; UI</h3><span class="cv-date">Oct 2018 – Nov 2023</span></div><p class="cv-org">Wonderlabz SA (now Livescore SA) · Table View, Cape Town</p><ul><li>Led design collateral across multiple portfolio brands for live Scandinavian, South African and UK audiences.</li><li>UI/UX prototyping, corporate identity, illustration and animation for online slot games (Samurai, Geisha, Atlantis, Mayan Madness).</li><li>Authored brand guides for Wonderlabz and The Recycling Lottery.</li></ul></div></div></section>
 </div>
-<div class="p-col">
-<section class="p-ai"><h2 class="p-h" style="color:#E8A33D;border-color:#4A3827">AI STRATUM</h2><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy</p><p style="margin-top:6px"><b>Daily:</b> ChatGPT · Gemini</p><p style="margin-top:6px;opacity:.75">Occasional: Midjourney · DALL·E</p><p class="mono" style="font-size:10px;margin-top:8px;color:#FF3D6E">NEVER AUTOMATED: interviews, prioritisation, final visual calls</p></section>
-<section><h2 class="p-h">CORE</h2><p>UX research · IA · interaction design · design systems · usability testing · WCAG · journey mapping · product ownership · motion &amp; VFX · brand identity</p></section>
-<section><h2 class="p-h">TOOLS</h2><p>Figma · Adobe CC (AE, PS, AI, PR, XD) · Miro · Jira · Notion · HTML/CSS/JS · GitHub</p></section>
-<section><h2 class="p-h">EDUCATION</h2><p><b>Professional Diploma in UX Design</b><br>UX Design Institute, Dublin · SCQF L8 · 2023</p><p style="margin-top:6px">27 certifications incl. Product Management Frameworks, WCAG Accessibility, Gamification Psychology</p></section>
-<section><h2 class="p-h">REFERENCES</h2><p>Nicolaas Du Plessis, Head of Product · Hendrik Groenewald, Art Director — on request</p></section>
-</div>
-</div>
-<div class="p-foot" aria-hidden="true"><i></i><i></i><i></i></div>
+<footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer</span><span>Page 1 of 2</span></footer>
 </article>
+<article class="paper" aria-label="Resume page 2">
+<div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration</span></div>
+<div class="cv-body">
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">2.6m · DEEPER</span><h2>Experience <span class="sr-only">(continued)</span></h2></div><div class="cv-content"><div class="cv-job"><div class="cv-job-head"><h3>Multimedia Consultant</h3><span class="cv-date">Aug 2017 – Sep 2018</span></div><p class="cv-org">EduBoard Interactive Classroom Solutions · East London</p><ul><li>Websites, print and interactive media, video production, social media marketing and SEO for a classroom EdTech product.</li></ul></div><div class="cv-job"><div class="cv-job-head"><h3>Owner — Freelance Designer</h3><span class="cv-date">Sep 2015 – May 2016</span></div><p class="cv-org">jonathanedwardnestler.com · Jeffreys Bay</p><ul><li>Graphic and web design, illustration, photography and video production for a range of clients; concurrently Graphic Artist at Thinklocal.</li></ul></div><div class="cv-job"><div class="cv-job-head"><h3>Web &amp; Graphic Designer</h3><span class="cv-date">Aug 2013 – Jun 2015</span></div><p class="cv-org">Falcorp Technologies · Telkom SA · Pretoria</p><ul><li>All design for Telkom's brand identity; responsive websites in Bootstrap, HTML5/CSS3 and JavaScript.</li></ul></div><div class="cv-job"><div class="cv-job-head"><h3>Brand, new media &amp; print designer</h3><span class="cv-date">2007 – 2015</span></div><p class="cv-org">Kashan Advertising (RAF, SABS, SARS) · Betelgeuse Advertising · Xcellent Media · Digineering (GSK, BASF) · Global Designs · 44 Stanley (stadium LED motion, IPL) · 8 Image Brand Consulting (Coca-Cola, Vodacom, MTN, 2010 FIFA World Cup) · Peermont Global (Emperors Palace) · Shocking Pink</p></div></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">3.2m · AI STRATUM</span><h2>AI toolkit</h2></div><div class="cv-content"><div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p><p><b>Built with Claude:</b> this portfolio (GitHub Pages) · The Hunter, a React job-search command centre wired to Gmail via MCP · Central, Gmail-to-ClickUp triage · Studio, custom Claude skills for Figma scripting.</p></div></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">4.0m · SPECIMENS</span><h2>Selected work</h2></div><div class="cv-content"><p><b>Pantelotteriet</b> — recycling-lottery app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">4.6m · BEDROCK</span><h2>Education</h2></div><div class="cv-content"><p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p></div></section>
+<section class="cv-sec "><div class="cv-label"><span class="cv-depth" aria-hidden="true">5.1m · FIELD REPORTS</span><h2>References</h2></div><div class="cv-content"><p>Nicolaas Du Plessis (Head of Product) · Anne Jacobson (General Manager) · Hendrik Groenewald (Art Director). Contact details on request; ten written references on the portfolio.</p></div></section>
+</div>
+<footer class="cv-foot"><img src="assets/dino/dino06-ink.svg" alt=""><span>Page 2 of 2</span></footer>
+</article>
+</div>
 </main>
 <footer class="site-footer">
 <span>© <span data-year>2026</span> Jonathan Edward Nestler · Designasaurus Rex</span>
