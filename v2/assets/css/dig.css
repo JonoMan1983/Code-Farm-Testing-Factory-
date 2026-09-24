@@ -168,7 +168,27 @@ main { display: block; }
 /* ---------- Hero ---------- */
 .hero { min-height: calc(100svh - 72px); padding-top: clamp(48px, 7vw, 88px); padding-bottom: 0; display: flex; flex-direction: column; overflow: hidden; }
 .hero-welcome { font-family: var(--f-disp); font-weight: 800; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--s3); max-width: max-content; }
-.hero-welcome .ochre { white-space: nowrap; }
+.hero-welcome { display: flex; flex-wrap: wrap; align-items: center; column-gap: .3em; row-gap: 14px; }
+.hero-welcome .nw { white-space: nowrap; }
+.dig-stamp {
+  position: relative; display: inline-block; margin-left: .15em;
+  padding: .16em .38em .1em; font-size: 1.55em; line-height: .95; white-space: nowrap;
+  color: var(--basalt); background: var(--ochre);
+  transform: rotate(-3deg);
+  box-shadow: 5px 5px 0 var(--basalt), 5px 5px 0 2px var(--bone);
+  animation: dig-stamp .7s cubic-bezier(.2, 1.6, .4, 1) .35s both;
+}
+.dig-stamp::before, .dig-stamp::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(-45deg, var(--basalt) 0 6px, var(--ochre) 6px 12px);
+}
+.dig-stamp::before { top: -6px; }
+.dig-stamp::after { bottom: -6px; }
+@keyframes dig-stamp {
+  0% { opacity: 0; transform: rotate(-12deg) scale(1.8); }
+  60% { opacity: 1; transform: rotate(-1deg) scale(.94); }
+  100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+}
 .hero-title { --w: 900; font-variation-settings: 'wght' var(--w); margin-top: 18px; }
 .hero-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; margin-top: 36px; }
 .hero-data { font-family: var(--f-mono); font-size: 12px; color: var(--muted); border-left: 1px solid var(--s4); padding-left: 20px; display: grid; gap: 8px; }
@@ -509,6 +529,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .dig-stamp { animation: none; }
   .draw { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
