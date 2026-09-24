@@ -199,7 +199,13 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .stratum > * { padding: 20px 18px; border-left: 1px solid var(--s4); border-top: 1px solid var(--s4); }
 .stratum > :nth-child(5n+1) { border-left: 0; }
 .stratum > :nth-child(-n+5) { border-top: 0; }
-.stratum .col { font-family: var(--f-disp); font-weight: 800; font-size: 26px; text-transform: uppercase; background: var(--basalt); }
+.stratum .col { font-family: var(--f-disp); font-weight: 800; font-size: 26px; text-transform: uppercase; background: var(--basalt); display: flex; flex-direction: column; gap: 14px; justify-content: flex-end; }
+.stratum .col small { display: block; font-family: var(--f-mono); font-size: 11px; font-weight: 400; color: var(--ochre); letter-spacing: .1em; }
+.stage-art { display: block; width: 100%; height: auto; max-height: 150px; }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(.6,0,.2,1) .25s; }
+.reveal.is-in .draw { stroke-dashoffset: 0; }
+.nodig-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px 36px; }
+.nodig-list li { display: flex; align-items: center; gap: 12px; }
 .stratum .row-ai { font-family: var(--f-mono); font-size: 12px; background: var(--ochre); color: var(--basalt); }
 .stratum .row-me { font-family: var(--f-mono); font-size: 12px; background: var(--bone); color: var(--basalt); }
 .stratum .ai { background: var(--s2); font-size: 15px; line-height: 1.55; }
@@ -340,13 +346,16 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
   .spec-feature { grid-template-columns: 1fr; }
   .stratum { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stratum > * { border-left: 1px solid var(--s4) !important; border-top: 1px solid var(--s4) !important; }
-  .stratum .col, .stratum .row-ai, .stratum .row-me { display: none; }
+  .stratum .col--corner, .stratum .row-ai, .stratum .row-me { display: none; }
+  .stratum .col { grid-column: 1 / -1; flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 28px; }
+  .stratum .col span { min-width: 110px; }
+  .stratum .col .stage-art { width: min(260px, 55%); }
   .stratum .ai::before { content: attr(data-stage) ' · AI does'; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; color: var(--ochre); display: block; margin-bottom: 4px; }
   .stratum .me::before { content: attr(data-stage) ' · I decide'; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; color: var(--bone); display: block; margin-bottom: 4px; }
-  .stratum > :nth-child(7) { order: 1; } .stratum > :nth-child(12) { order: 2; }
-  .stratum > :nth-child(8) { order: 3; } .stratum > :nth-child(13) { order: 4; }
-  .stratum > :nth-child(9) { order: 5; } .stratum > :nth-child(14) { order: 6; }
-  .stratum > :nth-child(10) { order: 7; } .stratum > :nth-child(15) { order: 8; }
+  .stratum > :nth-child(2) { order: 1; } .stratum > :nth-child(7) { order: 2; } .stratum > :nth-child(12) { order: 3; }
+  .stratum > :nth-child(3) { order: 4; } .stratum > :nth-child(8) { order: 5; } .stratum > :nth-child(13) { order: 6; }
+  .stratum > :nth-child(4) { order: 7; } .stratum > :nth-child(9) { order: 8; } .stratum > :nth-child(14) { order: 9; }
+  .stratum > :nth-child(5) { order: 10; } .stratum > :nth-child(10) { order: 11; } .stratum > :nth-child(15) { order: 12; }
   .tools, .anims { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .slabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .fossils { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
@@ -391,6 +400,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .draw { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }

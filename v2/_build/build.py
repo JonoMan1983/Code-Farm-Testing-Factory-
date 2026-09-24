@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Generate the V2 Dig Site pages. Run: python3 _build/build.py from the v2 folder (writes pages into v2/)."""
-import html, json, os
+import html, json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from stage_art import BRIEF, EXPLORE, BUILD, HANDOFF, ICON_TALK, ICON_PRIORITY, ICON_EYE
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -181,7 +183,7 @@ def home():
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 01 — The AI stratum</p><h2 class="h-xl" id="ai-title">AI is bedded in.<br><span class="ochre">Judgment is mine.</span></h2></div>
 <p class="lede">Claude runs through every stage — chat, Claude Code, Figma MCP and custom skills — with ChatGPT and Gemini in the daily rotation. Here is exactly where AI sits, and where it doesn't.</p>{guide('10', '')}</div>
 <div class="stratum reveal" role="table" aria-label="What AI does and what I decide at each stage">
-<div class="col" role="columnheader"></div><div class="col" role="columnheader">Brief</div><div class="col" role="columnheader">Explore</div><div class="col" role="columnheader">Build</div><div class="col" role="columnheader">Handoff</div>
+<div class="col col--corner" role="columnheader"><span class="sr-only">Role</span></div><div class="col" role="columnheader">{BRIEF}<span><small>01</small>Brief</span></div><div class="col" role="columnheader">{EXPLORE}<span><small>02</small>Explore</span></div><div class="col" role="columnheader">{BUILD}<span><small>03</small>Build</span></div><div class="col" role="columnheader">{HANDOFF}<span><small>04</small>Handoff</span></div>
 <div class="row-ai" role="rowheader">AI DOES</div>
 <div class="ai" role="cell" data-stage="Brief">Claude interrogates the brief — edge cases, user goals, competitor context.</div>
 <div class="ai" role="cell" data-stage="Explore">Claude leads; ChatGPT and Gemini add second and third takes on each direction.</div>
@@ -193,7 +195,7 @@ def home():
 <div class="me" role="cell" data-stage="Build">Every state, every edge case, and what “done” means.</div>
 <div class="me" role="cell" data-stage="Handoff">Every spec, before engineering sees it.</div>
 </div>
-<div class="nodig reveal"><span class="mono">NO-DIG ZONE</span><span class="h-m">Never automated: user interviews · prioritisation · final visual judgment.</span></div>
+<div class="nodig reveal"><span class="mono">NO-DIG ZONE<br>never automated</span><ul class="nodig-list"><li>{ICON_TALK}<span class="h-m">User interviews</span></li><li>{ICON_PRIORITY}<span class="h-m">Prioritisation</span></li><li>{ICON_EYE}<span class="h-m">Final visual judgment</span></li></ul></div>
 <div class="toolstrata reveal" aria-label="AI tools by how much of my work they touch">
 <p class="eyebrow" style="color:var(--muted)">Tool strata — thickness = how much of the work it touches</p>
 <div class="ts-row ts-1"><span class="h-m">Claude</span><span class="ts-bar"><i></i></span><span class="ts-note">Primary · every stage<br><b>Chat · Claude Code · Figma MCP · custom skills</b></span></div>
