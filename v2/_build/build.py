@@ -119,6 +119,58 @@ def slabs():
     return '\n'.join(f'<div class="slab"><img src="{u}" alt="{n} — game UI" loading="lazy"><span>{n}</span></div>' for n, u in SLOTS)
 
 
+# ---------------------------------------------------------------- REFERENCES
+import re as _re
+ORDER = ['nicolaas-du-plessis', 'anne-jacobson', 'hendrik-groenewald', 'justin-gieselbach', 'riaan-roetz',
+         'elizabeth-joss-bethlehem', 'vanessa-bohling', 'phillip-van-coller', 'warren-raysdorf', 'darryl-smith']
+_raw = {r['id']: r for r in json.load(open(os.path.join(HERE, 'references.json'), encoding='utf-8'))}
+REFS = []
+for k in ORDER:
+    r = _raw[k]
+    m = _re.search(r'^(.*?)<strong>(.*?)</strong>', r['summary'], _re.S)
+    pull = (m.group(1) + m.group(2)).strip().rstrip('.') if m else r['summary'][:80]
+    phrase = m.group(2).strip().rstrip('.') if m else ''
+    body = html.escape(r['text'])
+    if phrase:
+        body = _re.sub('(' + _re.escape(html.escape(phrase)) + ')', r'<mark>\1</mark>', body, count=1, flags=_re.I)
+    REFS.append({'id': k, 'name': r['name'], 'role': r['role'], 'pull': pull, 'body': body})
+
+
+def _tag(i, r, dup=False):
+    extra = ' aria-hidden="true" tabindex="-1"' if dup else ' aria-haspopup="dialog"'
+    return (f'<button class="ref-tag ref-tag--{i % 3}" type="button" data-ref-index="{i}"{extra}>'
+            f'<span class="ref-hole" aria-hidden="true"></span>'
+            f'<span class="ref-no">FR-{i + 1:02d}</span>'
+            f'<span class="ref-quote">“{html.escape(r["pull"])}.”</span>'
+            f'<span class="ref-who"><b>{html.escape(r["name"])}</b><span>{html.escape(r["role"])}</span></span>'
+            f'<span class="ref-read">Read full report →</span></button>')
+
+
+def ref_belts():
+    rows = [list(enumerate(REFS))[:5], list(enumerate(REFS))[5:]]
+    out = []
+    for n, row in enumerate(rows):
+        one = ''.join(_tag(i, r) for i, r in row)
+        two = ''.join(_tag(i, r, dup=True) for i, r in row)
+        out.append(f'<div class="ref-belt{" ref-belt--rev" if n else ""}"><div class="ref-track">'
+                   f'<div class="ref-set">{one}</div><div class="ref-set ref-set--dup" aria-hidden="true">{two}</div></div></div>')
+    return '<div class="ref-belts reveal">' + ''.join(out) + '</div>'
+
+
+def ref_dialog():
+    data = json.dumps([{'n': f'FR-{i + 1:02d}', 'name': r['name'], 'role': r['role'], 'body': r['body']} for i, r in enumerate(REFS)], ensure_ascii=False).replace('</', '<\\/')
+    return f"""<dialog class="ref-dialog" aria-labelledby="ref-d-name">
+<article class="ref-paper">
+<header class="ref-paper-head"><span class="mono" data-ref-no>FR-01</span><span class="mono">Field report · verified</span><button class="ref-x" type="button" data-ref-close aria-label="Close report">×</button></header>
+<h3 class="ref-d-name" id="ref-d-name" data-ref-name></h3>
+<p class="ref-d-role mono" data-ref-role></p>
+<div class="ref-d-body" data-ref-body></div>
+<footer class="ref-paper-foot"><button class="ref-nav" type="button" data-ref-prev>← Previous</button><span class="mono" data-ref-count></span><button class="ref-nav" type="button" data-ref-next>Next →</button></footer>
+</article>
+</dialog>
+<script type="application/json" id="refs-data">{data}</script>"""
+
+
 # ------------------------------------------------------------------ HOME
 def home():
     return head('Jonathan Nestler — Senior Product Designer · UX/UI · AI integration',
@@ -213,12 +265,12 @@ def home():
 </div>
 </section>
 
-<section class="section" id="proof" data-depth="3.0m" data-era="reports" aria-labelledby="proof-title">
-<div class="sec-head reveal"><div><p class="eyebrow">Field reports</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
-<div class="quotes reveal">
-<figure><blockquote>“One of those designers who makes the whole product team better.”</blockquote><figcaption>Nicolaas Du Plessis — Head of Product &amp; Product Ops</figcaption></figure>
-<figure><blockquote>“Incredibly talented and creative — an invaluable asset to any team.”</blockquote><figcaption>Hendrik Groenewald — Art Director</figcaption></figure>
-</div>
+<section class="section refs" id="proof" data-depth="3.0m" data-era="reports" aria-labelledby="proof-title">
+<div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
+<p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
+{ref_belts()}
+<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
+{ref_dialog()}
 </section>
 
 <section class="section section--deep" id="craft" data-depth="3.4m" data-era="2018–25" aria-labelledby="craft-title">

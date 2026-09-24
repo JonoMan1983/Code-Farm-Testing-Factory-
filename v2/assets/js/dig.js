@@ -107,6 +107,49 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('is-open')) shut(); });
   }
 
+  /* Field reports: moving line + full-report dialog */
+  var refsSec = document.querySelector('.refs');
+  var dlg = document.querySelector('.ref-dialog');
+  var refsData = document.getElementById('refs-data');
+  if (refsSec && dlg && refsData && typeof dlg.showModal === 'function') {
+    var refs = JSON.parse(refsData.textContent);
+    var cur = 0, opener = null;
+    var q = function (s) { return dlg.querySelector(s); };
+    var showRef = function (i) {
+      cur = (i + refs.length) % refs.length;
+      var r = refs[cur];
+      q('[data-ref-no]').textContent = r.n;
+      q('[data-ref-name]').textContent = r.name;
+      q('[data-ref-role]').textContent = r.role;
+      q('[data-ref-body]').innerHTML = '<p>' + r.body + '</p>';
+      q('[data-ref-count]').textContent = (cur + 1) + ' / ' + refs.length;
+      q('.ref-paper').scrollTop = 0;
+    };
+    refsSec.addEventListener('click', function (e) {
+      var tag = e.target.closest('[data-ref-index]');
+      if (!tag) return;
+      opener = tag.getAttribute('aria-hidden') ? refsSec.querySelector('.ref-set:not(.ref-set--dup) [data-ref-index="' + tag.getAttribute('data-ref-index') + '"]') : tag;
+      showRef(parseInt(tag.getAttribute('data-ref-index'), 10));
+      dlg.showModal();
+      q('[data-ref-close]').focus();
+    });
+    q('[data-ref-close]').addEventListener('click', function () { dlg.close(); });
+    q('[data-ref-prev]').addEventListener('click', function () { showRef(cur - 1); });
+    q('[data-ref-next]').addEventListener('click', function () { showRef(cur + 1); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') showRef(cur + 1);
+      if (e.key === 'ArrowLeft') showRef(cur - 1);
+    });
+    dlg.addEventListener('close', function () { if (opener) opener.focus({ preventScroll: true }); });
+    var pause = refsSec.querySelector('[data-ref-pause]');
+    if (pause) pause.addEventListener('click', function () {
+      var on = refsSec.classList.toggle('is-paused');
+      pause.setAttribute('aria-pressed', on ? 'true' : 'false');
+      pause.textContent = on ? 'Play the line' : 'Pause the line';
+    });
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
