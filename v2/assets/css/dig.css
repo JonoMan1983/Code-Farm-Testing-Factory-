@@ -381,13 +381,15 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 }
 
 /* ---------- Bedrock slabs ---------- */
-.slabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
-.slab { position: relative; display: flex; align-items: flex-end; aspect-ratio: 3 / 4.3; padding: 0; overflow: hidden; background: var(--s3); border: 1px solid var(--s4); text-align: left; color: var(--bone); cursor: pointer; transition: border-color .2s, transform .3s; }
-.slab:nth-child(even) { margin-top: 32px; background: var(--s4); }
-.slab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.35) saturate(.85) brightness(.85); transition: filter .3s, transform .5s; }
+.slabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.slabs > .slab { grid-column: span 2; }
+.slabs > .slab:nth-child(-n+2) { grid-column: span 3; }
+.slabs--3 > .slab, .slabs--3 > .slab:nth-child(-n+2) { grid-column: span 2; }
+.slab { position: relative; display: flex; align-items: flex-end; aspect-ratio: 1200 / 622; padding: 0; overflow: hidden; background: var(--s3); border: 1px solid var(--s4); text-align: left; color: var(--bone); cursor: pointer; transition: border-color .2s, transform .3s; }
+.slab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: sepia(.25) saturate(.9) brightness(.9); transition: filter .3s, transform .5s; }
 button.slab:hover, button.slab:focus-visible { border-color: var(--ochre); transform: translateY(-4px); }
 button.slab:hover img, button.slab:focus-visible img { filter: none; transform: scale(1.05); }
-.slab-name { position: relative; width: 100%; padding: 40px 16px 16px; font-family: var(--f-disp); font-weight: 800; font-size: 24px; line-height: .95; text-transform: uppercase; background: linear-gradient(transparent, rgba(21,17,14,.92)); }
+.slab-name { position: relative; width: 100%; padding: 48px 18px 14px; font-family: var(--f-disp); font-weight: 800; font-size: 24px; line-height: .95; text-transform: uppercase; background: linear-gradient(transparent, rgba(21,17,14,.92)); }
 .slab-view { position: absolute; top: 12px; right: 12px; z-index: 1; padding: 6px 9px; font-size: 10px; background: var(--ochre); color: var(--basalt); opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
 button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1; transform: none; }
 .slab--pending { cursor: default; border-style: dashed; border-color: var(--s5); flex-direction: column; justify-content: space-between; align-items: stretch; }
@@ -424,6 +426,20 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .facts div { padding: 20px; border-top: 3px solid var(--ochre); background: var(--s1); }
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
 .facts span { font-size: 14px; color: var(--bone-2); }
+
+.hero-ground .hero-logo { width: min(520px, 82vw); left: 36%; bottom: 40px; transform: rotate(-3deg); }
+.hero-ground .hero-logo ~ .tag--hot { left: calc(36% - 210px); bottom: 70px; }
+.game-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.game-notes > div { padding: 20px 22px; background: var(--s1); border-top: 4px solid var(--ochre); }
+.game-notes .mono { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ochre); margin-bottom: 10px; }
+.game-notes p { font-size: 15px; color: var(--bone-2); }
+.game-notes b { color: var(--bone); font-weight: 600; }
+.figma-frame { position: relative; aspect-ratio: 16 / 9; background: var(--s1); border: 1px solid var(--s4); }
+.figma-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.edge-study { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: 24px; padding: 26px 28px; background: var(--s3); border-left: 5px solid var(--ochre); }
+.edge-study > div { max-width: 640px; }
+@media (max-width: 1100px) { .game-notes { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .figma-frame { aspect-ratio: 9 / 16; max-height: 80svh; } .hero-ground .hero-logo { left: auto; right: 2%; } .hero-ground .hero-logo ~ .tag--hot { left: 4%; bottom: 16px; } }
 
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }
@@ -607,8 +623,9 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
   .stratum > :nth-child(4) { order: 7; } .stratum > :nth-child(9) { order: 8; } .stratum > :nth-child(14) { order: 9; }
   .stratum > :nth-child(5) { order: 10; } .stratum > :nth-child(10) { order: 11; } .stratum > :nth-child(15) { order: 12; }
   .tools, .anims { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .slabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .slab:nth-child(even) { margin-top: 0; }
+  .slabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slabs > .slab, .slabs > .slab:nth-child(-n+2) { grid-column: span 1; }
+  .slabs > .slab:first-child { grid-column: 1 / -1; }
   .fossils { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
   .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .log-row { grid-template-columns: 70px 180px minmax(0, 1fr); }
@@ -642,7 +659,8 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
   body { font-size: 16px; }
   .spec-grid, .quotes, .about, .cs-split, .notes, .metrics, .vids, .docs, .ba, .gallery { grid-template-columns: 1fr; }
   .stratum, .tools { grid-template-columns: 1fr; }
-  .slabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slabs { grid-template-columns: minmax(0, 1fr); }
+  .slabs > .slab, .slabs > .slab:first-child { grid-column: 1; }
   .slab:nth-child(even) { margin-top: 0; }
   .fossils { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .spec-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: auto; }

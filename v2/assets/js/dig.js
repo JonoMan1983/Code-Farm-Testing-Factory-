@@ -189,7 +189,7 @@
         media.appendChild(v);
       } else {
         var im = document.createElement('img');
-        im.src = it.getAttribute('data-gal-src'); im.alt = it.getAttribute('data-gal-title') + ' game screen';
+        im.src = it.getAttribute('data-gal-src'); im.alt = it.getAttribute('data-gal-alt') || (it.getAttribute('data-gal-title') + ' game screen');
         media.appendChild(im);
       }
     };

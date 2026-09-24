@@ -72,7 +72,7 @@ def header(pre, active, home=False, crumbs=None):
         return ' aria-current="page"' if k == active else ''
 
     menu = [
-        ('work', 'Work', f'{h}#work', [('Pantelotteriet', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('work', 'Work', f'{h}#work', [('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
         ('about', 'About', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
@@ -141,36 +141,30 @@ UI_SHOTS = ['v1780042536/UI_Portfolio_2022-02_dh0wod', 'v1780042536/UI_Portfolio
             'v1780042654/UI_Portfolio_2022-07_gfwpyt', 'v1780042654/UI_Portfolio_2022-08_i9r9dc', 'v1780042655/UI_Portfolio_2022-09_gvww35']
 
 
+LOTTERY_GAMES = [
+    ('Samurai', 'samurai', 'Mega Samurai Legend slot: torii-gate reel frame over a cherry-blossom valley'),
+    ('Big Sexy City', 'big-sexy-city', 'Big Sexy City slot: marquee-bulb reel frame over a night skyline, big-win state'),
+    ('Rose of the West', 'rose-of-the-west', 'Rose of the West slot: wooden saloon reel frame in a desert town, expanded wild'),
+]
 IGAMING = [
-    # (title, cloudinary video id or None, local image or None)
-    ('Samurai', 'v1780033053/Samurai_Winning_xjzc3w', None),
-    ('Big Sexy City', 'v1780033062/Big_Sexy_City_Reelframe_p6gb6u', None),
-    ('Rose of the West', 'v1780033054/Rose_of_the_West_pu7mna', None),
-    ('Bellas Bachelorette', None, 'assets/images/igaming/bellas-bachelorette.jpg'),
-    ('Americana', None, 'assets/images/igaming/americana.jpg'),
+    ('Bellas Bachelorette', 'bellas-bachelorette', "Bella's Bachelorette slot: neon pink reel frame over a party crowd, wild and scatter"),
+    ('Americana', 'americana', 'Americana Road Trip slot: chrome reel frame over the US flag, expanding Liberty wild'),
 ]
 
 
-def slabs(pre=''):
+def slabs(pre='', items=None):
     tiles = []
-    for n, vid, img in IGAMING:
-        if vid:
-            thumb = f'{CDN}/video/upload/f_jpg,q_auto,w_600,h_860,c_fill,so_1/{vid}.jpg'
-            attrs = f'data-gal-type="video" data-gal-src="{CDN}/video/upload/q_auto,vc_auto,w_1280/{vid}.mp4" data-gal-poster="{CDN}/video/upload/f_jpg,q_auto,w_1280,so_1/{vid}.jpg"'
-        elif img and os.path.exists(os.path.join(ROOT, img)):
-            thumb = pre + img
-            attrs = f'data-gal-type="image" data-gal-src="{pre}{img}"'
-        else:
-            tiles.append(f'<div class="slab slab--pending"><span class="slab-pending mono">Image to come</span><span class="slab-name">{n}</span></div>')
-            continue
-        tiles.append(f'<button type="button" class="slab" data-gal-item data-gal-title="{n}" {attrs} aria-label="View {n} larger">'
-                     f'<img src="{thumb}" alt="" loading="lazy"><span class="slab-view mono" aria-hidden="true">View ↗</span><span class="slab-name">{n}</span></button>')
-    return '<div class="slabs" data-gal>' + ''.join(tiles) + '</div>'
+    for n, stem, alt in (items or IGAMING):
+        img = f'{pre}assets/images/igaming/{stem}.jpg'
+        full = f'{pre}assets/images/igaming/{stem}-full.jpg'
+        tiles.append(f'<button type="button" class="slab" data-gal-item data-gal-title="{n}" data-gal-type="image" data-gal-src="{full}" data-gal-alt="{html.escape(alt)}" aria-label="View {n} larger">'
+                     f'<img src="{img}" alt="{html.escape(alt)}" width="1200" height="622" loading="lazy"><span class="slab-view mono" aria-hidden="true">View ↗</span><span class="slab-name">{n}</span></button>')
+    return f'<div class="slabs slabs--{len(tiles)}" data-gal>' + ''.join(tiles) + '</div>'
 
 
 IGAMING_HEAD = ('<div class="ig-caption reveal"><h3 class="h-l">iGaming UI implementation</h3>'
                 '<p class="lede">Reel frames, win states, wild and scatter animations designed, built and handed off for live slot titles — '
-                'shipped to regulated markets in Scandinavia, South Africa and the UK. Tap any title to see it running.</p></div>')
+                'shipped to regulated markets in Scandinavia, South Africa and the UK. Tap any title to see the full game screen.</p></div>')
 
 
 def gal_dialog():
@@ -290,7 +284,7 @@ def about_more():
     ticks = ''.join(f'<span class="{"on" if i < 7 else ""}"></span>' for i in range(27))
     return f"""<div class="about-more">
 <div class="sub-block reveal" id="clients">
-<div class="sec-head"><div><p class="eyebrow">Clients &amp; employers</p><h3 class="h-l" style="margin-top:10px">Respected by the people I work with</h3></div></div>
+<div class="sec-head"><div><p class="eyebrow">Clients &amp; employers</p><h3 class="h-l" style="margin-top:10px">Companies this Dino worked with</h3></div></div>
 <div class="logo-belt" role="region" aria-label="Clients and employers"><div class="logo-track"><div class="logo-set">{logos}</div><div class="logo-set" aria-hidden="true">{logos_dup}</div></div></div>
 </div>
 <div class="sub-block reveal" id="toolkit">
@@ -330,7 +324,7 @@ def home():
 </div>
 <div class="hero-ground" aria-hidden="true">
 <div class="strata"><i></i><i></i><i></i><i></i></div>
-{dino_img('04', '', 'hero-dino', alt='Designasaurus rex — a T-rex roaring code, the site mascot')}
+<img class="hero-dino hero-logo" src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320">
 <span class="tag tag--hot">TAG 04 · STILL ROARING</span>
 </div>
 </section>
@@ -342,7 +336,7 @@ def home():
 <a class="spec spec-feature reveal" href="work/pantelotteriet.html">
 <div class="copy">
 <p class="eyebrow">Specimen 01 · Scandinavia · Mobile app + raffle site</p>
-<h3 class="h-xl">Pantelotteriet</h3>
+<h3 class="h-xl">The Recycling Lottery</h3>
 <p class="body-2">A recycling lottery where every return is a ticket. Every flow was journey-mapped, then proven in a Claude Code prototype before engineering wrote a line.</p>
 <div class="tags"><span class="tag">UX/UI</span><span class="tag">PRODUCT</span><span class="tag tag--fill">AI PROTOTYPE</span></div>
 <span class="spec-cta">Read the dig report →</span>
@@ -406,14 +400,6 @@ def home():
 </div>
 </section>
 
-<section class="section refs" id="proof" data-crumb="Field reports" data-depth="3.0m" data-era="reports" aria-labelledby="proof-title">
-<div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
-<p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
-{ref_belts()}
-<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
-{ref_dialog()}
-</section>
-
 <section class="section section--deep" id="craft" data-crumb="iGaming bedrock" data-depth="3.4m" data-era="2018–25" aria-labelledby="craft-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 02 — iGaming bedrock · 2018–2025</p><h2 class="h-xl" id="craft-title">Six years of high-stakes pixels</h2></div>
 <p class="lede">Live products for lottery and gaming audiences in Scandinavia, South Africa and the UK. Plus the motion, brand and personal work underneath.</p>{guide('05', '')}</div>
@@ -437,6 +423,13 @@ def home():
 {about_more()}
 </section>
 
+<section class="section refs" id="proof" data-crumb="Field reports" data-depth="4.9m" data-era="reports" aria-labelledby="proof-title">
+<div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
+<p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
+{ref_belts()}
+<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
+{ref_dialog()}
+</section>
 <section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
 <h2 class="h-mega" id="contact-title" style="margin-top:10px">You've hit bedrock.<br><span class="ochre">Let's build on it.</span></h2>
@@ -502,15 +495,28 @@ def pantelotteriet():
 <!-- PENDING: journey research boards from RLI Mobile App.fig (needs Figma link) -->
 <div class="embed reveal">[ Journey research boards — pending Figma import ]</div>
 </section>
-<section class="section section--deep" data-depth="2.1m" data-era="live specimen">
-<div class="cs-split reveal">
-<div><p class="eyebrow">The specimen, alive</p><h2 class="h-l" style="margin-top:10px">Try the prototype, not a screenshot</h2>
-<p class="body-2" style="margin-top:16px">The Claude Code prototype, embedded. Tap between draws, claims and profile; watch the countdown hit zero.</p></div>
-<!-- PENDING: embed the Claude Code prototype here as <iframe src="pantelotteriet-prototype.html"> -->
-<div style="display:flex;justify-content:center">{phone()}</div>
+<section class="section section--alt" id="games" data-depth="2.0m" data-era="instant games">
+<div class="sec-head reveal"><div><p class="eyebrow">Instant games on the platform</p><h2 class="h-l" style="margin-top:10px">One reveal flow, three worlds</h2></div>
+<p class="lede">Samurai, Big Sexy City and Rose of the West share one game shell. The theme lives in the frame; the controls, the result and the settle step never move — so players learn the flow once.</p></div>
+<div class="reveal">{slabs('../', LOTTERY_GAMES)}</div>
+<div class="game-notes reveal">
+<div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across all three games, however loud the theme gets.</p></div>
+<div><span class="mono">02 · Result, then decision</span><p>The result is shown as a figure; one large circular button asks the player to <b>See it for free</b> or <b>Take it</b>, and the message bar prompts them to settle.</p></div>
+<div><span class="mono">03 · States in one bar</span><p>A single message bar carries every state — <b>Big win!</b>, <b>Please settle your result</b> — and Big Sexy City adds a Hot-O-Meter with a running session clock.</p></div>
+</div>
+{gal_dialog()}
+</section>
+<section class="section section--deep" id="prototype" data-depth="2.2m" data-era="live specimen">
+<div class="sec-head reveal"><div><p class="eyebrow">The specimen, alive</p><h2 class="h-l" style="margin-top:10px">Try the prototype, not a screenshot</h2></div>
+<p class="lede">The RLI mobile app, live from Figma. Click through registration, draws and claims.</p></div>
+<div class="figma-frame reveal"><iframe title="RLI Mobile App — interactive Figma prototype" src="https://embed.figma.com/proto/VkJSL5Ws1PEOHm2IoHiewG/RLI-Mobile-App?node-id=3926-5359&amp;viewport=-10617%2C-2590%2C0.31&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=3926%3A5359&amp;page-id=3926%3A1641&amp;embed-host=share" loading="lazy" allowfullscreen></iframe></div>
+<div class="edge-study reveal">
+<div><p class="eyebrow">Edge case interactive study</p><h3 class="h-m" style="margin-top:8px">Built with Claude Code to break the flows on purpose</h3>
+<p class="body-2" style="margin-top:10px">A self-contained HTML prototype that runs the timing-heavy states Figma can't: countdowns hitting zero, closed claim windows and state changes.</p></div>
+<a class="btn btn--fill" href="https://drive.google.com/file/d/1zaqQcR10N7tsxCjZwVa68y6xt1InE3hT/view?usp=drive_link" target="_blank" rel="noopener">Open the edge case study ↗</a>
 </div>
 </section>"""
-    return case('pantelotteriet', 'Pantelotteriet — dig report · Jonathan Nestler', 'Specimen 01 · Mobile app + raffle site · Scandinavia', 'Pantelotteriet',
+    return case('pantelotteriet', 'The Recycling Lottery — dig report · Jonathan Nestler', 'Specimen 01 · Pantelotteriet · Mobile app + raffle site · Scandinavia', 'The Recycling Lottery',
                 'A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.',
                 [('ROLE', 'Product Designer → Jr. PO'), ('CLIENT', 'Astria Systems'), ('SURFACES', 'Mobile app, web raffle'), ('AI STACK', 'Claude Code · Figma MCP'), ('YEAR', '[YEAR]')],
                 "Static Figma frames couldn't show a countdown, a claim window or a state change. Engineering would have found the timing bugs — late and expensively.",
@@ -533,7 +539,6 @@ def astria():
 <div class="reveal">{slabs('../')}</div>
 {IGAMING_HEAD}
 {gal_dialog()}
-<div class="gallery reveal" style="margin-top:24px">{shots}</div>
 <div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
 </section>"""
     return case('astria', 'Astria iGaming platform — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'Astria platform',
@@ -572,7 +577,7 @@ def indiemode():
                  ('Claude generated layouts and interaction code.', 'Visual decisions, brand accuracy and UX intent were never outsourced.'),
                  ('[A generated pattern you rejected]', '[Why]')],
                 extra, [('2', 'days, brief to live site'), ('1', 'week of typical build time saved'), ('[X]', 'outcome metric')],
-                'pantelotteriet.html', 'Pantelotteriet')
+                'pantelotteriet.html', 'The Recycling Lottery')
 
 
 # ---------------------------------------------------------------- ARCHIVE
@@ -805,7 +810,7 @@ def resume():
 <div class="cv-body">
 {_sec('Experience <span class="sr-only">(continued)</span>', '2.6m · DEEPER', p2 + early)}
 {_sec('AI toolkit', '3.2m · AI STRATUM', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p><p><b>Built with Claude:</b> this portfolio (GitHub Pages) · The Hunter, a React job-search command centre wired to Gmail via MCP · Central, Gmail-to-ClickUp triage · Studio, custom Claude skills for Figma scripting.</p></div>')}
-{_sec('Selected work', '4.0m · SPECIMENS', '<p><b>Pantelotteriet</b> — recycling-lottery app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
+{_sec('Selected work', '4.0m · SPECIMENS', '<p><b>The Recycling Lottery (Pantelotteriet)</b> — mobile app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
 {_sec('Education', '4.6m · BEDROCK', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
 {_sec('References', '5.1m · FIELD REPORTS', '<p>Nicolaas Du Plessis (Head of Product) · Anne Jacobson (General Manager) · Hendrik Groenewald (Art Director). Contact details on request; ten written references on the portfolio.</p>')}
 </div>
