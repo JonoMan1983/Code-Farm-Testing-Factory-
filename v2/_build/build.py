@@ -123,6 +123,11 @@ def slabs():
 import re as _re
 ORDER = ['nicolaas-du-plessis', 'anne-jacobson', 'hendrik-groenewald', 'justin-gieselbach', 'riaan-roetz',
          'elizabeth-joss-bethlehem', 'vanessa-bohling', 'phillip-van-coller', 'warren-raysdorf', 'darryl-smith']
+VERBATIM = {
+    'vanessa-bohling': 'A calm and dependable team member',
+    'riaan-roetz': 'An amazing designer but also a great manager',
+    'phillip-van-coller': 'Highly skilled and very experienced',
+}
 _raw = {r['id']: r for r in json.load(open(os.path.join(HERE, 'references.json'), encoding='utf-8'))}
 REFS = []
 for k in ORDER:
@@ -130,6 +135,8 @@ for k in ORDER:
     m = _re.search(r'^(.*?)<strong>(.*?)</strong>', r['summary'], _re.S)
     pull = (m.group(1) + m.group(2)).strip().rstrip('.') if m else r['summary'][:80]
     phrase = m.group(2).strip().rstrip('.') if m else ''
+    if k in VERBATIM:  # tag must quote the reference word-for-word
+        pull = phrase = VERBATIM[k]
     body = html.escape(r['text'])
     if phrase:
         body = _re.sub('(' + _re.escape(html.escape(phrase)) + ')', r'<mark>\1</mark>', body, count=1, flags=_re.I)
