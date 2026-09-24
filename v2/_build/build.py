@@ -130,7 +130,7 @@ def home():
 <p class="lede">Jonathan “Jonno” Nestler — Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
 <div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field notes (CV)</a></div>
 </div>
-<div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
+<div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span>STACK&nbsp;&nbsp;CLAUDE-FIRST</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
 </div>
 <div class="hero-ground" aria-hidden="true">
 <div class="strata"><i></i><i></i><i></i><i></i></div>
@@ -179,12 +179,12 @@ def home():
 
 <section class="section section--alt" id="ai" data-depth="2.1m" data-era="AI layer" aria-labelledby="ai-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 01 — The AI stratum</p><h2 class="h-xl" id="ai-title">AI is bedded in.<br><span class="ochre">Judgment is mine.</span></h2></div>
-<p class="lede">Claude, Claude Code and Figma MCP sit inside every stage of the process. Here is exactly where — and where they don't.</p>{guide('10', '')}</div>
+<p class="lede">Claude runs through every stage — chat, Claude Code, Figma MCP and custom skills — with ChatGPT and Gemini in the daily rotation. Here is exactly where AI sits, and where it doesn't.</p>{guide('10', '')}</div>
 <div class="stratum reveal" role="table" aria-label="What AI does and what I decide at each stage">
 <div class="col" role="columnheader"></div><div class="col" role="columnheader">Brief</div><div class="col" role="columnheader">Explore</div><div class="col" role="columnheader">Build</div><div class="col" role="columnheader">Handoff</div>
 <div class="row-ai" role="rowheader">AI DOES</div>
 <div class="ai" role="cell" data-stage="Brief">Claude interrogates the brief — edge cases, user goals, competitor context.</div>
-<div class="ai" role="cell" data-stage="Explore">Midjourney and Firefly spread visual directions in hours, not days.</div>
+<div class="ai" role="cell" data-stage="Explore">Claude leads; ChatGPT and Gemini add second and third takes on each direction.</div>
 <div class="ai" role="cell" data-stage="Build">Claude Code turns Figma flows into working HTML prototypes with real states and timing.</div>
 <div class="ai" role="cell" data-stage="Handoff">Figma MCP and Claude draft annotations and dev-ready specs.</div>
 <div class="row-me" role="rowheader">I DECIDE</div>
@@ -194,7 +194,14 @@ def home():
 <div class="me" role="cell" data-stage="Handoff">Every spec, before engineering sees it.</div>
 </div>
 <div class="nodig reveal"><span class="mono">NO-DIG ZONE</span><span class="h-m">Never automated: user interviews · prioritisation · final visual judgment.</span></div>
-<p class="eyebrow reveal" style="margin-top:48px;color:var(--muted)">Tools I've built with AI</p>
+<div class="toolstrata reveal" aria-label="AI tools by how much of my work they touch">
+<p class="eyebrow" style="color:var(--muted)">Tool strata — thickness = how much of the work it touches</p>
+<div class="ts-row ts-1"><span class="h-m">Claude</span><span class="ts-bar"><i></i></span><span class="ts-note">Primary · every stage<br><b>Chat · Claude Code · Figma MCP · custom skills</b></span></div>
+<div class="ts-row ts-2"><span class="h-m">ChatGPT</span><span class="ts-bar"><i></i></span><span class="ts-note">Daily rotation</span></div>
+<div class="ts-row ts-2"><span class="h-m">Gemini</span><span class="ts-bar"><i></i></span><span class="ts-note">Daily rotation</span></div>
+<div class="ts-row ts-3"><span class="h-m">Midjourney · DALL·E</span><span class="ts-bar"><i></i></span><span class="ts-note">Occasional · mood reference</span></div>
+</div>
+<p class="eyebrow reveal" style="margin-top:48px;color:var(--muted)">Tools I've built with Claude</p>
 <div class="tools reveal">
 <div class="tool"><span class="h-m">This site</span><p>Designer-directed, Claude-built, shipped to GitHub Pages in push sessions.</p></div>
 <div class="tool"><span class="h-m">The Hunter</span><p>A React command centre wired to Gmail through MCP.</p></div>
@@ -477,11 +484,11 @@ def resume():
 <div class="job"><div><b>Web &amp; Graphic Designer — Falcorp · Telkom SA</b><span class="mono">2013–2015</span></div><div>Telkom brand design and responsive sites (Bootstrap, HTML5/CSS3, JS).</div></div>
 <div class="job"><div><b>Brand, new media &amp; print — agency roles</b><span class="mono">2007–2013</span></div><div>8 Image (Coca-Cola, Vodacom, MTN), Digineering (GSK, BASF), 44 Stanley, Xcellent Media, Betelgeuse, Global Designs, Peermont, Kashan.</div></div>
 </section>
-<section><h2 class="p-h">TOOLS I'VE BUILT WITH AI</h2><p><b>This portfolio</b> — designer-directed, Claude-built. <b>The Hunter</b> — React command centre wired to Gmail via MCP. <b>Central</b> — Gmail-to-ClickUp triage with Claude. <b>Studio</b> — custom Claude skills for Figma scripting.</p></section>
+<section><h2 class="p-h">TOOLS I'VE BUILT WITH CLAUDE</h2><p><b>This portfolio</b> — designer-directed, Claude-built. <b>The Hunter</b> — React command centre wired to Gmail via MCP. <b>Central</b> — Gmail-to-ClickUp triage with Claude. <b>Studio</b> — custom Claude skills for Figma scripting.</p></section>
 <section><h2 class="p-h">SPECIMENS — SELECTED WORK</h2><p><b>Pantelotteriet</b> — recycling-lottery app + raffle site; journeys proven in a Claude Code prototype. <b>Indiemode</b> — full redesign with Claude, a week of build in two days. <b>Wonderlabz.com</b> — research, IA and hi-fi redesign.</p></section>
 </div>
 <div class="p-col">
-<section class="p-ai"><h2 class="p-h" style="color:#E8A33D;border-color:#4A3827">AI STRATUM</h2><p>Claude &amp; Claude Code · Figma MCP · prompt-driven UX copy · AI prototyping · Midjourney · Firefly</p><p class="mono" style="font-size:10px;margin-top:8px;color:#FF3D6E">NEVER AUTOMATED: interviews, prioritisation, final visual calls</p></section>
+<section class="p-ai"><h2 class="p-h" style="color:#E8A33D;border-color:#4A3827">AI STRATUM</h2><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy</p><p style="margin-top:6px"><b>Daily:</b> ChatGPT · Gemini</p><p style="margin-top:6px;opacity:.75">Occasional: Midjourney · DALL·E</p><p class="mono" style="font-size:10px;margin-top:8px;color:#FF3D6E">NEVER AUTOMATED: interviews, prioritisation, final visual calls</p></section>
 <section><h2 class="p-h">CORE</h2><p>UX research · IA · interaction design · design systems · usability testing · WCAG · journey mapping · product ownership · motion &amp; VFX · brand identity</p></section>
 <section><h2 class="p-h">TOOLS</h2><p>Figma · Adobe CC (AE, PS, AI, PR, XD) · Miro · Jira · Notion · HTML/CSS/JS · GitHub</p></section>
 <section><h2 class="p-h">EDUCATION</h2><p><b>Professional Diploma in UX Design</b><br>UX Design Institute, Dublin · SCQF L8 · 2023</p><p style="margin-top:6px">27 certifications incl. Product Management Frameworks, WCAG Accessibility, Gamification Psychology</p></section>

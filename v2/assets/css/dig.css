@@ -211,6 +211,22 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .tool { padding: 24px; background: var(--basalt); border: 1px solid var(--s4); display: flex; flex-direction: column; gap: 10px; }
 .tool p { font-size: 15px; color: var(--bone-2); }
 
+/* Tool strata — AI tools weighted by use */
+.toolstrata { margin-top: 48px; display: grid; gap: 10px; }
+.toolstrata .eyebrow { margin-bottom: 6px; }
+.ts-row { display: grid; grid-template-columns: 240px minmax(0, 1fr) 300px; gap: 24px; align-items: center; }
+.ts-bar { display: block; background: var(--s1); }
+.ts-bar i { display: block; height: 100%; }
+.ts-1 .ts-bar { height: 44px; } .ts-1 .ts-bar i { width: 100%; background: var(--ochre) repeating-linear-gradient(90deg, rgba(21,17,14,.18) 0 2px, transparent 2px 12px); }
+.ts-2 .ts-bar { height: 20px; } .ts-2 .ts-bar i { width: 42%; background: var(--bone-2); }
+.ts-3 .ts-bar { height: 6px; }  .ts-3 .ts-bar i { width: 12%; background: var(--s5); }
+.ts-3 .h-m { color: var(--muted); font-size: 22px; }
+.ts-note { font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: var(--muted); }
+.ts-note b { font-weight: 500; color: var(--bone); }
+@media (max-width: 760px) {
+  .ts-row { grid-template-columns: 1fr; gap: 6px; padding-bottom: 14px; border-bottom: 1px solid var(--s2); }
+}
+
 /* ---------- Proof ---------- */
 .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
 .quotes blockquote { font-family: var(--f-disp); font-weight: 600; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.08; }
