@@ -50,8 +50,9 @@ def head(title, desc, pre):
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://jonoman1983.github.io{A}/brand/logo/og-image.png">
 <meta name="theme-color" content="#15110E">
-<link rel="icon" href="{A}/brand/logo/favicon.ico">
-<link rel="apple-touch-icon" href="{A}/brand/logo/icon-180.png">
+<link rel="icon" href="{pre}assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{pre}assets/brand/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="{pre}assets/brand/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -92,7 +93,7 @@ def header(pre, active, home=False, crumbs=None):
     trail.append('<li class="crumb-live" hidden><span data-crumb-live></span></li>')
     return f"""<header class="site-header">
 <a class="brand" href="{pre}index.html" aria-label="Designasaurus Rex — home">
-<span class="brand-mark" aria-hidden="true">DR</span>
+<img class="brand-logo" src="{pre}assets/brand/jen-logo.svg" alt="" width="84" height="52">
 <span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
 </a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -111,7 +112,7 @@ def _plain(t):
 
 def footer(pre):
     return f"""<footer class="site-footer">
-<span>© <span data-year>2026</span> Jonathan Edward Nestler · Designasaurus Rex</span>
+<span class="foot-brand"><img src="{pre}assets/brand/jen-logo.svg" alt="" width="58" height="36"><span>© <span data-year>2026</span> Jonathan Edward Nestler · Designasaurus Rex</span></span>
 <span>Jeffreys Bay, ZA · Remote worldwide · Open to relocate anywhere in South Africa</span>
 </footer>
 <script src="{pre}assets/js/dig.js" defer></script>

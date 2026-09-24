@@ -88,7 +88,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-bottom: 1px solid var(--s3);
 }
 .brand { display: flex; align-items: center; gap: 14px; }
-.brand-mark { width: 40px; height: 40px; display: grid; place-items: center; border: 2px solid var(--bone); font-family: var(--f-disp); font-weight: 900; font-size: 18px; }
+.brand-logo { display: block; height: 52px; width: auto; transition: transform .3s cubic-bezier(.3,1.4,.5,1); }
+.foot-brand { display: inline-flex; align-items: center; gap: 12px; }
+.foot-brand img { height: 36px; width: auto; }
+.brand:hover .brand-logo { transform: rotate(-4deg) scale(1.06); }
 .brand-name { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-name b { font-family: var(--f-disp); font-weight: 800; font-size: 21px; letter-spacing: 0.04em; }
 .brand-name span { font-family: var(--f-mono); font-size: 10px; color: var(--muted); }
