@@ -322,7 +322,7 @@ def home():
 <h1 class="h-mega hero-title" id="hero-title">I design<br><span class="outline">the system</span><br><span class="ochre">before the screen.</span></h1>
 <div class="hero-meta">
 <div>
-<p class="lede">Jonathan “Jonno” Nestler — Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
+<p class="lede"><strong class="hero-name">Jonathan <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
 <div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field notes (CV)</a></div>
 </div>
 <div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span>STACK&nbsp;&nbsp;CLAUDE-FIRST</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
