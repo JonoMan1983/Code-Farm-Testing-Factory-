@@ -459,7 +459,16 @@ def archive():
             ('Legacy', 'Portfolio 2010', 'legacy-portfolio-2010.pdf'), ('Legacy', 'Site designs', 'legacy-site-design.pdf'), ('Legacy', 'Logo designs', 'legacy-logo-design.pdf'),
             ('UXDI deliverable', 'Flow diagram', 'project-8-flow-diagram.pdf'), ('UXDI deliverable', 'Interaction design', 'project-10-interaction-design.pdf'),
             ('Credential', 'UX Design Institute diploma', 'UXDI_diploma.pdf')]
-    docs_html = ''.join(f'<a class="doc" href="{A}/docs/{f}"><span class="mono">{k.upper()} · PDF</span><span class="h-m">{n}</span></a>' for k, n, f in docs)
+    pages = {'brand-guide-wonderlabz.pdf': 30, 'brand-guide-recycling-lottery.pdf': 27, 'legacy-portfolio-2010.pdf': 10, 'legacy-site-design.pdf': 42,
+             'legacy-logo-design.pdf': 10, 'project-8-flow-diagram.pdf': 1, 'project-10-interaction-design.pdf': 1, 'UXDI_diploma.pdf': 1}
+    def doc_card(k, n, f):
+        pg = pages.get(f, 1)
+        stack = ' doc-thumb--stack' if pg > 1 else ''
+        stem = f[:-4]
+        return (f'<a class="doc" href="{A}/docs/{f}" aria-label="{n} — {k}, PDF, {pg} page{"s" if pg > 1 else ""}">'
+                f'<span class="doc-thumb{stack}"><span class="doc-img"><img src="assets/images/docs/{stem}.jpg" alt="" width="640" height="480" loading="lazy"></span></span>'
+                f'<span class="mono">{k.upper()} · PDF · {pg} PAGE{"S" if pg > 1 else ""}</span><span class="h-m">{n}</span><span class="doc-open">Open PDF →</span></a>')
+    docs_html = ''.join(doc_card(k, n, f) for k, n, f in docs)
     reel = f'{CDN}/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4'
     return head('The archive — motion, brand, legacy and personal work · Jonathan Nestler',
                 'Motion reel, 32 animations, brand guides, legacy work and artistic expression by Jonathan Nestler.', '') + header('', 'archive') + f"""

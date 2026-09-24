@@ -405,10 +405,21 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .art button { padding: 0; aspect-ratio: 1; overflow: hidden; }
 .art img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
 .art button:hover img { transform: scale(1.06); }
-.docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.doc { display: flex; flex-direction: column; gap: 8px; padding: 24px; background: var(--s1); border: 1px solid var(--s4); }
-.doc:hover { border-color: var(--ochre); }
-.doc .mono { font-size: 11px; color: var(--ochre); }
+.docs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.doc { display: flex; flex-direction: column; gap: 8px; padding: 24px 22px 22px; background: var(--s1); border: 1px solid var(--s4); transition: border-color .2s; }
+.doc:hover { border-color: var(--ochre); color: inherit; }
+.doc .mono { font-size: 11px; color: var(--ochre); margin-top: 10px; }
+.doc-thumb { position: relative; display: block; margin: 6px 10px 6px 0; }
+.doc-img { position: relative; z-index: 2; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--basalt); border: 1px solid var(--s5); box-shadow: 0 10px 24px rgba(0,0,0,.35); transition: transform .35s cubic-bezier(.3,1.3,.5,1); }
+.doc-img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.25) saturate(.85) brightness(.92); transition: filter .3s, transform .5s; }
+.doc-thumb--stack::before, .doc-thumb--stack::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--s5); transition: transform .35s cubic-bezier(.3,1.3,.5,1); }
+.doc-thumb--stack::before { z-index: 1; background: var(--s3); transform: translate(5px, -5px); }
+.doc-thumb--stack::after { z-index: 0; background: var(--s2); transform: translate(10px, -10px); }
+.doc:hover .doc-img { transform: translateY(-4px) rotate(-1deg); }
+.doc:hover .doc-img img { filter: none; transform: scale(1.03); }
+.doc:hover .doc-thumb--stack::before { transform: translate(9px, -9px) rotate(1.5deg); }
+.doc:hover .doc-thumb--stack::after { transform: translate(17px, -15px) rotate(3deg); }
+.doc-open { margin-top: auto; padding-top: 8px; font-weight: 600; font-size: 14px; color: var(--ochre); }
 .lightbox { position: fixed; inset: 0; z-index: 100; display: none; place-items: center; background: rgba(10,8,6,.94); padding: 24px; }
 .lightbox.is-open { display: grid; }
 .lightbox img { max-height: 86vh; width: auto; }
@@ -444,6 +455,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
   .log-tray { grid-column: 2 / -1; max-width: 420px; }
   .cs-meta div, .cs-meta div + div { padding: 20px 0; border-left: 0; }
   .art { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .docs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 1023px) {
   :root { --pad-l: var(--pad-x); }
