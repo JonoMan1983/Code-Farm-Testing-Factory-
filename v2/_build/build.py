@@ -73,7 +73,7 @@ def header(pre, active, home=False):
 <nav class="nav" id="site-nav" aria-label="Main">
 <a href="{h}#work"{cur('work')}>Work</a>
 <a href="{h}#ai"{cur('ai')}>AI Practice</a>
-<a href="{pre}archive.html"{cur('archive')}>Archive</a>
+<a href="{pre}archive.html"{cur('archive')}>Creative Archive</a>
 <a href="{h}#about"{cur('about')}>About</a>
 <a href="{pre}resume.html"{cur('cv')}>Field notes (CV)</a>
 <a class="btn btn--fill" href="{h}#contact">Hire the raptor</a>
@@ -284,7 +284,7 @@ def home():
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 02 — iGaming bedrock · 2018–2025</p><h2 class="h-xl" id="craft-title">Six years of high-stakes pixels</h2></div>
 <p class="lede">Live products for lottery and gaming audiences in Scandinavia, South Africa and the UK. Plus the motion, brand and personal work underneath.</p>{guide('05', '')}</div>
 <div class="slabs reveal">{slabs()}</div>
-<div class="btn-row reveal" style="margin-top:40px"><a class="btn btn--bone" href="archive.html">Open the archive →</a><a class="btn" href="archive.html#reel">Motion reel</a><a class="btn" href="archive.html#art">Artistic expression</a></div>
+<div class="btn-row reveal" style="margin-top:40px"><a class="btn btn--bone" href="archive.html">Open the Creative Archive →</a><a class="btn" href="archive.html#reel">Motion reel</a><a class="btn" href="archive.html#art">Artistic expression</a></div>
 </section>
 
 <section class="section" id="about" data-depth="4.6m" data-era="2007–now" aria-labelledby="about-title">
@@ -470,17 +470,17 @@ def archive():
                 f'<span class="mono">{k.upper()} · PDF · {pg} PAGE{"S" if pg > 1 else ""}</span><span class="h-m">{n}</span><span class="doc-open">Open PDF →</span></a>')
     docs_html = ''.join(doc_card(k, n, f) for k, n, f in docs)
     reel = f'{CDN}/video/upload/q_auto,vc_auto/v1780040211/Wonderlabz-3D-Photo-Animation-With-Sound_1_1_1_smyj3i.mp4'
-    return head('The archive — motion, brand, legacy and personal work · Jonathan Nestler',
+    return head('Creative Archive — motion, brand, legacy and personal work · Jonathan Nestler',
                 'Motion reel, 32 animations, brand guides, legacy work and artistic expression by Jonathan Nestler.', '') + header('', 'archive') + f"""
 <main id="main">
-<section class="section cs-hero" data-depth="0.0m" data-era="archive" style="position:relative">
+<section class="section cs-hero" data-depth="0.0m" data-era="creative archive" style="position:relative">
 <p class="eyebrow">Layer 04 — The fossil record</p>
-<h1 class="h-mega">The archive</h1>
+<h1 class="h-mega">Creative<br>Archive</h1>
 <p class="lede">Everything under the product work: motion, VFX, brand systems, twenty years of legacy files — and the stuff I make just because I can.</p>
 {dino_img('11', '', 'hero-guide')}
 <div class="strata" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>
-<nav class="subnav" aria-label="Archive sections"><a href="#reel">Motion reel</a><a href="#videos">Video</a><a href="#anims">Animation ×32</a><a href="#art">Artistic expression</a><a href="#docs">Brand &amp; legacy</a></nav>
+<nav class="subnav" aria-label="Creative Archive sections"><a href="#reel">Motion reel</a><a href="#videos">Video</a><a href="#anims">Animation ×32</a><a href="#art">Artistic expression</a><a href="#docs">Brand &amp; legacy</a></nav>
 
 <section class="section" id="reel" data-depth="0.4m" data-era="motion">
 <div class="sec-head reveal"><div><p class="eyebrow">Motion reel</p><h2 class="h-l">Frame by frame. Bone by bone.</h2></div></div>
