@@ -285,7 +285,9 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .cs-split { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 64px; }
 .cs-split .h-l { font-family: var(--f-disp); font-weight: 800; text-transform: none; font-size: clamp(30px, 3.4vw, 50px); line-height: 1.04; }
 .log { display: flex; flex-direction: column; }
-.log-row { display: grid; grid-template-columns: 100px 260px minmax(0, 1fr); gap: 32px; align-items: center; padding: 26px 32px; background: var(--s1); }
+.log-row { display: grid; grid-template-columns: 90px 220px minmax(0, 1fr) 260px; gap: 32px; align-items: center; padding: 22px 32px; background: var(--s1); }
+.log-tray { margin: 0; padding: 10px; background: var(--basalt); border: 1px solid var(--s4); }
+.log-art { display: block; width: 100%; height: auto; }
 .log-row:nth-child(2) { background: var(--s2); }
 .log-row:nth-child(3) { background: var(--s3); }
 .log-row:nth-child(4) { background: var(--s4); }
@@ -364,6 +366,8 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
   .slabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .fossils { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
   .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .log-row { grid-template-columns: 70px 180px minmax(0, 1fr); }
+  .log-tray { grid-column: 2 / -1; max-width: 420px; }
   .cs-meta div, .cs-meta div + div { padding: 20px 0; border-left: 0; }
   .art { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
@@ -390,6 +394,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .spec-small { grid-template-columns: 1fr; }
   .log-row { grid-template-columns: 56px minmax(0, 1fr); gap: 8px 16px; padding: 22px; }
   .log-row .n { font-size: 40px; grid-row: span 2; }
+  .log-tray { grid-column: 1 / -1; margin-top: 10px; }
   .about .portrait { max-width: 220px; }
   .facts { grid-template-columns: 1fr; }
   .hero-ground .hero-dino { right: 6%; }

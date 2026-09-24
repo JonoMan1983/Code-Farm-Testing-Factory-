@@ -2,6 +2,7 @@
 """Generate the V2 Dig Site pages. Run: python3 _build/build.py from the v2 folder (writes pages into v2/)."""
 import html, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from case_art import CASE_ART
 from stage_art import BRIEF, EXPLORE, BUILD, HANDOFF, ICON_TALK, ICON_PRIORITY, ICON_EYE, ICON_SITE, ICON_HUNTER, ICON_CENTRAL, ICON_STUDIO
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -263,8 +264,9 @@ def home():
 def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, extra, metrics, next_href, next_name):
     pre = '../'
     meta_html = ''.join(f'<div><span class="mono">{k}</span><b>{v}</b></div>' for k, v in meta)
+    arts = CASE_ART.get(slug, [''] * len(log))
     log_html = ''.join(
-        f'<div class="log-row{" is-ai" if i == ai_step else ""}"><span class="n">0{i+1}</span><span class="h-m">{t}</span><p>{d}</p></div>'
+        f'<div class="log-row{" is-ai" if i == ai_step else ""}"><span class="n">0{i+1}</span><span class="h-m">{t}</span><p>{d}</p><figure class="log-tray">{arts[i]}</figure></div>'
         for i, (t, d) in enumerate(log))
     notes_html = ''.join(
         f'<div class="note"><div><span class="mono">AI PROPOSED</span>{a}</div><div><span class="mono">I DECIDED</span>{b}</div></div>' for a, b in notes)
