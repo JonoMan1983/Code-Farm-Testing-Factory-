@@ -37,7 +37,7 @@
       for (var i = 0; i < layers.length; i++) {
         if (layers[i].getBoundingClientRect().top <= line) current = layers[i];
       }
-      var h = rail.clientHeight - 60;
+      var h = rail.clientHeight - 110;
       read.style.top = (20 + p * h) + 'px';
       read.innerHTML = '<b>' + current.getAttribute('data-depth') + '</b>' + (current.getAttribute('data-era') || '');
       if (fill) fill.style.height = (p * 100).toFixed(2) + '%';

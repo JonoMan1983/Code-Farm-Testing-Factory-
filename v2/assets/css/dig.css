@@ -114,17 +114,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- Depth rail ---------- */
 .rail {
   position: fixed; left: 0; top: 72px; bottom: 0; width: var(--rail); z-index: 40;
-  border-right: 1px solid var(--s3);
-  background: repeating-linear-gradient(180deg, var(--s3) 0 1px, transparent 1px 40px);
+  border-right: 2px solid var(--s5);
+  background:
+    repeating-linear-gradient(180deg, var(--bone-2) 0 2px, transparent 2px 200px) left top / 30px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--s5) 0 1px, transparent 1px 40px) left top / 18px 100% no-repeat,
+    rgba(21, 17, 14, .92);
   pointer-events: none;
 }
-.rail-fill { position: absolute; left: 0; top: 0; width: 3px; height: 0; background: var(--ochre); }
+.rail::after { content: 'DEPTH'; position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-family: var(--f-mono); font-size: 10px; letter-spacing: .2em; color: var(--muted); }
+.rail-fill { position: absolute; right: -2px; top: 0; width: 5px; height: 0; background: var(--ochre); box-shadow: 0 0 12px rgba(232, 163, 61, .55); }
 .rail-read {
-  position: absolute; left: 12px; top: 20px;
-  font-family: var(--f-mono); font-size: 11px; line-height: 1.45; color: var(--ochre);
+  position: absolute; left: 8px; right: 10px; top: 20px;
+  padding: 7px 8px 8px; background: var(--ochre); color: var(--basalt);
+  font-family: var(--f-mono); font-size: 10px; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
   transition: top .15s linear;
 }
-.rail-read b { display: block; font-weight: 500; color: var(--bone); }
+.rail-read::after { content: ''; position: absolute; right: -10px; top: 50%; margin-top: -7px; border: 7px solid transparent; border-left-color: var(--ochre); border-right: 0; }
+.rail-read b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 24px; line-height: 1; letter-spacing: 0; color: var(--basalt); text-transform: none; }
 .progress { display: none; }
 
 /* ---------- Layout ---------- */
@@ -371,11 +378,16 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 .log-row .n { font-family: var(--f-disp); font-weight: 900; font-size: 56px; color: var(--ochre); }
 .log-row p { color: var(--bone-2); }
 .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.note { border: 1px solid var(--s4); }
-.note > div { padding: 22px; font-size: 15px; }
-.note > div:first-child { background: var(--s1); }
-.note .mono { display: block; font-size: 11px; margin-bottom: 8px; color: var(--ochre); }
-.note > div + div .mono { color: var(--bone); }
+.note { display: flex; flex-direction: column; border: 1px solid var(--s4); }
+@supports (grid-template-rows: subgrid) {
+  .note { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+}
+.note-ai { padding: 20px 22px; font-size: 15px; background: var(--s1); color: var(--bone-2); }
+.note-ai .mono { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
+.note-me { flex: 1; padding: 22px 22px 26px; background: var(--s3); border-top: 5px solid var(--ochre); position: relative; }
+.note-me-label { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-family: var(--f-disp); font-weight: 900; font-size: clamp(28px, 2.6vw, 38px); line-height: .9; text-transform: uppercase; color: var(--ochre); }
+.note-me-label svg { flex-shrink: 0; }
+.note-me p { font-size: 17px; line-height: 1.5; color: var(--bone); font-weight: 500; }
 .embed { min-height: 440px; border: 2px dashed var(--s5); display: grid; place-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--muted); padding: 24px; text-align: center; }
 .embed iframe { width: 100%; height: 640px; border: 0; }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -462,7 +474,7 @@ a.spec:hover { border-color: var(--ochre); color: inherit; transform: translateY
 @media (max-width: 1023px) {
   :root { --pad-l: var(--pad-x); }
   .rail { display: none; }
-  .progress { display: block; position: fixed; left: 0; top: 72px; height: 3px; width: 0; background: var(--ochre); z-index: 45; }
+  .progress { display: block; position: fixed; left: 0; top: 72px; height: 5px; width: 0; background: var(--ochre); box-shadow: 0 0 10px rgba(232, 163, 61, .6); z-index: 45; }
   .menu-toggle { display: block; }
   .nav { position: fixed; inset: 72px 0 auto 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--pad-x) 24px; background: var(--basalt); border-bottom: 1px solid var(--s3); display: none; }
   .nav.is-open { display: flex; }

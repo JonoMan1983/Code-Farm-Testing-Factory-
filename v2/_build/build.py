@@ -329,7 +329,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
         f'<div class="log-row{" is-ai" if i == ai_step else ""}"><span class="n">0{i+1}</span><span class="h-m">{t}</span><p>{d}</p><figure class="log-tray">{arts[i]}</figure></div>'
         for i, (t, d) in enumerate(log))
     notes_html = ''.join(
-        f'<div class="note"><div><span class="mono">AI PROPOSED</span>{a}</div><div><span class="mono">I DECIDED</span>{b}</div></div>' for a, b in notes)
+        f'<div class="note"><div class="note-ai"><span class="mono">AI proposed</span>{a}</div><div class="note-me"><span class="note-me-label"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8A33D"/><path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#15110E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>I decided</span><p>{b}</p></div></div>' for a, b in notes)
     met_html = ''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in metrics)
     return head(title, lede, pre) + header(pre, 'work') + f"""
 <main id="main">
