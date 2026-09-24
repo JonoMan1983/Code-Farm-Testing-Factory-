@@ -2,7 +2,7 @@
 """Generate the V2 Dig Site pages. Run: python3 _build/build.py from the v2 folder (writes pages into v2/)."""
 import html, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from stage_art import BRIEF, EXPLORE, BUILD, HANDOFF, ICON_TALK, ICON_PRIORITY, ICON_EYE
+from stage_art import BRIEF, EXPLORE, BUILD, HANDOFF, ICON_TALK, ICON_PRIORITY, ICON_EYE, ICON_SITE, ICON_HUNTER, ICON_CENTRAL, ICON_STUDIO
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -205,10 +205,10 @@ def home():
 </div>
 <p class="eyebrow reveal" style="margin-top:48px;color:var(--muted)">Tools I've built with Claude</p>
 <div class="tools reveal">
-<div class="tool"><span class="h-m">This site</span><p>Designer-directed, Claude-built, shipped to GitHub Pages in push sessions.</p></div>
-<div class="tool"><span class="h-m">The Hunter</span><p>A React command centre wired to Gmail through MCP.</p></div>
-<div class="tool"><span class="h-m">Central</span><p>Inbox triage that turns email into ClickUp tasks with Claude.</p></div>
-<div class="tool"><span class="h-m">Studio</span><p>Custom Claude skills for Figma scripting and production.</p></div>
+<div class="tool">{ICON_SITE}<span class="h-m">This site</span><p>Designer-directed, Claude-built, shipped to GitHub Pages in push sessions.</p></div>
+<div class="tool">{ICON_HUNTER}<span class="h-m">The Hunter</span><p>A React command centre wired to Gmail through MCP.</p></div>
+<div class="tool">{ICON_CENTRAL}<span class="h-m">Central</span><p>Inbox triage that turns email into ClickUp tasks with Claude.</p></div>
+<div class="tool">{ICON_STUDIO}<span class="h-m">Studio</span><p>Custom Claude skills for Figma scripting and production.</p></div>
 </div>
 </section>
 

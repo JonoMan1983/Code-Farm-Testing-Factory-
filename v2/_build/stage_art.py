@@ -75,3 +75,40 @@ HANDOFF = f"""<svg class="stage-art" viewBox="0 0 240 150" role="img" aria-label
 ICON_TALK = f'<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path d="M4 6h16v11H10l-5 4v-4H4z" fill="none" stroke="#FF3D6E" stroke-width="2" stroke-linejoin="round"/><path d="M14 20v3h8l5 4v-4h1V12h-5" fill="none" stroke="#FF3D6E" stroke-width="2" stroke-linejoin="round"/></svg>'
 ICON_PRIORITY = f'<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="4" y="5" width="24" height="5" fill="#FF3D6E"/><rect x="4" y="14" width="17" height="5" fill="none" stroke="#FF3D6E" stroke-width="2"/><rect x="4" y="23" width="10" height="5" fill="none" stroke="#FF3D6E" stroke-width="2"/></svg>'
 ICON_EYE = f'<svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16z" fill="none" stroke="#FF3D6E" stroke-width="2"/><circle cx="16" cy="16" r="4.5" fill="#FF3D6E"/></svg>'
+
+
+# ---- Icons for "Tools I've built with Claude" (64x64, bone line + ochre accent) ----
+def _icon(label, body):
+    return f'<svg class="tool-icon" viewBox="0 0 64 64" role="img" aria-label="{label}">{body}</svg>'
+
+ICON_SITE = _icon('Portfolio site: a browser window cut through rock layers', f"""
+<rect x="4" y="8" width="56" height="48" rx="4" fill="none" stroke="{B}" stroke-width="2.5" class="draw" pathLength="1"/>
+<line x1="4" y1="18" x2="60" y2="18" stroke="{B}" stroke-width="2.5"/>
+<circle cx="11" cy="13" r="1.8" fill="{O}"/><circle cx="17" cy="13" r="1.8" fill="{M}"/><circle cx="23" cy="13" r="1.8" fill="{M}"/>
+<rect x="9" y="24" width="46" height="7" fill="#3A2C21"/><rect x="9" y="34" width="46" height="7" fill="#4A3827"/><rect x="9" y="44" width="46" height="7" fill="{M}"/>
+<path d="M36 26 L36 46 L41 41 L45 50 L48.5 48.5 L44.5 39.5 L51 39.5 Z" fill="{O}" stroke="{D}" stroke-width="1.5" stroke-linejoin="round"/>""")
+
+ICON_HUNTER = _icon('The Hunter: job applications targeted from the inbox', f"""
+<rect x="4" y="14" width="40" height="30" rx="3" fill="none" stroke="{B}" stroke-width="2.5" class="draw" pathLength="1"/>
+<path d="M4 17 L24 32 L44 17" fill="none" stroke="{B}" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="44" cy="42" r="13" fill="{D}" stroke="{O}" stroke-width="2.5" class="draw" pathLength="1"/>
+<circle cx="44" cy="42" r="4" fill="{O}"/>
+<line x1="44" y1="25" x2="44" y2="32" stroke="{O}" stroke-width="2.5"/><line x1="44" y1="52" x2="44" y2="59" stroke="{O}" stroke-width="2.5"/>
+<line x1="27" y1="42" x2="34" y2="42" stroke="{O}" stroke-width="2.5"/><line x1="54" y1="42" x2="61" y2="42" stroke="{O}" stroke-width="2.5"/>""")
+
+ICON_CENTRAL = _icon('Central: emails triaged into a task list', f"""
+<rect x="3" y="18" width="24" height="18" rx="2" fill="none" stroke="{B}" stroke-width="2.5"/>
+<path d="M3 20 L15 29 L27 20" fill="none" stroke="{B}" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M28 27 L36 27" stroke="{O}" stroke-width="2.5" class="draw" pathLength="1"/><path d="M33 23 L37 27 L33 31" fill="none" stroke="{O}" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="40" y="8" width="21" height="48" rx="3" fill="none" stroke="{B}" stroke-width="2.5" class="draw" pathLength="1"/>
+<path d="M44 18 L46.5 20.5 L50 16" fill="none" stroke="{O}" stroke-width="2.5"/><line x1="52" y1="18" x2="57" y2="18" stroke="{M}" stroke-width="2.5"/>
+<path d="M44 30 L46.5 32.5 L50 28" fill="none" stroke="{O}" stroke-width="2.5"/><line x1="52" y1="30" x2="57" y2="30" stroke="{M}" stroke-width="2.5"/>
+<rect x="44" y="40" width="5" height="5" fill="none" stroke="{M}" stroke-width="2"/><line x1="52" y1="42.5" x2="57" y2="42.5" stroke="{M}" stroke-width="2.5"/>""")
+
+ICON_STUDIO = _icon('Studio: custom skills scripting Figma vector work', f"""
+<path d="M10 11 C4 11 7 20 3 22 C7 24 4 33 10 33" fill="none" stroke="{O}" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M54 31 C60 31 57 40 61 42 C57 44 60 53 54 53" fill="none" stroke="{O}" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M16 50 C22 22 42 42 48 14" fill="none" stroke="{B}" stroke-width="2.5" class="draw" pathLength="1"/>
+<line x1="16" y1="50" x2="30" y2="38" stroke="{M}" stroke-width="1.5"/><line x1="48" y1="14" x2="36" y2="24" stroke="{M}" stroke-width="1.5"/>
+<rect x="12.5" y="46.5" width="7" height="7" fill="{D}" stroke="{B}" stroke-width="2"/><rect x="44.5" y="10.5" width="7" height="7" fill="{D}" stroke="{B}" stroke-width="2"/>
+<circle cx="30" cy="38" r="3" fill="{O}"/><circle cx="36" cy="24" r="3" fill="{O}"/>""")
