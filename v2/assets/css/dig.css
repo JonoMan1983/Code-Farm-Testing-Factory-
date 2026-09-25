@@ -427,8 +427,10 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
 .facts span { font-size: 14px; color: var(--bone-2); }
 
-.hero-ground .hero-logo { width: min(520px, 82vw); left: 36%; bottom: 40px; transform: rotate(-3deg); }
-.hero-ground .hero-logo ~ .tag--hot { left: calc(36% - 210px); bottom: 70px; }
+.hero-ground .strata { height: max(240px, calc(var(--logo-w) * .616 + 34px)); }
+.hero-ground { --logo-w: clamp(230px, 34vw, 470px); --logo-x: calc(var(--pad-l) + (100% - var(--pad-l) - var(--pad-x)) / 2); }
+.hero-ground .hero-logo { position: absolute; filter: drop-shadow(0 18px 24px rgba(0,0,0,.45)); width: var(--logo-w); height: auto; left: var(--logo-x); right: auto; bottom: 58px; transform: translateX(-50%) rotate(-3deg); z-index: 2; }
+.hero-ground .hero-logo ~ .tag--hot { left: var(--logo-x); right: auto; bottom: 10px; transform: translateX(-50%) rotate(-3deg); white-space: nowrap; z-index: 3; }
 .game-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
 .game-notes > div { padding: 20px 22px; background: var(--s1); border-top: 4px solid var(--ochre); }
 .game-notes .mono { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ochre); margin-bottom: 10px; }
@@ -439,7 +441,7 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .edge-study { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-top: 24px; padding: 26px 28px; background: var(--s3); border-left: 5px solid var(--ochre); }
 .edge-study > div { max-width: 640px; }
 @media (max-width: 1100px) { .game-notes { grid-template-columns: 1fr; } }
-@media (max-width: 760px) { .figma-frame { aspect-ratio: 9 / 16; max-height: 80svh; } .hero-ground .hero-logo { left: auto; right: 2%; } .hero-ground .hero-logo ~ .tag--hot { left: 4%; bottom: 16px; } }
+@media (max-width: 760px) { .figma-frame { aspect-ratio: 9 / 16; max-height: 80svh; } .hero-ground .hero-logo { bottom: 64px; } .hero-ground .hero-logo ~ .tag--hot { bottom: 14px; } }
 
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }
