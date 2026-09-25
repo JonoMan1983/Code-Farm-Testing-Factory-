@@ -29,6 +29,7 @@ def recolour(t):
     if "fonts.googleapis.com" not in t:
         t = t.replace('<head>', f'<head>\n<link rel="stylesheet" href="{FONT_URL}">', 1)
     t = t.replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">', 1)
+    t = t.replace('</head>', '<style>@media (max-width:640px){table{display:block;max-width:100%;overflow-x:auto}.score-row,.scores,.hdr-stats,[class*="score-grid"]{flex-wrap:wrap}.hdr-stats{max-width:100%}html,body{overflow-x:hidden}}</style>\n</head>', 1)
     t = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + BACK + '<script>if (window.self !== window.top) document.currentScript.previousElementSibling.remove();</script>', t, count=1)
     return t
 
