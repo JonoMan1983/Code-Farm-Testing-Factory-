@@ -72,7 +72,7 @@ def header(pre, active, home=False, crumbs=None):
         return ' aria-current="page"' if k == active else ''
 
     menu = [
-        ('work', 'Work', f'{h}#work', [('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('work', 'Work', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
         ('about', 'About', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
@@ -150,6 +150,21 @@ IGAMING = [
     ('Bellas Bachelorette', 'bellas-bachelorette', "Bella's Bachelorette slot: neon pink reel frame over a party crowd, wild and scatter"),
     ('Americana', 'americana', 'Americana Road Trip slot: chrome reel frame over the US flag, expanding Liberty wild'),
 ]
+
+
+MINI_MAP = """<svg viewBox="0 0 420 260" role="presentation">
+<g font-family="JetBrains Mono, monospace" font-size="9" fill="#A8998A"><text x="8" y="20">ORDER LIFECYCLE</text><text x="8" y="92">CUSTOMER</text><text x="8" y="128">STORE</text><text x="8" y="164">PLATFORM</text><text x="8" y="214">MONEY</text></g>
+<path d="M20 40 L400 40" stroke="#E8A33D" stroke-width="3"/>
+<g fill="#15110E" stroke="#E8A33D" stroke-width="2.5">""" + ''.join(f'<circle cx="{20 + i * 54.3:.1f}" cy="40" r="7"/>' for i in range(8)) + """</g>
+<g fill="#3A2C21"><rect x="80" y="80" width="330" height="18"/><rect x="80" y="116" width="330" height="18"/><rect x="80" y="152" width="330" height="18"/></g>
+<rect x="80" y="200" width="330" height="20" fill="#E8A33D" opacity=".22"/>
+<g class="mm-lanes" stroke="#EDE4D3" stroke-width="1.2" stroke-dasharray="3 3" fill="none">
+<path class="mm-l" style="--d:0s" d="M20 47 L20 89 L80 89"/><path class="mm-l" style="--d:.6s" d="M183 47 L183 125 L240 125"/><path class="mm-l" style="--d:1.2s" d="M129 47 L129 161 L180 161"/><path class="mm-l" style="--d:1.8s" d="M129 47 L129 210 L150 210"/></g>
+<g fill="#EDE4D3"><rect x="90" y="83" width="54" height="12" rx="2"/><rect x="250" y="119" width="70" height="12" rx="2"/><rect x="190" y="155" width="64" height="12" rx="2"/></g>
+<g fill="#E8A33D"><rect x="158" y="204" width="46" height="12"/><rect x="214" y="204" width="46" height="12"/><rect x="270" y="204" width="46" height="12"/><rect x="326" y="204" width="70" height="12"/></g>
+<circle class="mm-order" r="9" cy="40" cx="20" fill="#FF3D6E"/>
+<text x="210" y="248" font-family="JetBrains Mono, monospace" font-size="9" fill="#E8A33D" text-anchor="middle">THREE VIEWS · ONE ORDER</text>
+</svg>"""
 
 
 def slabs(pre='', items=None):
@@ -331,7 +346,18 @@ def home():
 
 <section class="section" id="work" data-crumb="Selected work" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 00 — Surface</p><h2 class="h-xl" id="work-title">Specimens recovered</h2></div>
-<p class="lede">Three flagship digs. Each one logged: the brief, what AI proposed, what I kept and what shipped.</p>{guide('02', '')}</div>
+<p class="lede">Four flagship digs. Each one logged: the brief, what AI proposed, what I kept and what came out of the ground.</p>{guide('02', '')}</div>
+
+<a class="spec spec-feature spec-feature--map reveal" href="work/three-portals.html">
+<div class="copy">
+<p class="eyebrow">Specimen 00 · Newest find · System map</p>
+<h3 class="h-xl">One Platform, Three Portals</h3>
+<p class="body-2">A food-ordering platform mapped around the one thing its customer, store and platform portals all share: the order. Lifecycle spine, portal lanes and a money band of its own — built in FigJam with Claude and Figma MCP.</p>
+<div class="tags"><span class="tag">SYSTEMS</span><span class="tag">SERVICE DESIGN</span><span class="tag tag--fill">FIGJAM + MCP</span></div>
+<span class="spec-cta">Explore the map →</span>
+</div>
+<div class="mini-map" aria-hidden="true">{MINI_MAP}</div>
+</a>
 
 <a class="spec spec-feature reveal" href="work/pantelotteriet.html">
 <div class="copy">
@@ -454,7 +480,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
     met_html = ''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in metrics)
     return head(title, lede, pre) + header(pre, 'work', crumbs=[('Work', '../index.html#work'), (_plain(name), None)]) + f"""
 <main id="main">
-<section class="section cs-hero" data-depth="0.0m" data-era="{slug}">
+<section class="section cs-hero" data-crumb="Overview" data-depth="0.0m" data-era="{slug}">
 <a class="mono small" href="../index.html#work">← Back to the dig site</a>
 <p class="eyebrow" style="margin-top:36px">{eyebrow}</p>
 <h1 class="h-mega">{name}</h1>
@@ -577,7 +603,7 @@ def indiemode():
                  ('Claude generated layouts and interaction code.', 'Visual decisions, brand accuracy and UX intent were never outsourced.'),
                  ('[A generated pattern you rejected]', '[Why]')],
                 extra, [('2', 'days, brief to live site'), ('1', 'week of typical build time saved'), ('[X]', 'outcome metric')],
-                'pantelotteriet.html', 'The Recycling Lottery')
+                'three-portals.html', 'One Platform, Three Portals')
 
 
 # ---------------------------------------------------------------- ARCHIVE
@@ -645,6 +671,75 @@ def archive():
 </main>
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer"><button type="button" aria-label="Close">×</button><img alt=""></div>
 """ + footer('')
+
+
+# ------------------------------------------------------------ ONE PLATFORM, THREE PORTALS
+PORTALS_STAGES = ['Browse / Discovery', 'Cart', 'Checkout / Payment UI', 'Order Confirmation', 'Preparation', 'Dispatch / Driver Assign', 'Delivery', 'Completion']
+PORTALS_MAP = {  # stage index -> lane -> nodes (from the FigJam board's connectors)
+    0: {'Customer': ['Search &amp; Filters'], 'Store': ['Store Onboarding', 'Menu / Item Management', 'Stock &amp; Availability', 'Opening Hours / Online Status'], 'Platform': ['Store Directory', 'Customer Account Mgmt'], 'Money': [], 'Infra': []},
+    1: {'Customer': [], 'Store': [], 'Platform': [], 'Money': [], 'Infra': []},
+    2: {'Customer': ['Address Management', 'Promotions / Vouchers'], 'Store': [], 'Platform': ['Fraud Detection'], 'Money': ['Payment Capture'], 'Infra': []},
+    3: {'Customer': [], 'Store': ['Order Queue'], 'Platform': ['Commission / Fee Config', 'Notification Engine'], 'Money': ['Payment Gateway'], 'Infra': ['Order Record (System of Record)']},
+    4: {'Customer': [], 'Store': ['Accept / Reject', 'Prep Timer / Ready Signal'], 'Platform': [], 'Money': ['Authorisation Hold', 'Refund Processing'], 'Infra': []},
+    5: {'Customer': [], 'Store': [], 'Platform': ['Driver Assignment Engine'], 'Money': [], 'Infra': []},
+    6: {'Customer': ['Live Order Tracking', 'Dispute / Refund Request'], 'Store': [], 'Platform': [], 'Money': [], 'Infra': ['Proof of Delivery']},
+    7: {'Customer': ['Reviews &amp; Ratings', 'Order History'], 'Store': ['Payout Dashboard'], 'Platform': ['Dispute Resolution', 'Financial Reporting', 'Analytics Dashboard'], 'Money': ['Settlement Calculation', 'Commission Deduction', 'Store Payout', 'Dispute → Chargeback'], 'Infra': []},
+}
+
+
+INFRA_ALWAYS = '<p class="px-always">Always underneath: Identity &amp; Auth × 3 portals · Product Catalogue → Search Index · Pricing Engine</p>'
+
+
+def portals_explorer():
+    steps = ''.join(f'<li><button type="button" class="px-step" data-px="{i}" aria-pressed="{"true" if i == 3 else "false"}"><span class="px-dot"></span><span class="px-n mono">{i + 1:02d}</span><span class="px-label">{t}</span></button></li>' for i, t in enumerate(PORTALS_STAGES))
+    lanes = ''.join(f'<div class="px-lane px-lane--{k.lower()}"><h4>{lbl}</h4><ul data-px-lane="{k}"></ul>{INFRA_ALWAYS if k == 'Infra' else ''}</div>'
+                    for k, lbl in [('Customer', 'Customer portal'), ('Store', 'Store portal'), ('Platform', 'Platform portal'), ('Money', 'Money flow'), ('Infra', 'Shared infrastructure')])
+    data = json.dumps({'stages': PORTALS_STAGES, 'map': {str(k): v for k, v in PORTALS_MAP.items()}}, ensure_ascii=False).replace('</', '<\\/')
+    return f"""<div class="px reveal" data-px-root>
+<ol class="px-spine" aria-label="Order lifecycle — pick a state">{steps}</ol>
+<p class="px-now" aria-live="polite"><span class="mono">At this moment</span> <b data-px-name></b></p>
+<div class="px-lanes">{lanes}</div>
+<script type="application/json" id="px-data">{data}</script>
+</div>"""
+
+
+def three_portals():
+    figjam = ('https://embed.figma.com/board/Cq6TPchRK5RPn9kF96QylB/One-Platform-Three-Portals-%E2%80%94-System-Map'
+              '?node-id=22-1817&amp;embed-host=share')
+    extra = f"""<section class="section section--deep" id="map" data-depth="1.8m" data-era="the map">
+<div class="sec-head reveal"><div><p class="eyebrow">The artefact</p><h2 class="h-l" style="margin-top:10px">Walk the whole map</h2></div>
+<p class="lede">The FigJam board, live. Lifecycle spine across the top, portal lanes in the middle, money flow along the bottom, shared infrastructure on the right.</p></div>
+<div class="figma-frame reveal"><iframe title="One Platform, Three Portals — FigJam system map" src="{figjam}" loading="lazy" allowfullscreen></iframe></div>
+</section>
+<section class="section" id="explore" data-depth="2.0m" data-era="one order">
+<div class="sec-head reveal"><div><p class="eyebrow">Interactive · built from the board</p><h2 class="h-l" style="margin-top:10px">Pick a moment. See all three portals at once.</h2></div>
+<p class="lede">Every portal is watching the same order. Choose a state on the spine and the lanes below show what the customer, the store and the platform each touch — and what the money is doing underneath.</p></div>
+{portals_explorer()}
+</section>
+<section class="section section--alt" id="edges" data-depth="2.2m" data-era="edge cases">
+<div class="sec-head reveal"><div><p class="eyebrow">Written on the map</p><h2 class="h-l" style="margin-top:10px">Where the system breaks</h2></div></div>
+<div class="edge-notes reveal">
+<div class="edge-sticky"><span class="mono">Authorisation hold</span><p>The hold expires after 24–48 hours. If the store accepts but delivery fails before capture converts, the hold lapses and the platform must re-request payment — rare, but real.</p></div>
+<div class="edge-sticky"><span class="mono">Commission deduction</span><p>A rate changed mid-cycle only applies to orders placed after the change. Orders already in flight settle at the rate captured when they were placed.</p></div>
+<div class="edge-sticky edge-sticky--grey"><span class="mono">Search index</span><p>Index updates are async. A store going offline isn't instantly invisible — for a few seconds a customer can still add its items. Cart validation at checkout is the safety net.</p></div>
+</div>
+</section>"""
+    return case('three-portals', 'One Platform, Three Portals — system map · Jonathan Nestler',
+                'Specimen 00 · System map · Food-ordering platform · Design exercise', 'One Platform, Three Portals',
+                'A Senior Product Designer take-home: map a food-ordering platform with customer, store and platform portals — information and money flows both. I built the map around the one thing all three share: the order.',
+                [('ROLE', 'Senior Product Designer (exercise)'), ('FORMAT', 'Take-home system map'), ('SURFACES', 'Customer · Store · Platform'), ('AI STACK', 'Claude · Figma MCP · FigJam'), ('YEAR', '2026')],
+                'Three portals, three logins, three sets of screens. The obvious map draws three columns and hides how they connect — and buries the money inside the admin column.',
+                [('Structure decision', 'Compared three structures side by side, then chose the hybrid: a lifecycle spine, portal lanes beneath it and a separate money band.'),
+                 ('Built in FigJam with Claude', 'The board was drawn through Claude and Figma MCP: every node hangs off the order state it belongs to, with connectors showing who touches what, when.'),
+                 ('Money as its own system', 'Capture, gateway, authorisation hold, settlement, commission and payout run beneath every order — with refunds and chargebacks feeding back in.'),
+                 ('Edge cases &amp; walkthrough', 'The failure modes are annotated on the board itself, and an HTML walkthrough trainer rehearsed the presentation stop by stop.')],
+                1,
+                [('Three candidate structures, compared side by side as an HTML decision page.', 'Option C, the hybrid — because the lifecycle is the only object all three portals share at the same time.'),
+                 ('Drew the board node by node in FigJam through Figma MCP.', 'Money gets its own band. The brief asked for money flows, and most maps bury them in the platform column.'),
+                 ('A walkthrough trainer to rehearse presenting the map.', 'Which failure modes earned a sticky: hold expiry, mid-cycle commission changes and search-index lag.')],
+                extra,
+                [('8', 'order states on one lifecycle spine'), ('3', 'portals as views of one event stream'), ('6', 'zones, colour-keyed on the board'), ('3', 'edge cases written on the map')],
+                'pantelotteriet.html', 'The Recycling Lottery')
 
 
 # ----------------------------------------------------------------- RESUME
@@ -833,6 +928,7 @@ def resume():
 PAGES = {
     'index.html': home, 'archive.html': archive, 'resume.html': resume,
     'work/pantelotteriet.html': pantelotteriet, 'work/astria-platform.html': astria, 'work/indiemode.html': indiemode,
+    'work/three-portals.html': three_portals,
 }
 
 if __name__ == '__main__':

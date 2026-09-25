@@ -224,6 +224,33 @@
     if (openT) { closeDrops(); openT.focus(); }
   });
 
+  /* Three-portals explorer: one order, every portal */
+  var pxRoot = document.querySelector('[data-px-root]');
+  var pxData = document.getElementById('px-data');
+  if (pxRoot && pxData) {
+    var px = JSON.parse(pxData.textContent);
+    var pxBtns = Array.prototype.slice.call(pxRoot.querySelectorAll('[data-px]'));
+    var pxShow = function (i) {
+      pxBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-px') === String(i) ? 'true' : 'false'); });
+      pxRoot.querySelector('[data-px-name]').textContent = px.stages[i];
+      var m = px.map[String(i)];
+      pxRoot.querySelectorAll('[data-px-lane]').forEach(function (ul) {
+        var items = m[ul.getAttribute('data-px-lane')] || [];
+        ul.innerHTML = items.length
+          ? items.map(function (t, k) { return '<li style="animation-delay:' + (k * 60) + 'ms">' + t + '</li>'; }).join('')
+          : '<li class="px-empty">Nothing new at this state</li>';
+      });
+    };
+    pxBtns.forEach(function (b) { b.addEventListener('click', function () { pxShow(parseInt(b.getAttribute('data-px'), 10)); }); });
+    pxRoot.querySelector('.px-spine').addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var cur = pxBtns.findIndex(function (b) { return b.getAttribute('aria-pressed') === 'true'; });
+      var nxt = (cur + (e.key === 'ArrowRight' ? 1 : -1) + pxBtns.length) % pxBtns.length;
+      pxShow(nxt); pxBtns[nxt].focus(); e.preventDefault();
+    });
+    pxShow(3);
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 

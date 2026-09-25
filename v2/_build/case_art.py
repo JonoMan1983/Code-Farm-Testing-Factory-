@@ -127,3 +127,49 @@ CASE_ART = {
     'astria': [A_GAME, A_BRAND, A_PO, A_AI],
     'indiemode': [I_STRUCTURE, I_VISUAL, I_CODE, I_LIVE],
 }
+
+
+# ---------------- One Platform, Three Portals ----------------
+T_OPTIONS = art('Three structures compared; the hybrid option C is kept', f"""
+<g {F} font-size="8" text-anchor="middle">
+<rect x="10" y="22" width="66" height="84" fill="none" stroke="{MU}" stroke-width="1.5"/><text x="43" y="16" fill="{MU}">OPTION A</text>
+<rect x="18" y="34" width="50" height="8" fill="{S3}"/><rect x="18" y="50" width="40" height="8" fill="{S3}"/><rect x="18" y="66" width="46" height="8" fill="{S3}"/><rect x="18" y="82" width="34" height="8" fill="{S3}"/>
+<rect x="87" y="22" width="66" height="84" fill="none" stroke="{MU}" stroke-width="1.5"/><text x="120" y="16" fill="{MU}">OPTION B</text>
+<rect x="95" y="34" width="50" height="8" fill="{S3}"/><rect x="95" y="50" width="36" height="8" fill="{S3}"/><rect x="95" y="66" width="48" height="8" fill="{S3}"/><rect x="95" y="82" width="42" height="8" fill="{S3}"/>
+<rect x="164" y="22" width="66" height="84" fill="{S2}" stroke="{O}" stroke-width="2.5"/><text x="197" y="16" fill="{O}">OPTION C</text>
+<path d="M170 34 L224 34" stroke="{O}" stroke-width="3"/><rect x="170" y="44" width="54" height="10" fill="{B}"/><rect x="170" y="58" width="54" height="10" fill="{B}" opacity=".75"/><rect x="170" y="72" width="54" height="10" fill="{B}" opacity=".5"/><rect x="170" y="88" width="54" height="10" fill="{O}" opacity=".6"/>
+</g>
+<path d="M58 122 L90 140" stroke="{R}" stroke-width="2"/><path d="M90 122 L58 140" stroke="{R}" stroke-width="2"/>
+<path d="M135 122 L167 140" stroke="{R}" stroke-width="2"/><path d="M167 122 L135 140" stroke="{R}" stroke-width="2"/>
+<circle cx="197" cy="131" r="10" fill="{O}"/><path d="M191 131 L195 135 L203 126" fill="none" stroke="{D}" stroke-width="2.5"/>""")
+
+T_SPINE = art('Eight order states on one spine, with three portal lanes hanging off it', f"""
+<path d="M18 30 L222 30" stroke="{O}" stroke-width="3" class="draw" pathLength="1"/>
+<g fill="{D}" stroke="{O}" stroke-width="2.5">{''.join(f'<circle cx="{18 + i * 29.1:.1f}" cy="30" r="6"/>' for i in range(8))}</g>
+<g {F} font-size="7" fill="{MU}"><text x="12" y="14">BROWSE</text><text x="200" y="14">DONE</text></g>
+<g stroke="{MU}" stroke-width="1.2" stroke-dasharray="3 3"><path d="M18 36 L18 62"/><path d="M76 36 L76 84"/><path d="M134 36 L134 106"/><path d="M222 36 L222 62"/></g>
+<rect x="10" y="62" width="220" height="16" fill="{S3}"/><rect x="10" y="84" width="220" height="16" fill="{S3}" opacity=".8"/><rect x="10" y="106" width="220" height="16" fill="{S3}" opacity=".6"/>
+<g {F} font-size="7" fill="{B}"><text x="16" y="73">CUSTOMER</text><text x="16" y="95">STORE</text><text x="16" y="117">PLATFORM</text></g>
+<text x="120" y="142" {F} font-size="7" fill="{O}" text-anchor="middle">THREE VIEWS · ONE ORDER</text>""")
+
+T_MONEY = art('Money flow: capture, gateway, hold, settlement, commission, payout', f"""
+<g {F} font-size="6.5" text-anchor="middle" fill="{B}">
+<rect x="6" y="40" width="44" height="22" fill="none" stroke="{O}" stroke-width="1.5"/><text x="28" y="54">CAPTURE</text>
+<rect x="60" y="40" width="44" height="22" fill="none" stroke="{O}" stroke-width="1.5"/><text x="82" y="54">GATEWAY</text>
+<rect x="114" y="40" width="44" height="22" fill="{O}"/><text x="136" y="54" fill="{D}">HOLD</text>
+<rect x="168" y="40" width="66" height="22" fill="none" stroke="{O}" stroke-width="1.5"/><text x="201" y="54">SETTLEMENT</text>
+<rect x="168" y="80" width="66" height="22" fill="none" stroke="{O}" stroke-width="1.5"/><text x="201" y="94">COMMISSION</text>
+<rect x="168" y="118" width="66" height="22" fill="{O}"/><text x="201" y="132" fill="{D}">STORE PAYOUT</text>
+<rect x="104" y="96" width="54" height="22" fill="none" stroke="{R}" stroke-width="1.5" stroke-dasharray="3 2"/><text x="131" y="110" fill="{R}">REFUND</text>
+</g>
+<path d="M50 51 L60 51 M104 51 L114 51 M158 51 L168 51 M201 62 L201 80 M201 102 L201 118" stroke="{O}" stroke-width="2" class="draw" pathLength="1"/>
+<path d="M131 96 L136 62" stroke="{R}" stroke-width="1.5"/>
+<text x="6" y="24" {F} font-size="7" fill="{MU}">A PARALLEL SYSTEM · ITS OWN BAND</text>""")
+
+T_EDGE = art('Three yellow edge-case stickies pinned to the map', f"""
+<g transform="rotate(-4 50 70)"><rect x="12" y="30" width="72" height="72" fill="#F2D06B"/><text x="20" y="48" {F} font-size="7" fill="{D}">EDGE CASE</text><rect x="20" y="56" width="54" height="3" fill="{D}" opacity=".5"/><rect x="20" y="64" width="46" height="3" fill="{D}" opacity=".5"/><text x="20" y="90" {F} font-size="7" font-weight="700" fill="{D}">HOLD EXPIRES</text></g>
+<g transform="rotate(3 122 70)"><rect x="86" y="36" width="72" height="72" fill="#F2D06B"/><text x="94" y="54" {F} font-size="7" fill="{D}">EDGE CASE</text><rect x="94" y="62" width="54" height="3" fill="{D}" opacity=".5"/><rect x="94" y="70" width="40" height="3" fill="{D}" opacity=".5"/><text x="94" y="96" {F} font-size="7" font-weight="700" fill="{D}">RATE CHANGE</text></g>
+<g transform="rotate(-2 196 70)"><rect x="160" y="30" width="72" height="72" fill="{S3}" stroke="{B}"/><text x="168" y="48" {F} font-size="7" fill="{B}">EDGE CASE</text><rect x="168" y="56" width="54" height="3" fill="{MU}"/><rect x="168" y="64" width="44" height="3" fill="{MU}"/><text x="168" y="90" {F} font-size="7" font-weight="700" fill="{B}">INDEX LAG</text></g>
+<text x="120" y="136" {F} font-size="7" fill="{O}" text-anchor="middle">WHERE THE SYSTEM BREAKS, WRITTEN ON THE MAP</text>""")
+
+CASE_ART['three-portals'] = [T_OPTIONS, T_SPINE, T_MONEY, T_EDGE]
