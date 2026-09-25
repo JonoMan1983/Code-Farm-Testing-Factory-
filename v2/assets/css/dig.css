@@ -512,7 +512,7 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .walk-frame { position: relative; height: min(760px, 80svh); border: 1px solid var(--s4); background: var(--basalt); }
 .walk-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .walk-mobile { display: none; margin-top: 16px; }
-.artefacts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.artefacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .artefact { display: flex; flex-direction: column; gap: 10px; padding: 22px; background: var(--s1); border: 1px solid var(--s4); border-top: 4px solid var(--ochre); transition: transform .25s, border-color .2s; }
 .artefact:hover { transform: translateY(-4px); border-color: var(--ochre); }
 .artefact .mono { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ochre); }
@@ -521,6 +521,11 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .artefact-go { margin-top: auto; font-weight: 600; color: var(--ochre); }
 @media (max-width: 1100px) { .artefacts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .artefacts { grid-template-columns: 1fr; } .walk-frame { display: none; } .walk-mobile { display: block; } }
+
+.map-frame { height: auto; aspect-ratio: 1920 / 1080; }
+.map-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.map-frame iframe { width: 1920px; transform-origin: 0 0; }
+@media (max-width: 760px) { .map-frame { display: none; } }
 
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }

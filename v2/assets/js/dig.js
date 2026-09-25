@@ -251,6 +251,18 @@
     pxShow(3);
   }
 
+  /* Scale the desktop-width system map to fit its frame */
+  var mapFrame = document.querySelector('.map-frame');
+  if (mapFrame) {
+    var mapIf = mapFrame.querySelector('iframe');
+    var fitMap = function () {
+      var k = Math.min(1, mapFrame.clientWidth / 1920);
+      mapIf.style.transform = 'scale(' + k + ')';
+      mapIf.style.height = (mapFrame.clientHeight / k) + 'px';
+    };
+    fitMap(); window.addEventListener('resize', fitMap);
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 

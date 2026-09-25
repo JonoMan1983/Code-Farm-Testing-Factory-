@@ -734,9 +734,10 @@ def three_portals():
 <a class="btn" href="three-portals/structure-options.html" style="margin-top:22px">Open the full decision page ↗</a>
 </section>
 <section class="section section--deep" id="map" data-depth="1.8m" data-era="the map">
-<div class="sec-head reveal"><div><p class="eyebrow">The artefact</p><h2 class="h-l" style="margin-top:10px">Walk the whole map</h2></div>
-<p class="lede">The FigJam board, live. Lifecycle spine across the top, portal lanes in the middle, money flow along the bottom, shared infrastructure on the right.</p></div>
-<div class="figma-frame reveal"><iframe title="One Platform, Three Portals — FigJam system map" src="{figjam}" loading="lazy" allowfullscreen></iframe></div>
+<div class="sec-head reveal"><div><p class="eyebrow">The artefact · interactive</p><h2 class="h-l" style="margin-top:10px">Walk the whole map</h2></div>
+<p class="lede">All 41 nodes in one working system map. Pick a portal, step the lifecycle or press play, and click any node to see what it does and what it connects to.</p></div>
+<div class="walk-frame map-frame reveal"><iframe title="One Platform, Three Portals — interactive system map" src="three-portals/system-map.html" loading="lazy"></iframe></div>
+<p class="map-links reveal"><a class="btn btn--fill" href="three-portals/system-map.html">Open the map full screen ↗</a><a class="btn" href="https://www.figma.com/board/Cq6TPchRK5RPn9kF96QylB/One-Platform-Three-Portals-%E2%80%94-System-Map?node-id=22-1817" target="_blank" rel="noopener">View the original FigJam board ↗</a></p>
 </section>
 <section class="section" id="explore" data-depth="2.0m" data-era="one order">
 <div class="sec-head reveal"><div><p class="eyebrow">Interactive · built from the board</p><h2 class="h-l" style="margin-top:10px">Pick a moment. See all three portals at once.</h2></div>
@@ -763,6 +764,7 @@ def three_portals():
 <div class="artefacts reveal">
 <a class="artefact" href="three-portals/structure-options.html"><span class="mono">Phase 2</span><b>Structure decision</b><p>Portal-centric vs lifecycle-centric vs hybrid, scored side by side, with the written “because”.</p><span class="artefact-go">Open ↗</span></a>
 <a class="artefact" href="three-portals/annotations.html"><span class="mono">Phase 3</span><b>Board annotations</b><p>Every node on the board with a written rationale — what it is, why it’s there, what moves through it.</p><span class="artefact-go">Open ↗</span></a>
+<a class="artefact" href="three-portals/system-map.html"><span class="mono">The map</span><b>Interactive system map</b><p>All 41 nodes across three portals, the lifecycle spine, money flow and shared services — steppable and clickable.</p><span class="artefact-go">Open ↗</span></a>
 <a class="artefact" href="three-portals/walkthrough.html"><span class="mono">Rehearsal</span><b>Walkthrough trainer</b><p>Eight scenario paths with talking points for presenting the map live.</p><span class="artefact-go">Open ↗</span></a>
 <a class="artefact" href="three-portals/skills-registry.html"><span class="mono">Phase 0</span><b>Skills registry &amp; system design</b><p>The AI set-up behind the build: 8 Claude skills assigned, 18 Figma MCP tools mapped, trigger rules and the component inventory.</p><span class="artefact-go">Open ↗</span></a>
 </div>
