@@ -207,6 +207,16 @@ main { display: block; }
 .hero { min-height: calc(100svh - 72px); padding-top: clamp(48px, 7vw, 88px); padding-bottom: 0; display: flex; flex-direction: column; overflow: hidden; }
 .hero-name { display: block; margin-bottom: 10px; font-family: var(--f-disp); font-weight: 900; font-size: clamp(26px, 2.8vw, 40px); line-height: 1; letter-spacing: .01em; text-transform: uppercase; color: var(--bone); }
 .hero-name span { color: var(--ochre); }
+.hero-intro { display: grid; grid-template-columns: clamp(150px, 17vw, 250px) minmax(0, 1fr); gap: clamp(20px, 2.6vw, 40px); align-items: center; }
+.hero-mark { position: relative; margin: 0; padding-bottom: 18px; }
+.hero-mark img { display: block; width: 100%; height: auto; transform: rotate(-4deg); filter: drop-shadow(0 14px 22px rgba(0,0,0,.45)); transition: transform .4s cubic-bezier(.3,1.4,.5,1); }
+.hero-mark:hover img { transform: rotate(0) scale(1.04); }
+.hero-mark .tag { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%) rotate(-3deg); white-space: nowrap; font-size: 10px; }
+.spec-feature + .spec-feature, .spec-feature + .spec-grid { margin-top: clamp(40px, 5vw, 72px); }
+@media (max-width: 600px) {
+  .hero-intro { grid-template-columns: 1fr; }
+  .hero-mark { width: min(240px, 70%); }
+}
 .hero-welcome { font-family: var(--f-disp); font-weight: 800; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--s3); max-width: max-content; }
 .hero-welcome { display: flex; flex-wrap: wrap; align-items: center; column-gap: .3em; row-gap: 14px; }
 .hero-welcome .nw { white-space: nowrap; }
@@ -434,7 +444,6 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
 .facts span { font-size: 14px; color: var(--bone-2); }
 
-.hero-ground .strata { height: max(240px, calc(var(--logo-w) * .616 + 34px)); }
 .hero-ground { --logo-w: clamp(230px, 34vw, 470px); --logo-x: calc(var(--pad-l) + (100% - var(--pad-l) - var(--pad-x)) / 2); }
 .hero-ground .hero-logo { position: absolute; filter: drop-shadow(0 18px 24px rgba(0,0,0,.45)); width: var(--logo-w); height: auto; left: var(--logo-x); right: auto; bottom: 58px; transform: translateX(-50%) rotate(-3deg); z-index: 2; }
 .hero-ground .hero-logo ~ .tag--hot { left: var(--logo-x); right: auto; bottom: 10px; transform: translateX(-50%) rotate(-3deg); white-space: nowrap; z-index: 3; }

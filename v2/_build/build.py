@@ -84,7 +84,7 @@ def header(pre, active, home=False, crumbs=None):
                      f'<button class="drop-toggle" type="button" aria-expanded="false" aria-controls="drop-{key}" aria-label="{label} submenu">'
                      f'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>'
                      f'<ul class="drop" id="drop-{key}">{sub}</ul></li>')
-    items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field notes (CV)</a></li>')
+    items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field Notes (Resume)</a></li>')
     items.append(f'<li><a class="btn btn--fill" href="{h}#contact">Hire the raptor</a></li>')
 
     trail = [f'<li><a href="{pre}index.html">{SHOVEL}<span>Dig site</span></a></li>']
@@ -331,16 +331,17 @@ def home():
 <p class="eyebrow">Specimen 04 · Designasaurus rex · excavated Jeffreys Bay, ZA</p>
 <h1 class="h-mega hero-title" id="hero-title">I design<br><span class="outline">the system</span><br><span class="ochre">before the screen.</span></h1>
 <div class="hero-meta">
+<div class="hero-intro">
+<figure class="hero-mark"><img src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320"><figcaption class="tag tag--hot">TAG 04 · STILL ROARING</figcaption></figure>
 <div>
 <p class="lede"><strong class="hero-name">Jonathan <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
-<div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field notes (CV)</a></div>
+<div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a></div>
+</div>
 </div>
 <div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span>STACK&nbsp;&nbsp;CLAUDE-FIRST</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
 </div>
 <div class="hero-ground" aria-hidden="true">
 <div class="strata"><i></i><i></i><i></i><i></i></div>
-<img class="hero-logo" src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320">
-<span class="tag tag--hot">TAG 04 · STILL ROARING</span>
 </div>
 </section>
 
@@ -395,7 +396,7 @@ def home():
 <p class="eyebrow">Specimen 02 · Astria Systems · 2018–now</p>
 <h3 class="h-l">iGaming platform, product-owned</h3>
 <p class="body-2">Promoted from Product Designer to Jr. Product Owner. UX/UI across Wonderlabz, Playsafe and Pantelotteriet — backlog, flows and design system in one pair of claws.</p>
-<div class="spec-thumbs">{''.join(f'<img src="{u}" alt="" loading="lazy">' for _, u in SLOTS[:3])}</div>
+<div class="spec-thumbs">{''.join(f'<img src="{CDN}/video/upload/f_jpg,q_auto,w_480,h_360,c_fill,so_1/{v}.jpg" alt="{n} reel frame" loading="lazy">' for n, v in [('Samurai', 'v1780033052/Samurai_Reelframe_ke6sbp'), ('Geisha', 'v1780033056/Geisha_Reelframe_cxusil'), ('Cupcake Space Unicorn', 'v1780033058/Cupcake_Space_Unicorn_Reelframe_mzqgqy')])}</div>
 <span class="spec-cta">Read the dig report →</span>
 </a>
 <a class="spec spec-card reveal" href="work/indiemode.html">
@@ -405,11 +406,6 @@ def home():
 <p class="body-2">Full-site redesign with Claude as build partner. I directed hierarchy and brand; Claude wrote the code.</p>
 <span class="spec-cta">Read the dig report →</span>
 </a>
-</div>
-<div class="spec spec-small reveal">
-<span class="eyebrow">Also recovered</span>
-<span><b>Wonderlabz.com redesign</b> <span class="body-2">— stakeholder research, IA and hi-fi Figma design, partnered through to launch.</span></span>
-<span class="mono small" style="color:var(--muted)">Employer-owned · scope &amp; role only</span>
 </div>
 </section>
 
@@ -458,7 +454,7 @@ def home():
 <section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
 <h2 class="h-mega" id="contact-title" style="margin-top:10px">You've hit bedrock.<br><span class="ochre">Let's build on it.</span></h2>
-<div class="btn-row" style="margin-top:40px"><a class="btn btn--fill" href="mailto:{EMAIL}">Start a conversation</a><a class="btn" href="resume.html">Field notes (CV)</a><a class="btn" href="{LINKEDIN}">LinkedIn</a></div>
+<div class="btn-row" style="margin-top:40px"><a class="btn btn--fill" href="mailto:{EMAIL}">Start a conversation</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn" href="{LINKEDIN}">LinkedIn</a></div>
 <p class="mono">Jeffreys Bay, South Africa · Remote worldwide · Open to relocate anywhere in South Africa</p>
 {dino_img('07', '', 'contact-dino', variant='amber')}
 </section>
@@ -958,7 +954,7 @@ def resume():
     page_head = head('Jonathan Edward Nestler — Senior Product Designer, UX/UI, AI integration — Resume',
                      'Resume of Jonathan Edward Nestler: Senior Product Designer, UX/UI Designer and Jr. Product Owner. AI-integrated product design with Claude, Claude Code and Figma MCP. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.', '')
     page_head = page_head.replace('</head>', CV_CSS + '\n' + person_ld() + '\n</head>')
-    return page_head + header('', 'cv', crumbs=[('Field notes (CV)', None)]) + f"""
+    return page_head + header('', 'cv', crumbs=[('Field Notes (Resume)', None)]) + f"""
 <main id="main" class="cv-wrap" data-depth="0.0m" data-era="field notes">
 <div class="cv-actions no-print"><a class="btn btn--fill" href="{CV_PDF}" download>Download PDF (2 pages)</a><button class="btn" type="button" data-print>Print</button><a class="btn" href="index.html">Back to the dig site</a></div>
 <div class="cv-pages">
