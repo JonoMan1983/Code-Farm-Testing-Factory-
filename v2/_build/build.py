@@ -72,10 +72,10 @@ def header(pre, active, home=False, crumbs=None):
         return ' aria-current="page"' if k == active else ''
 
     menu = [
+        ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
         ('work', 'Work', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
-        ('about', 'About', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
     ]
     items = []
     for key, label, href, subs in menu:
@@ -344,6 +344,26 @@ def home():
 </div>
 </section>
 
+<section class="section" id="about" data-crumb="About the Dino" data-depth="0.4m" data-era="2007–now" aria-labelledby="about-title">
+<div class="about reveal">
+<div><img class="portrait" src="assets/images/portrait.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky" width="900" height="900" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
+<div>
+<p class="eyebrow">Topsoil — The specimen</p>
+<h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
+<p class="lede" style="margin-top:24px">I started in print and brand, moved into web and motion, spent six years shipping iGaming products, and now own product decisions at Astria Systems. I design with the whole system in view, then use AI to prove it works before anyone builds it.</p>
+<p class="mono small" style="margin-top:18px;color:var(--muted)">Professional Diploma in UX Design — UX Design Institute, Dublin · 27 certifications</p>
+<div class="facts"><div><b>20+</b><span>years shipping design</span></div><div><b>3</b><span>markets: Scandinavia, SA, UK</span></div><div><b>27</b><span>certifications</span></div></div>
+</div>
+</div>
+{about_more()}
+</section>
+<section class="section refs" id="proof" data-crumb="Field reports" data-depth="0.7m" data-era="reports" aria-labelledby="proof-title">
+<div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
+<p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
+{ref_belts()}
+<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
+{ref_dialog()}
+</section>
 <section class="section" id="work" data-crumb="Selected work" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 00 — Surface</p><h2 class="h-xl" id="work-title">Specimens recovered</h2></div>
 <p class="lede">Four flagship digs. Each one logged: the brief, what AI proposed, what I kept and what came out of the ground.</p>{guide('02', '')}</div>
@@ -435,27 +455,6 @@ def home():
 <div class="btn-row reveal" style="margin-top:40px"><a class="btn btn--bone" href="archive.html">Open the Creative Archive →</a><a class="btn" href="archive.html#reel">Motion reel</a><a class="btn" href="archive.html#art">Artistic expression</a></div>
 </section>
 
-<section class="section" id="about" data-crumb="About" data-depth="4.6m" data-era="2007–now" aria-labelledby="about-title">
-<div class="about reveal">
-<div><img class="portrait" src="assets/images/portrait.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky" width="900" height="900" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
-<div>
-<p class="eyebrow">Layer 03 — The specimen</p>
-<h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
-<p class="lede" style="margin-top:24px">I started in print and brand, moved into web and motion, spent six years shipping iGaming products, and now own product decisions at Astria Systems. I design with the whole system in view, then use AI to prove it works before anyone builds it.</p>
-<p class="mono small" style="margin-top:18px;color:var(--muted)">Professional Diploma in UX Design — UX Design Institute, Dublin · 27 certifications</p>
-<div class="facts"><div><b>20+</b><span>years shipping design</span></div><div><b>3</b><span>markets: Scandinavia, SA, UK</span></div><div><b>27</b><span>certifications</span></div></div>
-</div>
-</div>
-{about_more()}
-</section>
-
-<section class="section refs" id="proof" data-crumb="Field reports" data-depth="4.9m" data-era="reports" aria-labelledby="proof-title">
-<div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
-<p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
-{ref_belts()}
-<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
-{ref_dialog()}
-</section>
 <section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
 <h2 class="h-mega" id="contact-title" style="margin-top:10px">You've hit bedrock.<br><span class="ochre">Let's build on it.</span></h2>
