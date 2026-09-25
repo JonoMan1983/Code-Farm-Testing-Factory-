@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2 — Structure Decision</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:     #15110E;
+    --s1:     #1C1612;
+    --s2:     #231B16;
+    --s3:     #2E231B;
+    --bd:     #3A2C21;
+    --bd2:    #4A3827;
+    --cyan:   #E8A33D;
+    --violet: #FF3D6E;
+    --green:  #8FB573;
+    --amber:  #F2D06B;
+    --red:    #E4572E;
+    --t1:     #EDE4D3;
+    --t2:     #A8998A;
+    --t3:     #6B5440;
+    --t4:     #5A4633;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--bg);
+    color:var(--t1);
+    font-family:'Archivo',sans-serif;
+    font-size:13px;
+    line-height:1.65;
+    min-height:100vh;
+  }
+
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(232,163,61,.02) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(232,163,61,.02) 1px,transparent 1px);
+    background-size:52px 52px;
+    pointer-events:none;z-index:0;
+  }
+
+  /* ─── PAGE SHELL ─── */
+  .page{
+    position:relative;z-index:5;
+    max-width:1200px;margin:0 auto;
+    padding:44px 44px 80px;
+  }
+
+  /* ─── HEADER ─── */
+  .hdr{margin-bottom:48px}
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .pill{
+    font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+    padding:3px 10px;border-radius:3px;
+    text-transform:uppercase;letter-spacing:.1em;
+  }
+  .pill-c{background:rgba(232,163,61,.1);color:var(--cyan);border:1px solid rgba(232,163,61,.25)}
+  .pill-a{background:rgba(242,208,107,.1);color:var(--amber);border:1px solid rgba(242,208,107,.25)}
+  .pill-v{background:rgba(255,61,110,.1);color:#FF7A99;border:1px solid rgba(255,61,110,.25)}
+  .pill-g{background:rgba(143,181,115,.1);color:var(--green);border:1px solid rgba(143,181,115,.25)}
+
+  h1{
+    font-family:'Big Shoulders Display',sans-serif;font-size:34px;font-weight:800;
+    letter-spacing:-.03em;line-height:1.15;
+    background:linear-gradient(135deg,#EDE4D3 0%,var(--cyan) 50%,var(--violet) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;margin-bottom:10px;
+  }
+  .hdr-sub{
+    color:var(--t2);font-size:14px;font-weight:300;
+    max-width:640px;line-height:1.7;
+  }
+  .hdr-sub strong{color:var(--t1);font-weight:500}
+
+  /* ─── SECTION HEADER ─── */
+  .sec-hdr{
+    display:flex;align-items:baseline;gap:14px;
+    margin-bottom:24px;padding-bottom:12px;
+    border-bottom:1px solid var(--bd);
+  }
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);opacity:.6}
+  h2{font-family:'Big Shoulders Display',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.015em}
+
+  /* ─── OPTION CARDS ─── */
+  .options{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:56px}
+
+  .option{
+    border:1px solid var(--bd);border-radius:12px;
+    overflow:hidden;
+    position:relative;
+  }
+  .option.recommended{
+    border-color:rgba(232,163,61,.35);
+    box-shadow:0 0 0 1px rgba(232,163,61,.1),0 0 40px rgba(232,163,61,.06);
+  }
+
+  .option-top{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+  }
+
+  /* Left: diagram */
+  .opt-diagram{
+    background:var(--s1);
+    padding:28px;
+    border-right:1px solid var(--bd);
+    display:flex;flex-direction:column;gap:12px;
+    min-height:280px;
+  }
+  .opt-diagram-label{
+    font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);
+    text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;
+  }
+
+  /* Right: text */
+  .opt-text{
+    background:var(--s1);
+    padding:28px 30px;
+  }
+  .opt-num{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);
+    letter-spacing:.08em;margin-bottom:6px;
+  }
+  .opt-name{
+    font-family:'Big Shoulders Display',sans-serif;font-size:20px;font-weight:700;
+    margin-bottom:4px;letter-spacing:-.01em;
+  }
+  .opt-tagline{
+    font-size:12px;color:var(--t2);margin-bottom:16px;
+    font-style:italic;
+  }
+  .opt-premise{
+    font-size:13px;color:var(--t1);line-height:1.75;
+    margin-bottom:20px;
+    border-left:2px solid var(--bd2);
+    padding-left:14px;
+  }
+
+  .opt-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+
+  .pro-con-block h4{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    text-transform:uppercase;letter-spacing:.1em;
+    margin-bottom:8px;
+  }
+  .pro-con-block.pro h4{color:var(--green)}
+  .pro-con-block.con h4{color:var(--red)}
+
+  .pro-con-list{list-style:none;font-size:12px;line-height:1.9}
+  .pro-con-list li{display:flex;gap:8px;align-items:flex-start}
+  .pro-con-list li::before{font-size:11px;flex-shrink:0;margin-top:2px}
+  .pro-con-block.pro .pro-con-list li::before{content:'✓';color:var(--green)}
+  .pro-con-block.con .pro-con-list li::before{content:'✗';color:var(--red)}
+  .pro-con-list li span{color:var(--t2)}
+
+  /* Bottom: verdict */
+  .opt-verdict{
+    padding:18px 28px;
+    border-top:1px solid var(--bd);
+    display:flex;align-items:flex-start;gap:16px;
+  }
+  .verdict-label{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    text-transform:uppercase;letter-spacing:.1em;
+    flex-shrink:0;margin-top:3px;
+  }
+  .verdict-text{font-size:12px;color:var(--t2);line-height:1.65}
+  .verdict-text strong{color:var(--t1)}
+
+  /* Walkthrough score */
+  .walk-score{
+    display:flex;align-items:center;gap:6px;
+    margin-top:10px;
+  }
+  .walk-label{font-size:11px;color:var(--t3)}
+  .walk-dots{display:flex;gap:4px}
+  .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--bd2);
+  }
+  .dot.filled{background:var(--cyan)}
+  .dot.half{background:linear-gradient(90deg,var(--cyan) 50%,var(--bd2) 50%)}
+
+  /* recommended banner */
+  .rec-banner{
+    background:linear-gradient(135deg,rgba(232,163,61,.08),rgba(255,61,110,.06));
+    border-bottom:1px solid rgba(232,163,61,.2);
+    padding:10px 28px;
+    display:flex;align-items:center;gap:12px;
+    font-size:12px;color:var(--cyan);
+    font-family:'JetBrains Mono',monospace;font-weight:500;
+    letter-spacing:.04em;
+  }
+  .rec-icon{font-size:14px}
+
+  /* ─── DIAGRAM COMPONENTS ─── */
+
+  /* Option A — Portal-centric */
+  .portal-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;flex:1}
+  .portal-col{
+    background:var(--s2);border:1px solid var(--bd);border-radius:6px;
+    padding:10px 8px;display:flex;flex-direction:column;gap:5px;
+  }
+  .portal-col-hdr{
+    font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+    padding:4px 6px;border-radius:3px;
+    text-align:center;margin-bottom:4px;letter-spacing:.04em;
+  }
+  .hdr-c{background:rgba(232,163,61,.12);color:var(--cyan)}
+  .hdr-s{background:rgba(143,181,115,.12);color:var(--green)}
+  .hdr-p{background:rgba(255,61,110,.12);color:#FF7A99}
+  .mini-node{
+    background:var(--s3);border:1px solid var(--bd2);border-radius:3px;
+    font-size:9px;color:var(--t2);padding:3px 6px;text-align:center;
+  }
+  .mini-node.c-node{border-color:rgba(232,163,61,.2);color:rgba(232,163,61,.7)}
+  .mini-node.s-node{border-color:rgba(143,181,115,.2);color:rgba(143,181,115,.7)}
+  .mini-node.p-node{border-color:rgba(255,61,110,.2);color:rgba(255,61,110,.7)}
+  .cross-arrow{
+    grid-column:1/-1;
+    text-align:center;font-size:9px;color:var(--t3);
+    padding:3px 0;
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  /* Option B — Lifecycle swim lanes */
+  .swim-wrap{flex:1;display:flex;flex-direction:column;gap:6px}
+  .swim-lane{
+    display:flex;align-items:center;gap:6px;
+  }
+  .swim-label{
+    font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+    writing-mode:horizontal-tb;
+    width:52px;flex-shrink:0;text-align:right;
+    padding-right:8px;border-right:1px solid var(--bd2);
+  }
+  .swim-label.lc{color:var(--cyan)}
+  .swim-label.ls{color:var(--green)}
+  .swim-label.lp{color:#FF7A99}
+  .swim-nodes{display:flex;gap:5px;flex:1;overflow:hidden}
+  .swim-node{
+    background:var(--s3);border:1px solid var(--bd2);border-radius:3px;
+    font-size:8px;color:var(--t2);padding:3px 6px;white-space:nowrap;flex-shrink:0;
+  }
+  .swim-node.cn{border-color:rgba(232,163,61,.2);color:rgba(232,163,61,.7)}
+  .swim-node.sn{border-color:rgba(143,181,115,.2);color:rgba(143,181,115,.7)}
+  .swim-node.pn{border-color:rgba(255,61,110,.2);color:rgba(255,61,110,.7)}
+  .swim-more{font-size:8px;color:var(--t4);align-self:center}
+
+  /* Option C — Hybrid */
+  .hybrid-wrap{flex:1;display:flex;flex-direction:column;gap:8px}
+  .hyb-spine{
+    background:var(--s2);border:1px solid rgba(232,163,61,.2);border-radius:5px;
+    padding:8px 10px;
+  }
+  .hyb-spine-label{
+    font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--cyan);
+    margin-bottom:5px;letter-spacing:.04em;
+  }
+  .hyb-spine-nodes{display:flex;gap:4px;flex-wrap:wrap}
+  .hyb-node{
+    background:rgba(232,163,61,.06);border:1px solid rgba(232,163,61,.15);
+    border-radius:3px;font-size:8px;color:rgba(232,163,61,.7);
+    padding:2px 7px;
+  }
+  .hyb-portals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .hyb-portal{
+    border:1px solid var(--bd);border-radius:5px;
+    padding:7px 8px;background:var(--s2);
+  }
+  .hyb-portal-lbl{
+    font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;
+    margin-bottom:5px;
+  }
+  .hyb-portal-lbl.c{color:var(--cyan)}
+  .hyb-portal-lbl.s{color:var(--green)}
+  .hyb-portal-lbl.p{color:#FF7A99}
+  .hyb-mini-nodes{display:flex;flex-direction:column;gap:3px}
+  .hyb-mn{
+    background:var(--s3);border-radius:2px;font-size:8px;
+    color:var(--t3);padding:2px 5px;
+  }
+  .hyb-money{
+    background:var(--s2);border:1px solid rgba(242,208,107,.2);border-radius:5px;
+    padding:7px 10px;
+  }
+  .hyb-money-lbl{
+    font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--amber);margin-bottom:5px;
+  }
+  .hyb-money-nodes{display:flex;gap:4px;flex-wrap:wrap}
+  .hyb-mn-a{
+    background:rgba(242,208,107,.06);border:1px solid rgba(242,208,107,.15);
+    border-radius:3px;font-size:8px;color:rgba(242,208,107,.7);padding:2px 7px;
+  }
+
+  .arrows-label{
+    font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t4);
+    text-align:center;padding:2px 0;
+  }
+
+  /* ─── RECOMMENDATION ─── */
+  .recommendation{
+    background:var(--s1);
+    border:1px solid rgba(232,163,61,.25);
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:40px;
+  }
+  .rec-hdr{
+    background:linear-gradient(135deg,rgba(232,163,61,.08),rgba(255,61,110,.05));
+    padding:20px 28px;
+    border-bottom:1px solid rgba(232,163,61,.15);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .rec-hdr-left h3{
+    font-family:'Big Shoulders Display',sans-serif;font-size:17px;font-weight:700;
+    color:var(--t1);margin-bottom:4px;
+  }
+  .rec-hdr-left p{font-size:12px;color:var(--t2)}
+  .rec-score{text-align:right}
+  .rec-score-val{
+    font-family:'Big Shoulders Display',sans-serif;font-size:28px;font-weight:800;color:var(--cyan);
+    display:block;line-height:1;
+  }
+  .rec-score-lbl{font-size:10px;color:var(--t3);margin-top:3px}
+
+  .rec-body{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:0;
+  }
+  .rec-col{padding:22px 24px;border-right:1px solid var(--bd)}
+  .rec-col:last-child{border-right:none}
+  .rec-col h4{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    text-transform:uppercase;letter-spacing:.1em;
+    color:var(--t3);margin-bottom:10px;
+  }
+  .rec-col ul{list-style:none;font-size:12px;color:var(--t2);line-height:2}
+  .rec-col ul li::before{content:'→ ';color:var(--t4)}
+
+  .rec-rationale{
+    padding:22px 28px;
+    border-top:1px solid var(--bd);
+    font-size:13px;color:var(--t2);line-height:1.8;
+  }
+  .rec-rationale strong{color:var(--t1)}
+  .rec-rationale p+p{margin-top:12px}
+
+  /* ─── DECISION CALLOUT ─── */
+  .decision-box{
+    background:rgba(232,163,61,.04);
+    border:1px solid rgba(232,163,61,.2);
+    border-left:3px solid var(--cyan);
+    border-radius:6px;padding:16px 20px;
+    font-size:13px;color:var(--t2);line-height:1.75;
+  }
+  .decision-box strong{color:var(--cyan)}
+
+  /* ─── COMPARISON TABLE ─── */
+  .compare-table{
+    width:100%;border-collapse:collapse;
+    margin-bottom:32px;font-size:12px;
+  }
+  .compare-table th{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    text-transform:uppercase;letter-spacing:.1em;
+    color:var(--t3);padding:10px 14px;text-align:left;
+    border-bottom:1px solid var(--bd);
+  }
+  .compare-table th.highlight{color:var(--cyan)}
+  .compare-table td{
+    padding:10px 14px;border-bottom:1px solid rgba(58,44,33,.5);
+    color:var(--t2);vertical-align:top;
+  }
+  .compare-table tr:hover td{background:rgba(232,163,61,.015)}
+  .compare-table td.criterion{
+    font-weight:500;color:var(--t1);font-size:12px;width:22%;
+  }
+  .score-cell{text-align:center}
+  .score{
+    font-family:'Big Shoulders Display',sans-serif;font-size:16px;font-weight:700;
+    display:block;
+  }
+  .score.good{color:var(--green)}
+  .score.mid{color:var(--amber)}
+  .score.low{color:var(--red)}
+  .score.best{color:var(--cyan)}
+  .score-sub{font-size:10px;color:var(--t3);display:block;margin-top:1px}
+
+  @media(max-width:900px){
+    .page{padding:24px 20px 60px}
+    .option-top{grid-template-columns:1fr}
+    .opt-diagram{border-right:none;border-bottom:1px solid var(--bd)}
+    .opt-cols{grid-template-columns:1fr}
+    .rec-body{grid-template-columns:1fr}
+    .rec-col{border-right:none;border-bottom:1px solid var(--bd)}
+    h1{font-size:26px}
+  }
+</style>
+</head>
+<body><a href="../three-portals.html" target="_top" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;padding:9px 12px;background:#E8A33D;color:#15110E;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.4)">← ONE PLATFORM, THREE PORTALS</a><script>if (window.self !== window.top) document.currentScript.previousElementSibling.remove();</script>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="eyebrow">
+      <span class="pill pill-a">PHASE 2</span>
+      <span class="pill pill-c">STRUCTURE DECISION</span>
+      <span class="pill pill-v">CHOOSE ONE</span>
+    </div>
+    <h1>Three Ways to Structure<br>the System Map</h1>
+    <p class="hdr-sub">
+      The brief says: <strong>"how you structure the map is a big part of what we're reading."</strong>
+      This is not a visual preference question. It's a systems-thinking declaration.
+      Each option encodes a different mental model of the platform.
+    </p>
+  </header>
+
+  <!-- COMPARISON TABLE -->
+  <section style="margin-bottom:48px">
+    <div class="sec-hdr">
+      <span class="sec-num">OVERVIEW</span>
+      <h2>Side-by-Side Comparison</h2>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>A — Portal-centric</th>
+          <th>B — Lifecycle-centric</th>
+          <th class="highlight">C — Hybrid ★ Recommended</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="criterion">Completeness signal</td>
+          <td class="score-cell"><span class="score mid">★★★</span><span class="score-sub">Hard to show what's shared</span></td>
+          <td class="score-cell"><span class="score good">★★★★</span><span class="score-sub">Every step visible</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Everything + context</span></td>
+        </tr>
+        <tr>
+          <td class="criterion">Portal connection clarity</td>
+          <td class="score-cell"><span class="score mid">★★★</span><span class="score-sub">Arrows get messy</span></td>
+          <td class="score-cell"><span class="score mid">★★★</span><span class="score-sub">Ownership unclear</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Both dimensions clear</span></td>
+        </tr>
+        <tr>
+          <td class="criterion">Money flow visibility</td>
+          <td class="score-cell"><span class="score mid">★★</span><span class="score-sub">Buried in Platform column</span></td>
+          <td class="score-cell"><span class="score mid">★★★</span><span class="score-sub">In-flow but mixed</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Dedicated section</span></td>
+        </tr>
+        <tr>
+          <td class="criterion">Live walkthrough traceability</td>
+          <td class="score-cell"><span class="score low">★★</span><span class="score-sub">Jump columns to trace</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Left-to-right finger trace</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Spine + clear lanes</span></td>
+        </tr>
+        <tr>
+          <td class="criterion">Structural "because" quality</td>
+          <td class="score-cell"><span class="score low">★★</span><span class="score-sub">Default choice — weak signal</span></td>
+          <td class="score-cell"><span class="score good">★★★★</span><span class="score-sub">Clear argument</span></td>
+          <td class="score-cell"><span class="score best">★★★★★</span><span class="score-sub">Strongest design argument</span></td>
+        </tr>
+        <tr>
+          <td class="criterion">Execution risk</td>
+          <td class="score-cell"><span class="score best">Low</span><span class="score-sub">Simple to build</span></td>
+          <td class="score-cell"><span class="score good">Medium</span><span class="score-sub">Ownership ambiguous</span></td>
+          <td class="score-cell"><span class="score mid">Medium</span><span class="score-sub">More sections, more planning</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- OPTIONS -->
+  <section style="margin-bottom:56px">
+    <div class="sec-hdr">
+      <span class="sec-num">OPTIONS</span>
+      <h2>Each Structure in Full</h2>
+    </div>
+    <div class="options">
+
+      <!-- OPTION A -->
+      <div class="option">
+        <div class="option-top">
+          <!-- Diagram A -->
+          <div class="opt-diagram">
+            <div class="opt-diagram-label">Visual pattern</div>
+            <div class="portal-cols">
+              <div class="portal-col">
+                <div class="portal-col-hdr hdr-c">Customer</div>
+                <div class="mini-node c-node">Browse</div>
+                <div class="mini-node c-node">Search</div>
+                <div class="mini-node c-node">Cart</div>
+                <div class="mini-node c-node">Checkout</div>
+                <div class="mini-node c-node">Tracking</div>
+                <div class="mini-node c-node">Reviews</div>
+              </div>
+              <div class="portal-col">
+                <div class="portal-col-hdr hdr-s">Store</div>
+                <div class="mini-node s-node">Order Queue</div>
+                <div class="mini-node s-node">Accept/Reject</div>
+                <div class="mini-node s-node">Menu Mgmt</div>
+                <div class="mini-node s-node">Stock</div>
+                <div class="mini-node s-node">Hours/Status</div>
+                <div class="mini-node s-node">Payout Dash</div>
+              </div>
+              <div class="portal-col">
+                <div class="portal-col-hdr hdr-p">Platform</div>
+                <div class="mini-node p-node">Store Dir</div>
+                <div class="mini-node p-node">Commission</div>
+                <div class="mini-node p-node">Settlement</div>
+                <div class="mini-node p-node">Fraud</div>
+                <div class="mini-node p-node">Analytics</div>
+                <div class="mini-node p-node">Reporting</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;margin-top:8px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t4);text-align:center">
+                ↔ arrows connect nodes across columns ↔
+              </div>
+              <div style="background:var(--s2);border:1px dashed var(--bd2);border-radius:4px;padding:5px;text-align:center;font-size:8px;color:var(--t3)">
+                Shared: Auth • Notifications • Search Index • Pricing Engine
+              </div>
+            </div>
+          </div>
+
+          <!-- Text A -->
+          <div class="opt-text">
+            <div class="opt-num">OPTION A</div>
+            <div class="opt-name">Portal-Centric</div>
+            <div class="opt-tagline">"What does each user type see?"</div>
+            <div class="opt-premise">
+              Three vertical columns — one per portal. Every node placed under the portal that owns it. Arrows drawn between columns to show cross-portal communication. Shared infrastructure shown as a bottom band beneath all three columns.
+            </div>
+            <div class="opt-cols">
+              <div class="pro-con-block pro">
+                <h4>Strengths</h4>
+                <ul class="pro-con-list">
+                  <li><span>Ownership is instantly legible — no ambiguity about who controls what</span></li>
+                  <li><span>Maps directly to the brief's "three portals" framing</span></li>
+                  <li><span>Easy to build — low execution risk</span></li>
+                  <li><span>Simple to explain: "each column is one login"</span></li>
+                </ul>
+              </div>
+              <div class="pro-con-block con">
+                <h4>Weaknesses</h4>
+                <ul class="pro-con-list">
+                  <li><span>Cross-column arrows multiply fast — spaghetti at 41 nodes</span></li>
+                  <li><span>Lifecycle sequence disappears — hard to trace "happy path" order end-to-end</span></li>
+                  <li><span>Money flow buried inside Platform column, not its own visible system</span></li>
+                  <li><span>Default choice — reads as "first idea", not a considered structural argument</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="walk-score">
+              <span class="walk-label">Walkthrough traceability:</span>
+              <div class="walk-dots">
+                <div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              </div>
+              <span style="font-size:11px;color:var(--t3);margin-left:4px">2/5</span>
+            </div>
+          </div>
+        </div>
+        <div class="opt-verdict">
+          <span class="verdict-label" style="color:var(--red)">Verdict</span>
+          <span class="verdict-text">
+            <strong>Not recommended.</strong> It answers "who owns what" but not "how does an order actually move." The brief asks for the machine — the parts and how they connect. Portal-centric shows the boxes but obscures the motion. The "because" for choosing this structure is weak: "I organised by login type." That's not a systems insight.
+          </span>
+        </div>
+      </div>
+
+      <!-- OPTION B -->
+      <div class="option">
+        <div class="option-top">
+          <!-- Diagram B -->
+          <div class="opt-diagram">
+            <div class="opt-diagram-label">Visual pattern</div>
+            <div class="swim-wrap">
+              <div class="swim-lane">
+                <span class="swim-label lc">Customer</span>
+                <div class="swim-nodes">
+                  <div class="swim-node cn">Browse</div>
+                  <div class="swim-node cn">Search</div>
+                  <div class="swim-node cn">Cart</div>
+                  <div class="swim-node cn">Checkout</div>
+                  <div class="swim-node cn">Track</div>
+                  <div class="swim-node cn">Review</div>
+                </div>
+              </div>
+              <div style="border-left:1px solid var(--bd2);margin-left:52px;height:8px"></div>
+              <div class="swim-lane">
+                <span class="swim-label" style="color:var(--amber)">Payment</span>
+                <div class="swim-nodes">
+                  <div class="swim-node" style="border-color:rgba(242,208,107,.2);color:rgba(242,208,107,.7)">Capture</div>
+                  <div class="swim-node" style="border-color:rgba(242,208,107,.2);color:rgba(242,208,107,.7)">Hold</div>
+                  <div class="swim-node" style="border-color:rgba(242,208,107,.2);color:rgba(242,208,107,.7)">Settle</div>
+                  <div class="swim-node" style="border-color:rgba(242,208,107,.2);color:rgba(242,208,107,.7)">Payout</div>
+                </div>
+              </div>
+              <div style="border-left:1px solid var(--bd2);margin-left:52px;height:8px"></div>
+              <div class="swim-lane">
+                <span class="swim-label ls">Store</span>
+                <div class="swim-nodes">
+                  <div class="swim-node sn">Receive</div>
+                  <div class="swim-node sn">Accept</div>
+                  <div class="swim-node sn">Prepare</div>
+                  <div class="swim-node sn">Ready</div>
+                </div>
+              </div>
+              <div style="border-left:1px solid var(--bd2);margin-left:52px;height:8px"></div>
+              <div class="swim-lane">
+                <span class="swim-label" style="color:var(--t2)">Driver</span>
+                <div class="swim-nodes">
+                  <div class="swim-node">Assign</div>
+                  <div class="swim-node">Pickup</div>
+                  <div class="swim-node">Deliver</div>
+                  <div class="swim-node">PoD</div>
+                </div>
+              </div>
+              <div style="border-left:1px solid var(--bd2);margin-left:52px;height:8px"></div>
+              <div class="swim-lane">
+                <span class="swim-label lp">Platform</span>
+                <div class="swim-nodes">
+                  <div class="swim-node pn">Fraud</div>
+                  <div class="swim-node pn">Notifications</div>
+                  <div class="swim-node pn">Reporting</div>
+                  <span class="swim-more">+ management nodes</span>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:8px;color:var(--t4);margin-top:8px;font-family:'JetBrains Mono',monospace">
+              → time flows left to right →
+            </div>
+          </div>
+
+          <!-- Text B -->
+          <div class="opt-text">
+            <div class="opt-num">OPTION B</div>
+            <div class="opt-name">Lifecycle-Centric</div>
+            <div class="opt-tagline">"Follow the order from click to completion."</div>
+            <div class="opt-premise">
+              Horizontal swim lanes. Time flows left to right. Each lane represents a participant (Customer, Store, Driver, Payment, Platform). Nodes are placed at the point in the lifecycle where they activate. Reading left-to-right traces any scenario naturally.
+            </div>
+            <div class="opt-cols">
+              <div class="pro-con-block pro">
+                <h4>Strengths</h4>
+                <ul class="pro-con-list">
+                  <li><span>Walkthrough-optimised — left-to-right finger trace for any scenario</span></li>
+                  <li><span>Time sequence is visible — "what happens first" is unambiguous</span></li>
+                  <li><span>Shows parallelism: Store prep + Driver assignment happen simultaneously</span></li>
+                  <li><span>Strong structural "because": "I wanted to show the machine in motion"</span></li>
+                </ul>
+              </div>
+              <div class="pro-con-block con">
+                <h4>Weaknesses</h4>
+                <ul class="pro-con-list">
+                  <li><span>Portal ownership becomes unclear — which lane "belongs" to which portal login?</span></li>
+                  <li><span>Store management nodes (Menu, Stock, Hours) don't fit the linear lifecycle</span></li>
+                  <li><span>Platform admin nodes (Reporting, Analytics) exist outside the order flow entirely</span></li>
+                  <li><span>Money flow in its own lane but competing visually with all other lanes</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="walk-score">
+              <span class="walk-label">Walkthrough traceability:</span>
+              <div class="walk-dots">
+                <div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div>
+              </div>
+              <span style="font-size:11px;color:var(--t3);margin-left:4px">5/5</span>
+            </div>
+          </div>
+        </div>
+        <div class="opt-verdict">
+          <span class="verdict-label" style="color:var(--amber)">Verdict</span>
+          <span class="verdict-text">
+            <strong>Strong but incomplete.</strong> Excellent for tracing the order lifecycle and any scenario that unfolds in time. Falls apart for management nodes that exist outside any order (menu changes, stock updates, analytics). The "because" is strong but partial — it only maps the machine in motion, not the machine at rest. A menu manager can change item prices between orders; that needs a home.
+          </span>
+        </div>
+      </div>
+
+      <!-- OPTION C — RECOMMENDED -->
+      <div class="option recommended">
+        <div class="rec-banner">
+          <span class="rec-icon">★</span>
+          RECOMMENDED — Strongest structural argument + best walkthrough traceability + most complete
+        </div>
+        <div class="option-top">
+          <!-- Diagram C -->
+          <div class="opt-diagram">
+            <div class="opt-diagram-label">Visual pattern</div>
+            <div class="hybrid-wrap">
+              <!-- Spine -->
+              <div class="hyb-spine">
+                <div class="hyb-spine-label">ORDER LIFECYCLE SPINE (left → right, shared by all portals)</div>
+                <div class="hyb-spine-nodes">
+                  <div class="hyb-node">Browse</div>
+                  <div class="hyb-node">Cart</div>
+                  <div class="hyb-node">Checkout</div>
+                  <div class="hyb-node">Confirm</div>
+                  <div class="hyb-node">Prep</div>
+                  <div class="hyb-node">Dispatch</div>
+                  <div class="hyb-node">Deliver</div>
+                  <div class="hyb-node">Complete</div>
+                </div>
+              </div>
+              <div class="arrows-label">↓ each portal's nodes hang below the spine step they activate at ↓</div>
+              <!-- Portal columns -->
+              <div class="hyb-portals">
+                <div class="hyb-portal">
+                  <div class="hyb-portal-lbl c">Customer Portal</div>
+                  <div class="hyb-mini-nodes">
+                    <div class="hyb-mn">Search & Filters</div>
+                    <div class="hyb-mn">Payment UI</div>
+                    <div class="hyb-mn">Live Tracking</div>
+                    <div class="hyb-mn">Reviews</div>
+                  </div>
+                </div>
+                <div class="hyb-portal">
+                  <div class="hyb-portal-lbl s">Store Portal</div>
+                  <div class="hyb-mini-nodes">
+                    <div class="hyb-mn">Order Queue</div>
+                    <div class="hyb-mn">Menu Mgmt</div>
+                    <div class="hyb-mn">Stock/Hours</div>
+                    <div class="hyb-mn">Payout View</div>
+                  </div>
+                </div>
+                <div class="hyb-portal">
+                  <div class="hyb-portal-lbl p">Platform Portal</div>
+                  <div class="hyb-mini-nodes">
+                    <div class="hyb-mn">Fraud Detection</div>
+                    <div class="hyb-mn">Driver Assign</div>
+                    <div class="hyb-mn">Notifications</div>
+                    <div class="hyb-mn">Analytics</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Money section -->
+              <div class="hyb-money">
+                <div class="hyb-money-lbl">MONEY FLOW — DEDICATED SECTION (below the map)</div>
+                <div class="hyb-money-nodes">
+                  <div class="hyb-mn-a">Capture</div>
+                  <div class="hyb-mn-a">Auth Hold</div>
+                  <div class="hyb-mn-a">Settlement</div>
+                  <div class="hyb-mn-a">Commission</div>
+                  <div class="hyb-mn-a">Payout</div>
+                  <div class="hyb-mn-a">Refund</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text C -->
+          <div class="opt-text">
+            <div class="opt-num">OPTION C  ★  RECOMMENDED</div>
+            <div class="opt-name">Hybrid</div>
+            <div class="opt-tagline">"The lifecycle is the spine. The portals are the perspective."</div>
+            <div class="opt-premise">
+              A horizontal lifecycle spine runs across the top — the shared order journey that all three portals observe simultaneously. Below the spine, each portal's nodes hang in its own swim lane, anchored to the lifecycle step they activate at. A separate dedicated section below maps the money flow end-to-end.
+            </div>
+            <div class="opt-cols">
+              <div class="pro-con-block pro">
+                <h4>Strengths</h4>
+                <ul class="pro-con-list">
+                  <li><span>Answers both brief questions: information flows AND money flows, each with their own visual structure</span></li>
+                  <li><span>Lifecycle spine makes any scenario traceable left-to-right</span></li>
+                  <li><span>Portal lanes preserve clear ownership — three distinct sections below the spine</span></li>
+                  <li><span>Money section is impossible to overlook — not buried in any column</span></li>
+                  <li><span>Strongest structural "because": the platform IS the lifecycle — portals are just different windows onto it</span></li>
+                  <li><span>Shows shared nodes (Auth, Notifications) once, with lines pointing to the portals that use them</span></li>
+                </ul>
+              </div>
+              <div class="pro-con-block con">
+                <h4>Weaknesses</h4>
+                <ul class="pro-con-list">
+                  <li><span>More complex to lay out — requires careful Mermaid/FigJam planning before building</span></li>
+                  <li><span>Risk of over-complexity if not kept disciplined — must resist adding sub-nodes</span></li>
+                  <li><span>Management-only nodes (Analytics, Reporting) need a deliberate home that doesn't disrupt the spine</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="walk-score">
+              <span class="walk-label">Walkthrough traceability:</span>
+              <div class="walk-dots">
+                <div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div><div class="dot filled"></div>
+                <div class="dot filled"></div>
+              </div>
+              <span style="font-size:11px;color:var(--t3);margin-left:4px">5/5</span>
+            </div>
+          </div>
+        </div>
+        <div class="opt-verdict">
+          <span class="verdict-label" style="color:var(--cyan)">Verdict</span>
+          <span class="verdict-text">
+            <strong>Recommended.</strong> The structural "because" is the strongest argument available: the lifecycle is the only thing all three portals share — it's the single source of truth. The portal columns are not independent kingdoms, they're three different views of the same order moving through time. Separating money flows gives them the visual weight they deserve — they're the second explicit ask in the brief, and most maps bury them.
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <section style="margin-bottom:48px">
+    <div class="sec-hdr">
+      <span class="sec-num">RECOMMENDATION</span>
+      <h2>Option C — The Written "Because"</h2>
+    </div>
+
+    <div class="recommendation">
+      <div class="rec-hdr">
+        <div class="rec-hdr-left">
+          <h3>Hybrid: Lifecycle Spine + Portal Lanes + Money Section</h3>
+          <p>The structural "because" — ready to annotate directly onto the FigJam board</p>
+        </div>
+        <div class="rec-score">
+          <span class="rec-score-val">C</span>
+          <span class="rec-score-lbl">Recommended</span>
+        </div>
+      </div>
+
+      <div class="rec-body">
+        <div class="rec-col">
+          <h4>The lifecycle spine</h4>
+          <ul>
+            <li>One shared sequence: Browse → Cart → Checkout → Confirm → Prep → Dispatch → Deliver → Complete</li>
+            <li>Every order that ever happens on this platform traverses this spine exactly once</li>
+            <li>All three portals observe the same order — they just see different fields of it</li>
+            <li>Placing this as the horizontal backbone means any scenario can be traced left-to-right</li>
+          </ul>
+        </div>
+        <div class="rec-col">
+          <h4>The portal lanes</h4>
+          <ul>
+            <li>Three swim lanes below the spine — one per portal login</li>
+            <li>Each node anchors to the lifecycle step it activates at</li>
+            <li>Management nodes (Menu, Analytics, Onboarding) that exist outside the order flow sit in a "management" sub-section within their portal lane</li>
+            <li>Shared infrastructure (Auth, Notifications) shown once with outbound lines to each portal that uses it</li>
+          </ul>
+        </div>
+        <div class="rec-col">
+          <h4>The money section</h4>
+          <ul>
+            <li>Dedicated horizontal band below everything else</li>
+            <li>Eight nodes: Capture → Hold → Settle → Commission → Payout → Refund → Dispute</li>
+            <li>Aligned vertically to the lifecycle steps that trigger each money event</li>
+            <li>Impossible to miss — the brief explicitly asks for money flows</li>
+            <li>Money is the only flow that reverses (refunds) — shown as a return arrow</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rec-rationale">
+        <p>
+          <strong>Because the lifecycle is the only thing all three portals share.</strong> A customer, a store manager, and a platform admin all have separate logins, separate dashboards, and separate mental models — but they are all looking at the same order. The order is the shared object. The lifecycle is the shared clock. Organising the map around that clock means the board answers the machine question before the portal question. The portals become context, not structure.
+        </p>
+        <p>
+          <strong>Because money flows deserve their own section.</strong> The brief explicitly names information flows and money flows as the two things being mapped. Most system maps put money inside the Platform column and call it done. That buries the mechanism that makes the whole business work: the customer's payment holds for the duration of the order, gets split on completion (platform commission + delivery fee + store portion), and settles into a store payout on a cycle. Refunds run that in reverse. That's a distinct system — it runs in parallel to the information flow, not inside it.
+        </p>
+        <p>
+          <strong>Because the 15-minute walkthrough requires left-to-right traceability.</strong> When the hiring team picks a scenario — failed payment, driver cancels, store goes offline — the evaluator needs to watch a finger move across the board and follow the logic. The lifecycle spine makes that movement natural. Portal-centric maps require jumping columns. Lifecycle-only maps blur ownership. The hybrid holds both.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISION -->
+  <section>
+    <div class="sec-hdr">
+      <span class="sec-num">NEXT</span>
+      <h2>Confirm to Proceed</h2>
+    </div>
+    <div class="decision-box">
+      <strong>Awaiting your decision.</strong> If you choose Option C (recommended), Phase 3 begins immediately: writing all board annotations using the article-writing skill, then running the advanced-evaluation quality gate before a single node goes on the FigJam board.<br><br>
+      If you want to adjust anything — change the money section placement, collapse the portal lanes differently, or modify how shared infrastructure is shown — say so now. The structure decision is the last thing we lock in before building.
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

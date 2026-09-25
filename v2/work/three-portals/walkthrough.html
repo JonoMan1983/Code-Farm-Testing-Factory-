@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Portals — Walkthrough Trainer</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #15110E;
+  --s1:      #1C1612;
+  --s2:      #231B16;
+  --s3:      #2E231B;
+  --bd:      #3A2C21;
+  --bd2:     #4A3827;
+  --cyan:    #E8A33D;
+  --green:   #8FB573;
+  --violet:  #FF3D6E;
+  --amber:   #F2D06B;
+  --grey:    #8C7358;
+  --t1:      #EDE4D3;
+  --t2:      #A8998A;
+  --t3:      #6B5440;
+  --t4:      #5A4633;
+}
+
+html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--t1); font-family:system-ui,'Segoe UI',sans-serif; font-size:13px; }
+
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image: linear-gradient(rgba(232,163,61,.015) 1px,transparent 1px), linear-gradient(90deg,rgba(232,163,61,.015) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+
+/* ── LAYOUT ── */
+.shell {
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-rows:46px 1fr;
+  grid-template-columns:252px 1fr 332px;
+  height:100vh; overflow:hidden;
+}
+
+/* TOP BAR */
+.topbar {
+  grid-column:1/-1;
+  display:flex; align-items:center; gap:14px;
+  padding:0 18px;
+  background:var(--s1); border-bottom:1px solid var(--bd);
+}
+.tb-title { font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--t1); }
+.tb-sub   { font-size:10px; color:var(--t3); font-family:monospace; }
+.tb-pill  {
+  margin-left:auto; font-size:9px; font-family:monospace; font-weight:600;
+  padding:3px 10px; border-radius:2px; letter-spacing:.08em;
+  background:rgba(232,163,61,.08); color:var(--cyan); border:1px solid rgba(232,163,61,.2);
+}
+
+/* LEFT */
+.left { background:var(--s1); border-right:1px solid var(--bd); overflow-y:auto; display:flex; flex-direction:column; }
+.panel-hdr { padding:12px 14px 10px; font-size:9px; font-family:monospace; color:var(--t3); letter-spacing:.1em; text-transform:uppercase; border-bottom:1px solid var(--bd); flex-shrink:0; }
+.sc-list { padding:7px; }
+.sc-btn {
+  display:block; width:100%; text-align:left;
+  padding:9px 11px; border-radius:5px;
+  border:1px solid transparent; background:transparent;
+  cursor:pointer; margin-bottom:4px; color:var(--t1);
+  transition:background .12s, border-color .12s;
+}
+.sc-btn:hover { background:var(--s2); border-color:var(--bd); }
+.sc-btn.active { background:var(--s3); border-color:var(--cyan); }
+.sc-num { display:block; font-family:monospace; font-size:9px; color:var(--t3); margin-bottom:2px; }
+.sc-name { display:block; font-size:12px; font-weight:700; color:var(--t1); line-height:1.3; }
+.sc-btn.active .sc-name { color:var(--cyan); }
+.sc-desc { display:block; font-size:10px; color:var(--t2); margin-top:2px; line-height:1.4; }
+
+/* CENTRE */
+.centre { display:flex; flex-direction:column; overflow:hidden; background:var(--bg); }
+.map-wrap { flex:1; overflow:auto; padding:16px 12px; }
+.map-wrap svg { width:100%; min-width:860px; display:block; }
+.map-node { cursor:pointer; }
+.map-node rect { transition:stroke .15s,stroke-width .15s,opacity .2s; }
+.legend { display:flex; gap:14px; flex-wrap:wrap; padding:8px 14px; background:var(--s1); border-top:1px solid var(--bd); font-family:monospace; font-size:9px; flex-shrink:0; }
+.legend-item { display:flex; align-items:center; gap:5px; color:var(--t3); }
+.legend-dot  { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+.map-status  { padding:6px 14px; background:var(--s1); border-top:1px solid var(--bd); font-family:monospace; font-size:9px; color:var(--t3); display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.status-dot  { width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 6px var(--cyan); animation:pulse 2s ease-in-out infinite; flex-shrink:0; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* RIGHT */
+.right { background:var(--s1); border-left:1px solid var(--bd); overflow-y:auto; display:flex; flex-direction:column; }
+.ann-hdr { padding:14px 15px 10px; border-bottom:1px solid var(--bd); flex-shrink:0; }
+.ann-lbl  { font-family:monospace; font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px; }
+.ann-id   { font-family:monospace; font-size:10px; font-weight:600; margin-bottom:3px; }
+.ann-name { font-size:16px; font-weight:800; color:var(--t1); line-height:1.2; }
+.ann-body { padding:13px 15px; flex:1; overflow-y:auto; }
+.ann-section { margin-bottom:15px; }
+.section-lbl { display:block; font-family:monospace; font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px; }
+.ann-text { font-size:12px; color:var(--t2); line-height:1.75; }
+.ann-text strong { color:var(--t1); font-weight:600; }
+.flow-tags { display:flex; flex-wrap:wrap; gap:4px; }
+.flow-tag  { font-family:monospace; font-size:9px; padding:2px 8px; border-radius:2px; }
+
+.ai-panel { margin:0 14px 14px; padding:12px 13px; background:var(--s2); border:1px solid var(--bd2); border-radius:6px; flex-shrink:0; }
+.ai-lbl { font-family:monospace; font-size:9px; color:var(--cyan); text-transform:uppercase; letter-spacing:.1em; margin-bottom:7px; display:flex; align-items:center; gap:6px; }
+.ai-lbl::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--cyan); flex-shrink:0; }
+.ai-text { font-size:12px; color:var(--t1); line-height:1.7; font-style:italic; }
+.ai-dots { display:flex; gap:4px; align-items:center; }
+.ai-dot  { width:4px; height:4px; border-radius:50%; background:var(--cyan); animation:blink 1.2s ease-in-out infinite; }
+.ai-dot:nth-child(2){animation-delay:.2s} .ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+.empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px 18px; text-align:center; color:var(--t3); }
+.empty-icon  { font-size:26px; margin-bottom:10px; opacity:.35; }
+.empty-title { font-size:13px; font-weight:700; color:var(--t3); margin-bottom:5px; }
+.empty-sub   { font-size:11px; color:var(--t4); line-height:1.65; }
+
+/* scrollbar */
+::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:transparent; } ::-webkit-scrollbar-thumb { background:var(--bd2); border-radius:2px; }
+</style>
+</head>
+<body><a href="../three-portals.html" target="_top" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;padding:9px 12px;background:#E8A33D;color:#15110E;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.4)">← ONE PLATFORM, THREE PORTALS</a><script>if (window.self !== window.top) document.currentScript.previousElementSibling.remove();</script>
+<div class="shell">
+  <header class="topbar">
+    <span class="tb-title">ONE PLATFORM · THREE PORTALS</span>
+    <span class="tb-sub">Walkthrough Trainer</span>
+    <span class="tb-pill" id="tb-pill">SELECT SCENARIO</span>
+  </header>
+
+  <aside class="left">
+    <div class="panel-hdr">SCENARIOS &nbsp;· &nbsp;8 PATHS</div>
+    <div class="sc-list" id="sc-list"></div>
+  </aside>
+
+  <main class="centre">
+    <div class="map-wrap" id="map-wrap"></div>
+    <div class="legend" id="legend"></div>
+    <div class="map-status">
+      <span class="status-dot"></span>
+      <span id="status-text">Select a scenario to highlight the active path</span>
+    </div>
+  </main>
+
+  <aside class="right" id="right-panel">
+    <div class="empty" id="empty-state">
+      <div class="empty-icon">◈</div>
+      <div class="empty-title">No node selected</div>
+      <div class="empty-sub">Pick a scenario, then click any highlighted node to read its annotation and get a walkthrough prompt.</div>
+    </div>
+    <div id="ann-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="ann-hdr">
+        <div class="ann-lbl">NODE ANNOTATION</div>
+        <div class="ann-id" id="ann-id"></div>
+        <div class="ann-name" id="ann-name"></div>
+      </div>
+      <div class="ann-body">
+        <div class="ann-section">
+          <span class="section-lbl">Because</span>
+          <p class="ann-text" id="ann-because"></p>
+        </div>
+        <div class="ann-section">
+          <span class="section-lbl">Information Flows</span>
+          <div class="flow-tags" id="ann-flows"></div>
+        </div>
+      </div>
+      <div class="ai-panel">
+        <div class="ai-lbl">SAY THIS IN THE WALKTHROUGH</div>
+        <div id="ai-output">
+          <div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+
+const ZONES = {
+  spine:    { color:'#E8A33D', fill:'#4A3217', stroke:'#E8A33D', label:'SPINE' },
+  customer: { color:'#E8A33D', fill:'#2A1D0E', stroke:'#E8A33D', label:'CUSTOMER' },
+  store:    { color:'#8FB573', fill:'#1E2616', stroke:'#8FB573', label:'STORE' },
+  platform: { color:'#FF3D6E', fill:'#2A1018', stroke:'#FF3D6E', label:'PLATFORM' },
+  money:    { color:'#F2D06B', fill:'#2A2208', stroke:'#F2D06B', label:'MONEY' },
+  shared:   { color:'#8C7358', fill:'#1F1813', stroke:'#8C7358', label:'SHARED' },
+};
+
+// SVG viewBox 1080 x 540
+const NODES = {
+  // SPINE row y=40
+  S1: {zone:'spine', label:'Browse /\nDiscovery',      x:10,  y:38, w:112,h:38},
+  S2: {zone:'spine', label:'Cart',                     x:134, y:38, w:80, h:38},
+  S3: {zone:'spine', label:'Checkout /\nPayment UI',   x:226, y:38, w:112,h:38},
+  S4: {zone:'spine', label:'Order\nConfirmation',      x:350, y:38, w:112,h:38},
+  S5: {zone:'spine', label:'Preparation',              x:474, y:38, w:98, h:38},
+  S6: {zone:'spine', label:'Dispatch /\nDriver Assign',x:584, y:38, w:112,h:38},
+  S7: {zone:'spine', label:'Delivery',                 x:708, y:38, w:88, h:38},
+  S8: {zone:'spine', label:'Completion',               x:808, y:38, w:104,h:38},
+  // CUSTOMER row y=128
+  C1: {zone:'customer', label:'Search &\nFilters',         x:10,  y:128,w:112,h:38},
+  C3: {zone:'customer', label:'Promotions /\nVouchers',    x:134, y:128,w:112,h:38},
+  C2: {zone:'customer', label:'Address\nMgmt',             x:258, y:128,w:100,h:38},
+  C4: {zone:'customer', label:'Live Order\nTracking',      x:370, y:128,w:104,h:38},
+  C5: {zone:'customer', label:'Dispute /\nRefund Request', x:486, y:128,w:112,h:38},
+  C6: {zone:'customer', label:'Reviews &\nRatings',        x:710, y:128,w:100,h:38},
+  C7: {zone:'customer', label:'Order\nHistory',            x:822, y:128,w:100,h:38},
+  // STORE row y=218
+  ST1:{zone:'store', label:'Store\nOnboarding',        x:10,  y:218,w:106,h:38},
+  ST2:{zone:'store', label:'Menu / Item\nMgmt',        x:128, y:218,w:106,h:38},
+  ST3:{zone:'store', label:'Stock &\nAvailability',    x:246, y:218,w:106,h:38},
+  ST4:{zone:'store', label:'Opening Hours /\nStatus',  x:364, y:218,w:114,h:38},
+  ST5:{zone:'store', label:'Order Queue',              x:490, y:218,w:96, h:38},
+  ST6:{zone:'store', label:'Accept /\nReject',         x:598, y:218,w:96, h:38},
+  ST7:{zone:'store', label:'Prep Timer /\nReady Signal',x:706,y:218,w:108,h:38},
+  ST8:{zone:'store', label:'Payout\nDashboard',        x:826, y:218,w:100,h:38},
+  // PLATFORM rows y=308 and y=354
+  P1: {zone:'platform', label:'Store\nDirectory',       x:10,  y:308,w:100,h:38},
+  P2: {zone:'platform', label:'Customer\nAccount Mgmt', x:122, y:308,w:110,h:38},
+  P3: {zone:'platform', label:'Fraud\nDetection',       x:244, y:308,w:98, h:38},
+  P4: {zone:'platform', label:'Notification\nEngine',   x:354, y:308,w:106,h:38},
+  P5: {zone:'platform', label:'Commission /\nFee Config',x:472,y:308,w:106,h:38},
+  P6: {zone:'platform', label:'Driver Assign\nEngine',  x:590, y:308,w:108,h:38},
+  P7: {zone:'platform', label:'Dispute\nResolution',    x:710, y:308,w:104,h:38},
+  P8: {zone:'platform', label:'Financial\nReporting',   x:826, y:308,w:100,h:38},
+  P9: {zone:'platform', label:'Analytics\nDashboard',   x:826, y:354,w:100,h:38},
+  // MONEY row y=424
+  M1: {zone:'money', label:'Payment\nCapture',         x:226, y:424,w:100,h:38},
+  M2: {zone:'money', label:'Payment\nGateway',         x:338, y:424,w:100,h:38},
+  M3: {zone:'money', label:'Auth\nHold',               x:450, y:424,w:86, h:38},
+  M4: {zone:'money', label:'Settlement\nCalc.',        x:548, y:424,w:100,h:38},
+  M5: {zone:'money', label:'Commission\nDeduction',    x:660, y:424,w:106,h:38},
+  M6: {zone:'money', label:'Store\nPayout',            x:778, y:424,w:90, h:38},
+  M7: {zone:'money', label:'Refund\nProcessing',       x:450, y:472,w:100,h:38},
+  M8: {zone:'money', label:'Dispute →\nChargeback',    x:660, y:472,w:100,h:38},
+  // SHARED column x=950
+  SH1:{zone:'shared', label:'Identity &\nAuth ×3',        x:942,y:38, w:116,h:38},
+  SH2:{zone:'shared', label:'Product\nCatalogue',         x:942,y:128,w:116,h:38},
+  SH3:{zone:'shared', label:'Search\nIndex',              x:942,y:218,w:116,h:38},
+  SH4:{zone:'shared', label:'Pricing\nEngine',            x:942,y:308,w:116,h:38},
+  SH5:{zone:'shared', label:'Proof of\nDelivery',         x:942,y:398,w:116,h:38},
+  SH6:{zone:'shared', label:'Order Record\n(System of Record)',x:942,y:454,w:116,h:38},
+};
+
+const CONNECTIONS = [
+  ['S1','S2'],['S2','S3'],['S3','S4'],['S4','S5'],['S5','S6'],['S6','S7'],['S7','S8'],
+  ['S1','C1'],['S2','C3'],['S3','C2'],['S4','C4'],['S8','C6'],['S8','C7'],
+  ['S4','ST5'],['S5','ST6'],['S5','ST7'],['ST6','ST7'],
+  ['S3','P3'],['S4','P4'],['S6','P6'],['S8','P8'],['S8','P9'],
+  ['S3','M1'],['M1','M2'],['M2','M3'],['S8','M4'],['M4','M5'],['M5','M6'],
+  ['SH2','SH3'],['S7','SH5'],['S4','SH6'],
+  ['C5','P7'],['P7','M7'],['M6','ST8'],
+  ['ST1','P1'],['ST1','P5'],
+];
+
+const FLOW_STYLE = {
+  in:    {bg:'rgba(232,163,61,.09)',  color:'#E8A33D', border:'rgba(232,163,61,.22)'},
+  out:   {bg:'rgba(143,181,115,.09)',  color:'#8FB573', border:'rgba(143,181,115,.22)'},
+  bi:    {bg:'rgba(255,61,110,.09)', color:'#FF7A99', border:'rgba(255,61,110,.22)'},
+  money: {bg:'rgba(242,208,107,.09)', color:'#F2D06B', border:'rgba(242,208,107,.22)'},
+};
+
+const ANNOTATIONS = {
+  S1:{what:'Browse / Discovery',because:'The lifecycle starts before an item is chosen. <strong>Because the platform\'s revenue depends on what gets seen first</strong> — ranking, promoted listings, and search results are all business decisions encoded here.',flows:[{l:'IN: Search query, location, filters',t:'in'},{l:'OUT: Ranked store + item list',t:'out'}]},
+  S2:{what:'Cart',because:'The cart is the first moment an order exists as a data object. <strong>Because stock availability and pricing must be checked at this point</strong> — not earlier, not later. The cart is the contract before payment begins.',flows:[{l:'IN: Item selection, quantity',t:'in'},{l:'OUT: Line items, total, delivery estimate',t:'out'},{l:'READ: Stock / Pricing Engine',t:'bi'}]},
+  S3:{what:'Checkout / Payment UI',because:'Checkout is where the Customer portal hands off to the Payment Gateway. <strong>Because the store should never receive an order that has not been financially validated</strong> — this is the last moment a customer can cancel without cost.',flows:[{l:'IN: Delivery address, payment method',t:'in'},{l:'OUT: Payment authorisation request',t:'out'},{l:'TRIGGERS: Payment Capture (M1)',t:'money'}]},
+  S4:{what:'Order Confirmation',because:'<strong>THE FAN-OUT POINT.</strong> Before confirmation: one actor. After: three simultaneous outputs. <strong>Because the store must receive the order, the customer must receive a receipt, and the platform must log the order — all at the same moment.</strong>',flows:[{l:'OUT → Customer: Confirmation + ETA',t:'out'},{l:'OUT → Store: New order alert',t:'out'},{l:'OUT → Platform: Order record created',t:'out'}]},
+  S5:{what:'Preparation',because:'Preparation is the only lifecycle step owned entirely by the Store. <strong>Because the platform cannot control what happens inside a kitchen</strong> — it can only observe state changes the store reports. Store rejection here triggers refund.',flows:[{l:'IN: Order details from confirmation',t:'in'},{l:'OUT: Status updates (Accepted / Ready)',t:'out'},{l:'EXCEPTION: Rejection → triggers refund',t:'bi'}]},
+  S6:{what:'Dispatch / Driver Assignment',because:'Dispatch is where the platform\'s driver logic activates. <strong>Because the store cannot find or pay a driver — that is a platform service.</strong> Store marks Ready, platform assigns nearest driver. Delivery fee locks in here.',flows:[{l:'IN: Ready signal from store',t:'in'},{l:'OUT: Driver assigned, pickup ETA',t:'out'},{l:'LOCKS: Delivery fee amount',t:'money'}]},
+  S7:{what:'Delivery',because:'Delivery is the only step the platform can observe but not control. <strong>Because once the driver has the order, the platform can only track GPS and set time-out thresholds.</strong> Driver cancellation here triggers the most complex recovery path.',flows:[{l:'IN: Driver pickup confirmed',t:'in'},{l:'OUT: Live GPS → Customer tracking',t:'out'},{l:'EXCEPTION: Driver cancel → reassign or refund',t:'bi'}]},
+  S8:{what:'Completion',because:'Completion is the trigger for settlement. <strong>Because money does not move until delivery is confirmed</strong> — the auth hold only converts to a charge once delivery is marked complete. Also opens the review window.',flows:[{l:'TRIGGERS: Settlement calculation (M4)',t:'money'},{l:'OUT: Review prompt → Customer',t:'out'},{l:'OUT: Completion record → Platform',t:'out'}]},
+  C1:{what:'Search & Filters',because:'Search is intent-driven — distinct from browse. <strong>Because a customer searching "pizza near me" is further along the decision funnel</strong> — results are ranked differently and search data feeds analytics separately from browse signals.',flows:[{l:'IN: Query, location, filters',t:'in'},{l:'OUT: Ranked results from Search Index',t:'out'}]},
+  C2:{what:'Address Management',because:'Address is stored at account level, not order level. <strong>Because a returning customer should not re-enter their address every order</strong> — and delivery radius eligibility is checked against the saved address before a store is selected.',flows:[{l:'READ/WRITE: Customer account',t:'bi'},{l:'OUT: Delivery radius check',t:'out'}]},
+  C3:{what:'Promotions / Vouchers',because:'Promotions apply at checkout and are set by the platform, not the store. <strong>Because the store should not absorb promotion costs without consent.</strong> The distinction between platform-funded and store-funded discounts matters for settlement.',flows:[{l:'IN: Voucher code or auto-applied',t:'in'},{l:'OUT: Discount applied to cart total',t:'out'},{l:'AFFECTS: Settlement split',t:'money'}]},
+  C4:{what:'Live Order Tracking',because:'Tracking is a read-only view of state changes owned by other actors. <strong>Because the customer cannot interact with the order once it\'s in preparation — they can only observe it.</strong> Most anxiety-sensitive moment in the customer experience.',flows:[{l:'IN: Store status events, Driver GPS',t:'in'},{l:'OUT: Displayed ETA, map position',t:'out'}]},
+  C5:{what:'Dispute / Refund Request',because:'Disputes are initiated by the customer but resolved by the platform. <strong>Because the store cannot issue a refund directly</strong> — all refund authority sits with the platform. Customer reports; platform investigates using Proof of Delivery.',flows:[{l:'IN: Issue report + order ID',t:'in'},{l:'OUT: Dispute ticket → Platform (P7)',t:'out'},{l:'TRIGGERS: Refund flow if approved',t:'money'}]},
+  C6:{what:'Reviews & Ratings',because:'Reviews are post-completion but drive pre-order decisions. <strong>Because a 3.8-star store will receive fewer orders than a 4.6-star store</strong> — reviews connect a completed order back to Browse for every future customer.',flows:[{l:'IN: Completion confirmation',t:'in'},{l:'OUT: Store rating, item rating',t:'out'},{l:'FEEDS: Search ranking algorithm',t:'bi'}]},
+  C7:{what:'Order History',because:'Order history serves reorder and dispute functions. <strong>Because a customer who reorders the same meal every Friday is the platform\'s most valuable user</strong> — reorder shortcuts reduce friction. History is also the audit trail for disputes.',flows:[{l:'IN: Completed order records',t:'in'},{l:'OUT: Reorder flow, dispute initiation',t:'out'}]},
+  ST1:{what:'Store Onboarding',because:'Onboarding is a prerequisite — must complete before the store appears in Browse. <strong>Because the platform must verify legal entity, bank details, and food safety documentation.</strong> Commission rates and payout schedules are agreed here.',flows:[{l:'IN: Store details, documents, bank info',t:'in'},{l:'OUT: Store activated in Store Directory',t:'out'},{l:'SETS: Commission rate + payout schedule',t:'money'}]},
+  ST2:{what:'Menu / Item Management',because:'Menu management exists between orders, not during them. <strong>Because a price change must propagate to the Customer portal immediately</strong> — the menu is the shared product catalogue. Any update here updates what customers see in Browse and Search in real time.',flows:[{l:'OUT: Updated catalogue → Shared Product Catalogue',t:'out'},{l:'VISIBLE: Customer portal Browse / Search',t:'bi'}]},
+  ST3:{what:'Stock & Availability',because:'Stock is item-level availability within the current trading session. <strong>Because a sold-out item must be marked unavailable before another order is placed for it</strong> — unlike Menu, Stock is a real-time toggle. Mark it and the platform removes it immediately.',flows:[{l:'OUT: Availability flag → Catalogue',t:'out'},{l:'BLOCKS: Item from appearing in Browse',t:'bi'}]},
+  ST4:{what:'Opening Hours / Online Status',because:'Store status is the on/off switch for the entire store on the platform. <strong>Because a store that goes offline must stop new orders without abandoning those already in the queue.</strong> In-progress orders continue; new orders are blocked.',flows:[{l:'ONLINE → Store visible in Browse',t:'out'},{l:'OFFLINE → Store hidden, no new orders',t:'out'},{l:'IN-PROGRESS orders: unaffected',t:'bi'}]},
+  ST5:{what:'Order Queue',because:'The order queue is the store\'s real-time feed of incoming orders. <strong>Because the store must respond within a defined window or the platform auto-cancels it</strong> — typically 3–5 minutes. The queue shows what needs action now.',flows:[{l:'IN: New order from confirmation',t:'in'},{l:'OUT: Accept / Reject decision',t:'out'},{l:'TIMEOUT: Auto-cancel if no response',t:'bi'}]},
+  ST6:{what:'Accept / Reject',because:'Accept/Reject is the store\'s only binary gate on the order lifecycle. <strong>Because a store that consistently rejects is penalised in ranking</strong> — rejection data feeds the store\'s performance score. Rejection triggers an immediate refund.',flows:[{l:'ACCEPT → Prep timer starts',t:'out'},{l:'REJECT → Refund triggered',t:'out'},{l:'DATA → Store performance score',t:'bi'}]},
+  ST7:{what:'Prep Timer / Ready Signal',because:'The prep timer is the store\'s promise to the platform. <strong>Because driver assignment timing depends on it</strong> — the platform waits for the Ready signal before dispatching. Inaccurate ready times cause drivers to wait, degrading delivery time.',flows:[{l:'IN: Accept confirmation',t:'in'},{l:'OUT: Ready signal → triggers driver dispatch',t:'out'}]},
+  ST8:{what:'Payout Dashboard',because:'The payout dashboard is the store\'s view of the money section. <strong>Because the store cannot see the platform\'s commission calculation directly</strong> — they see net earnings per order and weekly payout totals only.',flows:[{l:'IN: Settlement records from Platform',t:'in'},{l:'OUT: Displayed as earnings summary',t:'out'},{l:'READ: Net payout after commission',t:'money'}]},
+  P1:{what:'Store Directory',because:'The Store Directory is the master record of all active and inactive stores. <strong>Because Browse and Search pull from it</strong> — a store that fails compliance review is removed immediately and disappears from all customer-facing listings.',flows:[{l:'IN: Onboarded stores',t:'in'},{l:'OUT: Store list → Browse / Search',t:'out'}]},
+  P2:{what:'Customer Account Management',because:'Customer accounts are owned by the platform, not the store. <strong>Because a customer\'s loyalty, address book, and order history belong to the platform across all stores they order from</strong> — no individual store can see another store\'s orders for the same customer.',flows:[{l:'IN: Registration, order history',t:'in'},{l:'OUT: Auth tokens, loyalty state, deletion',t:'out'}]},
+  P3:{what:'Fraud Detection',because:'Fraud detection runs at checkout before payment authorisation completes. <strong>Because a fraudulent order consumes store prep time and driver capacity before the chargeback is discovered</strong> — catching it at checkout is far cheaper than after delivery.',flows:[{l:'IN: Payment + order data at checkout',t:'in'},{l:'PASS → Order proceeds',t:'out'},{l:'FAIL → Order blocked, card flagged',t:'bi'}]},
+  P4:{what:'Notification Engine',because:'The Notification Engine is shared infrastructure owned by the platform. <strong>Because all three portals trigger notifications but none of them should own the delivery mechanism</strong> — push, SMS, and email all route through one engine. Single audit log, no duplicates.',flows:[{l:'IN: Events from all portals',t:'in'},{l:'OUT: Push / SMS / Email per recipient',t:'out'}]},
+  P5:{what:'Commission / Fee Config',because:'Commission rates are per-store agreements, not platform-wide constants. <strong>Because larger chains negotiate lower rates than independent stores.</strong> Every settlement reads from this config. Changing a rate mid-cycle affects all orders placed after the change date.',flows:[{l:'IN: Agreed rate at onboarding',t:'in'},{l:'OUT: Rate applied at settlement',t:'out'}]},
+  P6:{what:'Driver Assignment Engine',because:'Driver assignment is the platform\'s core logistics operation. <strong>Because no other actor can find, dispatch, or track a driver.</strong> The engine runs continuously, matching drivers by proximity, load, and estimated prep time. Most latency-sensitive system on the platform.',flows:[{l:'IN: Ready signal from store',t:'in'},{l:'OUT: Driver assigned + ETA to customer',t:'out'},{l:'FEEDS: Delivery tracking',t:'bi'}]},
+  P7:{what:'Dispute Resolution',because:'Dispute resolution is the platform\'s arbitration role between customer and store. <strong>Because the customer and store have opposing financial interests in a dispute.</strong> The platform holds the evidence — Proof of Delivery, GPS, order photos — and makes the final call.',flows:[{l:'IN: Dispute ticket + evidence',t:'in'},{l:'RESOLVE → Refund OR reject',t:'out'},{l:'IF REFUND → triggers money reversal',t:'money'}]},
+  P8:{what:'Financial Reporting',because:'Financial reporting is the platform\'s view of money across all stores and all time. <strong>Because the platform needs to reconcile collected vs paid out vs refunded across every order in a period</strong> — system of record for tax, audit, and investor reporting.',flows:[{l:'IN: Settlement records',t:'in'},{l:'OUT: Reconciled P&L, tax figures',t:'out'}]},
+  P9:{what:'Analytics Dashboard',because:'Analytics is the platform\'s operational intelligence layer. <strong>Because raw order data does not tell you which stores are underperforming or which items cause the most refunds.</strong> Analytics aggregates patterns that feed ranking and commission decisions.',flows:[{l:'IN: Order events, store performance',t:'in'},{l:'OUT: Dashboards, alerts, ranking signals',t:'out'}]},
+  M1:{what:'Payment Capture',because:'Payment capture happens at checkout, not at delivery. <strong>Because the platform needs financial commitment before the store is told to prepare anything</strong> — a card that declines at delivery has already cost prep time and a driver trip.',flows:[{l:'IN: Card details via Payment Gateway',t:'in'},{l:'OUT: Authorisation confirmation',t:'out'},{l:'FAILURE → Order blocked at checkout',t:'bi'}]},
+  M2:{what:'Payment Gateway',because:'The Payment Gateway sits outside all three portals as shared infrastructure. <strong>Because no portal owns the financial rails</strong> — it\'s a third-party service handling card network communication, 3DS authentication, and PCI compliance.',flows:[{l:'IN: Authorise / Capture / Refund instructions',t:'in'},{l:'OUT: Success / Failure / Decline codes',t:'out'},{l:'EXTERNAL: Third-party service',t:'bi'}]},
+  M3:{what:'Authorisation Hold',because:'The hold is the gap between customer payment intent and platform confidence. <strong>Because the platform does not want to fully charge a customer for an order the store might reject.</strong> Hold expires after 24–48 hrs — if lapsed the platform must re-request payment.',flows:[{l:'IN: Authorisation confirmation',t:'in'},{l:'CAPTURE → after store accepts',t:'out'},{l:'RELEASE → if store rejects or cancelled',t:'out'}]},
+  M4:{what:'Settlement Calculation',because:'Settlement runs after order completion, not before. <strong>Because the final order total may differ from the checkout total</strong> — adjustments for missing items and promotions must be reconciled first. Produces three figures: Platform share, Store share, Driver share.',flows:[{l:'IN: Final order total + adjustments',t:'in'},{l:'OUT: Platform + Store + Driver amounts',t:'out'}]},
+  M5:{what:'Commission Deduction',because:'Commission is deducted from the store\'s portion at settlement, not at capture. <strong>Because the commission rate is a percentage of the final confirmed order value.</strong> Most common source of store payout disputes — especially on promotional orders.',flows:[{l:'IN: Final order value + commission rate',t:'in'},{l:'OUT: Commission amount → Platform revenue',t:'out'},{l:'REMAINDER → Store payout',t:'out'}]},
+  M6:{what:'Store Payout',because:'Payouts are batched, not instant. <strong>Because individual order-by-order transfers are operationally expensive</strong> — most platforms aggregate over a 7-day cycle. The Payout Dashboard shows the accumulating balance before each transfer date.',flows:[{l:'IN: Accumulated net earnings (post-commission)',t:'in'},{l:'OUT: Bank transfer on 7-day cycle',t:'out'}]},
+  M7:{what:'Refund Processing',because:'Refunds run the money flow in reverse, but not always fully. <strong>Because a partial refund for one missing item requires calculating which portion to return.</strong> Delivery fees may be withheld — a policy decision stored in Platform config.',flows:[{l:'IN: Approved dispute or cancellation',t:'in'},{l:'OUT: Credit to customer payment method',t:'out'},{l:'PARTIAL: Item value only (delivery fee withheld)',t:'money'}]},
+  M8:{what:'Dispute → Chargeback Risk',because:'Chargebacks are the worst-case money event. <strong>Because a customer who disputes with their bank — not the platform — triggers a chargeback costing the order value PLUS a penalty fee,</strong> regardless of whether the order was delivered. High chargeback rates can terminate the merchant account.',flows:[{l:'IN: Bank chargeback notification',t:'in'},{l:'OUT: Platform absorbs cost + penalty',t:'out'},{l:'PREVENTION: Fast dispute resolution reduces this',t:'bi'}]},
+  SH1:{what:'Identity & Auth × 3',because:'Each portal has its own authentication surface but shares the same identity infrastructure. <strong>Because a store manager\'s credentials must never grant access to the Platform admin portal</strong> — role-based access is enforced at the Auth layer. Three login URLs, one Auth service.',flows:[{l:'OUT: Session token per portal role',t:'out'},{l:'ENFORCES: Role-based access control',t:'bi'}]},
+  SH2:{what:'Product Catalogue / Menu',because:'The catalogue is the shared record of every item on the platform. <strong>Because the Customer portal reads it, the Store portal writes to it, and the Platform portal governs it</strong> — it cannot live in any one portal. Connective tissue between Browse, Menu Management, and Search Index.',flows:[{l:'WRITE: Store portal (menu updates)',t:'in'},{l:'READ: Customer portal (browse/search)',t:'out'},{l:'FEEDS: Search Index',t:'bi'}]},
+  SH3:{what:'Search Index',because:'The Search Index is a pre-computed ranked representation of the Product Catalogue. <strong>Because querying the live Catalogue for every search at scale is too slow</strong> — Index is updated asynchronously. Edge case: async lag means a store going offline is not instantly invisible — cart validation is the safety net.',flows:[{l:'IN: Catalogue updates, rating changes',t:'in'},{l:'OUT: Ranked results per query',t:'out'}]},
+  SH4:{what:'Pricing Engine',because:'The Pricing Engine calculates the price a customer pays, which may differ from the store\'s listed price. <strong>Because delivery fees are dynamic</strong> — varying by distance, demand, time of day, and weather. Surge pricing and small order fees are applied here.',flows:[{l:'IN: Item prices, delivery distance, demand signal',t:'in'},{l:'OUT: Final customer-facing price',t:'out'}]},
+  SH5:{what:'Proof of Delivery',because:'Proof of Delivery is the platform\'s evidence record for disputes. <strong>Because "I never received my order" is the most common dispute — and hardest to resolve without evidence.</strong> Captures driver arrival GPS, delivery timestamp, and optionally a photo. Read by Dispute Resolution.',flows:[{l:'IN: Driver delivery confirmation',t:'in'},{l:'OUT: Timestamped record + GPS',t:'out'},{l:'READ BY: Dispute Resolution (P7)',t:'bi'}]},
+  SH6:{what:'Order Record (System of Record)',because:'The Order Record is the single source of truth all three portals read from. <strong>Because the customer, store, and platform all need the same order data but see different fields of it</strong> — written once at confirmation, updated by state changes from any actor.',flows:[{l:'WRITTEN: At order confirmation',t:'in'},{l:'UPDATED: By each actor\'s state changes',t:'in'},{l:'READ: By all three portals (filtered per role)',t:'out'}]},
+};
+
+const SCENARIOS = [
+  {id:'happy',    name:'Happy Path',         desc:'Customer orders, store accepts, delivery completes',         nodes:['S1','S2','S3','S4','S5','S6','S7','S8','C2','C4','ST5','ST6','ST7','P6','P4','M1','M2','M3','M4','M5','M6','SH1','SH2','SH3','SH4','SH5','SH6']},
+  {id:'failed-pay',name:'Failed Payment',    desc:'Card declines at checkout — order never reaches store',       nodes:['S1','S2','S3','M1','M2','P3','SH1','SH4']},
+  {id:'rejection',name:'Store Rejects',      desc:'Order confirmed, store rejects, refund triggered',           nodes:['S1','S2','S3','S4','S5','ST5','ST6','P4','P7','M1','M2','M3','M7','SH6','C4']},
+  {id:'dispute',  name:'Refund Dispute',     desc:'Customer reports missing item after delivery',                nodes:['S8','C5','C7','P7','P4','M7','SH5','SH6']},
+  {id:'offline',  name:'Store Goes Offline', desc:'Store toggles offline mid-service',                          nodes:['ST4','ST5','P1','P4','SH2','SH3','C1']},
+  {id:'oos',      name:'Item Out of Stock',  desc:'Store marks item unavailable mid-service',                   nodes:['ST3','SH2','SH3','C1','S1']},
+  {id:'driver',   name:'Driver Cancels',     desc:'Driver cancels after picking up the order',                  nodes:['S6','S7','P6','P4','C4','M3','M7','SH5']},
+  {id:'onboard',  name:'Store Onboarding',   desc:'New store joins the platform',                               nodes:['ST1','P1','P5','SH1','SH2','SH3']},
+];
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let activeScenarioId = null;
+let selectedNodeId   = null;
+let activeNodeSet    = null;
+let aiAbortCtrl      = null;
+
+// ═══════════════════════════════════════════
+// SVG MAP BUILD
+// ═══════════════════════════════════════════
+function buildSVG() {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox','0 0 1080 530');
+  svg.setAttribute('xmlns', ns);
+  svg.style.display = 'block';
+
+  // zone band backgrounds
+  const bands = [
+    {x:0,y:24,w:930,h:56,  zone:'spine'},
+    {x:0,y:114,w:930,h:56, zone:'customer'},
+    {x:0,y:204,w:930,h:56, zone:'store'},
+    {x:0,y:294,w:930,h:104,zone:'platform'},
+    {x:0,y:408,w:930,h:112,zone:'money'},
+    {x:934,y:24,w:140,h:478,zone:'shared'},
+  ];
+  bands.forEach(b => {
+    const z = ZONES[b.zone];
+    const r = document.createElementNS(ns,'rect');
+    r.setAttribute('x',b.x); r.setAttribute('y',b.y);
+    r.setAttribute('width',b.w); r.setAttribute('height',b.h);
+    r.setAttribute('rx','4');
+    r.setAttribute('fill', hexToRgba(z.color, 0.025));
+    r.setAttribute('stroke', hexToRgba(z.color, 0.07));
+    r.setAttribute('stroke-width','1');
+    svg.appendChild(r);
+  });
+
+  // zone labels
+  const zoneLabels = [
+    {text:'ORDER LIFECYCLE SPINE', x:12, y:18, zone:'spine'},
+    {text:'CUSTOMER PORTAL',       x:12, y:108,zone:'customer'},
+    {text:'STORE PORTAL',          x:12, y:198,zone:'store'},
+    {text:'PLATFORM PORTAL',       x:12, y:288,zone:'platform'},
+    {text:'MONEY FLOW',            x:12, y:402,zone:'money'},
+    {text:'SHARED INFRASTRUCTURE', x:936,y:18, zone:'shared'},
+  ];
+  zoneLabels.forEach(zl => {
+    const t = document.createElementNS(ns,'text');
+    t.setAttribute('x',zl.x); t.setAttribute('y',zl.y);
+    t.setAttribute('fill', ZONES[zl.zone].color);
+    t.setAttribute('font-size','8');
+    t.setAttribute('font-family','monospace');
+    t.setAttribute('font-weight','600');
+    t.setAttribute('letter-spacing','0.07em');
+    t.setAttribute('opacity','0.65');
+    t.textContent = zl.text;
+    svg.appendChild(t);
+  });
+
+  // connectors (drawn first, under nodes)
+  const connGroup = document.createElementNS(ns,'g');
+  connGroup.setAttribute('id','conn-group');
+  CONNECTIONS.forEach(([aId, bId]) => {
+    const a = NODES[aId], b = NODES[bId];
+    if (!a || !b) return;
+    const x1 = a.x + a.w/2, y1 = a.y + a.h/2;
+    const x2 = b.x + b.w/2, y2 = b.y + b.h/2;
+    const line = document.createElementNS(ns,'line');
+    line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('data-conn', aId+'-'+bId);
+    line.setAttribute('stroke', ZONES[NODES[aId].zone].color);
+    line.setAttribute('stroke-width','1.5');
+    line.setAttribute('stroke-opacity','0.35');
+    if (aId.startsWith('M') || bId.startsWith('M')) line.setAttribute('stroke-dasharray','4 3');
+    connGroup.appendChild(line);
+  });
+  svg.appendChild(connGroup);
+
+  // nodes
+  Object.entries(NODES).forEach(([id, node]) => {
+    const z = ZONES[node.zone];
+    const g = document.createElementNS(ns,'g');
+    g.setAttribute('class','map-node');
+    g.setAttribute('data-id', id);
+    g.setAttribute('cursor','pointer');
+    g.setAttribute('id','node-'+id);
+
+    const rect = document.createElementNS(ns,'rect');
+    rect.setAttribute('x',node.x); rect.setAttribute('y',node.y);
+    rect.setAttribute('width',node.w); rect.setAttribute('height',node.h);
+    rect.setAttribute('rx','4');
+    rect.setAttribute('fill', z.fill);
+    rect.setAttribute('stroke', z.color);
+    rect.setAttribute('stroke-width','0.8');
+    rect.setAttribute('stroke-opacity','0.5');
+    g.appendChild(rect);
+
+    // node ID badge
+    const badge = document.createElementNS(ns,'text');
+    badge.setAttribute('x', node.x+4); badge.setAttribute('y', node.y+8);
+    badge.setAttribute('fill', z.color); badge.setAttribute('font-size','6');
+    badge.setAttribute('font-family','monospace'); badge.setAttribute('opacity','0.55');
+    badge.textContent = id;
+    g.appendChild(badge);
+
+    // label lines
+    const lines = node.label.split('\n');
+    const lineH = 12, totalH = lines.length * lineH;
+    const startY = node.y + node.h/2 - totalH/2 + 8;
+    lines.forEach((line, li) => {
+      const t = document.createElementNS(ns,'text');
+      t.setAttribute('x', node.x + node.w/2);
+      t.setAttribute('y', startY + li*lineH);
+      t.setAttribute('text-anchor','middle');
+      t.setAttribute('fill','#D9CDB9');
+      t.setAttribute('font-size','9');
+      t.setAttribute('font-family','system-ui,sans-serif');
+      t.setAttribute('font-weight','500');
+      g.appendChild(t);
+      t.textContent = line;
+    });
+
+    g.addEventListener('click', () => handleNodeClick(id));
+    svg.appendChild(g);
+  });
+
+  return svg;
+}
+
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ═══════════════════════════════════════════
+// RENDER LEGEND
+// ═══════════════════════════════════════════
+function buildLegend() {
+  const el = document.getElementById('legend');
+  Object.entries(ZONES).forEach(([,z]) => {
+    el.innerHTML += `<span class="legend-item"><span class="legend-dot" style="background:${z.color}"></span>${z.label}</span>`;
+  });
+}
+
+// ═══════════════════════════════════════════
+// RENDER SCENARIOS
+// ═══════════════════════════════════════════
+function buildScenarioList() {
+  const el = document.getElementById('sc-list');
+  SCENARIOS.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sc-btn';
+    btn.dataset.id = s.id;
+    btn.innerHTML = `<span class="sc-num">0${i+1}</span><span class="sc-name">${s.name}</span><span class="sc-desc">${s.desc}</span>`;
+    btn.addEventListener('click', () => handleScenarioClick(s.id));
+    el.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════
+// MAP HIGHLIGHT
+// ═══════════════════════════════════════════
+function updateMapHighlight() {
+  Object.keys(NODES).forEach(id => {
+    const g = document.getElementById('node-'+id);
+    if (!g) return;
+    const rect = g.querySelector('rect');
+    const texts = g.querySelectorAll('text');
+    const z = ZONES[NODES[id].zone];
+    const isActive = !activeNodeSet || activeNodeSet.has(id);
+    const isSelected = id === selectedNodeId;
+
+    g.style.opacity = (activeNodeSet && !isActive) ? '0.06' : '1';
+    g.style.cursor  = (activeNodeSet && !isActive) ? 'default' : 'pointer';
+
+    if (isSelected) {
+      rect.setAttribute('stroke', z.color);
+      rect.setAttribute('stroke-width','2.5');
+      rect.setAttribute('stroke-opacity','1');
+      rect.setAttribute('fill', z.fill);
+    } else if (isActive && activeNodeSet) {
+      rect.setAttribute('stroke', z.color);
+      rect.setAttribute('stroke-width','1.5');
+      rect.setAttribute('stroke-opacity','0.7');
+      rect.setAttribute('fill', z.fill);
+    } else {
+      rect.setAttribute('stroke', z.color);
+      rect.setAttribute('stroke-width','0.8');
+      rect.setAttribute('stroke-opacity','0.5');
+      rect.setAttribute('fill', z.fill);
+    }
+
+    // dim text for inactive
+    texts.forEach(t => {
+      t.setAttribute('fill', isActive ? '#D9CDB9' : '#5A4633');
+    });
+  });
+
+  // connector dimming
+  document.querySelectorAll('[data-conn]').forEach(line => {
+    const [aId, bId] = line.getAttribute('data-conn').split('-');
+    const isActive = !activeNodeSet || (activeNodeSet.has(aId) && activeNodeSet.has(bId));
+    line.setAttribute('stroke-opacity', isActive ? '0.45' : '0.06');
+    line.setAttribute('stroke-width',   isActive ? '1.5'   : '0.5');
+  });
+}
+
+// ═══════════════════════════════════════════
+// HANDLERS
+// ═══════════════════════════════════════════
+function handleScenarioClick(id) {
+  if (activeScenarioId === id) {
+    // deactivate
+    activeScenarioId = null;
+    activeNodeSet    = null;
+    selectedNodeId   = null;
+    document.getElementById('tb-pill').textContent = 'SELECT SCENARIO';
+    document.getElementById('status-text').textContent = 'Select a scenario to highlight the active path';
+  } else {
+    activeScenarioId = id;
+    const sc = SCENARIOS.find(s => s.id === id);
+    activeNodeSet = new Set(sc.nodes);
+    selectedNodeId = null;
+    document.getElementById('tb-pill').textContent = sc.name.toUpperCase();
+    document.getElementById('status-text').textContent = `${sc.nodes.length} nodes active — click any highlighted node`;
+  }
+
+  // update scenario button styles
+  document.querySelectorAll('.sc-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.id === activeScenarioId);
+  });
+
+  updateMapHighlight();
+  showEmpty();
+}
+
+function handleNodeClick(id) {
+  if (activeNodeSet && !activeNodeSet.has(id)) return;
+  selectedNodeId = id;
+  updateMapHighlight();
+  showAnnotation(id);
+  fetchAIPrompt(id);
+}
+
+// ═══════════════════════════════════════════
+// ANNOTATION PANEL
+// ═══════════════════════════════════════════
+function showEmpty() {
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('ann-content').style.display = 'none';
+}
+
+function showAnnotation(id) {
+  const ann = ANNOTATIONS[id];
+  const node = NODES[id];
+  if (!ann || !node) return;
+  const z = ZONES[node.zone];
+
+  document.getElementById('empty-state').style.display = 'none';
+  const el = document.getElementById('ann-content');
+  el.style.display = 'flex';
+
+  document.getElementById('ann-id').textContent = `${id}  ·  ${z.label}`;
+  document.getElementById('ann-id').style.color = z.color;
+  document.getElementById('ann-name').textContent = ann.what;
+  document.getElementById('ann-because').innerHTML = ann.because;
+
+  const flowsEl = document.getElementById('ann-flows');
+  flowsEl.innerHTML = '';
+  ann.flows.forEach(f => {
+    const st = FLOW_STYLE[f.t] || FLOW_STYLE.bi;
+    const tag = document.createElement('span');
+    tag.className = 'flow-tag';
+    tag.style.background = st.bg;
+    tag.style.color = st.color;
+    tag.style.border = `1px solid ${st.border}`;
+    tag.textContent = f.l;
+    flowsEl.appendChild(tag);
+  });
+
+  // reset ai panel
+  document.getElementById('ai-output').innerHTML = `<div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>`;
+}
+
+async function fetchAIPrompt(id) {
+  if (aiAbortCtrl) aiAbortCtrl.abort();
+  aiAbortCtrl = new AbortController();
+
+  const ann = ANNOTATIONS[id];
+  const node = NODES[id];
+  const scenName = activeScenarioId ? SCENARIOS.find(s=>s.id===activeScenarioId)?.name : 'general review';
+  if (!ann) return;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      signal: aiAbortCtrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        messages:[{role:'user',content:`You are coaching a Senior Product Designer preparing for a 15-minute live interview walkthrough of a food-ordering platform system map.
+
+Scenario being traced: "${scenName}"
+Node clicked: ${node.label.replace(/\n/g,' ')} (${id}, ${ZONES[node.zone].label} zone)
+
+Annotation:
+WHAT: ${ann.what}
+BECAUSE: ${ann.because.replace(/<[^>]+>/g,'')}
+FLOWS: ${ann.flows.map(f=>f.l).join(' | ')}
+
+Write ONE sentence the designer should say aloud when they arrive at this node. Rules:
+- Start with the node's function (not "This node" or "Here we have")
+- Include the key "because" insight for this specific node
+- Under 30 words
+- Sound like a confident designer explaining their own decision
+
+Reply with ONLY the sentence. No preamble, no label, no quotes.`}]
+      })
+    });
+    if (!res.ok) throw new Error('API '+res.status);
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+    document.getElementById('ai-output').innerHTML = `<span class="ai-text">${escHtml(text)}</span>`;
+  } catch(e) {
+    if (e.name !== 'AbortError') {
+      document.getElementById('ai-output').innerHTML = `<span class="ai-text" style="color:var(--t3);font-style:normal">Click a highlighted node to generate a walkthrough prompt.</span>`;
+    }
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  const svg = buildSVG();
+  document.getElementById('map-wrap').appendChild(svg);
+  buildLegend();
+  buildScenarioList();
+  showEmpty();
+  updateMapHighlight();
+});
+</script>
+</body>
+</html>

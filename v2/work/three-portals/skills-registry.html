@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Skills Registry & System Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:        #15110E;
+    --surf1:     #1C1612;
+    --surf2:     #231B16;
+    --surf3:     #2E231B;
+    --border:    #3A2C21;
+    --border2:   #4A3827;
+    --cyan:      #E8A33D;
+    --violet:    #FF3D6E;
+    --green:     #8FB573;
+    --amber:     #F2D06B;
+    --red:       #E4572E;
+    --txt1:      #EDE4D3;
+    --txt2:      #A8998A;
+    --txt3:      #6B5440;
+    --glow-c:    rgba(232,163,61,.10);
+    --glow-v:    rgba(255,61,110,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--bg);
+    color:var(--txt1);
+    font-family:'Archivo',sans-serif;
+    font-size:13px;
+    line-height:1.65;
+    min-height:100vh;
+  }
+
+  /* ─── GRID BG ─── */
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(232,163,61,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(232,163,61,.025) 1px,transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;z-index:0;
+  }
+
+  /* ─── HEADER ─── */
+  .hdr{
+    position:relative;z-index:10;
+    padding:36px 48px 28px;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(232,163,61,.06) 0%,transparent 100%);
+    display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;
+  }
+  .hdr-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .pill{
+    font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;
+    padding:3px 10px;border-radius:3px;text-transform:uppercase;letter-spacing:.1em;
+  }
+  .pill-c{background:rgba(232,163,61,.1);color:var(--cyan);border:1px solid rgba(232,163,61,.25)}
+  .pill-v{background:rgba(255,61,110,.1);color:#FF7A99;border:1px solid rgba(255,61,110,.25)}
+  .pill-g{background:rgba(143,181,115,.1);color:var(--green);border:1px solid rgba(143,181,115,.25)}
+  .pill-a{background:rgba(242,208,107,.1);color:var(--amber);border:1px solid rgba(242,208,107,.25)}
+  .pill-r{background:rgba(228,87,46,.1);color:var(--red);border:1px solid rgba(228,87,46,.25)}
+
+  h1{
+    font-family:'Big Shoulders Display',sans-serif;font-size:32px;font-weight:800;
+    letter-spacing:-.025em;line-height:1.15;
+    background:linear-gradient(135deg,#EDE4D3 0%,var(--cyan) 55%,var(--violet) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .hdr-sub{color:var(--txt2);font-size:13px;margin-top:6px;font-weight:300}
+
+  .hdr-stats{display:flex;flex-direction:column;gap:8px;text-align:right}
+  .stat-row{display:flex;align-items:baseline;gap:6px;justify-content:flex-end}
+  .stat-val{font-family:'Big Shoulders Display',sans-serif;font-size:22px;font-weight:800;color:var(--cyan)}
+  .stat-lbl{font-size:11px;color:var(--txt3)}
+
+  /* ─── LAYOUT ─── */
+  .wrap{
+    position:relative;z-index:5;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    min-height:calc(100vh - 145px);
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar{
+    border-right:1px solid var(--border);
+    padding:20px 0;
+    position:sticky;top:0;
+    height:calc(100vh - 145px);
+    overflow-y:auto;
+    background:rgba(28,22,18,.85);
+    backdrop-filter:blur(10px);
+  }
+  .sb-section{
+    padding:10px 18px 4px;
+    font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);
+    text-transform:uppercase;letter-spacing:.12em;
+  }
+  .sb-item{
+    display:flex;align-items:center;gap:9px;
+    padding:7px 18px;
+    border-left:2px solid transparent;
+    cursor:pointer;color:var(--txt2);
+    text-decoration:none;transition:all .15s;font-size:12px;
+  }
+  .sb-item:hover,.sb-item.active{
+    background:rgba(232,163,61,.05);
+    border-left-color:var(--cyan);color:var(--txt1);
+  }
+  .sb-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:.15s}
+  .sb-item:hover .sb-dot,.sb-item.active .sb-dot{background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
+  .sb-badge{
+    margin-left:auto;
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    padding:1px 6px;border-radius:2px;
+  }
+  .sb-badge.active-tag{background:rgba(232,163,61,.12);color:var(--cyan)}
+  .sb-badge.skip-tag{background:rgba(228,87,46,.1);color:var(--red)}
+
+  /* ─── CONTENT ─── */
+  .content{padding:28px 40px;overflow-y:auto;max-height:calc(100vh - 145px)}
+
+  /* ─── SECTION ─── */
+  .sec{margin-bottom:48px;scroll-margin-top:20px}
+  .sec-hdr{
+    display:flex;align-items:center;gap:14px;
+    margin-bottom:20px;padding-bottom:12px;
+    border-bottom:1px solid var(--border);
+  }
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);opacity:.6}
+  h2{font-family:'Big Shoulders Display',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em}
+  h3{
+    font-family:'Big Shoulders Display',sans-serif;font-size:12px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.07em;
+    color:var(--cyan);margin-bottom:12px;margin-top:20px;
+  }
+  h3:first-child{margin-top:0}
+
+  /* ─── SKILL CARDS ─── */
+  .skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;margin-bottom:20px}
+  .skill-card{
+    background:var(--surf1);border:1px solid var(--border);border-radius:10px;
+    padding:18px;position:relative;overflow:hidden;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .skill-card:hover{border-color:rgba(232,163,61,.2);box-shadow:0 0 24px rgba(232,163,61,.04)}
+  .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .skill-card.c::before{background:linear-gradient(90deg,var(--cyan),#F2C27A)}
+  .skill-card.v::before{background:linear-gradient(90deg,var(--violet),#FF7A99)}
+  .skill-card.g::before{background:linear-gradient(90deg,var(--green),#AFCB8F)}
+  .skill-card.a::before{background:linear-gradient(90deg,var(--amber),#F7E09B)}
+  .skill-card.r::before{background:linear-gradient(90deg,var(--red),#EE8260)}
+  .skill-card.cv::before{background:linear-gradient(90deg,var(--cyan),var(--violet))}
+
+  .sk-icon{font-size:20px;margin-bottom:10px;display:block}
+  .sk-id{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);
+    margin-bottom:3px;letter-spacing:.02em;
+  }
+  .sk-title{font-family:'Big Shoulders Display',sans-serif;font-size:14px;font-weight:600;margin-bottom:7px}
+  .sk-desc{font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:11px}
+  .sk-path{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);
+    background:var(--surf2);border:1px solid var(--border);
+    border-radius:4px;padding:5px 9px;margin-bottom:10px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .sk-tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tag{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    padding:2px 7px;border-radius:2px;
+  }
+  .tag-c{background:rgba(232,163,61,.08);color:var(--cyan);border:1px solid rgba(232,163,61,.15)}
+  .tag-v{background:rgba(255,61,110,.08);color:#FF7A99;border:1px solid rgba(255,61,110,.2)}
+  .tag-g{background:rgba(143,181,115,.08);color:var(--green);border:1px solid rgba(143,181,115,.2)}
+  .tag-a{background:rgba(242,208,107,.08);color:var(--amber);border:1px solid rgba(242,208,107,.2)}
+
+  .excluded-card{
+    background:var(--surf1);border:1px solid var(--border);border-radius:8px;
+    padding:14px 16px;opacity:.5;
+    display:flex;align-items:center;gap:12px;margin-bottom:8px;
+  }
+  .ex-x{color:var(--red);font-size:12px;font-weight:700;flex-shrink:0}
+  .ex-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2)}
+  .ex-reason{font-size:11px;color:var(--txt3);margin-left:auto;text-align:right}
+
+  /* ─── FIGMA TOOLS TABLE ─── */
+  .tool-table{
+    width:100%;border-collapse:collapse;
+    font-size:12px;margin-bottom:20px;
+  }
+  .tool-table th{
+    font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--txt3);
+    padding:8px 12px;text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  .tool-table td{
+    padding:9px 12px;border-bottom:1px solid rgba(58,44,33,.5);
+    vertical-align:top;
+  }
+  .tool-table tr:hover td{background:rgba(232,163,61,.02)}
+  .tool-name{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:11px}
+  .tool-type{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    padding:2px 7px;border-radius:2px;white-space:nowrap;
+  }
+  .type-write{background:rgba(228,87,46,.1);color:var(--red);border:1px solid rgba(228,87,46,.2)}
+  .type-read{background:rgba(232,163,61,.08);color:var(--cyan);border:1px solid rgba(232,163,61,.15)}
+  .tool-use{color:var(--txt2);font-size:11px}
+  .tool-flag{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    padding:2px 7px;border-radius:2px;white-space:nowrap;
+  }
+  .flag-yes{background:rgba(143,181,115,.1);color:var(--green);border:1px solid rgba(143,181,115,.2)}
+  .flag-no{background:rgba(58,44,33,.5);color:var(--txt3);border:1px solid var(--border)}
+
+  /* ─── CALLOUT ─── */
+  .callout{
+    border-radius:6px;padding:12px 16px;
+    font-size:12px;color:var(--txt2);line-height:1.7;
+    margin-bottom:16px;
+  }
+  .callout.c{background:rgba(232,163,61,.04);border:1px solid rgba(232,163,61,.18);border-left:3px solid var(--cyan)}
+  .callout.g{background:rgba(143,181,115,.04);border:1px solid rgba(143,181,115,.18);border-left:3px solid var(--green)}
+  .callout.a{background:rgba(242,208,107,.04);border:1px solid rgba(242,208,107,.18);border-left:3px solid var(--amber)}
+  .callout.r{background:rgba(228,87,46,.04);border:1px solid rgba(228,87,46,.18);border-left:3px solid var(--red)}
+  .callout strong{color:var(--txt1)}
+
+  /* ─── PHASE TIMELINE ─── */
+  .timeline{position:relative;padding-left:28px}
+  .timeline::before{
+    content:'';position:absolute;left:8px;top:10px;bottom:10px;
+    width:1px;
+    background:linear-gradient(180deg,var(--cyan),var(--violet),rgba(255,61,110,0));
+    opacity:.35;
+  }
+  .phase{
+    position:relative;margin-bottom:18px;
+    background:var(--surf1);border:1px solid var(--border);border-radius:8px;padding:16px 18px;
+  }
+  .phase::before{
+    content:'';position:absolute;left:-24px;top:20px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--cyan);border:2px solid var(--bg);
+    box-shadow:0 0 10px var(--cyan);
+  }
+  .phase-label{
+    font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--violet);
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;
+  }
+  .phase-title{font-family:'Big Shoulders Display',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px}
+  .phase-body{font-size:12px;color:var(--txt2);line-height:1.65;margin-bottom:10px}
+  .phase-skills{display:flex;flex-wrap:wrap;gap:5px}
+
+  /* ─── OUTPUT ARCH ─── */
+  .output-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+  .output-card{
+    background:var(--surf1);border:1px solid var(--border);border-radius:10px;padding:20px;
+    position:relative;overflow:hidden;
+  }
+  .output-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .output-card.a::before{background:linear-gradient(90deg,var(--cyan),var(--violet))}
+  .output-card.b::before{background:linear-gradient(90deg,var(--amber),var(--green))}
+  .out-label{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .out-label.a{color:var(--cyan)}
+  .out-label.b{color:var(--amber)}
+  .out-title{font-family:'Big Shoulders Display',sans-serif;font-size:15px;font-weight:700;margin-bottom:10px}
+  .out-list{list-style:none;font-size:12px;color:var(--txt2);line-height:2}
+  .out-list li::before{content:'→ ';color:var(--txt3)}
+
+  /* ─── COMPONENT INVENTORY TABLE ─── */
+  .inv-section{margin-bottom:24px}
+  .inv-title{
+    font-family:'Big Shoulders Display',sans-serif;font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.06em;
+    padding:8px 0;margin-bottom:10px;
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:10px;
+  }
+  .inv-count{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    padding:2px 8px;border-radius:10px;
+  }
+  .inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+  .inv-node{
+    background:var(--surf2);border:1px solid var(--border);border-radius:6px;
+    padding:9px 12px;font-size:11px;
+  }
+  .inv-node-name{font-weight:500;color:var(--txt1);margin-bottom:3px}
+  .inv-node-portal{
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+  }
+  .portal-c{color:var(--cyan)}
+  .portal-s{color:var(--green)}
+  .portal-p{color:var(--violet)}
+  .portal-shared{color:var(--amber)}
+
+  /* ─── TRIGGER RULES ─── */
+  .rule-list{list-style:none;margin-bottom:16px}
+  .rule-item{
+    display:flex;gap:12px;padding:9px 0;
+    border-bottom:1px solid rgba(58,44,33,.5);
+    align-items:flex-start;font-size:12px;
+  }
+  .rule-item:last-child{border-bottom:none}
+  .rule-skill{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);
+    white-space:nowrap;min-width:180px;flex-shrink:0;
+  }
+  .rule-when{color:var(--txt2);line-height:1.5}
+
+  @media(max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    .sidebar{display:none}
+    .output-grid{grid-template-columns:1fr}
+    .skill-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body><a href="../three-portals.html" target="_top" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;padding:9px 12px;background:#E8A33D;color:#15110E;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.4)">← ONE PLATFORM, THREE PORTALS</a><script>if (window.self !== window.top) document.currentScript.previousElementSibling.remove();</script>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div>
+    <div class="hdr-eyebrow">
+      <span class="pill pill-c">PHASE 0</span>
+      <span class="pill pill-v">SKILLS INSTALLED</span>
+      <span class="pill pill-g">FIGMA RESEARCHED</span>
+      <span class="pill pill-a">READY TO BUILD</span>
+    </div>
+    <h1>Project Skills Registry<br>& Complete System Design</h1>
+    <p class="hdr-sub">One Platform, Three Portals — Senior Product Designer Exercise</p>
+  </div>
+  <div class="hdr-stats">
+    <div class="stat-row"><span class="stat-val">8</span><span class="stat-lbl">Skills Active</span></div>
+    <div class="stat-row"><span class="stat-val">18</span><span class="stat-lbl">Figma Tools Mapped</span></div>
+    <div class="stat-row"><span class="stat-val">3</span><span class="stat-lbl">Figma Official Skills</span></div>
+    <div class="stat-row"><span class="stat-val">2</span><span class="stat-lbl">Outputs</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-section">Skills</div>
+  <a href="#active-skills" class="sb-item active">
+    <span class="sb-dot"></span>Active Skills<span class="sb-badge active-tag">8</span>
+  </a>
+  <a href="#excluded" class="sb-item">
+    <span class="sb-dot"></span>Excluded<span class="sb-badge skip-tag">5</span>
+  </a>
+  <a href="#trigger-rules" class="sb-item">
+    <span class="sb-dot"></span>Trigger Rules
+  </a>
+
+  <div class="sb-section">Figma</div>
+  <a href="#figma-tools" class="sb-item">
+    <span class="sb-dot"></span>MCP Tools<span class="sb-badge active-tag">18</span>
+  </a>
+  <a href="#figma-skills" class="sb-item">
+    <span class="sb-dot"></span>Official Skills<span class="sb-badge active-tag">3</span>
+  </a>
+
+  <div class="sb-section">System Design</div>
+  <a href="#output-arch" class="sb-item">
+    <span class="sb-dot"></span>Output Architecture
+  </a>
+  <a href="#component-inv" class="sb-item">
+    <span class="sb-dot"></span>Component Inventory
+  </a>
+  <a href="#build-phases" class="sb-item">
+    <span class="sb-dot"></span>Build Phases
+  </a>
+</nav>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ══ ACTIVE SKILLS ══ -->
+  <section id="active-skills" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span>
+      <h2>Active Skills — Installed & Assigned</h2>
+    </div>
+    <div class="callout c">
+      <strong>All 8 skills read in full before assignment.</strong> Each skill's SKILL.md was loaded and cross-referenced against the project brief. Every assignment has a specific role — no skill is listed without a concrete use within the build sequence.
+    </div>
+
+    <h3>Figma & Design Layer</h3>
+    <div class="skill-grid">
+      <div class="skill-card cv">
+        <span class="sk-icon">🖊</span>
+        <div class="sk-id">figma-use</div>
+        <div class="sk-title">Plugin API — Core Engine</div>
+        <div class="sk-desc">17 critical rules for writing Plugin API code in Figma. Mandatory prerequisite before every single use_figma call. Covers font loading, page switching (async only), return patterns, Fill/stroke cloning, FILL sizing order, error recovery protocol.</div>
+        <div class="sk-path">/mnt/skills/user/figma-use/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-c">Mandatory gate</span>
+          <span class="tag tag-v">use_figma</span>
+          <span class="tag tag-c">Plugin API</span>
+          <span class="tag tag-c">Annotations</span>
+        </div>
+      </div>
+
+      <div class="skill-card c">
+        <span class="sk-icon">🎨</span>
+        <div class="sk-id">frontend-design</div>
+        <div class="sk-title">Visual Identity System</div>
+        <div class="sk-desc">Drives all colour, typography, and layout decisions for the HTML prep dashboard. Mandates a brainstorm-then-critique two-pass process. Anti-AI-slop guardrail: no cream backgrounds, no Inter defaults, no purple gradients. One bold signature element.</div>
+        <div class="sk-path">/mnt/skills/public/frontend-design/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-c">Colour tokens</span>
+          <span class="tag tag-c">Typography</span>
+          <span class="tag tag-c">Layout</span>
+        </div>
+      </div>
+
+      <div class="skill-card v">
+        <span class="sk-icon">🖼</span>
+        <div class="sk-id">ui-ux-interface-builder</div>
+        <div class="sk-title">Aesthetic Quality Gate</div>
+        <div class="sk-desc">BEAUTIFUL → RIGHT → SATISFYING → PEAK four-stage framework. Iterates until aesthetic score ≥ 7/10. Defines micro-interaction timing: 150ms hover, 200ms reveals, 300ms transitions, ease-out entry. Used to quality-gate the HTML dashboard before walkthrough.</div>
+        <div class="sk-path">/mnt/skills/user/ui-ux-interface-builder/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-v">≥ 7/10 gate</span>
+          <span class="tag tag-v">Micro-interactions</span>
+          <span class="tag tag-v">WCAG</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Presentation Layer</h3>
+    <div class="skill-grid">
+      <div class="skill-card a">
+        <span class="sk-icon">📊</span>
+        <div class="sk-id">web-artifacts-builder</div>
+        <div class="sk-title">HTML Dashboard Builder</div>
+        <div class="sk-desc">React 18 + TypeScript + Vite + Tailwind CSS 3.4 + 40+ shadcn/ui components. Bundles to a single self-contained HTML file. This is the primary build tool for Output B — the interactive scenario-tracer dashboard. init-artifact.sh → develop → bundle-artifact.sh.</div>
+        <div class="sk-path">/mnt/skills/examples/web-artifacts-builder/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-a">React 18</span>
+          <span class="tag tag-a">Tailwind</span>
+          <span class="tag tag-a">shadcn/ui</span>
+          <span class="tag tag-a">Single HTML</span>
+        </div>
+      </div>
+
+      <div class="skill-card a">
+        <span class="sk-icon">▶</span>
+        <div class="sk-id">frontend-slides</div>
+        <div class="sk-title">Viewport-Locked Slides</div>
+        <div class="sk-desc">Zero-dependency HTML. Every slide: height:100vh, overflow:hidden, no internal scroll. Keyboard + swipe + wheel navigation. clamp() scaling for all screen sizes. Tested at 1920×1080, 1280×720, 768×1024, 375×667. Used for walk-through slide context panels.</div>
+        <div class="sk-path">/mnt/skills/user/frontend-slides/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-a">100vh lock</span>
+          <span class="tag tag-a">Keyboard nav</span>
+          <span class="tag tag-a">Zero deps</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Intelligence & Quality Layer</h3>
+    <div class="skill-grid">
+      <div class="skill-card v">
+        <span class="sk-icon">⚡</span>
+        <div class="sk-id">api-creator</div>
+        <div class="sk-title">Claude API Integration</div>
+        <div class="sk-desc">Anthropic Messages API — streaming, tool use, vision, prompt caching (up to 90% cost reduction on repeated context), batches API. Powers the live AI-assisted scenario tracer inside the HTML dashboard. Model: claude-sonnet-4-6. Always use streaming for real-time UX.</div>
+        <div class="sk-path">/mnt/skills/user/api-creator/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-v">Streaming</span>
+          <span class="tag tag-v">Tool use</span>
+          <span class="tag tag-v">Sonnet 4.6</span>
+          <span class="tag tag-v">Prompt cache</span>
+        </div>
+      </div>
+
+      <div class="skill-card g">
+        <span class="sk-icon">✍</span>
+        <div class="sk-id">article-writing</div>
+        <div class="sk-title">Annotation Rationale Writing</div>
+        <div class="sk-desc">Writes sharp, concrete "because" rationale for every node on the FigJam board. Lead with the concrete thing. No "Moreover", no "game-changer", no vague claims. Operator-style voice: direct, practical, zero hype. Activated before writing any board annotation.</div>
+        <div class="sk-path">/mnt/skills/user/article-writing/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-g">Rationale</span>
+          <span class="tag tag-g">No filler</span>
+          <span class="tag tag-g">Concrete</span>
+        </div>
+      </div>
+
+      <div class="skill-card r">
+        <span class="sk-icon">🔬</span>
+        <div class="sk-id">advanced-evaluation</div>
+        <div class="sk-title">Pre-Walkthrough Quality Gate</div>
+        <div class="sk-desc">LLM-as-judge with position-swap bias mitigation. Scores every annotation on 1–5 rubric: specificity, evidence, decision quality, completeness. Flags any annotation scoring below 4/5. Chain-of-thought requirement: justify before scoring (+15-25% reliability). Run before walkthrough call.</div>
+        <div class="sk-path">/mnt/skills/user/advanced-evaluation/SKILL.md</div>
+        <div class="sk-tags">
+          <span class="tag tag-r">LLM judge</span>
+          <span class="tag tag-r">Bias mitigation</span>
+          <span class="tag tag-r">≥ 4/5 gate</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EXCLUDED ══ -->
+  <section id="excluded" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span>
+      <h2>Excluded Skills — Read & Ruled Out</h2>
+    </div>
+    <div class="callout a"><strong>Every exclusion was verified by reading the full SKILL.md.</strong> No skill was excluded by name alone.</div>
+
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">accessibility</span>
+      <span class="ex-reason">VS Code–specific: IAccessibleViewImplementation,<br>AccessibleViewRegistry — not applicable here</span>
+    </div>
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">mcp-builder</span>
+      <span class="ex-reason">Builds new MCP servers. We use existing connections<br>(Figma, Notion) — not constructing new servers</span>
+    </div>
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">academic-researcher / academic-paper-review</span>
+      <span class="ex-reason">Literature review skills. Output is a system map,<br>not an academic paper</span>
+    </div>
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">autoresearch</span>
+      <span class="ex-reason">Iterative code-experiment loop requiring git + terminal.<br>Not applicable to design/presentation output</span>
+    </div>
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">pptx / docx / xlsx / pdf</span>
+      <span class="ex-reason">Office format skills. All outputs are HTML + FigJam.<br>No Office deliverable required by the brief</span>
+    </div>
+    <div class="excluded-card">
+      <span class="ex-x">✕</span>
+      <span class="ex-name">figma-code-connect</span>
+      <span class="ex-reason">Maps Figma components to a codebase via .figma.js templates.<br>No codebase exists in this project</span>
+    </div>
+  </section>
+
+  <!-- ══ TRIGGER RULES ══ -->
+  <section id="trigger-rules" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span>
+      <h2>Skill Trigger Rules — When to Load</h2>
+    </div>
+    <div class="callout c"><strong>These rules are saved to Project memory and apply for the duration of this project.</strong> No skill is loaded speculatively — each has a specific trigger condition.</div>
+    <ul class="rule-list">
+      <li class="rule-item">
+        <span class="rule-skill">figma-use</span>
+        <span class="rule-when">Before EVERY use_figma call — no exceptions. Even for single-line inspection scripts. This is a hard gate, not a guideline.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">frontend-design</span>
+        <span class="rule-when">Before defining any colour palette, typeface, or layout token for the HTML dashboard. Run the two-pass: brainstorm → critique before writing CSS.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">ui-ux-interface-builder</span>
+        <span class="rule-when">After initial dashboard build. Run BEAUTIFUL → RIGHT → SATISFYING → PEAK evaluation. Block merge if aesthetic score is below 7/10.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">web-artifacts-builder</span>
+        <span class="rule-when">Before initialising the React artifact project. Run init-artifact.sh first. Do not write React code without the bundling pipeline in place.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">frontend-slides</span>
+        <span class="rule-when">Only if a separate slide-based walkthrough component is needed. May be superseded by the single-dashboard approach — confirm before loading.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">api-creator</span>
+        <span class="rule-when">When wiring the Claude API fetch call inside the dashboard artifact. Load to confirm correct streaming pattern, headers, and error handling.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">article-writing</span>
+        <span class="rule-when">Before writing any annotation or "because" rationale for the FigJam board. Enforce: concrete first, explain after. No filler openers.</span>
+      </li>
+      <li class="rule-item">
+        <span class="rule-skill">advanced-evaluation</span>
+        <span class="rule-when">After all board annotations are written, before the walkthrough call. Score each annotation. Flag any below 4/5 and rewrite before proceeding.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══ FIGMA TOOLS ══ -->
+  <section id="figma-tools" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">04</span>
+      <h2>Figma MCP — Official Tool Reference</h2>
+    </div>
+    <div class="callout c"><strong>Source: developers.figma.com/docs/figma-mcp-server/tools-and-prompts</strong> — fetched and verified. All 18 tools listed. "Remote only" tools require the remote MCP server (mcp.figma.com), which is our active connection.</div>
+
+    <h3>Write Tools — Modify the Canvas</h3>
+    <table class="tool-table">
+      <thead><tr><th>Tool</th><th>Type</th><th>Use in This Project</th><th>Active</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tool-name">generate_diagram</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">PRIMARY BUILD TOOL — converts Mermaid syntax or natural language into a FigJam diagram. Used to build the system map board. No use_figma needed.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">use_figma</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">General-purpose canvas write. Used after generate_diagram to add annotation overlays, colour-coding, and styled label frames. Always load figma-use SKILL.md first.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">create_new_file</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">Creates the FigJam board file. Calls whoami first to get planKey. File type: figjam.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">upload_assets</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">If any PNG/JPG assets (e.g. reference screenshots) need to be embedded in the board.</td>
+          <td><span class="tool-flag flag-yes">MAYBE</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">generate_figma_design</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">Captures web UI as design layers. Not needed — no web UI to capture for this exercise.</td>
+          <td><span class="tool-flag flag-no">NO</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">add_code_connect_map / send_code_connect_mappings</span></td>
+          <td><span class="tool-type type-write">WRITE</span></td>
+          <td class="tool-use">Code-to-Figma mapping tools. No codebase in this project.</td>
+          <td><span class="tool-flag flag-no">NO</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Read Tools — Inspect & Query</h3>
+    <table class="tool-table">
+      <thead><tr><th>Tool</th><th>Type</th><th>Use in This Project</th><th>Active</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tool-name">get_screenshot</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Validate each board section after building. Called after every use_figma write to verify visual output. Essential for catching clipped text and layout errors.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">get_metadata</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Inspect file structure: page list, layer IDs, node types, positions. Called before any write to understand existing canvas state.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">get_figjam</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Converts FigJam diagrams to XML. Used to verify the generated diagram structure is correct after generate_diagram runs.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">whoami</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Required first step for create_new_file — retrieves planKey from authenticated user's plans array.</td>
+          <td><span class="tool-flag flag-yes">YES</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">get_variable_defs</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">If design system variables are discovered and need to be bound to annotation frames.</td>
+          <td><span class="tool-flag flag-yes">MAYBE</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">get_design_context / get_libraries / search_design_system</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Design system discovery tools. Not needed — we are building a system map, not building with a design system library.</td>
+          <td><span class="tool-flag flag-no">NO</span></td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">get_code_connect_* tools</span></td>
+          <td><span class="tool-type type-read">READ</span></td>
+          <td class="tool-use">Code Connect mapping tools. No codebase in this project.</td>
+          <td><span class="tool-flag flag-no">NO</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══ FIGMA OFFICIAL SKILLS ══ -->
+  <section id="figma-skills" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">05</span>
+      <h2>Figma Official Agent Skills</h2>
+    </div>
+    <div class="callout g"><strong>Source: developers.figma.com/docs/figma-mcp-server/ — Agent Skills section.</strong> These are Figma's own published skills, available at github.com/figma/mcp-server-guide. Three are relevant; one is excluded.</div>
+
+    <div class="skill-grid">
+      <div class="skill-card c">
+        <span class="sk-icon">🔑</span>
+        <div class="sk-id">figma-use (official)</div>
+        <div class="sk-title">Mandatory Plugin API Gate</div>
+        <div class="sk-desc">Figma's own published version of the use_figma prerequisite skill. Covers the same 17 rules as our installed version. Must be loaded before every single use_figma call. Skill invoke: /figma-use</div>
+        <div class="sk-tags">
+          <span class="tag tag-c">Active</span>
+          <span class="tag tag-c">Already installed locally</span>
+        </div>
+      </div>
+
+      <div class="skill-card v">
+        <span class="sk-icon">🏗</span>
+        <div class="sk-id">figma-generate-design</div>
+        <div class="sk-title">Screen Builder from Design System</div>
+        <div class="sk-desc">Builds/updates full Figma screens from design system components. Key workflow: search_design_system first → bind variables (not hardcode) → build section-by-section → validate with get_screenshot after each. For FigJam: use figma-use-figjam variant. Invoke: /figma-generate-design</div>
+        <div class="sk-tags">
+          <span class="tag tag-v">Active (FigJam variant)</span>
+          <span class="tag tag-v">Section-by-section</span>
+        </div>
+      </div>
+
+      <div class="skill-card g">
+        <span class="sk-icon">📄</span>
+        <div class="sk-id">figma-create-new-file</div>
+        <div class="sk-title">New File Workflow</div>
+        <div class="sk-desc">Two-step workflow: (1) whoami → get planKey from plans array. (2) create_new_file with planKey + fileName + editorType. File types: "design" or "figjam". For this project: editorType="figjam", fileName="One Platform Three Portals — System Map". Invoke: /figma-create-new-file figjam "..."</div>
+        <div class="sk-tags">
+          <span class="tag tag-g">Active — run first</span>
+          <span class="tag tag-g">whoami → create</span>
+        </div>
+      </div>
+
+      <div class="skill-card r" style="opacity:.55">
+        <span class="sk-icon">🔗</span>
+        <div class="sk-id">figma-code-connect</div>
+        <div class="sk-title">Code Connect Templates</div>
+        <div class="sk-desc">Creates parserless .figma.js files mapping Figma components to code. Requires: published components, Organisation/Enterprise plan, codebase to map to. None of these conditions apply to this project. EXCLUDED.</div>
+        <div class="sk-tags">
+          <span class="tag tag-r">Excluded — no codebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ OUTPUT ARCH ══ -->
+  <section id="output-arch" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">06</span>
+      <h2>Output Architecture — Two Deliverables</h2>
+    </div>
+    <div class="output-grid">
+      <div class="output-card a">
+        <div class="out-label a">OUTPUT A — SUBMISSION</div>
+        <div class="out-title">FigJam System Map Board</div>
+        <ul class="out-list">
+          <li>Built with generate_diagram (Mermaid → FigJam)</li>
+          <li>Annotated with use_figma (overlays + labels)</li>
+          <li>Every node has a written "because" rationale</li>
+          <li>Colour-coded by portal: Cyan=Customer, Green=Store, Violet=Platform</li>
+          <li>Shared as view link — THIS is the the hiring team submission</li>
+          <li>15-min walkthrough structured around this board</li>
+        </ul>
+      </div>
+      <div class="output-card b">
+        <div class="out-label b">OUTPUT B — PREP TOOL</div>
+        <div class="out-title">HTML Scenario-Tracer Dashboard</div>
+        <ul class="out-list">
+          <li>Single-screen, no scrolling — everything visible at once</li>
+          <li>Built with web-artifacts-builder (React 18 + Tailwind)</li>
+          <li>Scenario selector: 8 walkthrough scenarios listed</li>
+          <li>Click scenario → path highlights through system SVG map</li>
+          <li>Annotation drill mode: hide rationale, reveal on click</li>
+          <li>Claude API powers live "explain this node" queries</li>
+          <li>NOT submitted — personal walkthrough rehearsal tool</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout g"><strong>Why two outputs:</strong> The board is what gets evaluated. The dashboard is how you practise owning every box on it. The brief says "own every box" — that demands deliberate rehearsal, not just building the map and hoping.</div>
+  </section>
+
+  <!-- ══ COMPONENT INVENTORY ══ -->
+  <section id="component-inv" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">07</span>
+      <h2>Component Inventory — Every Box on the Board</h2>
+    </div>
+    <div class="callout a"><strong>Phase 1 deliverable:</strong> This is the complete list of nodes that must exist on the FigJam board. No visual representation yet — pure systems thinking. Every node listed here becomes a box on the board.</div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:var(--cyan)">●</span> Order Lifecycle
+        <span class="inv-count pill-c" style="background:rgba(232,163,61,.1);color:var(--cyan);border:1px solid rgba(232,163,61,.2)">9 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Browse / Discovery</div><div class="inv-node-portal portal-c">Customer</div></div>
+        <div class="inv-node"><div class="inv-node-name">Search & Filters</div><div class="inv-node-portal portal-c">Customer</div></div>
+        <div class="inv-node"><div class="inv-node-name">Product Catalogue / Menu</div><div class="inv-node-portal portal-shared">Shared</div></div>
+        <div class="inv-node"><div class="inv-node-name">Cart Management</div><div class="inv-node-portal portal-c">Customer</div></div>
+        <div class="inv-node"><div class="inv-node-name">Checkout / Address</div><div class="inv-node-portal portal-c">Customer</div></div>
+        <div class="inv-node"><div class="inv-node-name">Order Confirmation</div><div class="inv-node-portal portal-shared">Shared</div></div>
+        <div class="inv-node"><div class="inv-node-name">Order Queue / Kitchen</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Preparation & Ready State</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Order Completion</div><div class="inv-node-portal portal-shared">Shared</div></div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:#F2D06B">●</span> Payment & Money Flows
+        <span class="inv-count pill-a" style="background:rgba(242,208,107,.1);color:var(--amber);border:1px solid rgba(242,208,107,.2)">8 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Payment Capture</div><div class="inv-node-portal portal-c">Customer → Gateway</div></div>
+        <div class="inv-node"><div class="inv-node-name">Payment Gateway</div><div class="inv-node-portal portal-p">Platform Infra</div></div>
+        <div class="inv-node"><div class="inv-node-name">Authorisation Hold</div><div class="inv-node-portal portal-p">Platform Infra</div></div>
+        <div class="inv-node"><div class="inv-node-name">Settlement Calculation</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Commission Deduction</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Store Payout</div><div class="inv-node-portal portal-s">Store → Bank</div></div>
+        <div class="inv-node"><div class="inv-node-name">Refund Processing</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Dispute Resolution</div><div class="inv-node-portal portal-p">Platform</div></div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:var(--green)">●</span> Driver / Courier Layer
+        <span class="inv-count pill-g" style="background:rgba(143,181,115,.1);color:var(--green);border:1px solid rgba(143,181,115,.2)">5 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Driver Assignment Engine</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Driver App / State</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Pickup Confirmation</div><div class="inv-node-portal portal-shared">Shared</div></div>
+        <div class="inv-node"><div class="inv-node-name">Delivery Tracking</div><div class="inv-node-portal portal-c">Customer</div></div>
+        <div class="inv-node"><div class="inv-node-name">Proof of Delivery</div><div class="inv-node-portal portal-shared">Shared</div></div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:var(--green)">●</span> Store Management
+        <span class="inv-count pill-g" style="background:rgba(143,181,115,.1);color:var(--green);border:1px solid rgba(143,181,115,.2)">6 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Store Onboarding</div><div class="inv-node-portal portal-p">Platform → Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Menu / Item Management</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Stock & Availability</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Opening Hours / Status</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Accept / Reject Orders</div><div class="inv-node-portal portal-s">Store</div></div>
+        <div class="inv-node"><div class="inv-node-name">Payout Dashboard</div><div class="inv-node-portal portal-s">Store</div></div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:var(--violet)">●</span> Platform Admin
+        <span class="inv-count pill-v" style="background:rgba(255,61,110,.1);color:#FF7A99;border:1px solid rgba(255,61,110,.2)">7 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Store Directory</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Customer Accounts</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Commission / Fee Config</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Fraud Detection</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Financial Reporting</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Analytics Dashboard</div><div class="inv-node-portal portal-p">Platform</div></div>
+        <div class="inv-node"><div class="inv-node-name">Order History (all)</div><div class="inv-node-portal portal-p">Platform</div></div>
+      </div>
+    </div>
+
+    <div class="inv-section">
+      <div class="inv-title">
+        <span style="color:var(--amber)">●</span> Shared Infrastructure
+        <span class="inv-count pill-a" style="background:rgba(242,208,107,.1);color:var(--amber);border:1px solid rgba(242,208,107,.2)">6 nodes</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-node"><div class="inv-node-name">Identity / Auth (×3)</div><div class="inv-node-portal portal-shared">Per-portal login</div></div>
+        <div class="inv-node"><div class="inv-node-name">Notification Engine</div><div class="inv-node-portal portal-shared">Push/SMS/Email</div></div>
+        <div class="inv-node"><div class="inv-node-name">Reviews & Ratings</div><div class="inv-node-portal portal-shared">Customer → visible</div></div>
+        <div class="inv-node"><div class="inv-node-name">Promotions / Vouchers</div><div class="inv-node-portal portal-shared">Platform-managed</div></div>
+        <div class="inv-node"><div class="inv-node-name">Search Index</div><div class="inv-node-portal portal-shared">Platform-owned</div></div>
+        <div class="inv-node"><div class="inv-node-name">Pricing Engine</div><div class="inv-node-portal portal-shared">Dynamic / surge</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BUILD PHASES ══ -->
+  <section id="build-phases" class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">08</span>
+      <h2>Build Phases — Confirmed Sequence</h2>
+    </div>
+    <div class="callout c"><strong>Phase 1 is complete</strong> (component inventory above). Phase 2 begins next. Each phase has explicit skill activation requirements — no phase begins without confirming its skill dependencies.</div>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-label">PHASE 1 — DONE</div>
+        <div class="phase-title">Content: Component Inventory</div>
+        <div class="phase-body">Every box identified, grouped by domain, colour-coded by portal ownership. 41 nodes total. Pure systems thinking — no visuals yet. Output: the component inventory above.</div>
+        <div class="phase-skills"><span class="tag tag-g">Complete</span></div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">PHASE 2 — NEXT</div>
+        <div class="phase-title">Structure: Map Architecture Decision</div>
+        <div class="phase-body">Choose the map structure. Three options: portal-centric (3 columns), lifecycle-centric (swim lanes), or hybrid (lifecycle spine + portal lanes + separate money section). Write the "because" for the chosen structure — this IS evaluated by the hiring team. Activate article-writing skill for this rationale.</div>
+        <div class="phase-skills">
+          <span class="tag tag-g">article-writing</span>
+          <span class="tag tag-v">advanced-evaluation</span>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">PHASE 3</div>
+        <div class="phase-title">Annotations: Write All "Because" Rationale</div>
+        <div class="phase-body">Every node on the board gets a decision + written reason. article-writing skill enforces: concrete first, explain second, no filler. Run advanced-evaluation quality gate — score each annotation 1–5. Rewrite any below 4/5.</div>
+        <div class="phase-skills">
+          <span class="tag tag-g">article-writing</span>
+          <span class="tag tag-r">advanced-evaluation</span>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">PHASE 4</div>
+        <div class="phase-title">FigJam Board: Build the Deliverable</div>
+        <div class="phase-body">Load figma-create-new-file skill → whoami → create FigJam file. Then generate_diagram with full Mermaid system map. Then use_figma (with figma-use loaded) for annotation overlays, colour-coding, portal swim lane labels. Validate with get_screenshot after each section.</div>
+        <div class="phase-skills">
+          <span class="tag tag-c">figma-use</span>
+          <span class="tag tag-c">figma-create-new-file</span>
+          <span class="tag tag-c">generate_diagram</span>
+          <span class="tag tag-c">use_figma</span>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">PHASE 5</div>
+        <div class="phase-title">HTML Dashboard: Build the Prep Tool</div>
+        <div class="phase-body">Load web-artifacts-builder → init-artifact.sh. Build React dashboard: scenario selector + SVG system map + path highlighting + annotation drill mode. Load api-creator → wire Claude API for live node explanations. Load frontend-design → define tokens. Quality gate: ui-ux-interface-builder ≥ 7/10. Bundle to single HTML.</div>
+        <div class="phase-skills">
+          <span class="tag tag-a">web-artifacts-builder</span>
+          <span class="tag tag-v">api-creator</span>
+          <span class="tag tag-c">frontend-design</span>
+          <span class="tag tag-v">ui-ux-interface-builder</span>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">PHASE 6</div>
+        <div class="phase-title">Rehearsal: Trace All 8 Scenarios</div>
+        <div class="phase-body">Use the HTML dashboard to trace all 8 likely scenarios live: (1) Happy path, (2) Failed payment, (3) Store rejects order, (4) Refund/dispute, (5) Store goes offline, (6) Item out of stock mid-order, (7) Driver cancels after pickup, (8) Store onboarding. Identify any gaps. Patch FigJam board if needed.</div>
+        <div class="phase-skills">
+          <span class="tag tag-g">Rehearsal — no skill load needed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /content -->
+</div><!-- /wrap -->
+
+<script>
+  const items = document.querySelectorAll('.sb-item');
+  const secs  = document.querySelectorAll('section[id]');
+  const cont  = document.querySelector('.content');
+
+  cont.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (s.offsetTop - 80 <= cont.scrollTop) cur = s.id; });
+    items.forEach(i => i.classList.toggle('active', i.getAttribute('href') === '#'+cur));
+  });
+
+  items.forEach(i => i.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(i.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior:'smooth' });
+  }));
+</script>
+</body>
+</html>

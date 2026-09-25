@@ -690,6 +690,27 @@ PORTALS_MAP = {  # stage index -> lane -> nodes (from the FigJam board's connect
 INFRA_ALWAYS = '<p class="px-always">Always underneath: Identity &amp; Auth × 3 portals · Product Catalogue → Search Index · Pricing Engine</p>'
 
 
+STRUCT_ROWS = [
+    ('Completeness signal', (3, 'Hard to show what’s shared'), (4, 'Every step visible'), (5, 'Everything + context')),
+    ('Portal connection clarity', (3, 'Arrows get messy'), (3, 'Ownership unclear'), (5, 'Both dimensions clear')),
+    ('Money flow visibility', (2, 'Buried in the platform column'), (3, 'In-flow but mixed'), (5, 'Dedicated section')),
+    ('Live walkthrough traceability', (2, 'Jump columns to trace'), (5, 'Left-to-right finger trace'), (5, 'Spine + clear lanes')),
+    ('Structural “because” quality', (2, 'Default choice — weak signal'), (4, 'Clear argument'), (5, 'Strongest design argument')),
+]
+
+
+def structure_matrix():
+    def cell(v):
+        n, note = v
+        pips = ''.join(f'<i class="{"on" if k < n else ""}"></i>' for k in range(5))
+        return f'<td><span class="pips" role="img" aria-label="{n} out of 5">{pips}</span><span class="struct-note">{note}</span></td>'
+    rows = ''.join(f'<tr><th scope="row">{c}</th>{cell(a)}{cell(b)}{cell(cc)}</tr>' for c, a, b, cc in STRUCT_ROWS)
+    risk = '<tr><th scope="row">Execution risk</th><td><b>Low</b><span class="struct-note">Simple to build</span></td><td><b>Medium</b><span class="struct-note">Ownership ambiguous</span></td><td><b>Medium</b><span class="struct-note">More sections, more planning</span></td></tr>'
+    return f"""<div class="struct-wrap reveal"><table class="struct">
+<thead><tr><th scope="col">Criterion</th><th scope="col">A · Portal-centric</th><th scope="col">B · Lifecycle-centric</th><th scope="col" class="is-pick">C · Hybrid <span>✓ chosen</span></th></tr></thead>
+<tbody>{rows}{risk}</tbody></table></div>"""
+
+
 def portals_explorer():
     steps = ''.join(f'<li><button type="button" class="px-step" data-px="{i}" aria-pressed="{"true" if i == 3 else "false"}"><span class="px-dot"></span><span class="px-n mono">{i + 1:02d}</span><span class="px-label">{t}</span></button></li>' for i, t in enumerate(PORTALS_STAGES))
     lanes = ''.join(f'<div class="px-lane px-lane--{k.lower()}"><h4>{lbl}</h4><ul data-px-lane="{k}"></ul>{INFRA_ALWAYS if k == 'Infra' else ''}</div>'
@@ -706,7 +727,13 @@ def portals_explorer():
 def three_portals():
     figjam = ('https://embed.figma.com/board/Cq6TPchRK5RPn9kF96QylB/One-Platform-Three-Portals-%E2%80%94-System-Map'
               '?node-id=22-1817&amp;embed-host=share')
-    extra = f"""<section class="section section--deep" id="map" data-depth="1.8m" data-era="the map">
+    extra = f"""<section class="section section--alt" id="structures" data-depth="1.6m" data-era="three structures">
+<div class="sec-head reveal"><div><p class="eyebrow">Phase 2 · Structure decision</p><h2 class="h-l" style="margin-top:10px">Three ways to structure the map</h2></div>
+<p class="lede">The brief said how you structure the map is a big part of what gets read. So each option was scored as a mental model of the platform, not a layout preference.</p></div>
+{structure_matrix()}
+<a class="btn" href="three-portals/structure-options.html" style="margin-top:22px">Open the full decision page ↗</a>
+</section>
+<section class="section section--deep" id="map" data-depth="1.8m" data-era="the map">
 <div class="sec-head reveal"><div><p class="eyebrow">The artefact</p><h2 class="h-l" style="margin-top:10px">Walk the whole map</h2></div>
 <p class="lede">The FigJam board, live. Lifecycle spine across the top, portal lanes in the middle, money flow along the bottom, shared infrastructure on the right.</p></div>
 <div class="figma-frame reveal"><iframe title="One Platform, Three Portals — FigJam system map" src="{figjam}" loading="lazy" allowfullscreen></iframe></div>
@@ -723,6 +750,22 @@ def three_portals():
 <div class="edge-sticky"><span class="mono">Commission deduction</span><p>A rate changed mid-cycle only applies to orders placed after the change. Orders already in flight settle at the rate captured when they were placed.</p></div>
 <div class="edge-sticky edge-sticky--grey"><span class="mono">Search index</span><p>Index updates are async. A store going offline isn't instantly invisible — for a few seconds a customer can still add its items. Cart validation at checkout is the safety net.</p></div>
 </div>
+</section>
+<section class="section section--deep" id="walkthrough" data-depth="2.3m" data-era="walkthrough">
+<div class="sec-head reveal"><div><p class="eyebrow">Rehearsal tool · built with Claude</p><h2 class="h-l" style="margin-top:10px">Eight scenarios, one finger-trace</h2></div>
+<p class="lede">A walkthrough trainer for presenting the map live. Pick a scenario and its path lights up across the board; click a node for its annotation, its “because” and the line to say out loud.</p></div>
+<ul class="scenario-chips reveal">{''.join(f'<li><span class="mono">{i + 1:02d}</span>{n}</li>' for i, n in enumerate(['Happy path', 'Failed payment', 'Store rejects', 'Refund dispute', 'Store goes offline', 'Item out of stock', 'Driver cancels', 'Store onboarding']))}</ul>
+<div class="walk-frame reveal"><iframe title="Three Portals — walkthrough trainer" src="three-portals/walkthrough.html" loading="lazy"></iframe></div>
+<p class="walk-mobile reveal"><a class="btn btn--fill" href="three-portals/walkthrough.html">Open the walkthrough trainer ↗</a> <span class="mono small" style="color:var(--muted)">Best on a laptop or larger screen.</span></p>
+</section>
+<section class="section" id="artefacts" data-depth="2.35m" data-era="artefacts">
+<div class="sec-head reveal"><div><p class="eyebrow">The full dig</p><h2 class="h-l" style="margin-top:10px">Every artefact, open to read</h2></div></div>
+<div class="artefacts reveal">
+<a class="artefact" href="three-portals/structure-options.html"><span class="mono">Phase 2</span><b>Structure decision</b><p>Portal-centric vs lifecycle-centric vs hybrid, scored side by side, with the written “because”.</p><span class="artefact-go">Open ↗</span></a>
+<a class="artefact" href="three-portals/annotations.html"><span class="mono">Phase 3</span><b>Board annotations</b><p>Every node on the board with a written rationale — what it is, why it’s there, what moves through it.</p><span class="artefact-go">Open ↗</span></a>
+<a class="artefact" href="three-portals/walkthrough.html"><span class="mono">Rehearsal</span><b>Walkthrough trainer</b><p>Eight scenario paths with talking points for presenting the map live.</p><span class="artefact-go">Open ↗</span></a>
+<a class="artefact" href="three-portals/skills-registry.html"><span class="mono">Phase 0</span><b>Skills registry &amp; system design</b><p>The AI set-up behind the build: 8 Claude skills assigned, 18 Figma MCP tools mapped, trigger rules and the component inventory.</p><span class="artefact-go">Open ↗</span></a>
+</div>
 </section>"""
     return case('three-portals', 'One Platform, Three Portals — system map · Jonathan Nestler',
                 'Specimen 00 · System map · Food-ordering platform · Design exercise', 'One Platform, Three Portals',
@@ -730,13 +773,13 @@ def three_portals():
                 [('ROLE', 'Senior Product Designer (exercise)'), ('FORMAT', 'Take-home system map'), ('SURFACES', 'Customer · Store · Platform'), ('AI STACK', 'Claude · Figma MCP · FigJam'), ('YEAR', '2026')],
                 'Three portals, three logins, three sets of screens. The obvious map draws three columns and hides how they connect — and buries the money inside the admin column.',
                 [('Structure decision', 'Compared three structures side by side, then chose the hybrid: a lifecycle spine, portal lanes beneath it and a separate money band.'),
-                 ('Built in FigJam with Claude', 'The board was drawn through Claude and Figma MCP: every node hangs off the order state it belongs to, with connectors showing who touches what, when.'),
+                 ('Built in FigJam with Claude', 'Eight Claude skills were read and assigned and 18 Figma MCP tools mapped before a single node was drawn. Every node hangs off the order state it belongs to.'),
                  ('Money as its own system', 'Capture, gateway, authorisation hold, settlement, commission and payout run beneath every order — with refunds and chargebacks feeding back in.'),
                  ('Edge cases &amp; walkthrough', 'The failure modes are annotated on the board itself, and an HTML walkthrough trainer rehearsed the presentation stop by stop.')],
                 1,
-                [('Three candidate structures, compared side by side as an HTML decision page.', 'Option C, the hybrid — because the lifecycle is the only object all three portals share at the same time.'),
+                [('Three structures scored on six criteria — portal-centric, lifecycle-centric and a hybrid — with the hybrid marked as recommended.', 'Confirmed Option C and wrote its “because”: the lifecycle is the only object all three portals share at the same time.'),
                  ('Drew the board node by node in FigJam through Figma MCP.', 'Money gets its own band. The brief asked for money flows, and most maps bury them in the platform column.'),
-                 ('A walkthrough trainer to rehearse presenting the map.', 'Which failure modes earned a sticky: hold expiry, mid-cycle commission changes and search-index lag.')],
+                 ('A walkthrough trainer with eight scenario paths, from the happy path to a driver cancelling mid-delivery.', 'Which failure modes earned a sticky on the board: hold expiry, mid-cycle commission changes and search-index lag.')],
                 extra,
                 [('8', 'order states on one lifecycle spine'), ('3', 'portals as views of one event stream'), ('6', 'zones, colour-keyed on the board'), ('3', 'edge cases written on the map')],
                 'pantelotteriet.html', 'The Recycling Lottery')
