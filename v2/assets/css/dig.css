@@ -539,6 +539,18 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .map-frame iframe { width: 1920px; transform-origin: 0 0; }
 @media (max-width: 760px) { .map-frame { display: none; } }
 
+.nda { position: relative; overflow: hidden; min-height: 380px; display: grid; place-items: center; background: var(--s1); border: 1px solid var(--s4); isolation: isolate; }
+.nda-board { position: absolute; inset: -20px; width: calc(100% + 40px); height: calc(100% + 40px); filter: blur(7px) saturate(.8); opacity: .55; z-index: -2; }
+.nda::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(21,17,14,.35), rgba(21,17,14,.85)); }
+.nda-tape { position: absolute; left: -10%; right: -10%; top: 34px; transform: rotate(-4deg); background: repeating-linear-gradient(-45deg, var(--basalt) 0 14px, var(--ochre) 14px 28px); padding: 7px 0; box-shadow: 0 8px 20px rgba(0,0,0,.4); z-index: 1; }
+.nda-tape span { display: block; white-space: nowrap; overflow: hidden; margin: 0 auto; width: max-content; padding: 4px 12px; background: var(--ochre); font-family: var(--f-mono); font-weight: 500; font-size: 12px; letter-spacing: .18em; color: var(--basalt); animation: nda-slide 22s linear infinite; }
+@keyframes nda-slide { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+.nda-card { position: relative; z-index: 2; display: grid; justify-items: center; gap: 8px; margin: 90px 20px 36px; padding: 32px clamp(24px, 4vw, 48px); max-width: 520px; text-align: center; background: rgba(21,17,14,.92); border: 1px solid var(--s5); border-top: 5px solid var(--ochre); box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+.nda-lock { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 6px; border-radius: 50%; background: var(--ochre); color: var(--basalt); }
+.nda-sub { font-family: var(--f-mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--tag); }
+.nda-cta { margin-top: 14px; }
+@media (prefers-reduced-motion: reduce) { .nda-tape span { animation: none; } }
+
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }
 .sub-block { border-top: 1px solid var(--s3); padding-top: 40px; }
