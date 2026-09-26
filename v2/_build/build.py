@@ -382,7 +382,7 @@ def home():
 <h3 class="h-xl">One Platform, Three Portals</h3>
 <p class="body-2">A food-ordering platform mapped around the one thing its customer, store and platform portals all share: the order. Lifecycle spine, portal lanes and a money band of its own — built in FigJam with Claude and Figma MCP.</p>
 <div class="tags"><span class="tag">SYSTEMS</span><span class="tag">SERVICE DESIGN</span><span class="tag tag--fill">FIGJAM + MCP</span></div>
-<span class="spec-cta">Explore the map →</span>
+<span class="spec-cta">How I approach a problem →</span>
 </div>
 <div class="mini-map" aria-hidden="true">{MINI_MAP}</div>
 </a>
