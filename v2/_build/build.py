@@ -73,7 +73,7 @@ def header(pre, active, home=False, crumbs=None):
 
     menu = [
         ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
-        ('work', 'Work', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Astria platform', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('work', 'Work', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('iGaming', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
     ]
@@ -535,24 +535,23 @@ def pantelotteriet():
                  ('[Add a specific suggestion you rejected]', '[Why it was cut — user, brand or technical reason]'),
                  ('Dev-ready annotations drafted from Figma via MCP.', 'Reviewed every spec before engineering saw it.')],
                 extra, [('[X]', 'journeys scoped before build'), ('[X%]', 'fewer timing issues in QA'), ('[X]', 'days from flow to testable prototype')],
-                'astria-platform.html', 'Astria platform')
+                'astria-platform.html', 'iGaming')
 
 
 def astria():
     shots = ''.join(f'<img src="{CDN}/image/upload/q_auto,w_640/{s}.jpg" alt="Astria / Wonderlabz UI screen" loading="lazy">' for s in UI_SHOTS)
     extra = f"""<section class="section section--deep" id="games" data-depth="1.8m" data-era="bedrock">
 <div class="sec-head reveal"><div><p class="eyebrow">The bedrock</p><h2 class="h-l">Shipped, live, regulated</h2></div>
-<p class="lede">Five live titles for regulated markets in Scandinavia, South Africa and the UK, plus the identity systems holding them together. Samurai, Big Sexy City and Rose of the West share one game shell — the theme lives in the frame, so players learn the controls, the result and the settle step once. Tap any title to see the full game screen.</p></div>
+<p class="lede">Five live titles for regulated markets in Scandinavia, South Africa and the UK. Samurai, Big Sexy City and Rose of the West share one game shell — the theme lives in the frame, so players learn the controls, the result and the settle step once. Tap any title to see the full game screen.</p></div>
 <div class="reveal">{slabs('../', ALL_GAMES)}</div>
 <div class="game-notes reveal">
 <div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across every title, however loud the theme gets.</p></div>
 <div><span class="mono">02 · Result, then decision</span><p>The result is shown as a figure; one large circular button asks the player to <b>See it for free</b> or <b>Take it</b>, and the message bar prompts them to settle.</p></div>
 <div><span class="mono">03 · States in one bar</span><p>A single message bar carries every state — <b>Big win!</b>, <b>Please settle your result</b> — and Big Sexy City adds a Hot-O-Meter with a running session clock.</p></div>
 </div>
-<div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
 </section>
 {gal_dialog()}"""
-    return case('astria', 'Astria iGaming platform — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'Astria platform',
+    return case('astria', 'iGaming — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'iGaming',
                 'Six years across Wonderlabz, Playsafe and Pantelotteriet — from slot-game UI and VFX to owning product decisions as Jr. Product Owner.',
                 [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', '2018 – present')],
                 '[The core product problem you owned as Jr. PO — one sentence, written as the user or business pain.]',
