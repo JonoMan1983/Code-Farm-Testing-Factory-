@@ -554,7 +554,7 @@ def astria():
     return case('astria', 'iGaming — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'iGaming',
                 'Six years across Wonderlabz, Playsafe and Pantelotteriet — from slot-game UI and VFX to owning product decisions as Jr. Product Owner.',
                 [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', '2018 – present')],
-                '[The core product problem you owned as Jr. PO — one sentence, written as the user or business pain.]',
+                'Producing world-class, top-quality, revenue-generating iGaming products in record time.',
                 [('Game UI & VFX', 'Slot interfaces, character animation and win-state VFX for Samurai, Geisha, Atlantis, Mayan Madness and more.'),
                  ('Identity systems', 'Corporate identity and brand guides for Wonderlabz and The Recycling Lottery.'),
                  ('Product ownership', 'Promoted to Jr. Product Owner: backlog, journey scoping and stakeholder alignment across three brands.'),
