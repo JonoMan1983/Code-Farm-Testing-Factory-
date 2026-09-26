@@ -360,7 +360,7 @@ def home():
 <h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
 <p class="lede" style="margin-top:24px">I started in print and brand, moved into web and motion, spent six years shipping iGaming products, and now own product decisions at Astria Systems. I design with the whole system in view, then use AI to prove it works before anyone builds it.</p>
 <p class="mono small" style="margin-top:18px;color:var(--muted)">Professional Diploma in UX Design — UX Design Institute, Dublin · 27 certifications</p>
-<div class="facts"><div><b>20+</b><span>years shipping design</span></div><div><b>3</b><span>markets: Scandinavia, SA, UK</span></div><div><b>27</b><span>certifications</span></div></div>
+<div class="facts facts--9"><div><b data-fact="20">20+</b><span>years shipping design</span></div><div><b data-fact="15">15</b><span>roles, from die-cut packaging to Jr. Product Owner</span></div><div><b data-fact="8">8</b><span>years at one studio — Wonderlabz to Astria, promoted to PO</span></div><div><b data-fact="12">12</b><span>blue-chip brands — Coca-Cola, Vodacom, MTN, Telkom, GSK, SARS…</span></div><div><b data-fact="3">3</b><span>markets shipped to: Scandinavia, SA, UK</span></div><div><b data-fact="5">5</b><span>cities across 3 provinces — now fully remote</span></div><div><b data-fact="6">6</b><span>eras: print → Flash → web → motion → product → AI</span></div><div><b data-fact="29">29</b><span>tools in the kit, Claude-first</span></div><div><b data-fact="27">27</b><span>certifications — and counting</span></div></div>
 </div>
 </div>
 {about_more()}

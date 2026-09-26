@@ -484,6 +484,10 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .facts div { padding: 20px; border-top: 3px solid var(--ochre); background: var(--s1); }
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
 .facts span { font-size: 14px; color: var(--bone-2); }
+.facts--9 div { transition: transform .25s, border-color .2s, background .2s; }
+.facts--9 div:hover { transform: translateY(-3px); background: var(--s2); }
+.facts--9 span { display: block; margin-top: 8px; line-height: 1.4; }
+@media (max-width: 1100px) { .facts--9 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 .game-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
 .game-notes > div { padding: 20px 22px; background: var(--s1); border-top: 4px solid var(--ochre); }

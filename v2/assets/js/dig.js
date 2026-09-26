@@ -287,6 +287,26 @@
     setTimeout(function tick() { n += 1; tc.textContent = n; if (n < target) setTimeout(tick, 38); }, 250);
   }
 
+  /* About facts: count up when they scroll into view */
+  var facts = document.querySelectorAll('[data-fact]');
+  if (facts.length && !reduce && 'IntersectionObserver' in window) {
+    var fio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        fio.unobserve(e.target);
+        var el = e.target, to = parseInt(el.getAttribute('data-fact'), 10), plus = /\+$/.test(el.textContent), t0 = null;
+        var step = function (ts) {
+          if (!t0) t0 = ts;
+          var k = Math.min(1, (ts - t0) / 900), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+          el.textContent = v + (plus ? '+' : '');
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .6 });
+    facts.forEach(function (f) { fio.observe(f); });
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
