@@ -320,6 +320,154 @@
     exArt.forEach(function (svg) { exIO.observe(svg); });
   }
 
+  /* Hero starfield — ported from V1: drifting dots threaded into a polygon mesh.
+     Same motion model; colours swapped to the Dig Site palette (bone / ochre / tag). */
+  (function initHeroStarfield() {
+    var hero = document.querySelector('.hero');
+    var canvas = document.getElementById('heroStarsCanvas');
+    var focusEl = document.querySelector('.hero-mark');
+    if (!hero || !canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var BONE = [237, 228, 211], OCHRE = [232, 163, 61], TAG = [255, 61, 110];
+    var PALETTE = [BONE, OCHRE, TAG];          // dot colours
+    var GLOW = [OCHRE, TAG];                    // halo colours
+    var CONNECT_MAX_DIST = 165;
+    var W = 0, H = 0, stars = [];
+
+    function makeStar(w, h, glow) {
+      var roll = Math.random();
+      var colorIdx = glow ? (roll < 0.55 ? 0 : 1) : (roll < 0.6 ? 0 : roll < 0.85 ? 1 : 2);
+      var depth = Math.random();
+      var lineRgb = glow
+        ? (colorIdx === 0 ? OCHRE : TAG)
+        : (colorIdx === 1 ? OCHRE : colorIdx === 2 ? TAG : (Math.random() < 0.35 ? OCHRE : TAG));
+      return {
+        x: Math.random() * w, y: Math.random() * h,
+        r: (glow ? 1.6 + Math.random() * 2.4 : 0.5 + Math.random() * 1.6) * (0.6 + depth * 0.9),
+        glow: glow, colorIdx: colorIdx, lineRgb: lineRgb, depth: depth,
+        baseAlpha: glow ? 0.3 + Math.random() * 0.25 : 0.2 + Math.random() * 0.5,
+        twFreq: 0.2 + Math.random() * 1.3, twPhase: Math.random() * Math.PI * 2,
+        vx: 0, vy: 0, tx: 0, ty: 0, nextRoll: 0,
+        bobFreq: 0.12 + Math.random() * 0.28, bobPhase: Math.random() * Math.PI * 2, bobAmp: 3 + depth * 11,
+        pulseFreq: 0.1 + Math.random() * 0.2, pulsePhase: Math.random() * Math.PI * 2
+      };
+    }
+    function buildStars(w, h) {
+      var count = Math.round(Math.min(260, Math.max(90, (w * h) / 9000)));
+      var glowCnt = Math.max(10, Math.round(count * 0.1));
+      stars = [];
+      for (var i = 0; i < count; i++) stars.push(makeStar(w, h, false));
+      for (var k = 0; k < glowCnt; k++) stars.push(makeStar(w, h, true));
+    }
+    function resize() {
+      var rect = hero.getBoundingClientRect();
+      W = Math.max(1, rect.width); H = Math.max(1, rect.height);
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildStars(W, H);
+    }
+    resize();
+    var resizeRaf = null;
+    window.addEventListener('resize', function () {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(function () { resizeRaf = null; resize(); });
+    });
+
+    var rafId = null, lastTimestamp = null, onScreen = true;
+    function frame(timestamp) {
+      var t = timestamp * 0.001;
+      var dt = lastTimestamp === null ? 0 : Math.min((timestamp - lastTimestamp) * 0.001, 0.1);
+      lastTimestamp = timestamp;
+      var heroRect = hero.getBoundingClientRect();
+      var focalX = W * 0.5, focalY = H * 0.45, focalR = Math.max(W, H) * 0.55;
+      if (focusEl) {
+        var c = focusEl.getBoundingClientRect();
+        if (c.width > 0) {
+          focalX = (c.left + c.width / 2) - heroRect.left;
+          focalY = (c.top + c.height / 2) - heroRect.top;
+          focalR = Math.max(c.width, c.height) * 0.85;
+        }
+      }
+      var clampedTop = Math.max(-H, Math.min(0, heroRect.top));
+      var scrollShift = clampedTop * -0.18;
+      ctx.clearRect(0, 0, W, H);
+
+      stars.forEach(function (s) {
+        if (timestamp > s.nextRoll) {
+          var speed = 10 + s.depth * 38;
+          s.tx = (Math.random() - 0.5) * speed; s.ty = (Math.random() - 0.5) * speed;
+          s.nextRoll = timestamp + 1000 + Math.random() * 2500;
+        }
+        s.vx += (s.tx - s.vx) * 0.018; s.vy += (s.ty - s.vy) * 0.018;
+        s.x += s.vx * dt; s.y += s.vy * dt;
+        if (s.x < -30) s.x += W + 60; if (s.x > W + 30) s.x -= W + 60;
+        if (s.y < -30) s.y += H + 60; if (s.y > H + 30) s.y -= H + 60;
+        var bobX = Math.sin(t * s.bobFreq + s.bobPhase) * s.bobAmp;
+        var bobY = Math.cos(t * s.bobFreq * 0.8 + s.bobPhase) * s.bobAmp;
+        var px = s.x + bobX, py = s.y + bobY + scrollShift * (0.3 + s.depth * 0.9);
+        var dx = px - focalX, dy = py - focalY;
+        var proximity = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / focalR);
+        var tw = Math.sin(t * s.twFreq + s.twPhase) * 0.5 + 0.5;
+        s._px = px; s._py = py; s._prox = proximity;
+        s._alpha = Math.min(1, s.baseAlpha * (0.35 + tw * 0.65) * (1 + proximity * 1.6));
+        s._r = s.r * (1 + proximity * 1.3);
+        s._rgb = s.glow ? GLOW[s.colorIdx] : PALETTE[s.colorIdx];
+      });
+
+      var lineBase = 0.23;
+      for (var i = 0; i < stars.length; i++) {
+        var a = stars[i];
+        for (var j = i + 1; j < stars.length; j++) {
+          var b = stars[j];
+          var ddx = a._px - b._px; if (ddx > CONNECT_MAX_DIST || ddx < -CONNECT_MAX_DIST) continue;
+          var ddy = a._py - b._py; if (ddy > CONNECT_MAX_DIST || ddy < -CONNECT_MAX_DIST) continue;
+          var dist = Math.sqrt(ddx * ddx + ddy * ddy); if (dist >= CONNECT_MAX_DIST) continue;
+          var falloff = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.7);
+          var proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
+          var lineAlpha = Math.min(0.42, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+          if (lineAlpha < 0.012) continue;
+          var grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
+          grad.addColorStop(0, 'rgba(' + a.lineRgb[0] + ',' + a.lineRgb[1] + ',' + a.lineRgb[2] + ',' + lineAlpha + ')');
+          grad.addColorStop(1, 'rgba(' + b.lineRgb[0] + ',' + b.lineRgb[1] + ',' + b.lineRgb[2] + ',' + lineAlpha + ')');
+          ctx.beginPath(); ctx.moveTo(a._px, a._py); ctx.lineTo(b._px, b._py);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.5 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 1.0;
+          ctx.stroke();
+        }
+      }
+
+      stars.forEach(function (s) {
+        var px = s._px, py = s._py, alpha = s._alpha, r = s._r, rgb = s._rgb;
+        if (s.glow) {
+          var pulse = Math.sin(t * s.pulseFreq + s.pulsePhase) * 0.5 + 0.5;
+          var glowA = Math.min(1, alpha * (0.55 + pulse * 0.85));
+          var glowR = r * (5 + pulse * 2.5);
+          var grd = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+          grd.addColorStop(0, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + glowA + ')');
+          grd.addColorStop(1, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0)');
+          ctx.beginPath(); ctx.arc(px, py, glowR, 0, Math.PI * 2); ctx.fillStyle = grd; ctx.fill();
+        }
+        ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+        ctx.fill();
+      });
+
+      rafId = (reduce || !onScreen || document.hidden) ? null : requestAnimationFrame(frame);
+    }
+    function start() { if (!rafId && !reduce) { lastTimestamp = null; rafId = requestAnimationFrame(frame); } }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { cancelAnimationFrame(rafId); rafId = null; } else if (onScreen) start();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        onScreen = es[0].isIntersecting;
+        if (onScreen) start(); else { cancelAnimationFrame(rafId); rafId = null; }
+      }).observe(hero);
+    }
+    if (reduce) frame(0); else start();   // reduced motion: one still frame of the mesh
+  })();
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 

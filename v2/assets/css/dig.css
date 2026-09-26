@@ -260,6 +260,8 @@ main { display: block; }
   .t-line, .t-fast, .hero-quote p > span, .q-ai { opacity: 1; transform: none; filter: none; animation: none !important; }
   .t-box::before { opacity: .85; animation: none; } .t-h { opacity: 1; transform: none; animation: none; }
   .t-streak,   }
+.hero { position: relative; isolation: isolate; }
+.hero-stars { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; display: block; }
 .hero-welcome { font-family: var(--f-disp); font-weight: 800; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--s3); max-width: max-content; }
 .hero-welcome { display: flex; flex-wrap: wrap; align-items: center; column-gap: .3em; row-gap: 14px; }
 .hero-welcome .nw { white-space: nowrap; }
