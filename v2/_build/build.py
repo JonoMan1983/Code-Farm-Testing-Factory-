@@ -335,7 +335,7 @@ def home():
 <div class="hero-intro">
 <figure class="hero-mark"><img src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320"><figcaption class="tag tag--hot">TAG 04 · STILL ROARING</figcaption></figure>
 <div>
-<p class="lede"><strong class="hero-name">Jonathan <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
+<p class="lede"><strong class="hero-name">Jonathan Edward <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
 <div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a></div>
 </div>
 </div>
