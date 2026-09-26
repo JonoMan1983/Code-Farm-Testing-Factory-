@@ -453,14 +453,6 @@ def home():
 </div>
 </section>
 
-<section class="section section--deep" id="craft" data-crumb="iGaming bedrock" data-depth="3.4m" data-era="2018–25" aria-labelledby="craft-title">
-<div class="sec-head reveal"><div><p class="eyebrow">Layer 02 — iGaming bedrock · 2018–2025</p><h2 class="h-xl" id="craft-title">Six years of high-stakes pixels</h2></div>
-<p class="lede">Live products for lottery and gaming audiences in Scandinavia, South Africa and the UK. Plus the motion, brand and personal work underneath.</p>{guide('05', '')}</div>
-<div class="reveal">{slabs()}</div>
-{IGAMING_HEAD}
-{gal_dialog()}
-<div class="btn-row reveal" style="margin-top:40px"><a class="btn btn--bone" href="archive.html">Open the Creative Archive →</a><a class="btn" href="archive.html#reel">Motion reel</a><a class="btn" href="archive.html#art">Artistic expression</a></div>
-</section>
 
 <section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
