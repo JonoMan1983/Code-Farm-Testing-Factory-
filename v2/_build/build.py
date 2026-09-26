@@ -257,6 +257,12 @@ _LOGOS = json.load(open(os.path.join(HERE, 'v1logos.json'), encoding='utf-8'))['
 _TOOLS = json.load(open(os.path.join(HERE, 'v1tools.json'), encoding='utf-8'))
 _TIMELINE = json.load(open(os.path.join(HERE, 'v1timeline.json'), encoding='utf-8'))
 _TIMELINE[0]['dates'] = 'Nov 2023 – Present'
+CERTS_MORE = [  # verified from the certificates in Google Drive
+    ('UX Design for Developers', 'LinkedIn Learning · Nov 2023'),
+    ('Using Style Guides to Bridge Design and Development', 'LinkedIn Learning · Nov 2023'),
+    ('Lithium Features', 'Udemy · Feb 2023'),
+    ('AI Video Production: Create Videos 100% with AI', 'Udemy · Mar 2025'),
+]
 CERTS = ['UX Experience Design Fundamentals', 'Become a Product Manager', 'Gamification &amp; Motivation Psychology', 'Adobe XD Masterclass',
          'Product Management Frameworks', 'Ultimate AI Art &amp; Content Creation', 'Web Accessibility &amp; Inclusive Design (WCAG Principles)']
 
@@ -315,7 +321,7 @@ def about_more():
 <div class="certs">
 <div class="certs-count"><b>27</b><span class="h-m">Certifications<br>&amp; counting</span><div class="cert-ticks" aria-hidden="true">{ticks}</div></div>
 <div><p class="eyebrow">Continuous learning</p><p class="lede" style="margin-top:12px">Still learning. Still hungry. Still Rex. Beyond the diploma — a standing habit of structured upskilling across UX research, product management, AI tooling and accessibility.</p>
-<ul class="cert-list">{certs}<li class="cert-more">+ 20 more</li></ul></div>
+<ul class="cert-list">{certs}<li class="cert-more"><button type="button" class="cert-toggle" aria-expanded="false" aria-controls="cert-extra" data-cert-toggle>+ 20 more</button></li></ul><div class="cert-extra" id="cert-extra" hidden><ul class="cert-list">{"".join(f'<li>{n}<span class="cert-src">{src}</span></li>' for n, src in CERTS_MORE)}</ul><p class="cert-rest">The rest of the 27 are listed on <a href="https://www.linkedin.com/in/jonoman1983/details/certifications/" target="_blank" rel="noopener">LinkedIn → Licenses &amp; certifications ↗</a></p></div></div>
 </div>
 </div>
 </div>"""

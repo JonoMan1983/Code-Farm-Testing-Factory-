@@ -585,7 +585,14 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .cert-ticks span.on { background: var(--basalt); }
 .cert-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .cert-list li { padding: 14px 16px; background: var(--s1); border-left: 3px solid var(--ochre); font-size: 15px; }
-.cert-list .cert-more { border-left-color: var(--s5); color: var(--muted); font-family: var(--f-mono); font-size: 13px; }
+.cert-list .cert-more { padding: 0; border-left-color: var(--ochre); }
+.cert-toggle { width: 100%; min-height: 48px; padding: 14px 16px; text-align: left; font-family: var(--f-mono); font-size: 13px; color: var(--ochre); cursor: pointer; transition: background .2s; }
+.cert-toggle:hover, .cert-toggle[aria-expanded="true"] { background: var(--s3); }
+.cert-extra { margin-top: 10px; }
+.cert-extra .cert-list { margin-top: 0; }
+.cert-src { display: block; margin-top: 4px; font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.cert-rest { margin-top: 14px; font-size: 14px; color: var(--bone-2); }
+.cert-rest a { color: var(--ochre); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 1100px) {
   .tl-row { grid-template-columns: 150px minmax(0, 1fr); }
   .tl-row p { grid-column: 2; }

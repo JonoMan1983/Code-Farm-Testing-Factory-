@@ -263,6 +263,21 @@
     fitMap(); window.addEventListener('resize', fitMap);
   }
 
+  /* Certifications: + 20 more */
+  var certBtn = document.querySelector('[data-cert-toggle]');
+  var certBox = document.getElementById('cert-extra');
+  if (certBtn && certBox) {
+    certBtn.addEventListener('click', function () {
+      var open = certBtn.getAttribute('aria-expanded') !== 'true';
+      certBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      certBox.hidden = !open;
+      certBtn.textContent = open ? '− Show fewer' : '+ 20 more';
+      var shown = document.querySelectorAll('.cert-list > li:not(.cert-more)').length;
+      var n = open ? shown : shown - certBox.querySelectorAll('li').length;
+      document.querySelectorAll('.cert-ticks span').forEach(function (t, i) { t.classList.toggle('on', i < n); });
+    });
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
