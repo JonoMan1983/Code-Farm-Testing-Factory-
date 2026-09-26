@@ -500,11 +500,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
 <div class="notes reveal">{notes_html}</div>
 </section>
 
-<section class="section section--alt" data-depth="3.0m" data-era="outcomes">
-<div class="sec-head reveal"><div><p class="eyebrow">Outcomes</p><h2 class="h-l" style="margin-top:10px">What came out of the ground</h2></div>{guide('03', pre)}</div>
-<div class="metrics reveal">{met_html}</div>
-<a class="next" href="{next_href}">Next specimen: {next_name} →</a>
-</section>
+<div class="next-wrap"><a class="next" href="{next_href}">Next specimen: {next_name} →</a></div>
 </main>
 """ + footer(pre)
 

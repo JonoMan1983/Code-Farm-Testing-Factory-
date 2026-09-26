@@ -658,6 +658,7 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .metrics b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 64px; line-height: 1; }
 .metrics span { color: var(--bone-2); font-size: 15px; }
 .next { display: inline-block; margin-top: 48px; font-family: var(--f-disp); font-weight: 900; font-size: clamp(36px, 4.5vw, 64px); text-transform: uppercase; color: var(--ochre); }
+.next-wrap { padding: var(--section-y) var(--pad-x) var(--section-y) var(--pad-l); }
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .gallery img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--s4); }
 .ba { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
