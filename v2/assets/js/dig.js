@@ -468,6 +468,24 @@
     if (reduce) frame(0); else start();   // reduced motion: one still frame of the mesh
   })();
 
+  /* Contact form: build a ready-to-send email (static site, no server) */
+  var cform = document.querySelector('[data-contact-form]');
+  if (cform) {
+    cform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = cform.elements, err = cform.querySelector('[data-form-error]'), ok = cform.querySelector('[data-form-ok]');
+      var name = f.name.value.trim(), email = f.email.value.trim(), msg = f.message.value.trim();
+      var valid = name && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && msg;
+      err.hidden = !!valid;
+      if (!valid) { (name ? (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? f.message : f.email) : f.name).focus(); return; }
+      var company = f.company.value.trim(), topic = f.topic.value;
+      var subject = topic + ' — from ' + name + (company ? ' (' + company + ')' : '');
+      var body = msg + '\n\n— ' + name + (company ? ', ' + company : '') + '\n' + email;
+      window.location.href = 'mailto:jonathanedwardnestler@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      ok.hidden = false;
+    });
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 

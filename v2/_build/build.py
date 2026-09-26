@@ -75,7 +75,7 @@ def header(pre, active, home=False, crumbs=None):
 
     menu = [
         ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
-        ('work', 'Specimens', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Reels, Rules &amp; Revenue', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('work', 'Specimens', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Reels, Rules &amp; Revenue', f'{pre}work/astria-platform.html'), ('Indiemode Rework', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
     ]
@@ -87,7 +87,8 @@ def header(pre, active, home=False, crumbs=None):
                      f'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>'
                      f'<ul class="drop" id="drop-{key}">{sub}</ul></li>')
     items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field Notes (Resume)</a></li>')
-    items.append(f'<li><a class="btn btn--fill btn--raptor" href="{h}#contact">{RAPTOR_ICON}<span>Hire the Dino</span></a></li>')
+    items.append(f'<li><a class="nav-top" href="{pre}contact.html"{cur("contact")}>Base Camp (Contact)</a></li>')
+    items.append(f'<li><a class="btn btn--fill btn--raptor" href="{pre}contact.html">{RAPTOR_ICON}<span>Hire the Dino</span></a></li>')
 
     trail = [f'<li><a href="{pre}index.html">{SHOVEL}<span>Dig site</span></a></li>']
     for label, href in (crumbs or []):
@@ -258,7 +259,7 @@ def ref_dialog():
 _LOGOS = json.load(open(os.path.join(HERE, 'v1logos.json'), encoding='utf-8'))['logos']
 _TOOLS = json.load(open(os.path.join(HERE, 'v1tools.json'), encoding='utf-8'))
 _TIMELINE = json.load(open(os.path.join(HERE, 'v1timeline.json'), encoding='utf-8'))
-_TIMELINE[0]['dates'] = 'Nov 2023 – Present'
+_TIMELINE[0]['dates'] = 'Nov 2023 – Jul 2026'
 CERTS_MORE = [  # verified from the certificates in Google Drive
     ('UX Design for Developers', 'LinkedIn Learning · Nov 2023'),
     ('Using Style Guides to Bridge Design and Development', 'LinkedIn Learning · Nov 2023'),
@@ -338,7 +339,7 @@ def home():
 <section class="section hero" data-crumb="Welcome" data-depth="0.0m" data-era="2026" aria-labelledby="hero-title">
 <canvas class="hero-stars" id="heroStarsCanvas" aria-hidden="true"></canvas>
 <p class="hero-welcome">Welcome to the <span class="nw">Designasaurus</span> <span class="dig-stamp"><svg class="shovel" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V12.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.4 12.4h9.2v3.9c0 3.1-2 5.6-4.6 6.6-2.6-1-4.6-3.5-4.6-6.6z" fill="currentColor"/></svg>Dig Site</span></p>
-<h1 class="h-mega hero-title hero-title--strata" id="hero-title"><span class="t-line t-years"><span class="t-count" data-count="20">20</span>+ years <span class="t-small">in the strata</span></span><span class="t-line t-craft"><span class="t-box outline">Adobe craft<i class="t-h t-h1" aria-hidden="true"></i><i class="t-h t-h2" aria-hidden="true"></i><i class="t-h t-h3" aria-hidden="true"></i><i class="t-h t-h4" aria-hidden="true"></i></span> <span class="t-meets">meets</span></span><span class="t-line t-velocity"><span class="ochre t-fast">Claude-first velocity.</span><i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i></span></h1>
+<h1 class="h-mega hero-title hero-title--strata" id="hero-title"><span class="t-line t-years"><span class="t-count" data-count="20">20</span>+ years <span class="t-small">in the strata</span></span><span class="t-line t-craft"><span class="t-box outline">Adobe craft<i class="t-h t-h1" aria-hidden="true"></i><i class="t-h t-h2" aria-hidden="true"></i><i class="t-h t-h3" aria-hidden="true"></i><i class="t-h t-h4" aria-hidden="true"></i></span> <span class="t-meets">meets</span></span><span class="t-line t-velocity"><span class="ochre t-fast">Claude-first <span class="t-vel">velocity.<i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i></span></span></span></h1>
 <blockquote class="hero-quote"><p><span class="q-w">From</span> <span class="q-vec">vector-level Illustrator accuracy</span> <span class="q-w">to</span> <span class="q-ai">AI-accelerated system architecture</span><span class="q-w">—built to deliver at</span> <span class="q-epoch">epoch-shifting speed</span>.</p></blockquote>
 <div class="hero-meta">
 <div class="hero-intro">
@@ -403,14 +404,14 @@ def home():
 
 <div class="spec-grid">
 <a class="spec spec-card reveal" href="work/astria-platform.html">
-<p class="eyebrow">Specimen 02 · iGaming · Astria Systems · 2018–now</p>
+<p class="eyebrow">Specimen 02 · iGaming · Astria Systems · 2018–2026</p>
 <h3 class="h-l">Reels, Rules &amp; Revenue</h3>
 <p class="body-2">Promoted from Product Designer to Jr. Product Owner. UX/UI across Wonderlabz, Playsafe and Pantelotteriet — backlog, flows and design system in one pair of claws.</p>
 <div class="spec-thumbs spec-thumbs--5">{''.join(f'<img src="assets/images/igaming/{stem}.jpg" alt="{n} slot game reel frame" width="1200" height="622" loading="lazy">' for n, stem, _ in ALL_GAMES)}</div>
 <span class="spec-cta">Read the dig report →</span>
 </a>
 <a class="spec spec-card reveal" href="work/indiemode.html">
-<p class="eyebrow">Specimen 03 · Indiemode · Fashion</p>
+<p class="eyebrow">Specimen 03 · Indiemode Rework · Fashion</p>
 <h3 class="h-l">A week of build in two days</h3>
 <p class="body-2">Full-site redesign with Claude as build partner. I directed hierarchy and brand; Claude wrote the code.</p>
 <img class="spec-shot" src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" loading="lazy">
@@ -583,9 +584,9 @@ def astria():
 </div>
 </section>
 {gal_dialog()}"""
-    return case('astria', 'Reels, Rules & Revenue — iGaming dig report · Jonathan Nestler', 'Specimen 02 · iGaming · Astria Systems (formerly Wonderlabz) · 2018–now', 'Reels, Rules &amp; Revenue',
+    return case('astria', 'Reels, Rules & Revenue — iGaming dig report · Jonathan Nestler', 'Specimen 02 · iGaming · Astria Systems (formerly Wonderlabz) · 2018–2026', 'Reels, Rules &amp; Revenue',
                 'Six years across Wonderlabz, Playsafe and Pantelotteriet — from slot-game UI and VFX to owning product decisions as Jr. Product Owner.',
-                [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', '2018 – present')],
+                [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', 'Oct 2018 – Jul 2026')],
                 'Producing world-class, top-quality, revenue-generating iGaming products in record time.',
                 [('Game UI & VFX', 'Slot interfaces, character animation and win-state VFX for Samurai, Geisha, Atlantis, Mayan Madness and more.'),
                  ('Identity systems', 'Corporate identity and brand guides for Wonderlabz and The Recycling Lottery.'),
@@ -595,7 +596,7 @@ def astria():
                  ('Claude Code prototypes for timing-heavy flows.', 'Which flows needed proving before build — and which didn’t.'),
                  ('[AI-drafted backlog or spec content]', '[How you reshaped it as PO]')],
                 extra, [('[X]', 'brands on one design system'), ('[X]', 'live titles shipped'), ('[X%]', 'outcome metric')],
-                'indiemode.html', 'Indiemode')
+                'indiemode.html', 'Indiemode Rework')
 
 
 def indiemode():
@@ -607,7 +608,7 @@ def indiemode():
 <figure><img src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" loading="lazy"><figcaption><b>AFTER · CLAUDE SPRINT</b>Editorial dark mode, bold serif type, neon palette. Two-day sprint.</figcaption></figure>
 </div>
 </section>"""
-    return case('indiemode', 'Indiemode — dig report · Jonathan Nestler', 'Specimen 03 · Web design · Fashion & lifestyle · South Africa', 'Indiemode',
+    return case('indiemode', 'Indiemode Rework — dig report · Jonathan Nestler', 'Specimen 03 · Web design · Fashion & lifestyle · South Africa', 'Indiemode Rework',
                 'A full-site redesign for an independent South African fashion label — and the first build in this portfolio made end-to-end with Claude as a deliberate creative and technical partner.',
                 [('ROLE', 'Designer & art director'), ('CLIENT', 'Indiemode'), ('SURFACE', 'Responsive website'), ('AI STACK', 'Claude'), ('TIMELINE', 'Two-day sprint')],
                 'The brief: elevate the brand, modernise the layout, and ship fast — without the result looking like every other AI-generated site.',
@@ -819,7 +820,7 @@ CV_SKILLS = [
 ]
 
 CV_JOBS_P1 = [
-    ('Jr. Product Owner <span>(promoted from Product Designer)</span>', 'Astria Systems (formerly Wonderlabz)', 'Remote', 'Nov 2023 – Present', [
+    ('Jr. Product Owner <span>(promoted from Product Designer)</span>', 'Astria Systems (formerly Wonderlabz)', 'Remote', 'Nov 2023 – Jul 2026', [
         'Lead UX/UI product design across three portfolio brands: Wonderlabz, Playsafe and Pantelotteriet.',
         'Integrated Claude, Claude Code and Figma MCP into the design workflow; AI-assisted HTML prototypes validate timing-heavy flows before engineering builds them.',
         'Scope user journeys, prioritise the backlog and align product, design and engineering.',
@@ -860,7 +861,6 @@ PERSON_LD = {
     'name': 'Jonathan Edward Nestler', 'alternateName': 'Jonno Nestler',
     'jobTitle': 'Senior Product Designer',
     'description': 'Senior Product Designer, UX/UI Designer and Jr. Product Owner with 20+ years of design experience, specialising in AI-integrated product design with Claude, Claude Code and Figma MCP.',
-    'worksFor': {'@type': 'Organization', 'name': 'Astria Systems'},
     'hasOccupation': [{'@type': 'Occupation', 'name': t} for t in ['Senior Product Designer', 'UX/UI Designer', 'Product Owner']],
     'knowsAbout': ['Product design', 'UX design', 'UI design', 'User research', 'Usability testing', 'Information architecture', 'Journey mapping',
                    'Prototyping', 'Design systems', 'Accessibility (WCAG)', 'Product ownership', 'AI integration', 'Claude', 'Claude Code', 'Figma MCP',
@@ -868,7 +868,7 @@ PERSON_LD = {
     'alumniOf': {'@type': 'EducationalOrganization', 'name': 'UX Design Institute'},
     'hasCredential': {'@type': 'EducationalOccupationalCredential', 'name': 'Professional Diploma in UX Design', 'recognizedBy': {'@type': 'Organization', 'name': 'UX Design Institute'}},
     'address': {'@type': 'PostalAddress', 'addressLocality': 'Jeffreys Bay', 'addressRegion': 'Eastern Cape', 'addressCountry': 'ZA'},
-    'email': 'mailto:' + EMAIL, 'url': 'https://jonoman1983.github.io/Code-Farm-Testing-Factory-/',
+    'email': 'mailto:' + EMAIL, 'url': 'https://www.designasaurus.co.za', 'telephone': '+27628629697',
     'sameAs': [LINKEDIN, 'https://github.com/JonoMan1983'],
 }
 
@@ -882,19 +882,19 @@ CV_CSS = """<style>
 .cv-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
 .cv-pages{display:grid;grid-template-columns:minmax(0,max-content);gap:40px;justify-items:start}
 .paper{width:210mm;height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;display:flex;flex-direction:column;overflow:hidden;
-  font-family:var(--f-body);font-size:9.6pt;line-height:1.5;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  font-family:var(--f-body);font-size:9.4pt;line-height:1.45;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .paper a{color:#15110E;text-decoration:none}
 .cv-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center;background:#15110E;color:#EDE4D3;padding:26px 40px 24px}
 .cv-photo{width:112px;height:112px;border-radius:50%;object-fit:cover;border:4px solid #E8A33D}
 .cv-kicker{font-family:var(--f-mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:#E8A33D}
-.cv-name{margin:6px 0 0;font-family:var(--f-disp);font-weight:900;font-size:31pt;line-height:.9;text-transform:uppercase;letter-spacing:.01em}
+.cv-name{margin:6px 0 0;font-family:var(--f-disp);font-weight:900;font-size:29pt;line-height:.9;text-transform:uppercase;letter-spacing:.01em}
 .cv-title{margin-top:10px;font-size:12pt;font-weight:600;color:#EDE4D3}
 .cv-tag{margin-top:4px;font-size:9.4pt;color:#D9CDB9}
-.cv-raptor{align-self:end;width:104px;margin:0 -10px -8px 0;opacity:.95}
+.cv-logo{align-self:center;display:block;width:104px}.cv-logo img{display:block;width:100%;height:auto}
 .cv-strip{display:flex;height:14px}.cv-strip i{flex:1;background:#3A2C21}.cv-strip i:nth-child(2){flex:2;background:#4A3827}.cv-strip i:nth-child(3){background:#E8A33D}
-.cv-contact{list-style:none;margin:0;padding:12px 40px;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--f-mono);font-size:8.2pt;border-bottom:1px solid #C9BBA5}
+.cv-contact{list-style:none;margin:0;padding:10px 40px;display:flex;flex-wrap:wrap;gap:4px 18px;font-family:var(--f-mono);font-size:7.8pt;border-bottom:1px solid #C9BBA5}
 .cv-contact b{font-weight:500;color:#9A5F12}
-.cv-body{flex:1;padding:20px 40px 0;display:flex;flex-direction:column;gap:17px}
+.cv-body{flex:1;padding:16px 40px 0;display:flex;flex-direction:column;gap:13px}
 .cv-sec{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px}
 .cv-label{border-top:2px solid #15110E;padding-top:7px}
 .cv-depth{display:block;font-family:var(--f-mono);font-size:7pt;color:#9A5F12;letter-spacing:0}
@@ -903,14 +903,14 @@ CV_CSS = """<style>
 .cv-content>p+p{margin-top:8px}
 .cv-skills{display:grid;gap:6px}
 .cv-skills p b{font-weight:600}
-.cv-job+.cv-job{margin-top:13px;padding-top:12px;border-top:1px dashed #C9BBA5}
+.cv-job+.cv-job{margin-top:10px;padding-top:9px;border-top:1px dashed #C9BBA5}
 .cv-job-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
 .cv-job h3{margin:0;font-size:11.5pt;font-weight:600;line-height:1.3}
 .cv-job h3 span{font-weight:400;font-size:9.5pt;color:#5B4A3A}
 .cv-date{flex-shrink:0;font-family:var(--f-mono);font-size:8pt;color:#9A5F12;white-space:nowrap}
 .cv-org{margin-top:2px;font-size:9.5pt;color:#5B4A3A}
-.cv-job ul{margin:7px 0 0;padding-left:16px}
-.cv-job li+li{margin-top:4px}
+.cv-job ul{margin:5px 0 0;padding-left:16px}
+.cv-job li+li{margin-top:2px}
 .cv-job li::marker{color:#E8A33D}
 .cv-ai{background:#15110E;color:#EDE4D3;padding:14px 16px}
 .cv-ai p+p{margin-top:6px}
@@ -919,10 +919,17 @@ CV_CSS = """<style>
 .cv-run{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 40px;background:#15110E;color:#EDE4D3}
 .cv-run b{font-family:var(--f-disp);font-weight:900;font-size:15pt;text-transform:uppercase}
 .cv-run span{font-family:var(--f-mono);font-size:8pt;color:#E8A33D}
-.cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 40px 14px;margin-top:14px;font-family:var(--f-mono);font-size:7.5pt;color:#5B4A3A;border-top:1px solid #C9BBA5}
+.cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 40px 12px;margin-top:10px;font-family:var(--f-mono);font-size:7.5pt;color:#5B4A3A;border-top:1px solid #C9BBA5}
 .cv-foot img{width:56px}
+.cv-refs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cv-ref{display:grid;gap:2px;padding:10px 12px;background:#E3D8C4;border-left:3px solid #E8A33D}
+.cv-ref b{font-size:10.5pt;font-weight:600}
+.cv-ref span{font-size:8.8pt;color:#3D3027}
+.cv-ref .cv-ref-org{color:#5B4A3A}
+.cv-ref a{margin-top:3px;font-family:var(--f-mono);font-size:8.6pt;color:#9A5F12!important}
+.cv-ref-note{margin-top:10px;font-size:8.6pt;color:#5B4A3A}
 @media screen and (max-width:860px){.cv-pages{grid-template-columns:minmax(0,1fr)}.paper{width:100%}}
-@media screen and (max-width:760px){.paper{height:auto;font-size:15px}.cv-head{padding:24px 20px}.cv-body,.cv-contact,.cv-foot,.cv-run{padding-left:20px;padding-right:20px}.cv-head{grid-template-columns:1fr}.cv-raptor{display:none}.cv-sec{grid-template-columns:1fr;gap:8px}.cv-name{font-size:40px}}
+@media screen and (max-width:760px){.paper{height:auto;font-size:15px}.cv-head{padding:24px 20px}.cv-body,.cv-contact,.cv-foot,.cv-run{padding-left:20px;padding-right:20px}.cv-head{grid-template-columns:1fr}.cv-logo{width:96px}.cv-sec{grid-template-columns:1fr;gap:8px}.cv-name{font-size:40px}}
 @page{size:A4;margin:0}
 @media print{
   html,body{background:#EDE4D3!important}
@@ -939,38 +946,38 @@ def resume():
     p2 = ''.join(_job(*j) for j in CV_JOBS_P2)
     early = f'<div class="cv-job"><div class="cv-job-head"><h3>{CV_EARLY[0]}</h3><span class="cv-date">{CV_EARLY[1]}</span></div><p class="cv-org">{CV_EARLY[2]}</p></div>'
     contact = (f'<ul class="cv-contact"><li>Jeffreys Bay, Eastern Cape, South Africa</li><li><b>Remote worldwide</b></li>'
-               f'<li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>[PHONE]</li>'
-               f'<li><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a></li><li><a href="https://jonoman1983.github.io/Code-Farm-Testing-Factory-/">jonoman1983.github.io/Code-Farm-Testing-Factory-</a></li></ul>')
+               f'<li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li><a href="tel:+27628629697">+27 (0)62 862 9697</a></li>'
+               f'<li><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a></li><li><a href="https://www.designasaurus.co.za"><b>www.designasaurus.co.za</b></a></li></ul>')
     page1 = f"""<article class="paper" aria-label="Resume page 1">
 <header class="cv-head">
 <img class="cv-photo" src="assets/images/portrait.jpg" alt="Jonathan Nestler">
 <div>
-<p class="cv-kicker">Designasaurus Rex · Curriculum vitae 2026</p>
+<p class="cv-kicker">Curriculum vitae · 2026</p>
 <h1 class="cv-name">Jonathan Edward Nestler</h1>
 <p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner</p>
 <p class="cv-tag">20+ years · AI-integrated product design with Claude, Claude Code and Figma MCP</p>
 </div>
-<img class="cv-raptor" src="assets/dino/dino09-fossil.svg" alt="">
+<a class="cv-logo" href="https://www.designasaurus.co.za"><img src="assets/brand/jen-logo.svg" alt="Jonathan Edward Nestler logo"></a>
 </header>
 <div class="cv-strip" aria-hidden="true"><i></i><i></i><i></i></div>
 {contact}
 <div class="cv-body">
-{_sec('Professional summary', '0.0m · SURFACE', '<p>Senior Product Designer and Jr. Product Owner with 20+ years across iGaming, lottery, telecoms, EdTech and brand. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them.</p><p>Promoted from Product Designer to Jr. Product Owner at Astria Systems, leading UX/UI across three live brands. Professional Diploma in UX Design (UX Design Institute, Dublin).</p>')}
-{_sec('Core skills', '0.9m · TOOLKIT', f'<div class="cv-skills">{skills}</div>')}
-{_sec('Experience', '1.8m · LAYERS', p1)}
+{_sec('Professional summary', '01', '<p>Senior Product Designer and Jr. Product Owner with 20+ years across iGaming, lottery, telecoms, EdTech and brand. I design the system before the screen, then use Claude, Claude Code and Figma MCP to prove flows in working prototypes before engineering builds them.</p><p>Promoted from Product Designer to Jr. Product Owner at Astria Systems, leading UX/UI across three live brands. Professional Diploma in UX Design (UX Design Institute, Dublin).</p>')}
+{_sec('Core skills', '02', f'<div class="cv-skills">{skills}</div>')}
+{_sec('Experience', '03', p1)}
 </div>
 <footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer</span><span>Page 1 of 2</span></footer>
 </article>"""
     page2 = f"""<article class="paper" aria-label="Resume page 2">
 <div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration</span></div>
 <div class="cv-body">
-{_sec('Experience <span class="sr-only">(continued)</span>', '2.6m · DEEPER', p2 + early)}
-{_sec('AI toolkit', '3.2m · AI STRATUM', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p><p><b>Built with Claude:</b> this portfolio (GitHub Pages) · The Hunter, a React job-search command centre wired to Gmail via MCP · Central, Gmail-to-ClickUp triage · Studio, custom Claude skills for Figma scripting.</p></div>')}
-{_sec('Selected work', '4.0m · SPECIMENS', '<p><b>The Recycling Lottery (Pantelotteriet)</b> — mobile app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
-{_sec('Education', '4.6m · BEDROCK', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
-{_sec('References', '5.1m · FIELD REPORTS', '<p>Nicolaas Du Plessis (Head of Product) · Anne Jacobson (General Manager) · Hendrik Groenewald (Art Director). Contact details on request; ten written references on the portfolio.</p>')}
+{_sec('Experience <span class="sr-only">(continued)</span>', '03', p2 + early)}
+{_sec('AI toolkit', '04', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p></div>')}
+{_sec('Selected work', '05', '<p><b>The Recycling Lottery (Pantelotteriet)</b> — mobile app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
+{_sec('Education', '06', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
+{_sec('References', '07', '<div class="cv-refs"><div class="cv-ref"><b>Nicolaas Du Plessis</b><span>Head of Product</span><span class="cv-ref-org">Astria Systems</span><a href="tel:+27844799928">+27 (0)84 479 9928</a></div><div class="cv-ref"><b>Anne Jacobson</b><span>General Manager, PPG Africa Studio</span><span class="cv-ref-org">Former GM, Wonderlabz</span><a href="tel:+27625144517">+27 (0)62 514 4517</a></div><div class="cv-ref"><b>Hennie Groenewald</b><span>Creative Director</span><span class="cv-ref-org">Wonderlabz</span><a href="tel:+27833009796">+27 (0)83 300 9796</a></div><div class="cv-ref"><b>Justin Gieselbach</b><span>Frontend Developer &amp; Designer</span><span class="cv-ref-org">Colleague, Xcellent Media &amp; Riviera on Vaal</span><a href="tel:+27761121565">+27 (0)76 112 1565</a></div></div><p class="cv-ref-note">Ten written recommendations are published at www.designasaurus.co.za.</p>')}
 </div>
-<footer class="cv-foot"><img src="assets/dino/dino06-ink.svg" alt=""><span>Page 2 of 2</span></footer>
+<footer class="cv-foot"><span>Jonathan Edward Nestler · <a href="https://www.designasaurus.co.za">www.designasaurus.co.za</a></span><span>Page 2 of 2</span></footer>
 </article>"""
     page_head = head('Jonathan Edward Nestler — Senior Product Designer, UX/UI, AI integration — Resume',
                      'Resume of Jonathan Edward Nestler: Senior Product Designer, UX/UI Designer and Jr. Product Owner. AI-integrated product design with Claude, Claude Code and Figma MCP. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.', '')
@@ -986,8 +993,53 @@ def resume():
 """ + footer('')
 
 
+# ----------------------------------------------------------------- CONTACT
+DIG_TOPICS = ['Senior Product Designer role', 'UX/UI Designer role', 'Product Owner / product role', 'Freelance or contract project', 'Just saying hello']
+
+
+def contact():
+    opts = ''.join(f'<option>{t}</option>' for t in DIG_TOPICS)
+    body = f"""
+<main id="main">
+<section class="section cbc-hero" data-crumb="Base camp" data-depth="0.0m" data-era="base camp">
+<div class="cbc-grid">
+<div class="cbc-intro reveal">
+<p class="eyebrow">Base camp · surface level · signal open</p>
+<h1 class="h-mega cbc-title">Send a signal<br><span class="outline">from the</span><br><span class="ochre">surface.</span></h1>
+<p class="lede">Hiring for a senior UX/UI or product role, or have a project that needs digging into? Fill in the field tag and it arrives in my inbox as a ready-to-send email.</p>
+<div class="cbc-radio" aria-hidden="true"><span class="cbc-dish">{RAPTOR_ICON}</span><i></i><i></i><i></i></div>
+<ul class="cbc-direct">
+<li><span class="mono">Email</span><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+<li><span class="mono">Based</span>Jeffreys Bay, South Africa · SAST (UTC+2)</li>
+<li><span class="mono">Open to</span>Remote worldwide · relocation anywhere in South Africa</li>
+</ul>
+<div class="btn-row"><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a><a class="btn" href="resume.html">Field Notes (Resume)</a></div>
+</div>
+<form class="cbc-tag reveal" data-contact-form novalidate>
+<span class="cbc-hole" aria-hidden="true"></span><span class="cbc-string" aria-hidden="true"></span>
+<p class="cbc-tag-no mono">Field tag 05 · incoming</p>
+<h2 class="cbc-tag-title">Specimen request</h2>
+<div class="cbc-row">
+<label>Your name<input name="name" type="text" autocomplete="name" required></label>
+<label>Your email<input name="email" type="email" autocomplete="email" required></label>
+</div>
+<label>Company <span class="cbc-opt">(optional)</span><input name="company" type="text" autocomplete="organization"></label>
+<label>What are you digging for?<select name="topic">{opts}</select></label>
+<label>Message<textarea name="message" rows="6" required placeholder="The role, the team, the problem — whatever's useful."></textarea></label>
+<p class="cbc-error" data-form-error role="alert" hidden>Please add your name, a valid email and a message.</p>
+<button class="btn btn--fill cbc-send" type="submit"><svg class="shovel" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 13h11l-1.2 5.2c-.5 2.2-2.4 3.8-4.3 3.8s-3.8-1.6-4.3-3.8z" fill="currentColor"/></svg><span>Send the signal</span></button>
+<p class="cbc-ok" data-form-ok role="status" hidden>Signal sent to your email app — just hit send there. If nothing opened, email <a href="mailto:{EMAIL}">{EMAIL}</a> directly.</p>
+</form>
+</div>
+</section>
+</main>
+"""
+    return (head('Contact — Jonathan Edward Nestler, Senior Product Designer', 'Contact Jonathan Edward Nestler: Senior Product Designer, UX/UI and product. Jeffreys Bay, South Africa; remote; open to relocate in South Africa.', '')
+            + header('', 'contact', crumbs=[('Base Camp (Contact)', None)]) + body + footer(''))
+
+
 PAGES = {
-    'index.html': home, 'archive.html': archive, 'resume.html': resume,
+    'index.html': home, 'archive.html': archive, 'resume.html': resume, 'contact.html': contact,
     'work/pantelotteriet.html': pantelotteriet, 'work/astria-platform.html': astria, 'work/indiemode.html': indiemode,
     'work/three-portals.html': three_portals,
 }
