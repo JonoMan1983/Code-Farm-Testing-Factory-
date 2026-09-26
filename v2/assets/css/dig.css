@@ -252,21 +252,14 @@ main { display: block; }
 .q-ai { font-weight: 600; background: linear-gradient(100deg, var(--bone) 0 38%, #FFD89A 46%, var(--ochre) 52%, var(--bone) 60% 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: q-rise .7s 1.6s cubic-bezier(.2,.9,.3,1) forwards, q-shine 3.6s 2.4s ease-in-out infinite !important; }
 @keyframes q-shine { 0% { background-position: 100% 0; } 55%, 100% { background-position: 0 0; } }
 .q-epoch { position: relative; font-weight: 600; color: var(--ochre); line-height: 1.15; }
-.q-epoch i { position: absolute; left: 0; height: 2px; width: 100%; border-radius: 2px; }
-.q-epoch i:nth-of-type(1) { bottom: 1px; background: var(--s5); animation: q-shift 4s 2.8s ease-in-out infinite; }
-.q-epoch i:nth-of-type(2) { bottom: -3px; background: var(--ochre); animation: q-shift 4s 2.95s ease-in-out infinite reverse; }
-.q-epoch i:nth-of-type(3) { bottom: -7px; background: var(--tag); animation: q-shift 4s 3.1s ease-in-out infinite; }
-@keyframes q-shift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
 @media (max-width: 600px) {
   .hero-quote p > span { display: inline; transform: none; }
-  .q-epoch { display: inline-block; }
     .t-h { width: 8px; height: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .t-line, .t-fast, .hero-quote p > span, .q-ai { opacity: 1; transform: none; filter: none; animation: none !important; }
   .t-box::before { opacity: .85; animation: none; } .t-h { opacity: 1; transform: none; animation: none; }
-  .t-streak, .q-epoch i { animation: none; display: none; }
-  }
+  .t-streak,   }
 .hero-welcome { font-family: var(--f-disp); font-weight: 800; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--s3); max-width: max-content; }
 .hero-welcome { display: flex; flex-wrap: wrap; align-items: center; column-gap: .3em; row-gap: 14px; }
 .hero-welcome .nw { white-space: nowrap; }
