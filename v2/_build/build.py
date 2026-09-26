@@ -141,7 +141,7 @@ UI_SHOTS = ['v1780042536/UI_Portfolio_2022-02_dh0wod', 'v1780042536/UI_Portfolio
             'v1780042654/UI_Portfolio_2022-07_gfwpyt', 'v1780042654/UI_Portfolio_2022-08_i9r9dc', 'v1780042655/UI_Portfolio_2022-09_gvww35']
 
 
-LOTTERY_GAMES = [
+SHELL_GAMES = [
     ('Samurai', 'samurai', 'Mega Samurai Legend slot: torii-gate reel frame over a cherry-blossom valley'),
     ('Big Sexy City', 'big-sexy-city', 'Big Sexy City slot: marquee-bulb reel frame over a night skyline, big-win state'),
     ('Rose of the West', 'rose-of-the-west', 'Rose of the West slot: wooden saloon reel frame in a desert town, expanded wild'),
@@ -512,18 +512,7 @@ def pantelotteriet():
 <!-- PENDING: journey research boards from RLI Mobile App.fig (needs Figma link) -->
 <div class="embed reveal">[ Journey research boards — pending Figma import ]</div>
 </section>
-<section class="section section--alt" id="games" data-depth="2.0m" data-era="instant games">
-<div class="sec-head reveal"><div><p class="eyebrow">Instant games on the platform</p><h2 class="h-l" style="margin-top:10px">One reveal flow, three worlds</h2></div>
-<p class="lede">Samurai, Big Sexy City and Rose of the West share one game shell. The theme lives in the frame; the controls, the result and the settle step never move — so players learn the flow once.</p></div>
-<div class="reveal">{slabs('../', LOTTERY_GAMES)}</div>
-<div class="game-notes reveal">
-<div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across all three games, however loud the theme gets.</p></div>
-<div><span class="mono">02 · Result, then decision</span><p>The result is shown as a figure; one large circular button asks the player to <b>See it for free</b> or <b>Take it</b>, and the message bar prompts them to settle.</p></div>
-<div><span class="mono">03 · States in one bar</span><p>A single message bar carries every state — <b>Big win!</b>, <b>Please settle your result</b> — and Big Sexy City adds a Hot-O-Meter with a running session clock.</p></div>
-</div>
-{gal_dialog()}
-</section>
-<section class="section section--deep" id="prototype" data-depth="2.2m" data-era="live specimen">
+<section class="section section--deep" id="prototype" data-depth="2.0m" data-era="live specimen">
 <div class="sec-head reveal"><div><p class="eyebrow">The specimen, alive</p><h2 class="h-l" style="margin-top:10px">Try the prototype, not a screenshot</h2></div>
 <p class="lede">The RLI mobile app, live from Figma. Click through registration, draws and claims.</p></div>
 <div class="figma-frame reveal"><iframe title="RLI Mobile App — interactive Figma prototype" src="https://embed.figma.com/proto/VkJSL5Ws1PEOHm2IoHiewG/RLI-Mobile-App?node-id=3926-5359&amp;viewport=-10617%2C-2590%2C0.31&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=3926%3A5359&amp;page-id=3926%3A1641&amp;embed-host=share" loading="lazy" allowfullscreen></iframe></div>
@@ -555,9 +544,19 @@ def astria():
 <p class="lede">Slot UI, VFX and product screens for live audiences — plus the identity systems holding it together.</p></div>
 <div class="reveal">{slabs('../')}</div>
 {IGAMING_HEAD}
-{gal_dialog()}
 <div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
-</section>"""
+</section>
+<section class="section section--alt" id="games" data-depth="2.0m" data-era="one reveal flow">
+<div class="sec-head reveal"><div><p class="eyebrow">The shared shell</p><h2 class="h-l" style="margin-top:10px">One reveal flow, three worlds</h2></div>
+<p class="lede">Samurai, Big Sexy City and Rose of the West share one game shell. The theme lives in the frame; the controls, the result and the settle step never move — so players learn the flow once.</p></div>
+<div class="reveal">{slabs('../', SHELL_GAMES)}</div>
+<div class="game-notes reveal">
+<div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across all three games, however loud the theme gets.</p></div>
+<div><span class="mono">02 · Result, then decision</span><p>The result is shown as a figure; one large circular button asks the player to <b>See it for free</b> or <b>Take it</b>, and the message bar prompts them to settle.</p></div>
+<div><span class="mono">03 · States in one bar</span><p>A single message bar carries every state — <b>Big win!</b>, <b>Please settle your result</b> — and Big Sexy City adds a Hot-O-Meter with a running session clock.</p></div>
+</div>
+</section>
+{gal_dialog()}"""
     return case('astria', 'Astria iGaming platform — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'Astria platform',
                 'Six years across Wonderlabz, Playsafe and Pantelotteriet — from slot-game UI and VFX to owning product decisions as Jr. Product Owner.',
                 [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', '2018 – present')],
