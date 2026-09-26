@@ -536,8 +536,10 @@ def pantelotteriet():
 <div class="edge-study reveal">
 <div><p class="eyebrow">Edge case interactive study</p><h3 class="h-m" style="margin-top:8px">Built with Claude Code to break the flows on purpose</h3>
 <p class="body-2" style="margin-top:10px">A self-contained HTML prototype that runs the timing-heavy states Figma can't: countdowns hitting zero, closed claim windows and state changes.</p></div>
-<a class="btn btn--fill" href="https://drive.google.com/file/d/1zaqQcR10N7tsxCjZwVa68y6xt1InE3hT/view?usp=drive_link" target="_blank" rel="noopener">Open the edge case study ↗</a>
+<a class="btn btn--fill" href="pantelotteriet/edge-case-study.html">Open full screen ↗</a>
 </div>
+<div class="walk-frame map-frame proto-frame reveal" data-fit-w="1440"><iframe title="The Recycling Lottery — edge case interactive study" src="pantelotteriet/edge-case-study.html" loading="lazy"></iframe></div>
+<p class="walk-mobile reveal"><a class="btn btn--fill" href="pantelotteriet/edge-case-study.html">Open the edge case study ↗</a> <span class="mono small" style="color:var(--muted)">Best on a laptop or larger screen.</span></p>
 </section>"""
     return case('pantelotteriet', 'The Recycling Lottery — dig report · Jonathan Nestler', 'Specimen 01 · Pantelotteriet · Mobile app + raffle site · Scandinavia', 'The Recycling Lottery',
                 'A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.',
@@ -736,7 +738,7 @@ def three_portals():
 <section class="section section--deep" id="map" data-depth="1.8m" data-era="the map">
 <div class="sec-head reveal"><div><p class="eyebrow">The artefact · interactive</p><h2 class="h-l" style="margin-top:10px">Walk the whole map</h2></div>
 <p class="lede">All 41 nodes in one working system map. Pick a portal, step the lifecycle or press play, and click any node to see what it does and what it connects to.</p></div>
-<div class="walk-frame map-frame reveal"><iframe title="One Platform, Three Portals — interactive system map" src="three-portals/system-map.html" loading="lazy"></iframe></div>
+<div class="walk-frame map-frame reveal" data-fit-w="1920"><iframe title="One Platform, Three Portals — interactive system map" src="three-portals/system-map.html" loading="lazy"></iframe></div>
 <p class="map-links reveal"><a class="btn btn--fill" href="three-portals/system-map.html">Open the map full screen ↗</a><a class="btn" href="https://www.figma.com/board/Cq6TPchRK5RPn9kF96QylB/One-Platform-Three-Portals-%E2%80%94-System-Map?node-id=22-1817" target="_blank" rel="noopener">View the original FigJam board ↗</a></p>
 </section>
 <section class="section" id="explore" data-depth="2.0m" data-era="one order">

@@ -536,7 +536,8 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 
 .map-frame { height: auto; aspect-ratio: 1920 / 1080; }
 .map-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-.map-frame iframe { width: 1920px; transform-origin: 0 0; }
+.map-frame iframe { transform-origin: 0 0; }
+.proto-frame { aspect-ratio: 1440 / 967; margin-top: 24px; }
 @media (max-width: 760px) { .map-frame { display: none; } }
 
 .nda { position: relative; overflow: hidden; min-height: 380px; display: grid; place-items: center; background: var(--s1); border: 1px solid var(--s4); isolation: isolate; }

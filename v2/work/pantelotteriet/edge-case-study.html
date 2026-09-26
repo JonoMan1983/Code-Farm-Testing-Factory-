@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Recycling Lottery &mdash; Interactive Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --p:#7D541E;--pd:#5E3E15;--pl:#A36D27;--pt:#F7F1E8;
+  --s:#A96000;--st:#F8EDDF;--a:#A18054;
+  --su:#F4F4F4;--su2:#EBEBEB;--bo:#E0E0E0;
+  --t1:#1A1A1A;--t2:#4A4A4A;--tm:#AFAFAF;
+  --ok:#A96000;--okt:#F8EDDF;
+  --er:#D32F2F;--ert:#FFEBEE;
+  --wa:#F57C00;--wat:#FFF3E0;
+  --f:'Roboto',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-family:var(--f);-webkit-font-smoothing:antialiased}
+body{
+  background:linear-gradient(150deg,#221B16 0%,#3A2D25 40%,#28201A 100%);
+  min-height:100vh;
+  padding:28px 20px 40px;
+  margin:0;
+}
+button{cursor:pointer;font-family:var(--f);border:none;background:none}
+a{text-decoration:none;color:inherit}
+input,textarea,select{font-family:var(--f);color-scheme:light}
+input:not([type=checkbox]):not([type=radio]),textarea,select{
+  background:#fff!important;color:#1A1A1A!important;
+  border:1px solid #C8C8C8!important;-webkit-appearance:none;appearance:none;
+}
+input::placeholder,textarea::placeholder{color:#AFAFAF!important;opacity:1}
+input:hover,textarea:hover{border-color:#999!important}
+input:focus,textarea:focus,select:focus{
+  border-color:#7D541E!important;
+  box-shadow:0 0 0 3px rgba(125,84,30,.15)!important;
+  outline:none!important;background:#FCFAF7!important;
+}
+input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #fff inset!important;-webkit-text-fill-color:#1A1A1A!important}
+
+/* OUTER LAYOUT */
+.proto-wrap{display:flex;flex-direction:column;align-items:center;width:100%;}
+.proto-title{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:20px;text-align:center;}
+.proto-row{display:flex;flex-direction:row;gap:28px;align-items:flex-start;}
+
+/* SIDE PANELS */
+.side-panel{
+  width:190px;flex-shrink:0;background:rgba(255,255,255,.07);border-radius:18px;padding:14px;
+  border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);
+  align-self:flex-start;
+  max-height:844px;overflow-y:auto;scrollbar-width:none;
+}
+.side-panel::-webkit-scrollbar{display:none}
+.sp-title{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;padding:0 4px}
+.sp-section{margin-bottom:14px}
+.sp-section-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.28);margin-bottom:5px;padding:0 6px}
+.sp-btn{
+  display:flex;align-items:center;gap:7px;width:100%;
+  padding:7px 10px;border-radius:9px;font-size:12px;
+  color:rgba(255,255,255,.62);background:none;border:none;cursor:pointer;
+  text-align:left;transition:background .14s,color .14s;font-family:var(--f);
+}
+.sp-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.sp-btn.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+.sp-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);flex-shrink:0}
+.sp-btn.active .sp-dot{background:var(--s)}
+.hint-box{background:rgba(255,255,255,.07);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:14px}
+.hint-box strong{color:rgba(255,255,255,.8)}
+
+/* PHONE DEVICE CHROME */
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;align-self:flex-start;}
+.phone-screen-lbl{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.5px;min-height:18px;text-align:center;margin-top:12px}
+.phone-device{
+  width:390px;
+  background:#111;
+  border-radius:56px;
+  padding:11px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.07),
+    0 0 0 10px #1A1A1A,
+    0 0 0 11px rgba(255,255,255,.04),
+    0 40px 80px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.phone-screen{
+  width:100%;height:844px;
+  border-radius:46px;background:#fff;
+  overflow:hidden;position:relative;
+  display:flex;flex-direction:column;
+}
+/* Dynamic island */
+.dyn-island{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:120px;height:34px;background:#111;border-radius:20px;z-index:50;
+}
+
+/* STATUS BAR */
+.status-bar{
+  height:52px;background:#fff;display:flex;align-items:flex-end;
+  justify-content:space-between;padding:0 26px 10px;
+  position:relative;z-index:40;flex-shrink:0;
+}
+.sb-time{font-size:15px;font-weight:700;color:#1A1A1A}
+.sb-icons{display:flex;gap:6px;align-items:center}
+
+/* SCREEN CONTAINER */
+.screen-wrap{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* INDIVIDUAL SCREENS */
+.screen{
+  position:absolute;inset:0;background:#fff;
+  display:flex;flex-direction:column;
+  visibility:hidden;pointer-events:none;
+}
+.screen.active{visibility:visible;pointer-events:all}
+.screen.anim-in{animation:slideIn .22s ease both}
+.screen.anim-back{animation:slideBack .2s ease both}
+@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideBack{from{transform:translateX(-20px);opacity:.6}to{transform:translateX(0);opacity:1}}
+
+/* TOP BAR */
+.topbar{
+  height:52px;background:#fff;display:flex;align-items:center;
+  padding:0 14px;border-bottom:1px solid var(--bo);
+  flex-shrink:0;gap:4px;position:relative;z-index:20;
+}
+.topbar-title{font-size:17px;font-weight:500;color:var(--p);flex:1;text-align:center}
+.app-hdr{
+  min-height:56px;background:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 18px;
+  border-bottom:1px solid var(--bo);flex-shrink:0;position:relative;z-index:20;
+}
+.app-hdr-left{font-size:17px;font-weight:300;color:var(--p)}
+.app-hdr-right{display:flex;gap:6px;align-items:center}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;background:none;border:none;cursor:pointer;color:var(--p);
+  transition:background .14s;
+}
+.icon-btn:hover{background:var(--pt)}
+.icon-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9}
+
+/* SCROLLABLE BODY */
+.scr-body{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:flex;flex-direction:column}
+.scr-body::-webkit-scrollbar{display:none}
+.pad{padding:18px}
+.center{display:flex;flex-direction:column;align-items:center;text-align:center}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  background:#fff;border-top:1.5px solid var(--bo);
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:end;height:88px;flex-shrink:0;
+  padding:0 0 8px;position:relative;z-index:20;
+}
+.bn-tab{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:8px;cursor:pointer;color:var(--p);opacity:.5;transition:opacity .15s;
+}
+.bn-tab.active,.bn-tab:hover{opacity:1}
+.bn-tab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7}
+.bn-tab-lbl{font-size:10px;font-weight:500;letter-spacing:.3px}
+.bn-fab{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;position:relative;bottom:10px;
+}
+.bn-fab-ring{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(145deg,var(--pl),var(--p));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(125,84,30,.45);transition:transform .15s,box-shadow .15s;
+}
+.bn-fab-ring:hover{transform:scale(1.06);box-shadow:0 6px 20px rgba(125,84,30,.55)}
+.bn-fab-ring svg{width:28px;height:28px;fill:white}
+.bn-fab-lbl{font-size:10px;font-weight:600;color:var(--p)}
+
+/* DOT MENU DRAWER */
+.overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.52);
+  z-index:100;opacity:0;pointer-events:none;
+  transition:opacity .26s ease;
+}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer{
+  position:absolute;top:0;left:0;bottom:0;width:320px;
+  background:#fff;transform:translateX(-105%);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  box-shadow:12px 0 40px rgba(0,0,0,.22);
+  border-radius:0 24px 24px 0;
+  overflow:hidden;
+}
+.overlay.open .drawer{transform:translateX(0)}
+.drawer-head{
+  background:linear-gradient(145deg,#744E1C,var(--pd));
+  padding:52px 22px 20px;position:relative;flex-shrink:0;
+}
+.drawer-close{
+  position:absolute;top:52px;right:16px;width:32px;height:32px;
+  border-radius:50%;background:rgba(255,255,255,.18);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  z-index:10;
+}
+.drawer-close:hover{background:rgba(255,255,255,.28)}
+.drawer-close svg{width:16px;height:16px;fill:none;stroke:white;stroke-width:2.2}
+.dh-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px;
+}
+.dh-name{font-size:18px;font-weight:500;color:#fff;margin-bottom:3px}
+.dh-email{font-size:12px;color:rgba(255,255,255,.68)}
+.dh-badge{
+  display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+  background:rgba(255,255,255,.18);color:#fff;
+  font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px;
+}
+.drawer-scroll{flex:1;overflow-y:auto;scrollbar-width:none}
+.drawer-scroll::-webkit-scrollbar{display:none}
+.di{
+  display:flex;align-items:center;gap:16px;padding:15px 22px;
+  cursor:pointer;transition:background .14s;
+}
+.di:hover{background:var(--su)}
+.di.active{background:var(--pt)}
+.di-icon{
+  width:38px;height:38px;border-radius:10px;background:var(--pt);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.di-icon svg{width:20px;height:20px;fill:none;stroke:var(--p);stroke-width:1.8}
+.di.active .di-icon{background:rgba(125,84,30,.15)}
+.di-text{flex:1}
+.di-label{font-size:14px;color:var(--t1);font-weight:400}
+.di.active .di-label{font-weight:600;color:var(--p)}
+.di-sub{font-size:11px;color:var(--tm);margin-top:1px}
+.di-divider{height:1px;background:var(--bo);margin:4px 22px}
+.di.danger .di-icon{background:var(--ert)}
+.di.danger .di-icon svg{stroke:var(--er)}
+.di.danger .di-label{color:var(--er)}
+
+/* FORMS */
+.fg{margin-bottom:14px;width:100%}
+.fl{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:5px;display:block}
+.fi{
+  width:100%;height:46px;border:1px solid #C8C8C8;border-radius:13px;
+  padding:0 13px;font-size:14px;font-family:var(--f);color:#1A1A1A;background:#fff;
+  outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.fi::placeholder{color:#AFAFAF}
+.fi:hover{border-color:#999}
+.fi:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(125,84,30,.15);background:#FCFAF7}
+textarea.fi{height:auto;padding:11px 13px;resize:none;line-height:1.5}
+select.fi{height:46px;cursor:pointer;background:#fff!important;color:#1A1A1A!important}
+.frow{display:flex;gap:8px}
+.fpfx{
+  width:82px;height:46px;border:1px solid #C8C8C8;border-radius:13px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 10px;font-size:12px;font-weight:500;color:#1A1A1A;
+  background:#fff;flex-shrink:0;
+}
+.pw-w{position:relative}.pw-w .fi{padding-right:42px}
+.eye-btn{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:var(--tm);padding:0;
+}
+.eye-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
+.link-r{display:block;text-align:right;font-size:12px;color:var(--p);margin-top:-6px;margin-bottom:12px;cursor:pointer}
+.sul{text-align:center;font-size:12px;color:var(--t2);margin-top:12px}
+.sul a{color:var(--p);font-weight:500;cursor:pointer}
+.pw-str{margin-top:4px;margin-bottom:8px}
+.pw-bars{display:flex;gap:3px;margin-bottom:3px}
+.pw-bar{flex:1;height:3px;border-radius:2px;background:var(--bo)}
+.pw-bar.s{background:var(--ok)}.pw-bar.m{background:var(--wa)}.pw-bar.w{background:var(--er)}
+.pw-lbl{font-size:10px;color:var(--tm)}.pw-lbl.s{color:var(--ok)}.pw-lbl.m{color:var(--wa)}.pw-lbl.w{color:var(--er)}
+.ferr{font-size:11px;color:var(--er);margin-top:3px}
+.otp-row{display:flex;gap:9px;justify-content:center;margin:14px 0}
+.otp-in{
+  width:46px;height:56px;border:1.5px solid #C8C8C8;border-radius:13px;
+  text-align:center;font-size:22px;font-weight:700;color:var(--p);
+  background:#fff;outline:none;font-family:var(--f);
+}
+.otp-in:focus,.otp-in.focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(125,84,30,.15)}
+.otp-in.err{border-color:var(--er)!important;color:var(--er)!important}
+
+/* BUTTONS */
+.btn-p{
+  display:flex;align-items:center;justify-content:center;width:100%;
+  height:52px;background:var(--p);color:#fff;font-size:16px;font-weight:500;
+  border-radius:100px;border:none;cursor:pointer;font-family:var(--f);
+  transition:background .14s,transform .1s;flex-shrink:0;
+}
+.btn-p:hover{background:var(--pd)}.btn-p:active{transform:scale(.98)}
+.btn-s{
+  display:flex;align-items:center;justify-content:center;width:100%;
+  height:52px;background:transparent;color:var(--p);font-size:15px;font-weight:500;
+  border-radius:100px;border:1.5px solid var(--p);cursor:pointer;font-family:var(--f);flex-shrink:0;
+}
+.btn-d{
+  display:flex;align-items:center;justify-content:center;width:100%;
+  height:52px;background:var(--er);color:#fff;font-size:15px;font-weight:500;
+  border-radius:100px;border:none;cursor:pointer;font-family:var(--f);flex-shrink:0;
+}
+
+/* CHIPS / BADGES */
+.chip{display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
+.c-ok{background:var(--okt);color:var(--ok)}.c-wa{background:var(--wat);color:var(--wa)}
+.c-er{background:var(--ert);color:var(--er)}.c-p{background:var(--pt);color:var(--p)}
+.vchip{display:inline-flex;align-items:center;gap:3px;background:var(--okt);color:var(--ok);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px}
+.uchip{display:inline-flex;align-items:center;gap:3px;background:var(--wat);color:var(--wa);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px}
+.pbadge{display:inline-flex;align-items:center;gap:4px;background:var(--st);color:var(--s);font-size:10px;font-weight:700;padding:5px 13px;border-radius:100px;text-transform:uppercase;letter-spacing:1px}
+
+/* BANNERS */
+.banner{border-radius:13px;padding:12px 14px;font-size:13px;line-height:1.5;margin-bottom:13px;width:100%}
+.b-info{background:var(--pt);color:var(--p)}
+.b-err{background:var(--ert);border:1px solid rgba(211,47,47,.2);color:var(--er)}
+.b-wa{background:var(--wat);color:var(--wa)}
+.b-ok{background:var(--okt);color:var(--ok)}
+
+/* SUCCESS TOAST */
+.s-toast{
+  background:var(--s);border-radius:100px;padding:10px 15px;
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.s-toast svg{width:18px;height:18px;fill:white;flex-shrink:0}
+.s-toast-t{font-size:11px;font-weight:700;color:#fff}
+.s-toast-b{font-size:10px;color:rgba(255,255,255,.85)}
+.s-toast-dis{background:#fff;color:var(--s);font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;border:none;cursor:pointer;flex-shrink:0;font-family:var(--f)}
+
+/* STEPS */
+.steps{display:flex;align-items:center;padding:12px 16px 16px}
+.step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.step::before{content:'';position:absolute;top:11px;left:50%;right:-50%;height:2px;background:var(--bo);z-index:0}
+.step:last-child::before{display:none}
+.step.done::before{background:var(--p)}
+.sc{width:22px;height:22px;border-radius:50%;background:var(--bo);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;position:relative;z-index:1}
+.step.done .sc{background:var(--p)}.step.active .sc{background:var(--s);box-shadow:0 0 0 4px rgba(169,96,0,.2)}
+.slb{font-size:8px;color:var(--tm);margin-top:3px;text-align:center}
+.step.done .slb,.step.active .slb{color:var(--p)}
+
+/* PROFILE */
+.pcard{background:var(--su);border-radius:22px;overflow:hidden;margin-bottom:14px}
+.prow{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--bo);cursor:pointer;transition:background .14s}
+.prow:last-child{border-bottom:none}.prow:hover{background:rgba(0,0,0,.025)}
+.pri{width:36px;height:36px;background:var(--pt);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pri svg{width:18px;height:18px;fill:none;stroke:var(--p);stroke-width:2}
+.prt{font-size:14px;color:var(--t1);flex:1}.prs{font-size:11px;color:var(--tm)}
+.prc svg{width:15px;height:15px;fill:none;stroke:var(--tm);stroke-width:2}
+.tog{position:relative;width:40px;height:22px;display:inline-block;flex-shrink:0;cursor:pointer}
+
+/* HOME CARDS */
+.hcard{
+  background:var(--su);border-radius:22px;padding:16px 20px;margin-bottom:12px;
+  display:flex;align-items:center;gap:16px;cursor:pointer;transition:background .14s,transform .1s;
+}
+.hcard:hover{background:var(--su2)}.hcard:active{transform:scale(.99)}
+.hci{width:68px;height:68px;border-radius:16px;background:rgba(125,84,30,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hci svg{width:38px;height:38px;fill:none;stroke:var(--p);stroke-width:1.5}
+.hct{font-size:22px;font-weight:300;color:var(--p);margin-bottom:3px}
+.hcd{font-size:11px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.5px;line-height:1.4}
+
+/* TICKET */
+.tkt{background:var(--su);border-radius:22px;padding:16px;margin-bottom:14px;width:100%}
+.tnum{font-size:18px;font-weight:700;color:var(--p);letter-spacing:2px;text-align:center;margin-bottom:7px}
+.td{display:flex;justify-content:space-between;font-size:13px;color:var(--t2);padding:3px 0}
+.tdv{font-weight:600;color:var(--p)}
+
+/* DETAIL */
+.dsec{background:var(--su);border-radius:22px;padding:16px;margin-bottom:14px;width:100%}
+.dr{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--bo)}
+.dr:last-child{border-bottom:none}
+.dk{font-size:12px;color:var(--tm)}.dv{font-size:13px;font-weight:500;color:var(--t1);text-align:right;max-width:190px}
+
+/* UPLOAD */
+.upload{
+  width:100%;border:2px dashed var(--p);border-radius:22px;
+  padding:26px 16px;display:flex;flex-direction:column;align-items:center;
+  gap:10px;margin-bottom:14px;cursor:pointer;transition:background .14s;
+}
+.upload:hover{background:var(--pt)}.upload.done{border-color:var(--ok);background:var(--okt)}
+.upload.done svg{stroke:var(--ok)}.upload svg{stroke:var(--p)}
+.ubt{font-size:13px;font-weight:500}.upload.done .ubt{color:var(--ok)}.upload .ubt{color:var(--p)}
+.ubh{font-size:11px;color:var(--tm)}
+
+/* SUCCESS / ERROR circles */
+.okc{width:82px;height:82px;border-radius:50%;background:var(--okt);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.okc svg{width:44px;height:44px;fill:none;stroke:var(--ok);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.erc{width:82px;height:82px;border-radius:50%;background:var(--ert);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.erc svg{width:44px;height:44px;fill:none;stroke:var(--er);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.wac{width:82px;height:82px;border-radius:50%;background:var(--wat);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.wac svg{width:44px;height:44px;fill:none;stroke:var(--wa);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.icon-circle{width:76px;height:76px;border-radius:50%;background:var(--pt);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.ty-title{font-size:26px;font-weight:300;color:var(--p);margin-bottom:9px}
+.ty-desc{font-size:13px;color:var(--a);line-height:1.6;max-width:230px;margin-bottom:20px}
+.sc-title{font-size:26px;font-weight:300;color:var(--p);margin-bottom:9px}
+.sc-sub{font-size:13px;color:var(--a);line-height:1.6;max-width:230px;margin-bottom:20px}
+
+/* HISTORY / NOTIF */
+.hi{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bo);cursor:pointer}
+.hico{width:36px;height:36px;border-radius:50%;background:var(--pt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hico svg{width:18px;height:18px;fill:none;stroke:var(--p);stroke-width:1.8}
+.htitle{font-size:13px;font-weight:500;color:var(--t1)}.hdate{font-size:11px;color:var(--tm)}
+.hres{font-size:13px;font-weight:700;text-align:right}
+.rw{color:var(--ok)}.rl{color:var(--tm)}.rp{color:var(--wa)}
+.nitem{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--bo)}
+.ndot{width:8px;height:8px;border-radius:50%;background:var(--s);margin-top:3px;flex-shrink:0}
+.ndot.read{background:transparent;border:2px solid var(--bo)}
+.ntit{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:3px}
+.nbod{font-size:12px;color:var(--t2);line-height:1.4;margin-bottom:3px}
+.ntim{font-size:10px;color:var(--tm)}
+
+/* SCHEDULE */
+.schi{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--bo)}
+.schr{width:30px;text-align:center;font-size:18px;flex-shrink:0}
+.schn{flex:1;font-size:13px;font-weight:500;color:var(--t1)}
+.scha{font-size:15px;font-weight:700;color:var(--s)}
+
+/* SUPPORT */
+.so{display:flex;align-items:center;gap:14px;padding:14px;background:var(--su);border-radius:16px;margin-bottom:10px;cursor:pointer;transition:background .14s}
+.so:hover{background:var(--su2)}
+.soi{width:44px;height:44px;background:var(--pt);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.soi svg{width:22px;height:22px;fill:none;stroke:var(--p);stroke-width:1.7}
+.sot{font-size:14px;font-weight:500;color:var(--p)}.sob{font-size:11px;color:var(--tm)}
+
+/* VIEWFINDER */
+.vf{width:240px;height:190px;border-radius:22px;background:#0A0A0A;position:relative;margin:0 auto 18px;overflow:hidden}
+.vf::before{content:'';position:absolute;top:14px;left:14px;right:14px;bottom:14px;border:2.5px solid var(--s);border-radius:10px;z-index:1}
+.vf-laser{position:absolute;left:14px;right:14px;height:2px;background:linear-gradient(90deg,transparent,var(--s),transparent);animation:laser 2s ease-in-out infinite;z-index:2}
+@keyframes laser{0%,100%{top:20px;opacity:1}50%{top:calc(100% - 20px);opacity:.7}}
+
+/* QR */
+.qrc{width:158px;height:158px;background:var(--su);border-radius:16px;display:grid;place-items:center;margin-bottom:14px;border:2px solid var(--bo)}
+.qrn{font-size:17px;font-weight:700;color:var(--p);letter-spacing:3px}
+
+/* SPLASH */
+.splash-bg{
+  flex:1;background:linear-gradient(160deg,#704A18 0%,#7D541E 50%,#5E3E15 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;padding:40px;
+}
+.splash-logo-box{
+  width:88px;height:88px;background:rgba(255,255,255,.15);border-radius:24px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+  border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px);
+}
+.splash-title{font-size:36px;font-weight:300;color:#fff;margin-bottom:8px}
+.splash-sub{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:50px}
+.spin{width:38px;height:38px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 0}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* LOGIN */
+.app-logo{width:72px;height:72px;background:var(--p);border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.app-logo svg{width:42px;height:42px}
+.login-h{font-size:38px;font-weight:300;color:var(--p);margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--a);text-align:center;line-height:1.6;margin-bottom:26px;max-width:220px}
+
+/* misc spacing helper */
+.h10{height:10px;flex-shrink:0}
+.apphdr{min-height:56px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1.5px solid var(--bo);flex-shrink:0;position:relative;z-index:20}
+.apphdr-l{font-size:17px;font-weight:300;color:var(--p)}
+.apphdr-r{display:flex;gap:6px;align-items:center}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--er);border-radius:50%;border:1.5px solid white;pointer-events:none}
+.hbtn{width:38px;height:38px;border-radius:11px;background:var(--su);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex-shrink:0;border:none;cursor:pointer;transition:background .14s}
+.hbtn:hover{background:var(--su2)}
+.hbtn-bar{width:17px;height:2px;border-radius:1px;background:var(--p);transition:width .2s}
+.hbtn-bar.mid{width:12px}
+.nbadge{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:11px;background:var(--su);
+  flex-shrink:0;cursor:pointer;transition:background .14s;
+}
+.nbadge:hover{background:var(--su2)}
+.nbadge svg{width:20px;height:20px;fill:none;stroke:var(--p);stroke-width:1.9}
+.nbadge-count{
+  position:absolute;top:5px;right:5px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--er);border:2px solid #fff;
+  font-size:8px;font-weight:800;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;
+}
+.win-banner{
+  background:linear-gradient(120deg,var(--pd) 0%,var(--pl) 100%);
+  margin:10px 14px;border-radius:18px;padding:13px 14px;
+  display:flex;align-items:center;gap:13px;cursor:pointer;
+  box-shadow:0 6px 20px rgba(125,84,30,.38);
+  animation:winPulse 2.4s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes winPulse{0%,100%{box-shadow:0 6px 20px rgba(125,84,30,.38)}50%{box-shadow:0 8px 28px rgba(125,84,30,.6)}}
+.win-banner-icon{
+  width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;
+}
+.win-banner-text{flex:1}
+.win-banner-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.win-banner-sub{font-size:10px;color:rgba(255,255,255,.82);line-height:1.4}
+.win-banner-arrow{
+  width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;
+}
+.di-badge{
+  min-width:20px;height:20px;border-radius:10px;padding:0 5px;
+  background:var(--er);font-size:9px;font-weight:800;color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-left:auto;
+}
+.tb-title{font-size:17px;font-weight:500;color:var(--p);flex:1;text-align:center}
+.ibtn-placeholder{width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body><a href="../pantelotteriet.html#prototype" target="_top" style="position:fixed;right:12px;bottom:12px;z-index:9999;font:500 12px/1 monospace;letter-spacing:.06em;padding:9px 12px;background:#E8A33D;color:#15110E;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.4)">← THE RECYCLING LOTTERY</a><script>if (window.self !== window.top) document.currentScript.previousElementSibling.remove();</script>
+<div class="proto-wrap"><div class="proto-title">&#x267B;&#xFE0F;&nbsp; Recycling Lottery &mdash; Interactive Prototype &nbsp;&#183;&nbsp; 45 Screens &nbsp;&#183;&nbsp; 11 Journeys</div>
+
+<div class="proto-row">
+  <!-- LEFT: screen map -->
+  <div class="side-panel">
+    <div class="sp-title">Screen Map</div>
+    <div class="sp-section"><div class="sp-section-lbl">Onboarding</div><button class="sp-btn" id="sbtn-splash" onclick="go('splash')" title="Splash / Loading"><div class="sp-dot"></div>Splash / Loading</button><button class="sp-btn" id="sbtn-login" onclick="go('login')" title="Sign In"><div class="sp-dot"></div>Sign In</button><button class="sp-btn" id="sbtn-login-err" onclick="go('login-err')" title="Login Error"><div class="sp-dot"></div>Login Error</button><button class="sp-btn" id="sbtn-forgot-pw" onclick="go('forgot-pw')" title="Forgot Password"><div class="sp-dot"></div>Forgot Password</button><button class="sp-btn" id="sbtn-reset-sent" onclick="go('reset-sent')" title="Reset Email Sent"><div class="sp-dot"></div>Reset Email Sent</button><button class="sp-btn" id="sbtn-signup" onclick="go('signup')" title="Sign Up"><div class="sp-dot"></div>Sign Up</button><button class="sp-btn" id="sbtn-otp" onclick="go('otp')" title="OTP Verification"><div class="sp-dot"></div>OTP Verification</button></div><div class="sp-section"><div class="sp-section-lbl">Age Verification</div><button class="sp-btn" id="sbtn-age-intro" onclick="go('age-intro')" title="Upload ID Intro"><div class="sp-dot"></div>Upload ID Intro</button><button class="sp-btn" id="sbtn-age-uploaded" onclick="go('age-uploaded')" title="File Selected"><div class="sp-dot"></div>File Selected</button><button class="sp-btn" id="sbtn-age-processing" onclick="go('age-processing')" title="Processing"><div class="sp-dot"></div>Processing</button><button class="sp-btn" id="sbtn-confirm-details" onclick="go('confirm-details')" title="Confirm Details"><div class="sp-dot"></div>Confirm Details</button><button class="sp-btn" id="sbtn-reg-complete" onclick="go('reg-complete')" title="Registration Done"><div class="sp-dot"></div>Registration Done</button></div><div class="sp-section"><div class="sp-section-lbl">Home</div><button class="sp-btn" id="sbtn-home-unverified" onclick="go('home-unverified')" title="Home (Unverified)"><div class="sp-dot"></div>Home (Unverified)</button><button class="sp-btn active" id="sbtn-home" onclick="go('home')" title="Home (Verified)"><div class="sp-dot"></div>Home (Verified)</button></div><div class="sp-section"><div class="sp-section-lbl">Scan Ticket</div><button class="sp-btn" id="sbtn-scan-intro" onclick="go('scan-intro')" title="Scan Intro"><div class="sp-dot"></div>Scan Intro</button><button class="sp-btn" id="sbtn-scan-active" onclick="go('scan-active')" title="Camera Active"><div class="sp-dot"></div>Camera Active</button><button class="sp-btn" id="sbtn-confirm-ticket" onclick="go('confirm-ticket')" title="Confirm Ticket"><div class="sp-dot"></div>Confirm Ticket</button><button class="sp-btn" id="sbtn-ticket-success" onclick="go('ticket-success')" title="Ticket Entered"><div class="sp-dot"></div>Ticket Entered</button></div><div class="sp-section"><div class="sp-section-lbl">Claim Large Prize</div><button class="sp-btn" id="sbtn-claim-prize" onclick="go('claim-prize')" title="Prize Reveal"><div class="sp-dot"></div>Prize Reveal</button><button class="sp-btn" id="sbtn-bank-card" onclick="go('bank-card')" title="Bank Card Upload"><div class="sp-dot"></div>Bank Card Upload</button><button class="sp-btn" id="sbtn-bank-confirm" onclick="go('bank-confirm')" title="Card Confirmed"><div class="sp-dot"></div>Card Confirmed</button><button class="sp-btn" id="sbtn-claim-verify" onclick="go('claim-verify')" title="Verify Details"><div class="sp-dot"></div>Verify Details</button><button class="sp-btn" id="sbtn-claim-submitted" onclick="go('claim-submitted')" title="Claim Submitted"><div class="sp-dot"></div>Claim Submitted</button></div><div class="sp-section"><div class="sp-section-lbl">Claim Small Prize</div><button class="sp-btn" id="sbtn-small-prize" onclick="go('small-prize')" title="Choose Method"><div class="sp-dot"></div>Choose Method</button><button class="sp-btn" id="sbtn-instore-qr" onclick="go('instore-qr')" title="In-Store QR Code"><div class="sp-dot"></div>In-Store QR Code</button><button class="sp-btn" id="sbtn-instore-redeemed" onclick="go('instore-redeemed')" title="Prize Redeemed"><div class="sp-dot"></div>Prize Redeemed</button></div><div class="sp-section"><div class="sp-section-lbl">Account</div><button class="sp-btn" id="sbtn-profile" onclick="go('profile')" title="My Profile"><div class="sp-dot"></div>My Profile</button><button class="sp-btn" id="sbtn-profile-personal" onclick="go('profile-personal')" title="Personal Details"><div class="sp-dot"></div>Personal Details</button><button class="sp-btn" id="sbtn-profile-security" onclick="go('profile-security')" title="Security & Password"><div class="sp-dot"></div>Security & Password</button><button class="sp-btn" id="sbtn-profile-bank" onclick="go('profile-bank')" title="Bank Details"><div class="sp-dot"></div>Bank Details</button><button class="sp-btn" id="sbtn-settings" onclick="go('settings')" title="Settings"><div class="sp-dot"></div>Settings</button><button class="sp-btn" id="sbtn-pending-claims" onclick="go('pending-claims')" title="Pending Claims"><div class="sp-dot"></div>Pending Claims</button></div><div class="sp-section"><div class="sp-section-lbl">More</div><button class="sp-btn" id="sbtn-history" onclick="go('history')" title="Participation History"><div class="sp-dot"></div>Participation History</button><button class="sp-btn" id="sbtn-ticket-detail" onclick="go('ticket-detail')" title="Ticket Detail"><div class="sp-dot"></div>Ticket Detail</button><button class="sp-btn" id="sbtn-prizes" onclick="go('prizes')" title="Prize Schedule"><div class="sp-dot"></div>Prize Schedule</button><button class="sp-btn" id="sbtn-draw-results" onclick="go('draw-results')" title="Draw Results"><div class="sp-dot"></div>Draw Results</button><button class="sp-btn" id="sbtn-notifications" onclick="go('notifications')" title="Notifications"><div class="sp-dot"></div>Notifications</button><button class="sp-btn" id="sbtn-support" onclick="go('support')" title="Contact Support"><div class="sp-dot"></div>Contact Support</button><button class="sp-btn" id="sbtn-support-sent" onclick="go('support-sent')" title="Message Sent"><div class="sp-dot"></div>Message Sent</button><button class="sp-btn" id="sbtn-live-chat" onclick="go('live-chat')" title="Live Chat"><div class="sp-dot"></div>Live Chat</button></div><div class="sp-section"><div class="sp-section-lbl">Edge Cases</div><button class="sp-btn" id="sbtn-no-internet" onclick="go('no-internet')" title="No Internet"><div class="sp-dot"></div>No Internet</button><button class="sp-btn" id="sbtn-session-expired" onclick="go('session-expired')" title="Session Expired"><div class="sp-dot"></div>Session Expired</button><button class="sp-btn" id="sbtn-account-locked" onclick="go('account-locked')" title="Account Locked"><div class="sp-dot"></div>Account Locked</button><button class="sp-btn" id="sbtn-under-18" onclick="go('under-18')" title="Under 18"><div class="sp-dot"></div>Under 18 Rejected</button><button class="sp-btn" id="sbtn-maintenance" onclick="go('maintenance')" title="Maintenance"><div class="sp-dot"></div>Maintenance Mode</button></div>
+  </div>
+  <!-- RIGHT: journey shortcuts -->
+  <div class="side-panel">
+    <div class="sp-title">Quick Journeys</div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Registration</div>
+      <button class="sp-btn" onclick="go('login')"><div class="sp-dot"></div>Login</button>
+      <button class="sp-btn" onclick="go('signup')"><div class="sp-dot"></div>Sign Up</button>
+      <button class="sp-btn" onclick="go('otp')"><div class="sp-dot"></div>OTP Verify</button>
+      <button class="sp-btn" onclick="go('age-intro')"><div class="sp-dot"></div>Age Verify</button>
+      <button class="sp-btn" onclick="go('confirm-details')"><div class="sp-dot"></div>Confirm Details</button>
+      <button class="sp-btn" onclick="go('reg-complete')"><div class="sp-dot"></div>Reg Complete</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Home</div>
+      <button class="sp-btn" onclick="go('home-unverified')"><div class="sp-dot"></div>Unverified</button>
+      <button class="sp-btn" onclick="go('home')"><div class="sp-dot"></div>Verified</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Scan &amp; Play</div>
+      <button class="sp-btn" onclick="go('scan-intro')"><div class="sp-dot"></div>Scan Intro</button>
+      <button class="sp-btn" onclick="go('scan-active')"><div class="sp-dot"></div>Scanning</button>
+      <button class="sp-btn" onclick="go('confirm-ticket')"><div class="sp-dot"></div>Confirm Ticket</button>
+      <button class="sp-btn" onclick="go('ticket-success')"><div class="sp-dot"></div>Ticket Entered</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Claim Large Prize</div>
+      <button class="sp-btn" onclick="go('claim-prize')"><div class="sp-dot"></div>Prize Reveal</button>
+      <button class="sp-btn" onclick="go('bank-card')"><div class="sp-dot"></div>Bank Upload</button>
+      <button class="sp-btn" onclick="go('claim-verify')"><div class="sp-dot"></div>Verify</button>
+      <button class="sp-btn" onclick="go('claim-submitted')"><div class="sp-dot"></div>Submitted</button>
+      <button class="sp-btn" onclick="go('pending-claims')"><div class="sp-dot"></div>My Claims</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Claim Small Prize</div>
+      <button class="sp-btn" onclick="go('small-prize')"><div class="sp-dot"></div>Choose Method</button>
+      <button class="sp-btn" onclick="go('instore-qr')"><div class="sp-dot"></div>In-Store QR</button>
+      <button class="sp-btn" onclick="go('instore-redeemed')"><div class="sp-dot"></div>Redeemed</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Profile &amp; Settings</div>
+      <button class="sp-btn" onclick="go('profile')"><div class="sp-dot"></div>My Profile</button>
+      <button class="sp-btn" onclick="go('profile-personal')"><div class="sp-dot"></div>Personal Details</button>
+      <button class="sp-btn" onclick="go('settings')"><div class="sp-dot"></div>Settings</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">More</div>
+      <button class="sp-btn" onclick="go('history')"><div class="sp-dot"></div>History</button>
+      <button class="sp-btn" onclick="go('prizes')"><div class="sp-dot"></div>Prize Schedule</button>
+      <button class="sp-btn" onclick="go('draw-results')"><div class="sp-dot"></div>Draw Results</button>
+      <button class="sp-btn" onclick="go('notifications')"><div class="sp-dot"></div>Notifications</button>
+      <button class="sp-btn" onclick="go('support')"><div class="sp-dot"></div>Support</button>
+      <button class="sp-btn" onclick="go('live-chat')"><div class="sp-dot"></div>Live Chat</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-section-lbl">Edge Cases</div>
+      <button class="sp-btn" onclick="go('no-internet')"><div class="sp-dot"></div>No Internet</button>
+      <button class="sp-btn" onclick="go('session-expired')"><div class="sp-dot"></div>Session Expired</button>
+      <button class="sp-btn" onclick="go('account-locked')"><div class="sp-dot"></div>Account Locked</button>
+      <button class="sp-btn" onclick="go('maintenance')"><div class="sp-dot"></div>Maintenance</button>
+    </div>
+    <div class="hint-box">
+      <strong>Navigate:</strong><br>
+      &bull; Screen Map or Quick Journeys to jump<br>
+      &bull; Bottom bar: Home / Scan / Profile<br>
+      &bull; &#9776; hamburger: full app drawer<br>
+      &bull; Back arrow returns to previous<br>
+      &bull; Buttons link through flows
+    </div>
+  </div>
+
+  <!-- CENTRE: phone device -->
+  <div class="phone-col">
+    <div class="phone-device">
+      <div class="phone-screen">
+        <!-- Dynamic Island -->
+        <div class="dyn-island"></div>
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span class="sb-time" id="sb-time">9:41</span>
+          <div class="sb-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="4" width="3" height="7" rx=".8" fill="#1A1A1A" opacity=".4"/><rect x="4.5" y="2.5" width="3" height="8.5" rx=".8" fill="#1A1A1A" opacity=".6"/><rect x="9" y="0" width="3" height="11" rx=".8" fill="#1A1A1A" opacity=".85"/><rect x="13.5" y="0" width="3" height="11" rx=".8" fill="#1A1A1A"/></svg>
+            <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" opacity=".8"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1.2" fill="#1A1A1A"/></svg>
+            <svg width="26" height="13" viewBox="0 0 26 13"><rect x="0" y="1" width="22" height="11" rx="3.5" fill="none" stroke="#1A1A1A" stroke-width="1.2" opacity=".9"/><rect x="22.5" y="4" width="3" height="5" rx="1.5" fill="#1A1A1A" opacity=".5"/><rect x="1.5" y="2.5" width="16" height="8" rx="2.2" fill="#1A1A1A" opacity=".85"/></svg>
+          </div>
+        </div>
+
+        <!-- All Screens -->
+        <div class="screen-wrap" id="screen-wrap">
+          <div class="screen" id="s-splash">
+<div class="splash-bg">
+  <div class="splash-logo-box"><svg viewBox="0 0 48 48" width="38" height="38"><path d="M14 34c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="24" cy="18" r="6" fill="white"/><path d="M8 40h32" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+  <div class="splash-title">Recycling Lottery</div>
+  <div class="splash-sub">Recycle. Win. Repeat.</div>
+  <div class="spin"></div>
+  <button class="btn-p" onclick="go('login')" style="position:absolute;bottom:52px;left:24px;right:24px">Get Started</button>
+</div></div>
+<div class="screen" id="s-login">
+<div class="scr-body pad center">
+  <div class="app-logo"><svg viewBox="0 0 48 48" width="38" height="38"><path d="M14 34c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="24" cy="18" r="6" fill="white"/><path d="M8 40h32" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+  <div class="login-h">Sign In</div>
+  <div class="login-sub">Welcome back to your Recycling Lottery account</div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" value="jon.dow@email.com" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" value="password" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <a class="link-r" onclick="go('forgot-pw')">Forgot password?</a>
+  <button class="btn-p" onclick="go('home')" style="">Sign In</button>
+  <div class="h10"></div>
+  <div class="sul">Don&apos;t have an account? <a onclick="go('signup')">Sign Up</a></div>
+</div></div>
+<div class="screen" id="s-login-err">
+<div class="scr-body pad center">
+  <div class="app-logo"><svg viewBox="0 0 48 48" width="38" height="38"><path d="M14 34c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="24" cy="18" r="6" fill="white"/><path d="M8 40h32" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+  <div class="login-h">Sign In</div>
+  <div class="banner b-err">Incorrect email or password. Please try again.</div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" value="jon.dow@email.com" placeholder="" style="border-color:#D32F2F!important"></div>
+  <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" value="wrongpass" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <a class="link-r" onclick="go('forgot-pw')">Forgot password?</a>
+  <button class="btn-p" onclick="go('login-err')" style="">Try Again</button>
+  <div class="h10"></div>
+  <div class="sul">Don&apos;t have an account? <a onclick="go('signup')">Sign Up</a></div>
+</div></div>
+<div class="screen" id="s-forgot-pw"><div class="topbar">
+  <button class="ibtn" onclick="go('login')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Forgot Password</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="icon-circle"><svg width="34" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+  <div class="sc-title">Reset your password</div>
+  <div class="sc-sub">Enter your email and we&apos;ll send a reset link. It expires in 15 minutes.</div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" value="jon.dow@email.com" placeholder="" style=""></div>
+  <button class="btn-p" onclick="go('reset-sent')" style="">Send Reset Link</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('login')" style="">Back to Sign In</button>
+</div></div>
+<div class="screen" id="s-reset-sent"><div class="topbar">
+  <button class="ibtn" onclick="go('login')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Password Reset</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="okc"><svg viewBox="0 0 48 48" fill="none"><path d="M10 24l10 10 18-18" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="ty-title">Check your email</div>
+  <div class="ty-desc">We sent a reset link to jon.dow@email.com. Expires in 15 minutes.</div>
+  <div class="banner b-info">Didn&apos;t receive it? Check your spam folder or <strong>resend</strong>.</div>
+  <button class="btn-p" onclick="go('login')" style="">Open Email App</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('login')" style="">Back to Sign In</button>
+</div></div>
+<div class="screen" id="s-signup"><div class="topbar">
+  <button class="ibtn" onclick="go('login')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Sign Up</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <p style="font-size:13px;color:var(--a);text-align:center;margin-bottom:18px;line-height:1.5">Fill in the required fields below to begin.</p>
+  <div class="fg"><label class="fl">First Name</label><input class="fi" type="text" value="Jon" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Last Name</label><input class="fi" type="text" value="Dow" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Mobile Number</label><div class="frow"><div class="fpfx">&#x1F1E9;&#x1F1EA; +49</div><input class="fi" type="tel" value="172 345 6789" style="flex:1"></div></div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" value="jon.dow@email.com" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Password</label><div class="pw-w"><input class="fi" type="password" value="Str0ng!Pass" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <div class="pw-str"><div class="pw-bars"><div class="pw-bar s"></div><div class="pw-bar s"></div><div class="pw-bar s"></div></div><span class="pw-lbl s">Strong password</span></div>
+  <div class="fg"><label class="fl">Confirm Password</label><div class="pw-w"><input class="fi" type="password" value="Str0ng!Pass" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;align-items:flex-start">
+    <input type="checkbox" checked style="margin-top:3px;width:15px;height:15px;flex-shrink:0;accent-color:var(--p)">
+    <span style="font-size:12px;color:var(--t2);line-height:1.5">I agree to the <a style="color:var(--p);font-weight:500">Terms &amp; Conditions</a> and <a style="color:var(--p);font-weight:500">Privacy Policy</a></span>
+  </div>
+  <button class="btn-p" onclick="go('otp')" style="">Continue</button>
+</div></div>
+<div class="screen" id="s-otp"><div class="topbar">
+  <button class="ibtn" onclick="go('signup')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Verify Mobile</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="icon-circle" style="margin-top:12px"><svg width="34" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.09 4.18 2 2 0 015.07 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+  <div class="sc-title">Verify your number</div>
+  <p style="font-size:13px;color:var(--a);margin-bottom:4px">We sent a 6-digit code to</p>
+  <p style="font-size:14px;font-weight:600;color:var(--p);margin-bottom:20px">+49 172 345 6789</p>
+  <div class="otp-row"><input class="otp-in" maxlength="1" value="4" type="text"><input class="otp-in" maxlength="1" value="7" type="text"><input class="otp-in" maxlength="1" value="2" type="text"><input class="otp-in otp-focus" maxlength="1" value="" type="text"><input class="otp-in" maxlength="1" value="" type="text"><input class="otp-in" maxlength="1" value="" type="text"></div>
+  <p style="font-size:12px;color:var(--tm);margin-bottom:18px">Expires in <strong style="color:var(--p)">04:32</strong></p>
+  <button class="btn-p" onclick="go('age-intro')" style="">Verify</button>
+  <p style="font-size:12px;color:var(--t2);margin-top:12px">Didn&apos;t get a code? <a style="color:var(--p);font-weight:500;cursor:pointer">Resend</a></p>
+</div></div>
+<div class="screen" id="s-age-intro"><div class="topbar">
+  <button class="ibtn" onclick="go('otp')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Age Verification</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="icon-circle" style="width:82px;height:82px;margin-top:10px">
+    <svg width="46" viewBox="0 0 56 56" fill="none" stroke="#7D541E" stroke-width="1.8"><rect x="10" y="14" width="36" height="28" rx="4"/><path d="M10 22h36" stroke-linecap="round"/><path d="M18 32l4 4 8-8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="sc-title" style="margin-top:4px">Verify Your Age</div>
+  <div class="sc-sub">To participate you must be 18+. Upload a valid government-issued ID to verify.</div>
+  <div class="upload" onclick="go('age-uploaded')">
+  <svg width="32" viewBox="0 0 40 40" fill="none" stroke="var(--p)" stroke-width="1.5"><path d="M20 28v-16M13 20l7-8 7 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 30v2a2 2 0 002 2h20a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+  <div class="ubt" style="color:var(--p)">Upload ID Document</div>
+  <div class="ubh">JPG, PNG or PDF &middot; Max 10MB</div>
+</div>
+  <button class="btn-p" onclick="go('age-uploaded')" style="">Upload Document</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('home-unverified')" style="">Skip for Now</button>
+</div></div>
+<div class="screen" id="s-age-uploaded"><div class="topbar">
+  <button class="ibtn" onclick="go('age-intro')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Age Verification</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="icon-circle" style="width:82px;height:82px;margin-top:10px">
+    <svg width="46" viewBox="0 0 56 56" fill="none" stroke="#7D541E" stroke-width="1.8"><rect x="10" y="14" width="36" height="28" rx="4"/><path d="M10 22h36" stroke-linecap="round"/><path d="M18 32l4 4 8-8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="sc-title" style="margin-top:4px">Verify Your Age</div>
+  <div style="width:100%;border:2px dashed var(--ok);border-radius:22px;padding:20px 16px;background:var(--okt);margin-bottom:16px;display:flex;flex-direction:column;align-items:center;gap:8px">
+    <svg width="28" viewBox="0 0 40 40" fill="none" stroke="var(--ok)" stroke-width="1.5"><path d="M20 28v-16M13 20l7-8 7 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 30v2a2 2 0 002 2h20a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+    <div style="font-size:13px;font-weight:500;color:var(--ok)">passport_photo.jpg</div>
+    <div style="font-size:11px;color:var(--ok)">&#x2713; 2.4 MB &mdash; ready to submit</div>
+  </div>
+  <button class="btn-p" onclick="go('age-processing')" style="">Submit Document</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('age-intro')" style="">Choose Different File</button>
+</div></div>
+<div class="screen" id="s-age-processing"><div class="topbar">
+  <button class="ibtn" onclick="go('age-uploaded')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Age Verification</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center" style="justify-content:center;flex:1">
+  <div class="spin" style="width:48px;height:48px;border-width:4px;margin-bottom:28px"></div>
+  <div class="sc-title">Verifying your ID&hellip;</div>
+  <div class="sc-sub">This usually takes a few seconds. Please don&apos;t close this screen.</div>
+  <button class="btn-s" onclick="go('confirm-details')" style="margin-top:32px">Continue (demo skip)</button>
+</div></div>
+<div class="screen" id="s-confirm-details"><div class="topbar">
+  <button class="ibtn" onclick="go('age-processing')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Confirm Details</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="steps"><div class="step done"><div class="sc">&#x2713;</div><div class="slb">Account</div></div><div class="step done"><div class="sc">&#x2713;</div><div class="slb">ID Upload</div></div><div class="step active"><div class="sc">3</div><div class="slb">Confirm</div></div><div class="step "><div class="sc">4</div><div class="slb">Done</div></div></div>
+  <div class="dsec"><div class="dr"><span class="dk">Full Name</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">Email</span><span class="dv">jon.dow@email.com</span></div><div class="dr"><span class="dk">Phone</span><span class="dv">+49 172 345 6789</span></div><div class="dr"><span class="dk">Date of Birth</span><span class="dv">01 Jan 1990</span></div><div class="dr"><span class="dk">ID Type</span><span class="dv">Passport</span></div><div class="dr"><span class="dk">ID Number</span><span class="dv">DE&bull;&bull;&bull;&bull;&bull;&bull;7823</span></div><div class="dr"><span class="dk">Age Status</span><span class="dv"><span class="vchip">&#x2713; Verified</span></span></div></div>
+  <button class="btn-p" onclick="go('reg-complete')" style="">Confirm &amp; Continue</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('signup')" style="">Edit Details</button>
+</div></div>
+<div class="screen" id="s-reg-complete"><div class="topbar">
+  <button class="ibtn" onclick="go('login')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Registration Complete</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="okc"><svg viewBox="0 0 48 48" fill="none"><path d="M10 24l10 10 18-18" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="ty-title">You&apos;re all set!</div>
+  <div class="ty-desc">Your account is verified and ready. Start scanning tickets to enter the draw.</div>
+  <div class="dsec"><div class="dr"><span class="dk">Name</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">Status</span><span class="dv"><span class="vchip">&#x2713; Age Verified</span></span></div></div>
+  <button class="btn-p" onclick="go('home')" style="">Start Playing</button>
+</div></div>
+<div class="screen" id="s-home-unverified"><div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()" title="Menu"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">Hello, Jon &#x1F44B;</span>
+  <div class="apphdr-r">
+    <button class="ibtn" onclick="go('notifications')" style="position:relative">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.9"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      
+    </button>
+    <button class="hbtn" onclick="openMenu()" title="Menu"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  </div>
+</div>
+<div class="scr-body" style="padding:16px 18px 24px">
+  <div style="background:var(--p);border-radius:22px;padding:20px;margin-bottom:16px;color:#fff">
+    <div style="font-size:12px;opacity:.8;margin-bottom:3px">Welcome to</div>
+    <div style="font-size:22px;font-weight:300;margin-bottom:6px">Recycling Lottery</div>
+    <div style="font-size:12px;opacity:.8;line-height:1.5">Verify your age to start participating in draws and winning prizes.</div>
+  </div>
+  <div class="uchip" style="margin-bottom:16px;display:inline-flex">&#x26A0;&#xFE0F; Age verification required</div>
+  <button class="btn-p" onclick="go('age-intro')" style="">Verify My Age</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('home')" style="">Explore First</button>
+</div></div>
+<div class="screen" id="s-home"><div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()" title="Menu"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">Let&apos;s make magic &#x2728;</span>
+  <div class="apphdr-r">
+    <div class="nbadge" onclick="go('notifications')" title="2 Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+      <div class="nbadge-count">2</div>
+    </div>
+  </div>
+</div>
+<div class="win-banner" onclick="go('claim-prize')" id="win-banner">
+  <div class="win-banner-icon">&#416229;</div>
+  <div class="win-banner-text">
+    <div class="win-banner-title">You won &#8364;100,000 &mdash; Claim now!</div>
+    <div class="win-banner-sub">Tap to start your claim &bull; Expires 31 Jan 2025</div>
+  </div>
+  <div class="win-banner-arrow">&#8250;</div>
+</div>
+<div class="scr-body" style="padding:16px 18px 24px">
+  <div class="s-toast">
+    <svg width="18" viewBox="0 0 24 24" fill="white"><path d="M20 12l-2-2-6 6-2-2-2 2 4 4z"/></svg>
+    <div style="flex:1"><div class="s-toast-t">Age Verification Successful</div><div class="s-toast-b">You can now participate or claim a prize.</div></div>
+    <button class="s-toast-dis">dismiss</button>
+  </div>
+  <p style="font-size:13px;font-weight:600;color:var(--a);text-align:center;margin-bottom:16px">Please select one of the following options</p>
+  <div class="hcard" onclick="go('scan-intro')">
+  <div class="hci"><svg viewBox="0 0 48 48" fill="none" stroke="var(--p)" stroke-width="1.5"><rect x="8" y="12" width="32" height="22" rx="3"/><path d="M18 22l2 3 4-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div><div class="hct">Play</div><div class="hcd">Participate in Recycling Lottery</div></div>
+</div>
+  <div class="hcard" onclick="go('claim-prize')">
+  <div class="hci"><svg viewBox="0 0 48 48" fill="none" stroke="var(--p)" stroke-width="1.5"><circle cx="24" cy="24" r="14"/><path d="M24 16v8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div><div class="hct">Claim Prizes</div><div class="hcd">View your Unclaimed Prizes</div></div>
+</div>
+  <div class="hcard" onclick="go('history')">
+  <div class="hci"><svg viewBox="0 0 48 48" fill="none" stroke="var(--p)" stroke-width="1.5"><path d="M10 12h28v6H10zM14 18v18M34 18v18M10 30h28M10 36h28"/></svg></div>
+  <div><div class="hct">History</div><div class="hcd">View Your Participation History</div></div>
+</div>
+  <div class="hcard" onclick="go('prizes')">
+  <div class="hci"><svg viewBox="0 0 48 48" fill="none" stroke="var(--p)" stroke-width="1.5"><path d="M8 20h32M8 20l4-8h24l4 8M12 32l-4 8M36 32l4 8M10 40h28"/><circle cx="24" cy="24" r="6"/></svg></div>
+  <div><div class="hct">Prize Schedule</div><div class="hcd">Next Draw &amp; Prize Tiers</div></div>
+</div>
+</div></div>
+<div class="screen" id="s-scan-intro"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Scan Ticket</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="icon-circle" style="width:82px;height:82px;margin-top:8px">
+    <svg width="46" viewBox="0 0 56 56" fill="none" stroke="#7D541E" stroke-width="1.5"><rect x="10" y="10" width="14" height="14" rx="2"/><rect x="32" y="10" width="14" height="14" rx="2"/><rect x="10" y="32" width="14" height="14" rx="2"/><rect x="32" y="32" width="6" height="6" rx="1"/><rect x="40" y="40" width="6" height="6" rx="1"/></svg>
+  </div>
+  <div class="sc-title" style="margin-top:4px">Scan Your Ticket</div>
+  <div class="sc-sub">Hold your recycling lottery ticket in front of the camera to scan the barcode or QR code.</div>
+  <button class="btn-p" onclick="go('scan-active')" style="">Open Camera</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('scan-active')" style="">Enter Code Manually</button>
+</div></div>
+<div class="screen" id="s-scan-active"><div class="topbar">
+  <button class="ibtn" onclick="go('scan-intro')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Scanning&hellip;</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad" style="align-items:center">
+  <div class="vf"><div class="vf-laser"></div></div>
+  <p style="font-size:12px;color:var(--tm);text-align:center;margin:8px 0 18px">Align the ticket barcode within the frame</p>
+  <div style="width:100%;background:var(--su);border-radius:14px;padding:12px 16px;margin-bottom:16px">
+    <div style="font-size:12px;color:var(--tm);margin-bottom:6px">Or enter ticket code manually</div>
+    <input class="fi" type="text" placeholder="e.g. RL-2024-000001">
+  </div>
+  <button class="btn-p" onclick="go('confirm-ticket')" style="">Confirm Code</button>
+</div></div>
+<div class="screen" id="s-confirm-ticket"><div class="topbar">
+  <button class="ibtn" onclick="go('scan-active')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Confirm Ticket</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="s-toast" style="margin-bottom:14px">
+    <svg width="18" viewBox="0 0 24 24" fill="white"><path d="M20 12l-2-2-6 6-2-2-2 2 4 4z"/></svg>
+    <div class="s-toast-t">Ticket scanned successfully</div>
+  </div>
+  <div class="tkt">
+    <div class="tnum">RL-2024-000001</div>
+    <div style="height:1px;background:var(--bo);margin:7px 0"></div>
+    <div class="td"><span>Draw Date</span><span class="tdv">15 Dec 2024</span></div>
+    <div class="td"><span>Item Recycled</span><span class="tdv">Plastic Bottle &times;3</span></div>
+    <div class="td"><span>Location</span><span class="tdv">REWE Berlin Mitte</span></div>
+    <div class="td"><span>Issued</span><span class="tdv">10 Dec 2024</span></div>
+    <div class="td"><span>Status</span><span class="vchip">Valid</span></div>
+  </div>
+  <div class="banner b-info">&#x2139;&#xFE0F; By submitting this ticket you agree to the lottery terms and conditions.</div>
+  <button class="btn-p" onclick="go('ticket-success')" style="">Submit Ticket</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('home')" style="">Cancel</button>
+</div></div>
+<div class="screen" id="s-ticket-success"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Ticket Entered</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="okc"><svg viewBox="0 0 48 48" fill="none"><path d="M10 24l10 10 18-18" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="ty-title">Ticket Entered!</div>
+  <div class="ty-desc">Your ticket has been entered into the draw. Good luck!</div>
+  <div class="dsec"><div class="dr"><span class="dk">Ticket</span><span class="dv">RL-2024-000001</span></div><div class="dr"><span class="dk">Draw Date</span><span class="dv">15 Dec 2024</span></div><div class="dr"><span class="dk">Status</span><span class="dv"><span class="chip c-ok">Entered</span></span></div></div>
+  <button class="btn-p" onclick="go('scan-intro')" style="">Scan Another Ticket</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('home')" style="">Back to Home</button>
+</div></div>
+<div class="screen" id="s-claim-prize"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Claim Prize</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div style="font-size:14px;color:var(--tm);margin:8px 0 3px">&#x1F389; Congratulations!</div>
+  <div style="font-size:48px;font-weight:700;color:var(--p);margin-bottom:3px">&#x20AC;100,000</div>
+  <div style="font-size:13px;color:var(--a);margin-bottom:14px">Draw: 15 Dec 2024 &middot; Ticket #RL-2024-000001</div>
+  <div class="pbadge" style="margin-bottom:22px">Grand Prize &middot; 1st Place</div>
+  <div class="banner b-info"><strong>Bank transfer required.</strong> Prizes over &#x20AC;1,000 are paid directly to your bank account. Please provide your bank details.</div>
+  <button class="btn-p" onclick="go('bank-card')" style="">Start Claim Process</button>
+</div></div>
+<div class="screen" id="s-bank-card"><div class="topbar">
+  <button class="ibtn" onclick="go('claim-prize')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Bank Details</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="steps"><div class="step done"><div class="sc">&#x2713;</div><div class="slb">Prize</div></div><div class="step active"><div class="sc">2</div><div class="slb">Bank Card</div></div><div class="step "><div class="sc">3</div><div class="slb">Verify</div></div><div class="step "><div class="sc">4</div><div class="slb">Done</div></div></div>
+  <div style="background:var(--p);border-radius:22px;padding:16px 20px;margin:10px 0 14px;color:#fff">
+    <div style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Prize Amount</div>
+    <div style="font-size:28px;font-weight:300">&#x20AC;100,000</div>
+  </div>
+  <div class="upload" onclick="go('bank-confirm')">
+  <svg width="32" viewBox="0 0 40 40" fill="none" stroke="var(--p)" stroke-width="1.5"><path d="M20 28v-16M13 20l7-8 7 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 30v2a2 2 0 002 2h20a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+  <div class="ubt" style="color:var(--p)">Take photo of bank card (front)</div>
+  <div class="ubh">Max 5MB &middot; JPEG or PNG</div>
+</div>
+  <div class="fg"><label class="fl">Account Holder Name</label><input class="fi" type="text" value="Jon Dow" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">IBAN</label><input class="fi" type="text" value="DE89 3704 0044 0532 0130 00" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">BIC / SWIFT</label><input class="fi" type="text" value="COBADEFFXXX" placeholder="" style=""></div>
+  <button class="btn-p" onclick="go('bank-confirm')" style="">Continue to Verification</button>
+</div></div>
+<div class="screen" id="s-bank-confirm"><div class="topbar">
+  <button class="ibtn" onclick="go('bank-card')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Bank Details</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="steps"><div class="step done"><div class="sc">&#x2713;</div><div class="slb">Prize</div></div><div class="step active"><div class="sc">2</div><div class="slb">Bank Card</div></div><div class="step "><div class="sc">3</div><div class="slb">Verify</div></div><div class="step "><div class="sc">4</div><div class="slb">Done</div></div></div>
+  <div style="width:100%;border:2px dashed var(--ok);border-radius:22px;padding:16px;background:var(--okt);margin:10px 0 12px;display:flex;flex-direction:column;align-items:center;gap:5px">
+    <div style="font-size:13px;font-weight:500;color:var(--ok)">bank_card_front.jpg &mdash; uploaded</div>
+    <div style="font-size:11px;color:var(--ok)">&#x2713; 1.8 MB &middot; Accepted</div>
+  </div>
+  <div class="banner b-ok">Bank card photo uploaded successfully. Please confirm your details below.</div>
+  <div class="dsec"><div class="dr"><span class="dk">Account Holder</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">IBAN</span><span class="dv">DE89 3704 &bull;&bull;&bull;&bull;</span></div><div class="dr"><span class="dk">BIC</span><span class="dv">COBADEFFXXX</span></div></div>
+  <button class="btn-p" onclick="go('claim-verify')" style="">Confirm &amp; Continue</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('bank-card')" style="">Re-upload Card</button>
+</div></div>
+<div class="screen" id="s-claim-verify"><div class="topbar">
+  <button class="ibtn" onclick="go('bank-confirm')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Details Verification</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="steps"><div class="step done"><div class="sc">&#x2713;</div><div class="slb">Prize</div></div><div class="step done"><div class="sc">&#x2713;</div><div class="slb">Bank Card</div></div><div class="step active"><div class="sc">3</div><div class="slb">Verify</div></div><div class="step "><div class="sc">4</div><div class="slb">Done</div></div></div>
+  <div class="banner b-info">Please review and confirm all your details before submitting your claim.</div>
+  <div style="font-size:13px;font-weight:600;color:var(--p);margin-bottom:8px">Personal Details</div>
+  <div class="dsec"><div class="dr"><span class="dk">Full Name</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">Date of Birth</span><span class="dv">01 Jan 1990</span></div><div class="dr"><span class="dk">Address</span><span class="dv">Unter den Linden 5, 10117 Berlin</span></div><div class="dr"><span class="dk">ID Verified</span><span class="dv"><span class="vchip">&#x2713; Yes</span></span></div></div>
+  <div style="font-size:13px;font-weight:600;color:var(--p);margin:12px 0 8px">Bank Details</div>
+  <div class="dsec"><div class="dr"><span class="dk">Account Holder</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">IBAN</span><span class="dv">DE89 3704 &bull;&bull;&bull;&bull;</span></div><div class="dr"><span class="dk">Prize Amount</span><span class="dv"><span style="color:var(--s);font-weight:700">&#x20AC;100,000</span></span></div></div>
+  <button class="btn-p" onclick="go('claim-submitted')" style="">Submit Claim</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('bank-card')" style="">Edit Details</button>
+</div></div>
+<div class="screen" id="s-claim-submitted"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Claim Submitted</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="okc"><svg viewBox="0 0 48 48" fill="none"><path d="M10 24l10 10 18-18" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="ty-title">Claim Submitted!</div>
+  <div class="ty-desc">Your prize claim has been received and is being processed. You&apos;ll hear back within 5 business days.</div>
+  <div class="dsec"><div class="dr"><span class="dk">Reference</span><span class="dv">#CLM-2024-001</span></div><div class="dr"><span class="dk">Amount</span><span class="dv"><span style="color:var(--s);font-weight:700">&#x20AC;100,000</span></span></div><div class="dr"><span class="dk">Paid to</span><span class="dv">DE89 3704 &bull;&bull;&bull;&bull;</span></div><div class="dr"><span class="dk">Status</span><span class="dv"><span class="chip c-wa">Processing</span></span></div></div>
+  <button class="btn-p" onclick="go('home')" style="">Back to Home</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('history')" style="">View My Claims</button>
+</div></div>
+<div class="screen" id="s-small-prize"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Claim Prize</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div style="font-size:14px;color:var(--tm);margin:8px 0 3px">&#x1F38A; Well done!</div>
+  <div style="font-size:48px;font-weight:700;color:var(--p);margin-bottom:3px">&#x20AC;250</div>
+  <div style="font-size:13px;color:var(--a);margin-bottom:14px">Draw: 01 Nov 2024 &middot; Ticket #RL-2024-000089</div>
+  <div class="pbadge" style="background:var(--pt);color:var(--p);margin-bottom:18px">Consolation Prize</div>
+  <div style="width:100%;background:var(--su);border-radius:22px;padding:16px;margin-bottom:16px;text-align:left">
+    <div style="font-size:14px;font-weight:600;color:var(--p);margin-bottom:12px">How would you like to claim?</div>
+    <label style="display:flex;align-items:flex-start;gap:10px;padding:13px;border-radius:14px;border:2px solid var(--s);cursor:pointer;background:var(--st);margin-bottom:8px">
+      <input type="radio" checked name="clm" style="accent-color:var(--s);width:16px;height:16px;flex-shrink:0;margin-top:2px">
+      <div><div style="font-size:14px;font-weight:500;color:var(--p)">Redeem In-Store</div><div style="font-size:11px;color:var(--tm)">Show QR code at any participating store</div></div>
+    </label>
+    <label style="display:flex;align-items:flex-start;gap:10px;padding:13px;border-radius:14px;border:1.5px solid var(--bo);cursor:pointer">
+      <input type="radio" name="clm" style="accent-color:var(--p);width:16px;height:16px;flex-shrink:0;margin-top:2px">
+      <div><div style="font-size:14px;font-weight:500;color:var(--p)">Bank Transfer</div><div style="font-size:11px;color:var(--tm)">Transfer to your registered bank account</div></div>
+    </label>
+  </div>
+  <button class="btn-p" onclick="go('instore-qr')" style="">Continue</button>
+</div></div>
+<div class="screen" id="s-instore-qr"><div class="topbar">
+  <button class="ibtn" onclick="go('small-prize')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Claim In-Store</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div style="font-size:22px;font-weight:300;color:var(--p);margin-bottom:3px">&#x20AC;250.00</div>
+  <div style="font-size:12px;color:var(--tm);margin-bottom:20px">Consolation Prize &middot; Redeemable in store</div>
+  <div class="qrc"><svg width="118" height="118" viewBox="0 0 120 120"><rect x="10" y="10" width="40" height="40" fill="none" stroke="#7D541E" stroke-width="3" rx="2"/><rect x="18" y="18" width="24" height="24" fill="#7D541E" rx="1"/><rect x="70" y="10" width="40" height="40" fill="none" stroke="#7D541E" stroke-width="3" rx="2"/><rect x="78" y="18" width="24" height="24" fill="#7D541E" rx="1"/><rect x="10" y="70" width="40" height="40" fill="none" stroke="#7D541E" stroke-width="3" rx="2"/><rect x="18" y="78" width="24" height="24" fill="#7D541E" rx="1"/><rect x="58" y="58" width="8" height="8" fill="#7D541E" rx="1"/><rect x="70" y="58" width="8" height="8" fill="#7D541E" rx="1"/><rect x="82" y="58" width="8" height="8" fill="#7D541E" rx="1"/><rect x="94" y="58" width="8" height="8" fill="#7D541E" rx="1"/><rect x="70" y="70" width="8" height="8" fill="#7D541E" rx="1"/><rect x="82" y="82" width="8" height="8" fill="#7D541E" rx="1"/><rect x="58" y="82" width="8" height="8" fill="#7D541E" rx="1"/><rect x="94" y="94" width="8" height="8" fill="#7D541E" rx="1"/></svg></div>
+  <div class="qrn">RL-2024-999</div>
+  <p style="font-size:12px;color:var(--tm);text-align:center;margin-top:7px;max-width:210px;line-height:1.5">Show this code to the cashier at any participating store</p>
+  <div class="banner b-ok">&#x2713; Valid until 31 January 2025</div>
+  <p style="font-size:11px;color:var(--tm)">Participating stores: REWE, EDEKA, Aldi</p>
+</div></div>
+<div class="screen" id="s-history"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Participation History</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="display:flex;gap:7px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px">
+    <button style="padding:6px 16px;border-radius:100px;background:var(--p);color:#fff;font-size:12px;font-weight:700;white-space:nowrap;border:none;cursor:pointer">All (5)</button>
+    <button style="padding:6px 16px;border-radius:100px;background:var(--okt);color:var(--ok);font-size:12px;font-weight:700;white-space:nowrap;border:none;cursor:pointer">Won (2)</button>
+    <button style="padding:6px 16px;border-radius:100px;background:var(--su);color:var(--t2);font-size:12px;font-weight:500;white-space:nowrap;border:none;cursor:pointer">Lost (2)</button>
+    <button style="padding:6px 16px;border-radius:100px;background:var(--wat);color:var(--wa);font-size:12px;font-weight:700;white-space:nowrap;border:none;cursor:pointer">Pending (1)</button>
+  </div>
+  <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px">December 2024</div>
+  <div class="hi" onclick="go('ticket-detail')"><div class="hico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h4"/></svg></div><div style="flex:1"><div class="htitle">RL-2024-000001</div><div class="hdate">15 Dec &middot; Plastic Bottle &times;3</div></div><div class="hres rw">&#x20AC;100,000</div></div>
+  <div class="hi"><div class="hico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h4"/></svg></div><div style="flex:1"><div class="htitle">RL-2024-000045</div><div class="hdate">01 Dec &middot; Aluminium Can &times;2</div></div><div class="hres rl">No win</div></div>
+  <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.6px;margin:10px 0 4px">November 2024</div>
+  <div class="hi"><div class="hico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h4"/></svg></div><div style="flex:1"><div class="htitle">RL-2024-000089</div><div class="hdate">20 Nov &middot; Glass Bottle &times;5</div></div><div class="hres rw">&#x20AC;250</div></div>
+  <div class="hi"><div class="hico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h4"/></svg></div><div style="flex:1"><div class="htitle">RL-2024-000104</div><div class="hdate">10 Nov &middot; Plastic Bottle &times;1</div></div><div class="hres rp">Pending</div></div>
+  <div class="hi"><div class="hico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h4"/></svg></div><div style="flex:1"><div class="htitle">RL-2024-000123</div><div class="hdate">01 Nov &middot; Aluminium Can &times;4</div></div><div class="hres rl">No win</div></div>
+</div></div>
+<div class="screen" id="s-ticket-detail"><div class="topbar">
+  <button class="ibtn" onclick="go('history')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Ticket Detail</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="text-align:center;margin-bottom:18px">
+    <div style="font-size:24px;margin-bottom:4px">&#x1F3C6;</div>
+    <div style="font-size:32px;font-weight:700;color:var(--ok)">&#x20AC;100,000</div>
+    <div style="font-size:12px;color:var(--tm)">Grand Prize &mdash; 1st Place</div>
+  </div>
+  <div class="dsec"><div class="dr"><span class="dk">Ticket Number</span><span class="dv"><span style="font-size:11px;font-weight:600;letter-spacing:1px">RL-2024-000001</span></span></div><div class="dr"><span class="dk">Draw Date</span><span class="dv">15 Dec 2024</span></div><div class="dr"><span class="dk">Item Recycled</span><span class="dv">Plastic Bottle &times;3</span></div><div class="dr"><span class="dk">Issued At</span><span class="dv">REWE Berlin Mitte</span></div><div class="dr"><span class="dk">Submitted</span><span class="dv">10 Dec 2024</span></div><div class="dr"><span class="dk">Draw Result</span><span class="dv"><span style="color:var(--ok);font-weight:700">Winner &#x1F389;</span></span></div><div class="dr"><span class="dk">Claim Status</span><span class="dv"><span class="chip c-wa">Processing</span></span></div></div>
+  <button class="btn-p" onclick="go('claim-prize')" style="">Continue Claim</button>
+</div></div>
+<div class="screen" id="s-prizes"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Prize Schedule</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="background:var(--p);border-radius:22px;padding:16px;margin-bottom:16px;text-align:center">
+    <div style="font-size:10px;color:rgba(255,255,255,.7);margin-bottom:3px">Next Draw</div>
+    <div style="font-size:18px;font-weight:500;color:#fff">15 January 2025</div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:10px">
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#fff">12</div><div style="font-size:8px;color:rgba(255,255,255,.7)">DAYS</div></div>
+      <div style="font-size:22px;font-weight:700;color:rgba(255,255,255,.4)">:</div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#fff">04</div><div style="font-size:8px;color:rgba(255,255,255,.7)">HRS</div></div>
+      <div style="font-size:22px;font-weight:700;color:rgba(255,255,255,.4)">:</div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#fff">32</div><div style="font-size:8px;color:rgba(255,255,255,.7)">MINS</div></div>
+    </div>
+  </div>
+  <div style="background:var(--su);border-radius:22px;overflow:hidden;margin-bottom:14px">
+    <div style="background:var(--pt);padding:10px 16px;font-size:12px;font-weight:700;color:var(--p);display:flex;justify-content:space-between"><span>Prize Tier</span><span>Amount</span></div>
+    <div class="schi"><div class="schr">&#x1F947;</div><div class="schn">Grand Prize</div><div class="scha">&#x20AC;100,000</div></div>
+    <div class="schi"><div class="schr">&#x1F948;</div><div class="schn">Second Prize</div><div class="scha">&#x20AC;50,000</div></div>
+    <div class="schi"><div class="schr">&#x1F949;</div><div class="schn">Third Prize</div><div class="scha">&#x20AC;25,000</div></div>
+    <div class="schi"><div class="schr" style="font-size:12px;color:var(--t2)">4&ndash;10</div><div class="schn">Runner-up (&times;7)</div><div class="scha">&#x20AC;1,000</div></div>
+    <div class="schi" style="border:none"><div class="schr" style="font-size:11px;color:var(--t2)">11+</div><div class="schn">Consolation</div><div class="scha">&#x20AC;250</div></div>
+  </div>
+</div></div>
+<div class="screen" id="s-notifications"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Notifications</span>
+  <div class="ibtn-placeholder"><button style="font-size:11px;color:var(--p);font-weight:600;background:none;border:none;cursor:pointer;font-family:var(--f)">Mark all</button></div>
+</div>
+<div class="scr-body pad">
+  <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px">New</div>
+  <div class="nitem"><div class="ndot"></div><div><div class="ntit">&#x1F389; You won &#x20AC;100,000!</div><div class="nbod">Your ticket RL-2024-000001 matched the grand prize draw on 15 Dec 2024. Claim your prize now.</div><div class="ntim">2 hours ago</div></div></div>
+  <div class="nitem"><div class="ndot"></div><div><div class="ntit">Age Verification Approved</div><div class="nbod">Your identity has been verified. You can now participate in all draws.</div><div class="ntim">1 day ago</div></div></div>
+  <div style="font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.6px;margin:10px 0 5px">Earlier</div>
+  <div class="nitem"><div class="ndot read"></div><div><div class="ntit">Draw results available</div><div class="nbod">December 1st draw results are now available. Check your tickets!</div><div class="ntim">2 weeks ago</div></div></div>
+  <div class="nitem"><div class="ndot read"></div><div><div class="ntit">Ticket Confirmed</div><div class="nbod">Ticket RL-2024-000045 entered into the 01 Dec draw.</div><div class="ntim">2 weeks ago</div></div></div>
+  <div class="nitem"><div class="ndot read"></div><div><div class="ntit">&#x1F38A; You won &#x20AC;250!</div><div class="nbod">Ticket RL-2024-000089 won a consolation prize. Claim in-store by 31 Jan 2025.</div><div class="ntim">1 month ago</div></div></div>
+  <div class="nitem"><div class="ndot read"></div><div><div class="ntit">Welcome to Recycling Lottery!</div><div class="nbod">Your account is ready. Start scanning tickets to participate in the next draw.</div><div class="ntim">2 months ago</div></div></div>
+</div></div>
+<div class="screen" id="s-profile"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">My Profile</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:22px">
+    <div style="width:74px;height:74px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+      <svg viewBox="0 0 48 48" width="42" height="42" fill="white"><circle cx="24" cy="18" r="8"/><path d="M8 40c0-8.8 7.2-16 16-16s16 7.2 16 16"/></svg>
+    </div>
+    <div style="font-size:17px;font-weight:500;color:var(--p)">Jon Dow</div>
+    <div style="font-size:12px;color:var(--tm);margin-top:2px">jon.dow@email.com</div>
+    <div style="margin-top:9px"><span class="vchip">&#x2713; Age Verified</span></div>
+  </div>
+  <div class="pcard">
+    <div class="prow" onclick="go('profile-personal')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg></div><div style="flex:1"><div class="prt">Personal Details</div><div class="prs">Jon Dow &middot; +49 172 345 6789</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+    <div class="prow" onclick="go('profile-security')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div style="flex:1"><div class="prt">Security &amp; Password</div><div class="prs">Last changed 3 months ago</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+    <div class="prow" onclick="go('profile-bank')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div style="flex:1"><div class="prt">Bank Details</div><div class="prs">DE89 3704 &bull;&bull;&bull;&bull;</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+    <div class="prow" onclick="go('notifications')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div style="flex:1"><div class="prt">Notifications</div><div class="prs">Push &amp; Draw Results on</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+  </div>
+  <div class="pcard">
+    <div class="prow" onclick="go('settings')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><div style="flex:1"><div class="prt">Settings</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+    <div class="prow" onclick="go('support')"><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div style="flex:1"><div class="prt">Contact Support</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+  </div>
+  <div class="pcard">
+    <div class="prow" onclick="go('login')"><div class="pri" style="background:var(--ert)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--er)" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div><div class="prt" style="color:var(--er);flex:1">Sign Out</div></div>
+  </div>
+</div></div>
+<div class="screen" id="s-profile-personal"><div class="topbar">
+  <button class="ibtn" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Personal Details</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="fg"><label class="fl">First Name</label><input class="fi" type="text" value="Jon" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Last Name</label><input class="fi" type="text" value="Dow" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" value="jon.dow@email.com" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Mobile Number</label><div class="frow"><div class="fpfx">&#x1F1E9;&#x1F1EA; +49</div><input class="fi" type="tel" value="172 345 6789" style="flex:1"></div></div>
+  <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="text" value="01 January 1990" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Address</label><input class="fi" type="text" value="Unter den Linden 5" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">City &amp; Postcode</label><input class="fi" type="text" value="10117 Berlin" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">Country</label><input class="fi" type="text" value="Germany" placeholder="" style=""></div>
+  <button class="btn-p" onclick="go('profile')" style="">Save Changes</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('profile')" style="">Cancel</button>
+</div></div>
+<div class="screen" id="s-profile-security"><div class="topbar">
+  <button class="ibtn" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Security &amp; Password</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Change Password</div>
+  <div class="fg"><label class="fl">Current Password</label><div class="pw-w"><input class="fi" type="password" value="Curr3nt!Pass" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <div class="fg"><label class="fl">New Password</label><div class="pw-w"><input class="fi" type="password" value="N3w!Str0ng99" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <div class="pw-str"><div class="pw-bars"><div class="pw-bar s"></div><div class="pw-bar s"></div><div class="pw-bar s"></div></div><span class="pw-lbl s">Strong</span></div>
+  <div class="fg"><label class="fl">Confirm New Password</label><div class="pw-w"><input class="fi" type="password" value="N3w!Str0ng99" placeholder=""><button class="eye-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+  <button class="btn-p" onclick="go('profile')" style="">Update Password</button>
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px">Two-Factor Authentication</div>
+  <div class="pcard">
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.09 4.18 2 2 0 015.07 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div><div style="flex:1"><div class="prt">SMS Authentication</div></div><label class="tog"><input type="checkbox" checked style="display:none"><span style="position:absolute;inset:0;background:var(--s);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(18px);transition:transform .2s"></span></label></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 12h6M9 17h4"/></svg></div><div style="flex:1"><div class="prt">Authenticator App</div></div><label class="tog"><input type="checkbox"  style="display:none"><span style="position:absolute;inset:0;background:var(--bo);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(0);transition:transform .2s"></span></label></div>
+  </div>
+</div></div>
+<div class="screen" id="s-profile-bank"><div class="topbar">
+  <button class="ibtn" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Bank Details</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="banner b-info">Your bank details are used to transfer prizes. Stored securely and never shared.</div>
+  <div class="dsec"><div class="dr"><span class="dk">Account Holder</span><span class="dv">Jon Dow</span></div><div class="dr"><span class="dk">IBAN</span><span class="dv">DE89 3704 0044 &bull;&bull;&bull;&bull;</span></div><div class="dr"><span class="dk">BIC</span><span class="dv">COBADEFFXXX</span></div><div class="dr"><span class="dk">Verified</span><span class="dv"><span class="vchip">&#x2713; Yes</span></span></div></div>
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Update Bank Details</div>
+  <div class="fg"><label class="fl">Account Holder Name</label><input class="fi" type="text" value="Jon Dow" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">IBAN</label><input class="fi" type="text" value="DE89 3704 0044 0532 0130 00" placeholder="" style=""></div>
+  <div class="fg"><label class="fl">BIC / SWIFT</label><input class="fi" type="text" value="COBADEFFXXX" placeholder="" style=""></div>
+  <button class="btn-p" onclick="go('profile')" style="">Save Bank Details</button>
+  <div class="h10"></div>
+  <button class="btn-s" onclick="go('profile')" style="">Cancel</button>
+</div></div>
+<div class="screen" id="s-settings"><div class="topbar">
+  <button class="ibtn" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Settings</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Notifications</div>
+  <div class="pcard" style="margin-bottom:16px">
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div style="flex:1"><div class="prt">Push Notifications</div></div><label class="tog"><input type="checkbox" checked style="display:none"><span style="position:absolute;inset:0;background:var(--s);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(18px);transition:transform .2s"></span></label></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div style="flex:1"><div class="prt">Email Notifications</div></div><label class="tog"><input type="checkbox"  style="display:none"><span style="position:absolute;inset:0;background:var(--bo);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(0);transition:transform .2s"></span></label></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div style="flex:1"><div class="prt">Draw Result Alerts</div></div><label class="tog"><input type="checkbox" checked style="display:none"><span style="position:absolute;inset:0;background:var(--s);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(18px);transition:transform .2s"></span></label></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M12 2a10 10 0 110 20 10 10 0 010-20z"/></svg></div><div style="flex:1"><div class="prt">Prize Won Alerts</div></div><label class="tog"><input type="checkbox" checked style="display:none"><span style="position:absolute;inset:0;background:var(--s);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(18px);transition:transform .2s"></span></label></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div style="flex:1"><div class="prt">Marketing &amp; Promotions</div></div><label class="tog"><input type="checkbox"  style="display:none"><span style="position:absolute;inset:0;background:var(--bo);border-radius:11px"></span><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transform:translateX(0);transition:transform .2s"></span></label></div>
+  </div>
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Privacy</div>
+  <div class="pcard" style="margin-bottom:16px">
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="flex:1"><div class="prt">Data Sharing</div></div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+    <div class="prow"><div class="pri" style="background:var(--ert)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--er)" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></div><div class="prt" style="color:var(--er);flex:1">Delete Account</div><div class="prc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>
+  </div>
+  <div style="font-size:11px;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">App</div>
+  <div class="pcard">
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></div><div style="flex:1"><div class="prt">Language</div><div class="prs">English</div></div><span style="font-size:11px;color:var(--tm)">English</span></div>
+    <div class="prow" onclick=""><div class="pri"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M12 2l1.09 3.26L16.18 4l-1.64 2.91L18 8l-3.27.91L16 12l-2.91-1.64L12 14l-1.09-3.26L7.82 12l1.64-2.91L6 8l3.27-.91L8 5l2.91 1.64L12 2z"/></svg></div><div style="flex:1"><div class="prt">App Version</div><div class="prs">1.0.0</div></div><span style="font-size:11px;color:var(--tm)">1.0.0</span></div>
+  </div>
+</div></div>
+<div class="screen" id="s-support"><div class="topbar">
+  <button class="ibtn" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Contact Support</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad">
+  <div class="so" onclick="go('live-chat')"><div class="soi"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="sot">Live Chat</div><div class="sob">08:00&ndash;20:00 &middot; <span style="color:var(--ok);font-weight:700">Online now</span></div></div></div>
+  <div class="so"><div class="soi"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.09 4.18 2 2 0 015.07 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="sot">Phone</div><div class="sob">+49 800 000 0000 &middot; Mon&ndash;Fri 09&ndash;17</div></div></div>
+  <div class="so"><div class="soi"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="sot">Email</div><div class="sob">support@recyclottery.de &middot; 24&ndash;48h</div></div></div>
+  <div style="height:1px;background:var(--bo);margin:16px 0"></div>
+  <div style="font-size:14px;font-weight:600;color:var(--p);margin-bottom:12px">Send a Message</div>
+  <div class="fg"><label class="fl">Subject</label><select class="fi" style="height:46px;border-radius:13px"><option selected>Prize claim issue</option><option>Age verification problem</option><option>Technical issue</option><option>Other</option></select></div>
+  <div class="fg"><label class="fl">Message</label><textarea class="fi" style="height:96px">I scanned my winning ticket RL-2024-000001 but the claim process is showing an error. Please help.</textarea></div>
+  <button class="btn-p" onclick="go('support-sent')" style="">Send Message</button>
+</div></div>
+<div class="screen" id="s-support-sent"><div class="topbar">
+  <button class="ibtn" onclick="go('support')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Message Sent</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div class="scr-body pad center">
+  <div class="okc"><svg viewBox="0 0 48 48" fill="none"><path d="M10 24l10 10 18-18" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="ty-title">Message Sent!</div>
+  <div class="ty-desc">Our support team will get back to you within 24&ndash;48 hours. A copy has been sent to your email.</div>
+  <div class="dsec"><div class="dr"><span class="dk">Ticket #</span><span class="dv">SUP-2024-0892</span></div><div class="dr"><span class="dk">Subject</span><span class="dv">Prize claim issue</span></div><div class="dr"><span class="dk">Status</span><span class="dv"><span class="chip c-wa">Open</span></span></div></div>
+  <button class="btn-p" onclick="go('home')" style="">Back to Home</button>
+</div></div>
+<div class="screen" id="s-live-chat"><div class="topbar">
+  <button class="ibtn" onclick="go('support')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D541E" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  <span class="tb-title">Live Chat</span>
+  <div class="ibtn-placeholder"></div>
+</div>
+<div style="flex:1;background:#F4F2F0;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none">
+  <div style="font-size:10px;color:var(--tm);text-align:center">Today &middot; 14:23</div>
+  <div style="display:flex;gap:8px">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="15" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </div>
+    <div style="background:#fff;border-radius:0 14px 14px 14px;padding:11px 14px;max-width:220px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+      <div style="font-size:10px;font-weight:700;color:var(--p);margin-bottom:4px">Support Agent</div>
+      <div style="font-size:13px;color:var(--t1);line-height:1.5">Hi Jon! I can see your prize claim &mdash; let me look into that for you right away.</div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:flex-end">
+    <div style="background:var(--p);border-radius:14px 14px 0 14px;padding:11px 14px;max-width:220px">
+      <div style="font-size:13px;color:#fff;line-height:1.5">It keeps showing an error when I upload my bank card photo.</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="15" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </div>
+    <div style="background:#fff;border-radius:0 14px 14px 14px;padding:11px 14px;max-width:220px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+      <div style="font-size:10px;font-weight:700;color:var(--p);margin-bottom:4px">Support Agent</div>
+      <div style="font-size:13px;color:var(--t1);line-height:1.5">Make sure the photo is clear, well-lit, and the card fills the frame. JPEG or PNG, up to 5MB.</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-end">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="15" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </div>
+    <div style="background:#fff;border-radius:0 14px 14px 14px;padding:11px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+      <div style="display:flex;gap:4px;align-items:center">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--tm);animation:blink 1.2s ease-in-out 0s infinite"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--tm);animation:blink 1.2s ease-in-out .2s infinite"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--tm);animation:blink 1.2s ease-in-out .4s infinite"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="background:#fff;border-top:1.5px solid var(--bo);padding:10px 14px;display:flex;gap:9px;align-items:center;flex-shrink:0">
+  <input class="fi" type="text" placeholder="Type a message&hellip;" style="flex:1;height:40px;border-radius:100px">
+  <button style="width:38px;height:38px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:none;cursor:pointer">
+    <svg width="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+  </button>
+</div></div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        
+<!-- Screen: In-Store Prize Redeemed -->
+<div class="screen" id="s-instore-redeemed">
+<div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">Prize Redeemed</span>
+  <div class="apphdr-r">
+    <button class="ibtn" onclick="history.go(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  </div>
+</div>
+<div class="scr-body" style="padding:40px 18px 24px;display:flex;flex-direction:column;align-items:center;text-align:center">
+  <div style="width:80px;height:80px;border-radius:50%;background:var(--okt);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:20px">&#x2713;</div>
+  <div style="font-size:26px;font-weight:300;color:var(--p);margin-bottom:10px">Prize Redeemed!</div>
+  <div style="font-size:13px;color:var(--a);line-height:1.6;margin-bottom:28px">You successfully redeemed your &#x20AC;250 prize at REWE Berlin Mitte.</div>
+  <div style="width:100%;background:var(--su);border-radius:18px;padding:14px 16px;margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bo)"><span style="font-size:12px;color:var(--tm)">Amount</span><span style="font-size:12px;font-weight:600;color:var(--ok)">&#x20AC;250.00</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bo)"><span style="font-size:12px;color:var(--tm)">Redeemed at</span><span style="font-size:12px;font-weight:500;color:var(--t1)">REWE Berlin Mitte</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bo)"><span style="font-size:12px;color:var(--tm)">Date &amp; Time</span><span style="font-size:12px;font-weight:500;color:var(--t1)">22 Nov 2024, 14:32</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:12px;color:var(--tm)">Status</span><span style="font-size:11px;font-weight:700;color:var(--ok)">&#x2713; Redeemed</span></div>
+  </div>
+  <button class="btn-p" onclick="go('home')" style="width:100%;margin-bottom:10px">Back to Home</button>
+</div>
+</div>
+
+<!-- Screen: Pending Claims -->
+<div class="screen" id="s-pending-claims">
+<div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">My Claims</span>
+  <div class="apphdr-r">
+    <button class="ibtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  </div>
+</div>
+<div class="scr-body" style="padding:14px 16px">
+  <div style="background:var(--pt);border-radius:12px;padding:11px 14px;margin-bottom:14px;font-size:12px;color:var(--p)">Review and manage your active prize claims.</div>
+  <div style="background:var(--su);border-radius:16px;padding:14px;margin-bottom:10px;cursor:pointer" onclick="go('claim-submitted')">
+    <div style="font-size:12px;font-weight:500;color:var(--p);margin-bottom:2px">RL-2024-000001</div>
+    <div style="font-size:19px;font-weight:300;color:var(--p);margin-bottom:6px">&#x20AC;100,000</div>
+    <div style="display:inline-flex;align-items:center;background:var(--wat);color:var(--wa);font-size:9px;font-weight:800;padding:3px 9px;border-radius:100px">Processing</div>
+  </div>
+  <div style="background:var(--su);border-radius:16px;padding:14px;margin-bottom:10px;cursor:pointer" onclick="go('instore-qr')">
+    <div style="font-size:12px;font-weight:500;color:var(--p);margin-bottom:2px">RL-2024-000089</div>
+    <div style="font-size:19px;font-weight:300;color:var(--p);margin-bottom:6px">&#x20AC;250</div>
+    <div style="display:inline-flex;align-items:center;background:var(--okt);color:var(--ok);font-size:9px;font-weight:800;padding:3px 9px;border-radius:100px">Awaiting Pickup</div>
+  </div>
+  <div style="font-size:12px;color:var(--tm);text-align:center;margin-top:12px">Previous prizes are visible in History.</div>
+  <button class="btn-p" onclick="go('scan-intro')" style="width:100%;margin-top:20px">Scan New Ticket</button>
+</div>
+</div>
+
+<!-- Screen: Draw Results -->
+<div class="screen" id="s-draw-results">
+<div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">Draw Results</span>
+  <div class="apphdr-r">
+    <button class="ibtn" onclick="go('prizes')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+  </div>
+</div>
+<div class="scr-body" style="padding:14px 16px">
+  <div style="background:var(--p);border-radius:16px;padding:14px 16px;margin-bottom:14px;color:#fff">
+    <div style="font-size:10px;opacity:.7;margin-bottom:3px">Draw: 15 January 2025</div>
+    <div style="font-size:17px;font-weight:500">Results Published</div>
+  </div>
+  <div style="background:var(--okt);border:2px solid var(--ok);border-radius:14px;padding:12px 14px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:var(--ok);margin-bottom:2px">&#x1F3C6; Your ticket RL-2024-000001 is a WINNER!</div>
+    <div style="font-size:11px;color:var(--p)">Tap to start your claim process &#8250;</div>
+  </div>
+  <div style="background:var(--su);border-radius:14px;overflow:hidden">
+    <div style="background:var(--pt);padding:8px 14px;display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--p)"><span>Prize</span><span>Amount</span></div>
+    <div style="padding:0 14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bo)"><span style="font-size:11px;color:var(--tm)">1st Prize</span><span style="font-size:13px;font-weight:700;color:var(--s)">&#x20AC;100,000</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bo)"><span style="font-size:11px;color:var(--tm)">2nd Prize</span><span style="font-size:13px;font-weight:700;color:var(--s)">&#x20AC;50,000</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bo)"><span style="font-size:11px;color:var(--tm)">3rd Prize</span><span style="font-size:13px;font-weight:700;color:var(--s)">&#x20AC;25,000</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bo)"><span style="font-size:11px;color:var(--tm)">Runner-up</span><span style="font-size:13px;font-weight:700;color:var(--p)">&#x20AC;1,000 x7</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0"><span style="font-size:11px;color:var(--tm)">Consolation</span><span style="font-size:13px;font-weight:700;color:var(--p)">&#x20AC;250 x80</span></div>
+    </div>
+  </div>
+  <button class="btn-p" onclick="go('claim-prize')" style="width:100%;margin-top:16px">Claim My Prize</button>
+</div>
+</div>
+
+<!-- Screen: Edge Cases — No Internet -->
+<div class="screen" id="s-no-internet">
+<div class="scr-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:500px;padding:32px;text-align:center">
+  <div style="width:76px;height:76px;border-radius:50%;background:var(--ert);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px">&#x26A0;</div>
+  <div style="font-size:24px;font-weight:300;color:var(--er);margin-bottom:10px">No Connection</div>
+  <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:28px">Check your WiFi or mobile data and try again.</div>
+  <button class="btn-p" onclick="go('home')" style="width:100%">Try Again</button>
+</div>
+</div>
+
+<!-- Screen: Session Expired -->
+<div class="screen" id="s-session-expired">
+<div class="scr-body" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:500px;padding:0;background:rgba(0,0,0,.35)">
+  <div style="background:#fff;border-radius:24px 24px 0 0;width:100%;padding:28px 24px 36px;text-align:center">
+    <div style="width:40px;height:4px;border-radius:2px;background:var(--bo);margin:0 auto 20px"></div>
+    <div style="font-size:24px;margin-bottom:14px">&#x23F0;</div>
+    <div style="font-size:18px;font-weight:500;color:var(--p);margin-bottom:8px">Session Expired</div>
+    <div style="font-size:13px;color:var(--a);line-height:1.6;margin-bottom:24px">Your session timed out for security. Please sign in again.</div>
+    <button class="btn-p" onclick="go('login')" style="width:100%">Sign In Again</button>
+  </div>
+</div>
+</div>
+
+<!-- Screen: Account Locked -->
+<div class="screen" id="s-account-locked">
+<div class="apphdr" style="gap:10px">
+  <span class="apphdr-l" style="flex:1;text-align:center">Sign In</span>
+</div>
+<div class="scr-body" style="padding:24px 18px">
+  <div style="background:var(--ert);border-radius:12px;padding:12px 14px;margin-bottom:20px;font-size:12px;color:var(--er);line-height:1.5">&#x1F512; Account locked. Too many failed attempts. Try again in <strong>28:45</strong>.</div>
+  <div style="margin-bottom:12px"><div style="font-size:13px;color:var(--t1);margin-bottom:6px">Email Address</div><input class="fi" type="email" value="jon.dow@email.com" style="width:100%;height:46px;border-radius:12px"></div>
+  <div style="margin-bottom:16px"><div style="font-size:13px;color:var(--t1);margin-bottom:6px">Password</div><input class="fi" type="password" value="password" style="width:100%;height:46px;border-radius:12px;border-color:var(--er)!important"></div>
+  <button class="btn-s" onclick="go('forgot-pw')" style="width:100%">Reset Password Instead</button>
+</div>
+</div>
+
+<!-- Screen: Under 18 -->
+<div class="screen" id="s-under-18">
+<div class="apphdr" style="gap:10px">
+  <button class="hbtn" onclick="openMenu()"><div class="hbtn-bar"></div><div class="hbtn-bar mid"></div><div class="hbtn-bar"></div></button>
+  <span class="apphdr-l" style="flex:1">Age Verification</span>
+  <div class="apphdr-r"></div>
+</div>
+<div class="scr-body" style="padding:40px 18px;display:flex;flex-direction:column;align-items:center;text-align:center">
+  <div style="width:80px;height:80px;border-radius:50%;background:var(--ert);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:20px">&#x2717;</div>
+  <div style="font-size:26px;font-weight:300;color:var(--er);margin-bottom:10px">Under 18</div>
+  <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px">You must be 18 or over to participate in the Recycling Lottery.</div>
+  <div style="background:var(--ert);border-radius:12px;padding:12px 14px;margin-bottom:24px;font-size:12px;color:var(--er);text-align:left;line-height:1.5">Your account has been restricted. Contact support if you believe this is an error.</div>
+  <button class="btn-s" onclick="go('support')" style="width:100%">Contact Support</button>
+</div>
+</div>
+
+<!-- Screen: Maintenance -->
+<div class="screen" id="s-maintenance">
+<div class="scr-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:560px;padding:32px;text-align:center">
+  <div style="width:80px;height:80px;border-radius:20px;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin-bottom:20px">&#x1F527;</div>
+  <div style="font-size:22px;font-weight:300;color:var(--p);margin-bottom:10px">Down for Maintenance</div>
+  <div style="font-size:13px;color:var(--a);line-height:1.6;margin-bottom:20px">We are improving the app for you. Usually back within 30 minutes.</div>
+  <div style="background:var(--wat);border-radius:12px;padding:10px 14px;margin-bottom:24px;font-size:12px;font-weight:700;color:var(--wa)">Expected back: Today 16:00 CET</div>
+</div>
+</div>
+
+        <div class="bottom-nav" id="bnav">
+          <div class="bn-tab" id="bn-home" onclick="go('home')">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="bn-tab-lbl">Home</span>
+          </div>
+          <div class="bn-fab" onclick="go('scan-intro')">
+            <div class="bn-fab-ring">
+              <svg viewBox="0 0 48 48" fill="white"><rect x="9" y="9" width="12" height="12" rx="2.5"/><rect x="27" y="9" width="12" height="12" rx="2.5"/><rect x="9" y="27" width="12" height="12" rx="2.5"/><rect x="28" y="28" width="5" height="5" rx="1.2"/><rect x="34" y="34" width="5" height="5" rx="1.2"/></svg>
+            </div>
+            <span class="bn-fab-lbl">Scan</span>
+          </div>
+          <div class="bn-tab" id="bn-profile" onclick="go('profile')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span class="bn-tab-lbl">Profile</span>
+          </div>
+        </div>
+
+        <!-- Dot Menu Overlay + Drawer -->
+        <div class="overlay" id="overlay" onclick="overlayClick(event)">
+          <div class="drawer">
+            <button class="drawer-close" onclick="closeMenu()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="drawer-head">
+              <div class="dh-avatar">
+                <svg viewBox="0 0 48 48" width="36" height="36" fill="white"><circle cx="24" cy="18" r="8"/><path d="M8 40c0-8.8 7.2-16 16-16s16 7.2 16 16"/></svg>
+              </div>
+              <div class="dh-name">Jon Dow</div>
+              <div class="dh-email">jon.dow@email.com</div>
+              <div class="dh-badge">&#x2713; Age Verified</div>
+            </div>
+            <div class="drawer-scroll">
+              <div class="di" id="di-home" onclick="go('home');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2zM9 22V12h6v10"/></svg></div>
+  <div class="di-text"><div class="di-label">Home</div><div class="di-sub">Home screen</div></div>
+</div><div class="di" id="di-scan-intro" onclick="go('scan-intro');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM16 16h2v2h-2zM19 19h2v2h-2z"/></svg></div>
+  <div class="di-text"><div class="di-label">Scan Ticket</div><div class="di-sub">Enter a draw</div></div>
+</div><div class="di" id="di-claim-prize" onclick="go('claim-prize');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2a10 10 0 110 20 10 10 0 010-20zM12 6v6l4 2"/></svg></div>
+  <div class="di-text"><div class="di-label">Claim Prizes</div><div class="di-sub">1 unclaimed prize!</div></div>
+  <div class="di-badge" style="background:var(--ok)">1</div>
+</div><div class="di" id="di-small-prize" onclick="go('small-prize');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M8 21h8M12 17v4M7 4h10l1 7H6L7 4zM6 11c0 3.3 2.7 6 6 6s6-2.7 6-6"/></svg></div>
+  <div class="di-text"><div class="di-label">In-Store Claim</div><div class="di-sub">Redeem at a store</div></div>
+</div><div class="di-divider"></div><div class="di" id="di-history" onclick="go('history');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 2h14a2 2 0 012 2v18l-7-3-7 3V4a2 2 0 012-2z"/></svg></div>
+  <div class="di-text"><div class="di-label">Participation History</div><div class="di-sub">All your tickets</div></div>
+</div><div class="di" id="di-prizes" onclick="go('prizes');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M8 21h8M12 17v4M7 4h10l1 7H6L7 4z"/></svg></div>
+  <div class="di-text"><div class="di-label">Prize Schedule</div><div class="di-sub">Upcoming draws</div></div>
+</div><div class="di" id="di-notifications" onclick="go('notifications');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+  <div class="di-text"><div class="di-label">Notifications</div><div class="di-sub">2 unread alerts</div></div>
+  <div class="di-badge">2</div>
+</div>
+  <div class="di-text"><div class="di-label">Notifications</div><div class="di-sub">Alerts & updates</div></div>
+</div><div class="di-divider"></div><div class="di" id="di-profile" onclick="go('profile');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg></div>
+  <div class="di-text"><div class="di-label">My Profile</div><div class="di-sub">Account details</div></div>
+</div><div class="di" id="di-settings" onclick="go('settings');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+  <div class="di-text"><div class="di-label">Settings</div><div class="di-sub">App preferences</div></div>
+</div><div class="di" id="di-support" onclick="go('support');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+  <div class="di-text"><div class="di-label">Contact Support</div><div class="di-sub">Get help</div></div>
+</div><div class="di-divider"></div><div class="di danger" id="di-login" onclick="go('login');closeMenu()">
+  <div class="di-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+  <div class="di-text"><div class="di-label">Sign Out</div></div>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-screen-lbl" id="screen-lbl">Home (Verified)</div>
+  </div>
+
+</div>
+
+<script>
+// Scale the proto-row to fit viewport width
+function scaleLayout() {
+  var row = document.querySelector('.proto-row');
+  if (!row) return;
+  var available = window.innerWidth - 40; // 20px padding each side
+  var natural = row.scrollWidth;
+  var scale = natural > available ? available / natural : 1;
+  row.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+  row.style.transformOrigin = 'top center';
+  row.style.marginBottom = scale < 1 ? ((natural * scale - natural) + 'px') : '';
+}
+window.addEventListener('resize', scaleLayout);
+window.addEventListener('load', scaleLayout);
+
+const LABELS = {
+  'instore-redeemed': 'Prize Redeemed',
+  'pending-claims': 'My Claims',
+  'draw-results': 'Draw Results',
+  'no-internet': 'No Connection',
+  'session-expired': 'Session Expired',
+  'account-locked': 'Account Locked',
+  'under-18': 'Under 18',
+  'maintenance': 'Maintenance',"splash": "Splash / Loading", "login": "Sign In", "login-err": "Login Error", "forgot-pw": "Forgot Password", "reset-sent": "Reset Email Sent", "signup": "Sign Up", "otp": "OTP Verification", "age-intro": "Upload ID Intro", "age-uploaded": "File Selected", "age-processing": "Processing", "confirm-details": "Confirm Details", "reg-complete": "Registration Done", "home-unverified": "Home (Unverified)", "home": "Home (Verified)", "scan-intro": "Scan Intro", "scan-active": "Camera Active", "confirm-ticket": "Confirm Ticket", "ticket-success": "Ticket Entered", "claim-prize": "Prize Reveal", "bank-card": "Bank Card Upload", "bank-confirm": "Card Confirmed", "claim-verify": "Verify Details", "claim-submitted": "Claim Submitted", "small-prize": "Choose Method", "instore-qr": "In-Store QR Code", "profile": "My Profile", "profile-personal": "Personal Details", "profile-security": "Security & Password", "profile-bank": "Bank Details", "settings": "Settings", "history": "Participation History", "ticket-detail": "Ticket Detail", "prizes": "Prize Schedule", "notifications": "Notifications", "support": "Contact Support", "support-sent": "Message Sent", "live-chat": "Live Chat"};
+const SHOW_NAV = ["claim-submitted", "profile-personal", "settings", "history", "prizes", "support", "support-sent", "notifications", "profile-bank", "scan-intro", "ticket-detail", "home", "small-prize", "profile-security", "profile", "live-chat", "instore-qr", "home-unverified"];
+const NAV_HOME = ["claim-submitted", "scan-active", "history", "bank-confirm", "prizes", "support-sent", "support", "notifications", "scan-intro", "ticket-success", "confirm-ticket", "ticket-detail", "claim-prize", "home", "small-prize", "bank-card", "live-chat", "claim-verify", "instore-qr", "home-unverified"];
+const NAV_PROF = ["profile-bank", "profile-personal", "settings", "profile-security", "profile"];
+let current = null;
+
+function go(id) {
+  const prev = current ? document.getElementById('s-' + current) : null;
+  const next = document.getElementById('s-' + id);
+  if (!next) return;
+  if (prev) prev.classList.remove('active', 'anim-in', 'anim-back');
+  if (current && current !== id) {
+    next.classList.add('anim-in');
+    setTimeout(() => next.classList.remove('anim-in'), 260);
+  }
+  next.classList.add('active');
+  current = id;
+
+  // Scroll content area to top
+  const body = next.querySelector('.scr-body, .pad');
+  if (body) body.scrollTop = 0;
+
+  // Update label
+  document.getElementById('screen-lbl').textContent = LABELS[id] || id;
+
+  // Bottom nav
+  const bnav = document.getElementById('bnav');
+  bnav.style.display = SHOW_NAV.includes(id) ? 'grid' : 'none';
+  document.getElementById('bn-home').classList.toggle('active', NAV_HOME.includes(id));
+  document.getElementById('bn-profile').classList.toggle('active', NAV_PROF.includes(id));
+
+  // Sidebar active
+  document.querySelectorAll('.sp-btn').forEach(b => {
+    const m = b.getAttribute('onclick')?.match(/go\('([^']+)'\)/);
+    b.classList.toggle('active', m && m[1] === id);
+  });
+
+  // Drawer active
+  document.querySelectorAll('.di').forEach(d => {
+    d.classList.toggle('active', d.id === 'di-' + id);
+  });
+}
+
+function openMenu() {
+  document.getElementById('overlay').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('overlay').classList.remove('open');
+}
+function overlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closeMenu();
+}
+
+// Time
+function tick() {
+  const n = new Date();
+  const h = n.getHours(), m = n.getMinutes();
+  document.getElementById('sb-time').textContent = h + ':' + (m < 10 ? '0' : '') + m;
+}
+tick();
+setInterval(tick, 30000);
+
+// Init
+go('home');
+</script>
+</div></body>
+</html>

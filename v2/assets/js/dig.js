@@ -251,17 +251,18 @@
     pxShow(3);
   }
 
-  /* Scale the desktop-width system map to fit its frame */
-  var mapFrame = document.querySelector('.map-frame');
-  if (mapFrame) {
-    var mapIf = mapFrame.querySelector('iframe');
-    var fitMap = function () {
-      var k = Math.min(1, mapFrame.clientWidth / 1920);
-      mapIf.style.transform = 'scale(' + k + ')';
-      mapIf.style.height = (mapFrame.clientHeight / k) + 'px';
+  /* Scale desktop-width embedded artefacts to fit their frames */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fit-w]'), function (fr) {
+    var w = parseInt(fr.getAttribute('data-fit-w'), 10);
+    var ifr = fr.querySelector('iframe');
+    var fit = function () {
+      var k = Math.min(1, fr.clientWidth / w);
+      ifr.style.width = w + 'px';
+      ifr.style.transform = 'scale(' + k + ')';
+      ifr.style.height = (fr.clientHeight / k) + 'px';
     };
-    fitMap(); window.addEventListener('resize', fitMap);
-  }
+    fit(); window.addEventListener('resize', fit);
+  });
 
   /* Certifications: + 20 more */
   var certBtn = document.querySelector('[data-cert-toggle]');
