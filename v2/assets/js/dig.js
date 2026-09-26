@@ -307,6 +307,19 @@
     facts.forEach(function (f) { fio.observe(f); });
   }
 
+  /* Explanatory illustrations: loop their build every 5s while visible */
+  var exArt = document.querySelectorAll('svg.stage-art, svg.log-art, svg.tool-icon, .log-art svg, .tool-icon svg');
+  if (exArt.length && !reduce && 'IntersectionObserver' in window) {
+    exArt.forEach(function (svg) {
+      Array.prototype.forEach.call(svg.children, function (el, i) { el.style.setProperty('--i', i); });
+      svg.querySelectorAll('.draw').forEach(function (el, i) { el.style.setProperty('--i', i + 2); });
+    });
+    var exIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('ex-play', e.isIntersecting); });
+    }, { threshold: .35 });
+    exArt.forEach(function (svg) { exIO.observe(svg); });
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 

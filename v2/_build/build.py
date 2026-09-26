@@ -87,7 +87,7 @@ def header(pre, active, home=False, crumbs=None):
                      f'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>'
                      f'<ul class="drop" id="drop-{key}">{sub}</ul></li>')
     items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field Notes (Resume)</a></li>')
-    items.append(f'<li><a class="btn btn--fill btn--raptor" href="{h}#contact">{RAPTOR_ICON}<span>Hire the raptor</span></a></li>')
+    items.append(f'<li><a class="btn btn--fill btn--raptor" href="{h}#contact">{RAPTOR_ICON}<span>Hire the Dino</span></a></li>')
 
     trail = [f'<li><a href="{pre}index.html">{SHOVEL}<span>Dig site</span></a></li>']
     for label, href in (crumbs or []):
@@ -344,7 +344,7 @@ def home():
 <figure class="hero-mark"><img src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320"><figcaption class="tag tag--hot">TAG 04 · STILL ROARING</figcaption></figure>
 <div>
 <p class="lede"><strong class="hero-name">Jonathan Edward <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
-<div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a></div>
+<div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a></div>
 </div>
 </div>
 <div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span>STACK&nbsp;&nbsp;CLAUDE-FIRST</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
