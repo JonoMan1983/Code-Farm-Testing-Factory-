@@ -547,8 +547,8 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .logo-track { display: flex; width: max-content; animation: ref-belt 55s linear infinite; }
 .logo-belt:hover .logo-track { animation-play-state: paused; }
 .logo-set { display: flex; align-items: center; gap: 64px; padding-right: 64px; }
-.logo-set img { height: 34px; width: auto; max-width: 170px; object-fit: contain; filter: grayscale(1) brightness(0) invert(.88) sepia(.25); opacity: .75; transition: opacity .2s, filter .2s; }
-.logo-set img:hover { opacity: 1; filter: none; }
+.logo-set img { height: 34px; width: auto; max-width: 170px; object-fit: contain; transition: transform .2s; }
+.logo-set img:hover { transform: scale(1.12); }
 .toolkit { display: grid; gap: 14px; }
 .toolkit-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: start; padding: 18px 0; border-bottom: 1px dashed var(--s3); }
 .toolkit-row h4 { margin: 10px 0 0; font-family: var(--f-mono); font-weight: 400; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ochre); }
@@ -556,10 +556,9 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .tool-chip { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; background: var(--s1); border: 1px solid var(--s4); font-size: 14px; transition: border-color .2s, background .2s; }
 .tool-chip:hover { border-color: var(--ochre); }
 .tool-chip-icon { display: grid; place-items: center; width: 30px; height: 30px; }
-.tool-chip-icon img, .tool-chip-icon svg { width: 28px; height: 28px; border-radius: 6px; filter: grayscale(1) contrast(1.1) brightness(1.4); opacity: .8; transition: filter .2s, opacity .2s; }
-.tool-chip:hover .tool-chip-icon img, .tool-chip:hover .tool-chip-icon svg { filter: none; opacity: 1; }
+.tool-chip-icon img, .tool-chip-icon svg { width: 28px; height: 28px; border-radius: 6px; transition: transform .2s; }
+.tool-chip:hover .tool-chip-icon img, .tool-chip:hover .tool-chip-icon svg { transform: scale(1.18); }
 .tool-chip--primary { background: var(--s3); border-color: var(--ochre); font-weight: 600; }
-.tool-chip--primary .tool-chip-icon img, .tool-chip--primary .tool-chip-icon svg { filter: none; opacity: 1; }
 .tool-chip--low { opacity: .6; font-size: 13px; }
 .tl { list-style: none; margin: 0; padding: 0; }
 .tl-row { display: grid; grid-template-columns: 170px 280px minmax(0, 1fr); gap: 28px; align-items: start; padding: 20px 24px; background: var(--s1); border-left: 4px solid var(--s5); }
