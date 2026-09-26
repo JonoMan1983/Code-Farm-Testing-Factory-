@@ -218,7 +218,7 @@ main { display: block; }
   .hero-mark { width: min(340px, 82%); }
   .hero-intro > div { text-align: left; }
 }
-.hero-title--strata { font-size: clamp(46px, 8.6vw, 136px); line-height: 1.02; }
+.hero-title--strata { font-size: clamp(46px, 8.6vw, 136px); line-height: 1.12; }
 .t-line { display: block; opacity: 0; transform: translateY(24px); animation: t-rise .8s cubic-bezier(.2,.9,.3,1) forwards; }
 .t-years { animation-delay: .1s; } .t-craft { animation-delay: .35s; } .t-velocity { animation-delay: .6s; }
 @keyframes t-rise { to { opacity: 1; transform: none; } }
@@ -615,6 +615,16 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
   .proto-frame.nda-veiled { display: block; aspect-ratio: auto; height: 520px; }
   .nda-veiled > .nda-card { padding: 24px 20px; }
 }
+
+.btn--raptor { display: inline-flex; align-items: center; gap: 10px; padding-left: 14px; }
+.rx-icon { width: 46px; height: auto; flex: none; transition: transform .3s cubic-bezier(.3,1.5,.5,1); }
+.btn--raptor:hover .rx-icon { transform: rotate(-8deg) scale(1.1); }
+.btn--li { display: inline-flex; align-items: center; gap: 12px; padding-left: 12px; border-color: #0A66C2; color: var(--bone); background: linear-gradient(90deg, rgba(10,102,194,.18), transparent 70%); transition: background .25s, transform .25s, box-shadow .25s, border-color .2s; }
+.btn--li .li-icon { width: 26px; height: 26px; padding: 5px; box-sizing: content-box; background: #0A66C2; color: #fff; border-radius: 4px; transition: transform .3s cubic-bezier(.3,1.5,.5,1); }
+.btn--li:hover { background: #0A66C2; color: #fff; border-color: #0A66C2; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(10,102,194,.35); }
+.btn--li:hover .li-icon { background: #fff; color: #0A66C2; transform: scale(1.08); }
+.li-link { display: inline-flex; align-items: center; gap: 5px; color: var(--ochre); text-decoration: underline; text-underline-offset: 3px; }
+.li-link .li-icon { width: 13px; height: 13px; color: #0A66C2; background: #fff; border-radius: 2px; }
 
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }

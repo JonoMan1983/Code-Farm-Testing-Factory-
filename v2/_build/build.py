@@ -10,6 +10,8 @@ ROOT = os.path.dirname(HERE)
 A = '/Code-Farm-Testing-Factory-/assets'
 EMAIL = 'jonathanedwardnestler@gmail.com'
 LINKEDIN = 'https://www.linkedin.com/in/jonoman1983'
+RAPTOR_ICON = '''<svg class="rx-icon" viewBox="0 0 683.04 500" aria-hidden="true" focusable="false"> <path d="M207.95,397.5c1.84-10.14,9.83-29.5,17.21-39.03s10.76-12.29,11.98-13.21,2.46-2.77-6.45-3.38-26.43-3.07-41.48-20.59c-15.06-17.52-17.82-26.12-18.74-35.65-.92-9.53,3.07-7.99,8.6,2.15,5.53,10.14,24.89,34.42,36.88,37.18,11.98,2.77,15.36,3.69,44.86,2.77s50.4,4.3,66.68,8.91c16.29,4.61,35.95,9.53,48.86,5.22,12.91-4.3,15.67-7.07,22.74-17.82s7.38-15.06,3.99-17.52c-3.38-2.46-5.84,1.84-6.45-5.53-.61-7.38-4.92-19.05-7.99-12.29-3.07,6.76-9.22,23.05-12.6,12.91s-5.22-25.81-9.53-19.97c-4.3,5.84-17.82,28.27-17.82,12.29s-3.38-23.66-13.21-9.53c-9.83,14.14-11.68,4.3-11.06-5.53s-1.23-12.6-5.84-7.38-5.53,7.99-10.76,4.3-23.05-9.22-23.35-19.97c-.31-10.76-.92-32.57,8.3-36.26,9.22-3.69,15.98,0,18.44,5.84s4.3,11.06,8.3,1.23,5.53-14.14,10.45-6.76c4.92,7.38,10.76,17.82,13.83,6.15,3.07-11.68,4.61-18.13,9.83-11.37,5.22,6.76,13.21,23.35,15.67,5.53s6.76-22.74,10.45-15.06,11.06,17.82,12.29,5.53,3.38-24.58,7.99-19.05,13.21,18.13,14.75,9.53c1.54-8.6,1.23-19.05,4.92-21.2,3.69-2.15,5.22-7.68,0-18.74-5.22-11.06-19.05-38.72-52.24-41.79-33.19-3.07-56.54,8.6-76.82,13.21-20.28,4.61-28.89,1.23-43.33-1.84-14.44-3.07-29.81-9.22-44.56-.92-14.75,8.3-12.91,17.21-36.26,24.28s-48.24,21.51-60.84,51.01c-12.6,29.5-13.52,51.63-21.82,63.92s-19.36,19.05-17.82,25.81c1.54,6.76,28.27,56.23,46.09,70.68,17.82,14.44,63.3,38.41,74.06,39.33s21.51,6.15,22.13,1.84-.31-9.22-.31-9.22Z" fill="currentColor"/> <path d="M455.62,230.94c-9.69,6.36-26.12,16.9-30.42,19.67s-1.84,3.69,6.76,8.6,22.74,13.52,26.73,15.67,5.84,2.15,5.53,13.52c-.31,11.37.31,14.44-8.6,8.91s-48.24-30.17-54.08-33.68-5.22-6.27-4.92-13.64c.31-7.38,10.45-10.14,14.75-12.91s32.57-19.05,40.56-24.58c7.99-5.53,12.97-8.91,12.32,2.77s1.2,9.22-8.64,15.67Z" fill="currentColor"/> <path d="M518.31,188.85c-5.45,13.63-39.95,113.39-42.1,120.15-2.15,6.76-4.3,10.45,4.61,10.45s12.42,1.54,16.9-12.6c4.48-14.14,36.57-103.25,39.64-112.47s2.15-9.83-6.15-9.83-10.45-1.84-12.91,4.3Z" fill="currentColor"/> <path d="M557.34,207.43c-4.61-2.61-7.68-1.07-7.99,8.15-.31,9.22-.61,11.98,7.99,16.59s33.8,19.72,33.8,19.72l-38.1,23.61s-3.8.31-3.8,8.6v13.83s.73,4.3,7.18,0c6.45-4.3,55.31-32.88,55.31-32.88,0,0,5.22-2.15,5.22-9.22s2.77-8.6-9.83-16.29c-12.6-7.68-49.78-32.11-49.78-32.11Z" fill="currentColor"/> <circle cx="234.92" cy="172.76" r="15.57" transform="translate(12.81 361.71) rotate(-76.72)" fill="#E8A33D" class="rx-eye"/> </svg>'''
+LI_ICON = '<svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>'
 CDN = 'https://res.cloudinary.com/dksariyyz'
 DATA = json.load(open(os.path.join(HERE, 'v1data.json')))
 
@@ -85,7 +87,7 @@ def header(pre, active, home=False, crumbs=None):
                      f'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>'
                      f'<ul class="drop" id="drop-{key}">{sub}</ul></li>')
     items.append(f'<li><a class="nav-top" href="{pre}resume.html"{cur("cv")}>Field Notes (Resume)</a></li>')
-    items.append(f'<li><a class="btn btn--fill" href="{h}#contact">Hire the raptor</a></li>')
+    items.append(f'<li><a class="btn btn--fill btn--raptor" href="{h}#contact">{RAPTOR_ICON}<span>Hire the raptor</span></a></li>')
 
     trail = [f'<li><a href="{pre}index.html">{SHOVEL}<span>Dig site</span></a></li>']
     for label, href in (crumbs or []):
@@ -369,7 +371,7 @@ def home():
 <div class="sec-head reveal"><div><p class="eyebrow">Field reports · {len(REFS)} verified</p><h2 class="h-l" id="proof-title" style="margin-top:10px">From the people who dug with me</h2></div>{guide('03', '')}</div>
 <p class="lede reveal" style="margin-top:-12px;margin-bottom:8px">Managers, founders, mentors and teammates — tagged and hung out to read. Tap any tag for the full report.</p>
 {ref_belts()}
-<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
+<div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a class="li-link" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
 {ref_dialog()}
 </section>
 <section class="section" id="work" data-crumb="Specimens" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
@@ -461,7 +463,7 @@ def home():
 <section class="section contact" id="contact" data-crumb="Contact" data-depth="5.1m" data-era="bedrock" aria-labelledby="contact-title">
 <p class="eyebrow" style="color:var(--tag)">Bedrock</p>
 <h2 class="h-mega" id="contact-title" style="margin-top:10px">You've hit bedrock.<br><span class="ochre">Let's build on it.</span></h2>
-<div class="btn-row" style="margin-top:40px"><a class="btn btn--fill" href="mailto:{EMAIL}">Start a conversation</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn" href="{LINKEDIN}">LinkedIn</a></div>
+<div class="btn-row" style="margin-top:40px"><a class="btn btn--fill" href="mailto:{EMAIL}">Start a conversation</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a></div>
 <p class="mono">Jeffreys Bay, South Africa · Remote worldwide · Open to relocate anywhere in South Africa</p>
 {dino_img('07', '', 'contact-dino', variant='amber')}
 </section>
