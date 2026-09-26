@@ -279,6 +279,14 @@
     });
   }
 
+  /* Hero: count the years up */
+  var tc = document.querySelector('[data-count]');
+  if (tc && !reduce) {
+    var target = parseInt(tc.getAttribute('data-count'), 10), n = 0;
+    tc.textContent = '0';
+    setTimeout(function tick() { n += 1; tc.textContent = n; if (n < target) setTimeout(tick, 38); }, 250);
+  }
+
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
 
