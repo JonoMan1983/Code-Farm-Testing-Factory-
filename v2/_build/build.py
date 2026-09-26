@@ -150,6 +150,7 @@ IGAMING = [
     ('Bellas Bachelorette', 'bellas-bachelorette', "Bella's Bachelorette slot: neon pink reel frame over a party crowd, wild and scatter"),
     ('Americana', 'americana', 'Americana Road Trip slot: chrome reel frame over the US flag, expanding Liberty wild'),
 ]
+ALL_GAMES = IGAMING + SHELL_GAMES
 
 
 MINI_MAP = """<svg viewBox="0 0 420 260" role="presentation">
@@ -539,22 +540,16 @@ def pantelotteriet():
 
 def astria():
     shots = ''.join(f'<img src="{CDN}/image/upload/q_auto,w_640/{s}.jpg" alt="Astria / Wonderlabz UI screen" loading="lazy">' for s in UI_SHOTS)
-    extra = f"""<section class="section section--deep" data-depth="1.8m" data-era="bedrock">
+    extra = f"""<section class="section section--deep" id="games" data-depth="1.8m" data-era="bedrock">
 <div class="sec-head reveal"><div><p class="eyebrow">The bedrock</p><h2 class="h-l">Shipped, live, regulated</h2></div>
-<p class="lede">Slot UI, VFX and product screens for live audiences — plus the identity systems holding it together.</p></div>
-<div class="reveal">{slabs('../')}</div>
-{IGAMING_HEAD}
-<div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
-</section>
-<section class="section section--alt" id="games" data-depth="2.0m" data-era="one reveal flow">
-<div class="sec-head reveal"><div><p class="eyebrow">The shared shell</p><h2 class="h-l" style="margin-top:10px">One reveal flow, three worlds</h2></div>
-<p class="lede">Samurai, Big Sexy City and Rose of the West share one game shell. The theme lives in the frame; the controls, the result and the settle step never move — so players learn the flow once.</p></div>
-<div class="reveal">{slabs('../', SHELL_GAMES)}</div>
+<p class="lede">Five live titles for regulated markets in Scandinavia, South Africa and the UK, plus the identity systems holding them together. Samurai, Big Sexy City and Rose of the West share one game shell — the theme lives in the frame, so players learn the controls, the result and the settle step once. Tap any title to see the full game screen.</p></div>
+<div class="reveal">{slabs('../', ALL_GAMES)}</div>
 <div class="game-notes reveal">
-<div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across all three games, however loud the theme gets.</p></div>
+<div><span class="mono">01 · Same controls, every world</span><p>Settings, total play − / +, Max play, Balance and Result sit in one fixed bar across every title, however loud the theme gets.</p></div>
 <div><span class="mono">02 · Result, then decision</span><p>The result is shown as a figure; one large circular button asks the player to <b>See it for free</b> or <b>Take it</b>, and the message bar prompts them to settle.</p></div>
 <div><span class="mono">03 · States in one bar</span><p>A single message bar carries every state — <b>Big win!</b>, <b>Please settle your result</b> — and Big Sexy City adds a Hot-O-Meter with a running session clock.</p></div>
 </div>
+<div class="btn-row reveal" style="margin-top:32px"><a class="btn" href="{A}/docs/brand-guide-wonderlabz.pdf">Wonderlabz brand guide (PDF)</a><a class="btn" href="{A}/docs/brand-guide-recycling-lottery.pdf">Recycling Lottery brand guide (PDF)</a></div>
 </section>
 {gal_dialog()}"""
     return case('astria', 'Astria iGaming platform — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'Astria platform',
