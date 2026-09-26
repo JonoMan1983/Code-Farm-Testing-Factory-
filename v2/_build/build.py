@@ -73,7 +73,7 @@ def header(pre, active, home=False, crumbs=None):
 
     menu = [
         ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
-        ('work', 'Work', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('iGaming', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
+        ('work', 'Specimens', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Reels, Rules &amp; Revenue', f'{pre}work/astria-platform.html'), ('Indiemode', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
     ]
@@ -372,7 +372,7 @@ def home():
 <div class="ref-bar reveal"><span class="mono">Every reference is genuine · full conversations on <a href="{LINKEDIN}">LinkedIn</a></span><button class="btn ref-pause" type="button" aria-pressed="false" data-ref-pause>Pause the line</button></div>
 {ref_dialog()}
 </section>
-<section class="section" id="work" data-crumb="Selected work" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
+<section class="section" id="work" data-crumb="Specimens" data-depth="0.9m" data-era="2024–26" aria-labelledby="work-title">
 <div class="sec-head reveal"><div><p class="eyebrow">Layer 00 — Surface</p><h2 class="h-xl" id="work-title">Specimens recovered</h2></div>
 <p class="lede">Four flagship digs. Each one logged: the brief, what AI proposed, what I kept and what came out of the ground.</p>{guide('02', '')}</div>
 
@@ -400,17 +400,17 @@ def home():
 
 <div class="spec-grid">
 <a class="spec spec-card reveal" href="work/astria-platform.html">
-<p class="eyebrow">Specimen 02 · Astria Systems · 2018–now</p>
-<h3 class="h-l">iGaming platform, product-owned</h3>
+<p class="eyebrow">Specimen 02 · iGaming · Astria Systems · 2018–now</p>
+<h3 class="h-l">Reels, Rules &amp; Revenue</h3>
 <p class="body-2">Promoted from Product Designer to Jr. Product Owner. UX/UI across Wonderlabz, Playsafe and Pantelotteriet — backlog, flows and design system in one pair of claws.</p>
 <div class="spec-thumbs spec-thumbs--5">{''.join(f'<img src="assets/images/igaming/{stem}.jpg" alt="{n} slot game reel frame" width="1200" height="622" loading="lazy">' for n, stem, _ in ALL_GAMES)}</div>
 <span class="spec-cta">Read the dig report →</span>
 </a>
 <a class="spec spec-card reveal" href="work/indiemode.html">
-<img src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" loading="lazy">
 <p class="eyebrow">Specimen 03 · Indiemode · Fashion</p>
 <h3 class="h-l">A week of build in two days</h3>
 <p class="body-2">Full-site redesign with Claude as build partner. I directed hierarchy and brand; Claude wrote the code.</p>
+<img class="spec-shot" src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" loading="lazy">
 <span class="spec-cta">Read the dig report →</span>
 </a>
 </div>
@@ -480,7 +480,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
     notes_html = ''.join(
         f'<div class="note"><div class="note-ai"><span class="mono">AI proposed</span>{a}</div><div class="note-me"><span class="note-me-label"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8A33D"/><path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#15110E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>I decided</span><p>{b}</p></div></div>' for a, b in notes)
     met_html = ''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in metrics)
-    return head(title, lede, pre) + header(pre, 'work', crumbs=[('Work', '../index.html#work'), (_plain(name), None)]) + f"""
+    return head(title, lede, pre) + header(pre, 'work', crumbs=[('Specimens', '../index.html#work'), (_plain(name), None)]) + f"""
 <main id="main">
 <section class="section cs-hero" data-crumb="Overview" data-depth="0.0m" data-era="{slug}">
 <a class="mono small" href="../index.html#work">← Back to the dig site</a>
@@ -564,7 +564,7 @@ def pantelotteriet():
                  ('[Add a specific suggestion you rejected]', '[Why it was cut — user, brand or technical reason]'),
                  ('Dev-ready annotations drafted from Figma via MCP.', 'Reviewed every spec before engineering saw it.')],
                 extra, [('[X]', 'journeys scoped before build'), ('[X%]', 'fewer timing issues in QA'), ('[X]', 'days from flow to testable prototype')],
-                'astria-platform.html', 'iGaming')
+                'astria-platform.html', 'Reels, Rules &amp; Revenue')
 
 
 def astria():
@@ -580,7 +580,7 @@ def astria():
 </div>
 </section>
 {gal_dialog()}"""
-    return case('astria', 'iGaming — dig report · Jonathan Nestler', 'Specimen 02 · Astria Systems (formerly Wonderlabz) · 2018–now', 'iGaming',
+    return case('astria', 'Reels, Rules & Revenue — iGaming dig report · Jonathan Nestler', 'Specimen 02 · iGaming · Astria Systems (formerly Wonderlabz) · 2018–now', 'Reels, Rules &amp; Revenue',
                 'Six years across Wonderlabz, Playsafe and Pantelotteriet — from slot-game UI and VFX to owning product decisions as Jr. Product Owner.',
                 [('ROLE', 'Product Designer → Jr. PO'), ('BRANDS', 'Wonderlabz · Playsafe · Pantelotteriet'), ('MARKETS', 'Scandinavia · SA · UK'), ('AI STACK', 'Claude · Claude Code · Figma MCP'), ('YEARS', '2018 – present')],
                 'Producing world-class, top-quality, revenue-generating iGaming products in record time.',
