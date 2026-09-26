@@ -403,7 +403,7 @@ def home():
 <p class="eyebrow">Specimen 02 · Astria Systems · 2018–now</p>
 <h3 class="h-l">iGaming platform, product-owned</h3>
 <p class="body-2">Promoted from Product Designer to Jr. Product Owner. UX/UI across Wonderlabz, Playsafe and Pantelotteriet — backlog, flows and design system in one pair of claws.</p>
-<div class="spec-thumbs">{''.join(f'<img src="{CDN}/video/upload/f_jpg,q_auto,w_480,h_360,c_fill,so_1/{v}.jpg" alt="{n} reel frame" loading="lazy">' for n, v in [('Samurai', 'v1780033052/Samurai_Reelframe_ke6sbp'), ('Geisha', 'v1780033056/Geisha_Reelframe_cxusil'), ('Cupcake Space Unicorn', 'v1780033058/Cupcake_Space_Unicorn_Reelframe_mzqgqy')])}</div>
+<div class="spec-thumbs spec-thumbs--5">{''.join(f'<img src="assets/images/igaming/{stem}.jpg" alt="{n} slot game reel frame" width="1200" height="622" loading="lazy">' for n, stem, _ in ALL_GAMES)}</div>
 <span class="spec-cta">Read the dig report →</span>
 </a>
 <a class="spec spec-card reveal" href="work/indiemode.html">

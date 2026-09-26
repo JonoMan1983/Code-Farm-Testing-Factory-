@@ -551,6 +551,11 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .nda-cta { margin-top: 14px; }
 @media (prefers-reduced-motion: reduce) { .nda-tape span { animation: none; } }
 
+.spec-thumbs.spec-thumbs--5 { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; align-items: start; }
+.spec-thumbs.spec-thumbs--5 img { grid-column: span 2; width: 100%; height: auto; aspect-ratio: 1200 / 622; object-fit: cover; filter: none; transition: transform .3s; }
+.spec-thumbs.spec-thumbs--5 img:nth-child(-n+2) { grid-column: span 3; }
+.spec-card:hover .spec-thumbs--5 img { transform: translateY(-2px); }
+
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }
 .sub-block { border-top: 1px solid var(--s3); padding-top: 40px; }
