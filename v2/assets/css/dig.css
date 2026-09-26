@@ -557,6 +557,17 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .spec-thumbs.spec-thumbs--5 img:nth-child(-n+2) { grid-column: span 3; }
 .spec-card:hover .spec-thumbs--5 img { transform: translateY(-2px); }
 
+.nda-veiled { position: relative; overflow: hidden; isolation: isolate; }
+.nda-veiled > iframe { filter: blur(9px) saturate(.85); pointer-events: none; user-select: none; }
+.nda-veiled::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, rgba(21,17,14,.25), rgba(21,17,14,.8)); }
+.nda-veiled > .nda-tape { z-index: 3; }
+.nda-veiled > .nda-card { position: absolute; z-index: 4; left: 50%; top: 50%; margin: 0; transform: translate(-50%, -44%); width: min(520px, calc(100% - 40px)); }
+.nda-veiled > .nda-card .h-l { font-size: clamp(30px, 3.4vw, 48px); }
+@media (max-width: 760px) {
+  .proto-frame.nda-veiled { display: block; aspect-ratio: auto; height: 520px; }
+  .nda-veiled > .nda-card { padding: 24px 20px; }
+}
+
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
 .about-more { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(64px, 8vw, 104px); margin-top: clamp(64px, 8vw, 104px); }
 .sub-block { border-top: 1px solid var(--s3); padding-top: 40px; }
