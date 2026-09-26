@@ -876,31 +876,31 @@ CV_CSS = """<style>
 .paper{width:210mm;height:297mm;max-width:100%;background:#EDE4D3;color:#15110E;display:flex;flex-direction:column;overflow:hidden;
   font-family:var(--f-body);font-size:9.4pt;line-height:1.45;box-shadow:0 30px 80px rgba(0,0,0,.5);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .paper a{color:#15110E;text-decoration:none}
-.cv-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center;background:#15110E;color:#EDE4D3;padding:26px 40px 24px}
-.cv-photo{width:112px;height:112px;border-radius:50%;object-fit:cover;border:4px solid #E8A33D}
+.cv-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center;background:#15110E;color:#EDE4D3;padding:22px 36px 22px 40px}
+.cv-photo{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid #E8A33D}
 .cv-kicker{font-family:var(--f-mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:#E8A33D}
 .cv-name{margin:6px 0 0;font-family:var(--f-disp);font-weight:900;font-size:29pt;line-height:.9;text-transform:uppercase;letter-spacing:.01em}
 .cv-title{margin-top:10px;font-size:12pt;font-weight:600;color:#EDE4D3}
 .cv-tag{margin-top:4px;font-size:9.4pt;color:#D9CDB9}
-.cv-logo{align-self:center;display:block;width:104px}.cv-logo img{display:block;width:100%;height:auto}
+.cv-logo{align-self:center;display:block;width:208px;margin-right:-8px}.cv-logo img{display:block;width:100%;height:auto}
 .cv-strip{display:flex;height:14px}.cv-strip i{flex:1;background:#3A2C21}.cv-strip i:nth-child(2){flex:2;background:#4A3827}.cv-strip i:nth-child(3){background:#E8A33D}
 .cv-contact{list-style:none;margin:0;padding:10px 40px;display:flex;flex-wrap:wrap;gap:4px 18px;font-family:var(--f-mono);font-size:7.8pt;border-bottom:1px solid #C9BBA5}
 .cv-contact b{font-weight:500;color:#9A5F12}
 .cv-body{flex:1;padding:16px 40px 0;display:flex;flex-direction:column;gap:13px}
 .cv-sec{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px}
-.cv-label{border-top:2px solid #15110E;padding-top:7px}
-.cv-depth{display:block;font-family:var(--f-mono);font-size:7pt;color:#9A5F12;letter-spacing:0}
-.cv-label h2{margin:3px 0 0;font-family:var(--f-disp);font-weight:800;font-size:12.5pt;line-height:1;text-transform:uppercase;letter-spacing:0}
+.cv-label{border-top:3px solid #E8A33D;padding-top:7px}
+.cv-depth{display:block;font-family:var(--f-mono);font-size:8pt;font-weight:500;color:#9A5F12;letter-spacing:0}
+.cv-label h2{margin:3px 0 0;font-family:var(--f-disp);font-weight:900;font-size:15pt;line-height:1;text-transform:uppercase;letter-spacing:0}
 .cv-content{border-top:1px solid #C9BBA5;padding-top:8px}
 .cv-content>p+p{margin-top:8px}
 .cv-skills{display:grid;gap:6px}
 .cv-skills p b{font-weight:600}
 .cv-job+.cv-job{margin-top:10px;padding-top:9px;border-top:1px dashed #C9BBA5}
 .cv-job-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
-.cv-job h3{margin:0;font-size:11.5pt;font-weight:600;line-height:1.3}
+.cv-job h3{margin:0;font-size:12.2pt;font-weight:700;line-height:1.3}
 .cv-job h3 span{font-weight:400;font-size:9.5pt;color:#5B4A3A}
-.cv-date{flex-shrink:0;font-family:var(--f-mono);font-size:8pt;color:#9A5F12;white-space:nowrap}
-.cv-org{margin-top:2px;font-size:9.5pt;color:#5B4A3A}
+.cv-date{flex-shrink:0;font-family:var(--f-mono);font-size:8.4pt;font-weight:500;color:#15110E;white-space:nowrap}
+.cv-org{margin-top:1px;font-size:9.6pt;font-weight:600;color:#9A5F12}
 .cv-job ul{margin:5px 0 0;padding-left:16px}
 .cv-job li+li{margin-top:2px}
 .cv-job li::marker{color:#E8A33D}
@@ -909,13 +909,15 @@ CV_CSS = """<style>
 .cv-ai b{color:#E8A33D;font-weight:600}
 .cv-ai .muted{color:#BCAE99}
 .cv-run{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 40px;background:#15110E;color:#EDE4D3}
-.cv-run b{font-family:var(--f-disp);font-weight:900;font-size:15pt;text-transform:uppercase}
+.cv-run b{font-family:var(--f-disp);font-weight:900;font-size:16pt;text-transform:uppercase}
 .cv-run span{font-family:var(--f-mono);font-size:8pt;color:#E8A33D}
 .cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 40px 12px;margin-top:10px;font-family:var(--f-mono);font-size:7.5pt;color:#5B4A3A;border-top:1px solid #C9BBA5}
 .cv-foot img{width:56px}
+.cv-site{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:5px 12px 5px 5px;background:#E8A33D;color:#15110E!important;font-weight:700;font-size:10.5pt;border-radius:2px}
+.cv-site span{padding:2px 7px;background:#15110E;color:#E8A33D;font-family:var(--f-mono);font-weight:500;font-size:7.4pt;letter-spacing:.12em;text-transform:uppercase}
 .cv-refs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cv-ref{display:grid;gap:2px;padding:10px 12px;background:#E3D8C4;border-left:3px solid #E8A33D}
-.cv-ref b{font-size:10.5pt;font-weight:600}
+.cv-ref b{font-size:11pt;font-weight:700}
 .cv-ref span{font-size:8.8pt;color:#3D3027}
 .cv-ref .cv-ref-org{color:#5B4A3A}
 .cv-ref a{margin-top:3px;font-family:var(--f-mono);font-size:8.6pt;color:#9A5F12!important}
@@ -938,8 +940,8 @@ def resume():
     p2 = ''.join(_job(*j) for j in CV_JOBS_P2)
     early = f'<div class="cv-job"><div class="cv-job-head"><h3>{CV_EARLY[0]}</h3><span class="cv-date">{CV_EARLY[1]}</span></div><p class="cv-org">{CV_EARLY[2]}</p></div>'
     contact = (f'<ul class="cv-contact"><li>Jeffreys Bay, Eastern Cape, South Africa</li><li><b>Remote worldwide</b></li>'
-               f'<li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li><a href="tel:+27628629697">+27 (0)62 862 9697</a></li>'
-               f'<li><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a></li><li><a href="https://www.designasaurus.co.za"><b>www.designasaurus.co.za</b></a></li></ul>')
+               f'<li><b>Open to relocate anywhere in South Africa</b></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li><a href="tel:+27628629697">+27 62 862 9697</a></li>'
+               f'<li><a href="{LINKEDIN}">linkedin.com/in/jonoman1983</a></li></ul>')
     page1 = f"""<article class="paper" aria-label="Resume page 1">
 <header class="cv-head">
 <img class="cv-photo" src="assets/images/portrait.jpg" alt="Jonathan Nestler">
@@ -948,6 +950,7 @@ def resume():
 <h1 class="cv-name">Jonathan Edward Nestler</h1>
 <p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner</p>
 <p class="cv-tag">20+ years · AI-integrated product design with Claude, Claude Code and Figma MCP</p>
+<a class="cv-site" href="https://www.designasaurus.co.za"><span>Portfolio</span>www.designasaurus.co.za →</a>
 </div>
 <a class="cv-logo" href="https://www.designasaurus.co.za"><img src="assets/brand/jen-logo.svg" alt="Jonathan Edward Nestler logo"></a>
 </header>
