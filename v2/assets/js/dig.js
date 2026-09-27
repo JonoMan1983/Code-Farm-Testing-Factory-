@@ -415,7 +415,7 @@
         s._rgb = s.glow ? GLOW[s.colorIdx] : PALETTE[s.colorIdx];
       });
 
-      var lineBase = 0.23;
+      var lineBase = 0.36;
       for (var i = 0; i < stars.length; i++) {
         var a = stars[i];
         for (var j = i + 1; j < stars.length; j++) {
@@ -425,7 +425,7 @@
           var dist = Math.sqrt(ddx * ddx + ddy * ddy); if (dist >= CONNECT_MAX_DIST) continue;
           var falloff = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.7);
           var proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
-          var lineAlpha = Math.min(0.42, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+          var lineAlpha = Math.min(0.6, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
           if (lineAlpha < 0.012) continue;
           var grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
           grad.addColorStop(0, 'rgba(' + a.lineRgb[0] + ',' + a.lineRgb[1] + ',' + a.lineRgb[2] + ',' + lineAlpha + ')');
