@@ -1016,7 +1016,7 @@ def contact():
 <label>What are you digging for?<select name="topic">{opts}</select></label>
 <label>Message<textarea name="message" rows="6" required placeholder="The role, the team, the problem — whatever's useful."></textarea></label>
 <p class="cbc-error" data-form-error role="alert" hidden>Please add your name, a valid email and a message.</p>
-<button class="btn btn--fill cbc-send" type="submit"><svg class="shovel" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 13h11l-1.2 5.2c-.5 2.2-2.4 3.8-4.3 3.8s-3.8-1.6-4.3-3.8z" fill="currentColor"/></svg><span>Send the signal</span></button>
+<button class="btn btn--fill cbc-send" type="submit"><svg class="mail-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Send the signal</span></button>
 <p class="cbc-ok" data-form-ok role="status" hidden>Signal sent to your email app — just hit send there. If nothing opened, email <a href="mailto:{EMAIL}">{EMAIL}</a> directly.</p>
 </form>
 </div>

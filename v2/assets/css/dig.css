@@ -946,7 +946,8 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .cbc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .cbc-send { justify-self: start; display: inline-flex; align-items: center; gap: 10px; font-weight: 800; background: var(--basalt); border-color: var(--basalt); color: var(--bone); }
 .cbc-send:hover { background: var(--ochre); border-color: var(--ochre); color: var(--basalt); }
-.cbc-send:hover .shovel { animation: shovel-dig 1.2s ease-in-out infinite; }
+.cbc-send .mail-icon { flex: none; transition: transform .3s cubic-bezier(.3,1.5,.5,1); }
+.cbc-send:hover .mail-icon { transform: translate(3px, -2px) rotate(-8deg); }
 .cbc-error { color: #B3261E; font-size: 14px; }
 .cbc-ok { padding: 12px 14px; background: #E4EBD7; border-left: 4px solid #5E7F45; font-size: 15px; }
 .cbc-ok a { color: var(--basalt); text-decoration: underline; }
