@@ -510,6 +510,8 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 56px; align-items: start; }
 .about .portrait { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--s4); }
+.about .portrait--tall { aspect-ratio: 9 / 16; object-fit: contain; }
+.portrait-pic { display: block; }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
 .facts div { padding: 20px; border-top: 3px solid var(--ochre); background: var(--s1); }
 .facts b { display: block; font-family: var(--f-disp); font-weight: 900; font-size: 44px; line-height: 1; }
