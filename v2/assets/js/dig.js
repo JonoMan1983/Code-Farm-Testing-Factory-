@@ -193,14 +193,31 @@
     d.addEventListener('click', function (e) {
       e.stopPropagation();
       var open = d.getAttribute('aria-expanded') !== 'true';
+      d.closest('.has-drop').classList.remove('is-dismissed');
       closeDrops(d); d.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   });
   document.addEventListener('click', function (e) { if (!e.target.closest('.has-drop')) closeDrops(); });
+  /* Only one menu at a time: hovering another menu closes any menu opened by click */
+  Array.prototype.forEach.call(document.querySelectorAll('.has-drop'), function (li) {
+    li.addEventListener('mouseenter', function () {
+      li.classList.remove('is-dismissed');
+      closeDrops(li.querySelector('.drop-toggle'));
+      var f = document.activeElement, host = f && f.closest ? f.closest('.has-drop') : null;
+      if (host && host !== li) f.blur();   /* focus kept the other menu open via :focus-within */
+    });
+    li.addEventListener('focusout', function (e) { if (!li.contains(e.relatedTarget)) li.classList.remove('is-dismissed'); });
+    /* Picking an item closes the menu (same-page jumps would otherwise leave it hanging open) */
+    li.addEventListener('click', function (e) {
+      if (e.target.closest('.drop a')) { closeDrops(); if (document.activeElement) document.activeElement.blur(); }
+    });
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     var openT = drops.filter(function (d) { return d.getAttribute('aria-expanded') === 'true'; })[0];
     if (openT) { closeDrops(); openT.focus(); }
+    var fl = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.has-drop') : null;
+    if (fl) fl.classList.add('is-dismissed');
   });
 
   /* Three-portals explorer: one order, every portal */

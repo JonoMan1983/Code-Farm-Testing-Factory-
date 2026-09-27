@@ -133,6 +133,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .drop { position: absolute; top: 100%; left: -16px; min-width: 230px; list-style: none; margin: 0; padding: 8px 0; background: var(--s1); border: 1px solid var(--s4); border-top: 3px solid var(--ochre); box-shadow: 0 20px 40px rgba(0,0,0,.45);
   opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .18s, transform .18s, visibility .18s; z-index: 60; }
 .has-drop:hover .drop, .has-drop:focus-within .drop, .drop-toggle[aria-expanded="true"] + .drop { opacity: 1; visibility: visible; transform: none; }
+.has-drop.is-dismissed .drop { opacity: 0; visibility: hidden; }
 .drop::before { content: ''; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
 .drop a { display: block; padding: 10px 18px; font-size: 14px; color: var(--bone-2); }
 .drop a:hover, .drop a:focus-visible { background: var(--s3); color: var(--ochre); }
