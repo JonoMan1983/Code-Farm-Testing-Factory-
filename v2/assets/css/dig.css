@@ -981,3 +981,20 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
   .hero-copy .btn-row { margin-top: 2.2vh; }
   .hero-grid > .hero-data { align-self: end; margin-top: 2.6vh; }
 }
+
+/* ---------- Hero: portrait tablets (768–1366 tall screens) ---------- */
+@media (min-width: 600px) and (max-width: 1366px) and (orientation: portrait) {
+  .hero { padding-top: clamp(28px, 3.5vh, 56px); }
+  .hero-grid { grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); grid-template-rows: none; grid-template-areas: "welcome welcome" "title title" "quote quote" "mark copy" "data copy"; column-gap: clamp(24px, 4vw, 48px); align-items: start; }
+  .hero-welcome { font-size: clamp(22px, 3.3vw, 38px); margin-bottom: 14px; padding-bottom: 14px; }
+  .hero-title--strata { font-size: clamp(52px, 9.2vw, 124px); margin-top: 14px; }
+  .hero-quote { margin-top: 26px; }
+  .hero-quote p { font-size: clamp(17px, 2.35vw, 26px); line-height: 1.6; }
+  .hero-quote::before { font-size: clamp(64px, 9vw, 110px); }
+  .hero-grid > .hero-mark { align-self: center; justify-self: center; width: 100%; margin-top: 30px; }
+  .hero-grid > .hero-copy { align-self: center; margin-top: 30px; }
+  .hero-name { font-size: clamp(24px, 3.4vw, 40px); margin-bottom: 10px; }
+  .hero-copy .lede { font-size: clamp(16px, 2.1vw, 21px); }
+  .hero-copy .btn-row { margin-top: 20px; }
+  .hero-grid > .hero-data { align-self: start; justify-self: center; margin-top: 18px; font-size: clamp(11px, 1.35vw, 13px); }
+}
