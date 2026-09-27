@@ -473,8 +473,13 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
     log_html = ''.join(
         f'<div class="log-row{" is-ai" if i == ai_step else ""}"><span class="n">0{i+1}</span><span class="h-m">{t}</span><p>{d}</p><figure class="log-tray">{arts[i]}</figure></div>'
         for i, (t, d) in enumerate(log))
+    notes_section = '' if not notes else None
     notes_html = ''.join(
         f'<div class="note"><div class="note-ai"><span class="mono">AI proposed</span>{a}</div><div class="note-me"><span class="note-me-label"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E8A33D"/><path d="M6.5 12.5l3.5 3.5 7.5-8" fill="none" stroke="#15110E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>I decided</span><p>{b}</p></div></div>' for a, b in notes)
+    if notes:
+        notes_section = ('<section class="section" data-depth="2.4m" data-era="field notes">\n'
+                         '<div class="sec-head reveal"><div><p class="eyebrow">Field notes — AI proposed / I decided</p><h2 class="h-l">Where the judgment happened</h2></div>' + guide('08', pre) + '</div>\n'
+                         '<div class="notes reveal">' + notes_html + '</div>\n</section>\n\n')
     met_html = ''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in metrics)
     return head(title, lede, pre) + header(pre, 'work', crumbs=[('Specimens', '../index.html#work'), (_plain(name), None)]) + f"""
 <main id="main">
@@ -498,12 +503,7 @@ def case(slug, title, eyebrow, name, lede, meta, problem, log, ai_step, notes, e
 
 {extra}
 
-<section class="section" data-depth="2.4m" data-era="field notes">
-<div class="sec-head reveal"><div><p class="eyebrow">Field notes — AI proposed / I decided</p><h2 class="h-l">Where the judgment happened</h2></div>{guide('08', pre)}</div>
-<div class="notes reveal">{notes_html}</div>
-</section>
-
-<div class="next-wrap"><a class="next" href="{next_href}">Next specimen: {next_name} →</a></div>
+{notes_section}<div class="next-wrap"><a class="next" href="{next_href}">Next specimen: {next_name} →</a></div>
 </main>
 """ + footer(pre)
 
@@ -550,15 +550,13 @@ def pantelotteriet():
 </section>"""
     return case('pantelotteriet', 'The Recycling Lottery — dig report · Jonathan Nestler', 'Specimen 01 · Pantelotteriet · Mobile app + raffle site · Scandinavia', 'The Recycling Lottery',
                 'A recycling lottery where every return is a ticket. I scoped the journeys, built the Figma system, and proved the timing-heavy flows in a Claude Code prototype before handoff.',
-                [('ROLE', 'Product Designer → Jr. PO'), ('CLIENT', 'Astria Systems'), ('SURFACES', 'Mobile app, web raffle'), ('AI STACK', 'Claude Code · Figma MCP'), ('YEAR', '[YEAR]')],
+                [('ROLE', 'Product Designer → Jr. PO'), ('CLIENT', 'Astria Systems'), ('SURFACES', 'Mobile app, web raffle'), ('AI STACK', 'Claude Code · Figma MCP')],
                 "Static Figma frames couldn't show a countdown, a claim window or a state change. Engineering would have found the timing bugs — late and expensively.",
                 [('Figma structure', 'One cover page indexes every flow. Rows, fields and dropdowns are built once as slot-variant components and reused everywhere.'),
                  ('Journey mapping', 'Registration → claim, profile, support, history. Each journey scoped in one line — happy path and every edge case — before a screen is drawn.'),
                  ('AI prototype', 'A self-contained HTML prototype built with Claude Code: real tab switching, live countdown logic and state transitions to pressure-test timing.'),
                  ('Dev handoff', 'Flows, edge cases and timing logic shipped to engineering already proven against real interaction.')], 2,
-                [('Claude Code generated the countdown and tab logic from my journey notes.', 'Which states exist, what happens at zero, and every edge case it had to survive.'),
-                 ('[Add a specific suggestion you rejected]', '[Why it was cut — user, brand or technical reason]'),
-                 ('Dev-ready annotations drafted from Figma via MCP.', 'Reviewed every spec before engineering saw it.')],
+                [],
                 extra, [('[X]', 'journeys scoped before build'), ('[X%]', 'fewer timing issues in QA'), ('[X]', 'days from flow to testable prototype')],
                 'astria-platform.html', 'Reels, Rules &amp; Revenue')
 
@@ -584,9 +582,7 @@ def astria():
                  ('Identity systems', 'Corporate identity and brand guides for Wonderlabz and The Recycling Lottery.'),
                  ('Product ownership', 'Promoted to Jr. Product Owner: backlog, journey scoping and stakeholder alignment across three brands.'),
                  ('AI in the workflow', 'Brought Claude, Claude Code and Figma MCP into the team process for faster, proven handoffs.')], 3,
-                [('[An AI-assisted idea on the platform]', '[What you kept or cut, and why]'),
-                 ('Claude Code prototypes for timing-heavy flows.', 'Which flows needed proving before build — and which didn’t.'),
-                 ('[AI-drafted backlog or spec content]', '[How you reshaped it as PO]')],
+                [],
                 extra, [('[X]', 'brands on one design system'), ('[X]', 'live titles shipped'), ('[X%]', 'outcome metric')],
                 'indiemode.html', 'Indiemode Rework')
 
@@ -608,9 +604,7 @@ def indiemode():
                  ('Visual direction', 'Editorial dark mode, bold serif type and a neon palette — set by me before a line of code.'),
                  ('Claude wrote the code', 'HTML, CSS and interaction logic authored by Claude, with me directing layout, hierarchy and brand fidelity at every step.'),
                  ('Live deployment', 'Structure, visual design and live deployment — a typical week of build compressed into two days.')], 2,
-                [('Structured prompts produced the page architecture and copy.', 'Iterated until the tone matched the brand.'),
-                 ('Claude generated layouts and interaction code.', 'Visual decisions, brand accuracy and UX intent were never outsourced.'),
-                 ('[A generated pattern you rejected]', '[Why]')],
+                [],
                 extra, [('2', 'days, brief to live site'), ('1', 'week of typical build time saved'), ('[X]', 'outcome metric')],
                 'three-portals.html', 'One Platform, Three Portals')
 
