@@ -331,7 +331,7 @@
     var BONE = [237, 228, 211], OCHRE = [232, 163, 61], TAG = [255, 61, 110];
     var PALETTE = [BONE, OCHRE, TAG];          // dot colours
     var GLOW = [OCHRE, TAG];                    // halo colours
-    var CONNECT_MAX_DIST = 165;
+    var CONNECT_MAX_DIST = 264;   // 165 × 1.6 — keeps the mesh joined at the wider spacing
     var W = 0, H = 0, stars = [];
 
     function makeStar(w, h, glow) {
@@ -353,8 +353,8 @@
       };
     }
     function buildStars(w, h) {
-      var count = Math.round(Math.min(260, Math.max(90, (w * h) / 9000)));
-      var glowCnt = Math.max(10, Math.round(count * 0.1));
+      var count = Math.round(Math.min(102, Math.max(35, (w * h) / 23040)));   // 1.6× spacing = density ÷ 2.56
+      var glowCnt = Math.max(4, Math.round(count * 0.1));
       stars = [];
       for (var i = 0; i < count; i++) stars.push(makeStar(w, h, false));
       for (var k = 0; k < glowCnt; k++) stars.push(makeStar(w, h, true));
@@ -415,7 +415,7 @@
         s._rgb = s.glow ? GLOW[s.colorIdx] : PALETTE[s.colorIdx];
       });
 
-      var lineBase = 0.36;
+      var lineBase = 0.5;
       for (var i = 0; i < stars.length; i++) {
         var a = stars[i];
         for (var j = i + 1; j < stars.length; j++) {
@@ -425,14 +425,14 @@
           var dist = Math.sqrt(ddx * ddx + ddy * ddy); if (dist >= CONNECT_MAX_DIST) continue;
           var falloff = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.7);
           var proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
-          var lineAlpha = Math.min(0.6, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+          var lineAlpha = Math.min(0.75, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
           if (lineAlpha < 0.012) continue;
           var grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
           grad.addColorStop(0, 'rgba(' + a.lineRgb[0] + ',' + a.lineRgb[1] + ',' + a.lineRgb[2] + ',' + lineAlpha + ')');
           grad.addColorStop(1, 'rgba(' + b.lineRgb[0] + ',' + b.lineRgb[1] + ',' + b.lineRgb[2] + ',' + lineAlpha + ')');
           ctx.beginPath(); ctx.moveTo(a._px, a._py); ctx.lineTo(b._px, b._py);
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.5 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 1.0;
+          ctx.lineWidth = 2.2 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 1.2;
           ctx.stroke();
         }
       }
