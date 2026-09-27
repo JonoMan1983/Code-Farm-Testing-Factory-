@@ -338,16 +338,14 @@ def home():
 
 <section class="section hero" data-crumb="Welcome" data-depth="0.0m" data-era="2026" aria-labelledby="hero-title">
 <canvas class="hero-stars" id="heroStarsCanvas" aria-hidden="true"></canvas>
+<div class="hero-grid">
 <p class="hero-welcome">Welcome to the <span class="nw">Designasaurus</span> <span class="dig-stamp"><svg class="shovel" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="8.2" y="1.4" width="7.6" height="3.4" rx="1.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.8V12.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.4 12.4h9.2v3.9c0 3.1-2 5.6-4.6 6.6-2.6-1-4.6-3.5-4.6-6.6z" fill="currentColor"/></svg>Dig Site</span></p>
 <h1 class="h-mega hero-title hero-title--strata" id="hero-title"><span class="t-line t-years"><span class="t-count" data-count="20">20</span>+ years <span class="t-small">in the strata</span></span><span class="t-line t-craft"><span class="t-box outline">Adobe craft<i class="t-h t-h1" aria-hidden="true"></i><i class="t-h t-h2" aria-hidden="true"></i><i class="t-h t-h3" aria-hidden="true"></i><i class="t-h t-h4" aria-hidden="true"></i></span> <span class="t-meets">meets</span></span><span class="t-line t-velocity"><span class="ochre t-fast">Claude-first <span class="t-vel">velocity.<i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i><i class="t-streak" aria-hidden="true"></i></span></span></span></h1>
 <blockquote class="hero-quote"><p><span class="q-w">From</span> <span class="q-vec">vector-level Illustrator accuracy</span> <span class="q-w">to</span> <span class="q-ai">AI-accelerated system architecture</span><span class="q-w">—built to deliver at</span> <span class="q-epoch">epoch-shifting speed</span>.</p></blockquote>
-<div class="hero-meta">
-<div class="hero-intro">
 <figure class="hero-mark"><img src="assets/brand/jen-logo.svg" alt="JEN Designasaurus logo — a code-bracketed T-rex monogram" width="520" height="320"><figcaption class="tag tag--hot">TAG 04 · STILL ROARING</figcaption></figure>
-<div>
+<div class="hero-copy">
 <p class="lede"><strong class="hero-name">Jonathan Edward <span>“Designasaurus”</span> Nestler</strong> Senior Product Designer &amp; Jr. Product Owner. UX/UI, product and AI integration, twenty years deep. The newest layer is AI-native.</p>
-<div class="btn-row" style="margin-top:28px"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a></div>
-</div>
+<div class="btn-row"><a class="btn btn--bone" href="#work">Dig into the work ↓</a><a class="btn" href="resume.html">Field Notes (Resume)</a><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a></div>
 </div>
 <div class="hero-data"><span>LAT 34.05°S · LON 24.91°E</span><span>DEPTH&nbsp;&nbsp;20+ YEARS</span><span>RANGE&nbsp;&nbsp;REMOTE · ANYWHERE IN RSA</span><span>STACK&nbsp;&nbsp;CLAUDE-FIRST</span><span class="hot">STATUS&nbsp;&nbsp;STILL EVOLVING</span></div>
 </div>

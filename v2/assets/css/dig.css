@@ -956,3 +956,28 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 @media (max-width: 960px) { .cbc-grid { grid-template-columns: 1fr; } .cbc-tag { transform: none; } }
 @media (max-width: 560px) { .cbc-row { grid-template-columns: 1fr; } .cbc-direct li { grid-template-columns: 1fr; gap: 2px; } }
 @media (prefers-reduced-motion: reduce) { .cbc-radio i { animation: none; opacity: 0; } .cbc-tag { transition: none; } }
+
+/* ---------- Hero: fit above the fold on desktop ---------- */
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "welcome" "title" "quote" "mark" "copy" "data"; }
+.hero-grid > .hero-welcome { grid-area: welcome; }
+.hero-grid > .hero-title { grid-area: title; }
+.hero-grid > .hero-quote { grid-area: quote; }
+.hero-grid > .hero-mark { grid-area: mark; justify-self: center; width: min(340px, 82%); margin-top: 36px; }
+.hero-grid > .hero-copy { grid-area: copy; margin-top: 28px; }
+.hero-grid > .hero-data { grid-area: data; margin-top: 28px; }
+.hero-copy .btn-row { margin-top: 24px; }
+@media (min-width: 1024px) {
+  .hero { padding-top: clamp(20px, 3.6vh, 56px); }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) clamp(280px, 29vw, 470px); grid-template-rows: auto auto auto 1fr; grid-template-areas: "welcome mark" "title mark" "quote mark" "copy data"; column-gap: clamp(32px, 4vw, 72px); }
+  .hero-welcome { font-size: clamp(20px, min(2.1vw, 3.5vh), 36px); margin-bottom: 1.2vh; padding-bottom: 1.4vh; }
+  .hero-title--strata { font-size: clamp(40px, min(5.6vw, 9.4vh), 118px); margin-top: 1.4vh; }
+  .hero-quote { margin-top: 2.6vh; padding-top: 2px; padding-bottom: 2px; }
+  .hero-quote p { font-size: clamp(15px, min(1.4vw, 2.3vh), 24px); line-height: 1.6; }
+  .hero-quote::before { font-size: clamp(56px, 8vh, 110px); }
+  .hero-grid > .hero-mark { align-self: center; justify-self: center; width: 100%; margin-top: 0; }
+  .hero-grid > .hero-copy { margin-top: 2.6vh; }
+  .hero-copy .lede { font-size: clamp(15px, min(1.25vw, 2.1vh), 20px); }
+  .hero-name { font-size: clamp(22px, min(2.1vw, 3.5vh), 36px); margin-bottom: .8vh; }
+  .hero-copy .btn-row { margin-top: 2.2vh; }
+  .hero-grid > .hero-data { align-self: end; margin-top: 2.6vh; }
+}
