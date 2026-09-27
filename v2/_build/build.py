@@ -356,7 +356,7 @@ def home():
 
 <section class="section" id="about" data-crumb="About the Dino" data-depth="0.4m" data-era="2007–now" aria-labelledby="about-title">
 <div class="about reveal">
-<div><img class="portrait" src="assets/images/portrait.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky" width="900" height="900" loading="lazy"><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
+<div><picture class="portrait-pic"><source type="image/webp" srcset="assets/images/portrait-animated.webp" media="(prefers-reduced-motion: no-preference)"><img class="portrait" src="assets/images/portrait.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky, glancing around thoughtfully" width="900" height="900" loading="lazy" decoding="async"></picture><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
 <div>
 <p class="eyebrow">Topsoil — The specimen</p>
 <h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
