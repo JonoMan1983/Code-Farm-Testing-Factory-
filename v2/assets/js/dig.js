@@ -425,7 +425,7 @@
         s._rgb = s.glow ? GLOW[s.colorIdx] : PALETTE[s.colorIdx];
       });
 
-      var lineBase = 0.5;
+      var lineBase = 0.6;   // lines +20%
       for (var i = 0; i < stars.length; i++) {
         var a = stars[i];
         for (var j = i + 1; j < stars.length; j++) {
@@ -435,7 +435,7 @@
           var dist = Math.sqrt(ddx * ddx + ddy * ddy); if (dist >= CONNECT_MAX_DIST) continue;
           var falloff = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.7);
           var proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
-          var lineAlpha = Math.min(0.75, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
+          var lineAlpha = Math.min(0.9, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
           if (lineAlpha < 0.012) continue;
           var grad = ctx.createLinearGradient(a._px, a._py, b._px, b._py);
           grad.addColorStop(0, 'rgba(' + a.lineRgb[0] + ',' + a.lineRgb[1] + ',' + a.lineRgb[2] + ',' + lineAlpha + ')');
@@ -459,7 +459,9 @@
           ctx.beginPath(); ctx.arc(px, py, glowR, 0, Math.PI * 2); ctx.fillStyle = grd; ctx.fill();
         }
         s.rot += s.spin * dt;
-        drawIcon(px, py, Math.min(30, Math.max(20, r * 8)), s.rot, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + Math.min(1, Math.max(0.45, alpha * 1.6)) + ')', DIG_ICONS[s.icon]);
+        // particle sizes: far = tiny specks (6px), near = readable icons (up to ~40px)
+        var isz = Math.min(40, (6 + Math.pow(s.depth, 1.25) * 28) * (1 + s._prox * 0.5) * (s.glow ? 1.25 : 1));
+        drawIcon(px, py, isz, s.rot, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + Math.min(0.85, Math.max(0.38, alpha * 1.36)) + ')', DIG_ICONS[s.icon]);   // icon opacity −15%
       });
 
       rafId = (reduce || !onScreen || document.hidden) ? null : requestAnimationFrame(frame);
