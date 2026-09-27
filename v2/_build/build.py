@@ -1005,7 +1005,7 @@ def contact():
 <div class="btn-row"><a class="btn btn--li" href="{LINKEDIN}" target="_blank" rel="noopener">{LI_ICON}<span>Connect on LinkedIn</span></a><a class="btn" href="resume.html">Field Notes (Resume)</a></div>
 </div>
 <form class="cbc-tag reveal" data-contact-form novalidate>
-<span class="cbc-hole" aria-hidden="true"></span><span class="cbc-string" aria-hidden="true"></span>
+<span class="cbc-hole" aria-hidden="true"></span>
 <p class="cbc-tag-no mono">Field tag 05 · incoming</p>
 <h2 class="cbc-tag-title">Specimen request</h2>
 <div class="cbc-row">
