@@ -426,6 +426,7 @@
       });
 
       var lineBase = 0.78;   // lines +20%
+      for (var n = 0; n < stars.length; n++) stars[n]._nn = CONNECT_MAX_DIST;
       for (var i = 0; i < stars.length; i++) {
         var a = stars[i];
         for (var j = i + 1; j < stars.length; j++) {
@@ -433,6 +434,7 @@
           var ddx = a._px - b._px; if (ddx > CONNECT_MAX_DIST || ddx < -CONNECT_MAX_DIST) continue;
           var ddy = a._py - b._py; if (ddy > CONNECT_MAX_DIST || ddy < -CONNECT_MAX_DIST) continue;
           var dist = Math.sqrt(ddx * ddx + ddy * ddy); if (dist >= CONNECT_MAX_DIST) continue;
+          if (dist < a._nn) a._nn = dist; if (dist < b._nn) b._nn = dist;
           var falloff = Math.pow(1 - dist / CONNECT_MAX_DIST, 1.2);   // gentler fade so long links stay visible
           var proxBoost = 1 + ((a._prox + b._prox) * 0.5) * 0.35;
           var lineAlpha = Math.min(1, lineBase * falloff * ((a._alpha + b._alpha) * 0.5) * proxBoost);
@@ -442,7 +444,7 @@
           grad.addColorStop(1, 'rgba(' + b.lineRgb[0] + ',' + b.lineRgb[1] + ',' + b.lineRgb[2] + ',' + lineAlpha + ')');
           ctx.beginPath(); ctx.moveTo(a._px, a._py); ctx.lineTo(b._px, b._py);
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 2.2 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 1.2;
+          ctx.lineWidth = 0.9 + Math.min(1, ((a._r + b._r) * 0.5) / 9) * 0.6;   // thinner links
           ctx.stroke();
         }
       }
@@ -460,7 +462,10 @@
         }
         s.rot += s.spin * dt;
         // particle sizes: far = tiny specks (6px), near = readable icons (up to ~40px)
-        var isz = Math.min(40, (6 + Math.pow(s.depth, 1.25) * 28) * (1 + s._prox * 0.5) * (s.glow ? 1.25 : 1));
+        var spread = Math.max(0, Math.min(1, (s._nn - 25) / 160));          // 0 = crowded, 1 = isolated
+        var target = (6 + Math.pow(spread, 1.1) * 32) * (s.glow ? 1.2 : 1);
+        s._sz = s._sz ? s._sz + (target - s._sz) * 0.06 : target;
+        var isz = Math.min(42, s._sz);
         drawIcon(px, py, isz, s.rot, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + Math.min(0.85, Math.max(0.38, alpha * 1.36)) + ')', DIG_ICONS[s.icon]);   // icon opacity −15%
       });
 
