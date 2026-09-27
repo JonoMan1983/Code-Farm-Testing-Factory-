@@ -104,27 +104,6 @@
     fig.addEventListener('focusout', function () { v.pause(); });
   });
 
-  /* Lightbox (archive) */
-  var box = document.querySelector('.lightbox');
-  if (box) {
-    var img = box.querySelector('img');
-    var close = box.querySelector('button');
-    var last = null;
-    var shut = function () { box.classList.remove('is-open'); img.removeAttribute('src'); if (last) last.focus(); };
-    document.querySelectorAll('[data-full]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        last = b;
-        img.src = b.getAttribute('data-full');
-        img.alt = b.getAttribute('data-alt') || '';
-        box.classList.add('is-open');
-        close.focus();
-      });
-    });
-    close.addEventListener('click', shut);
-    box.addEventListener('click', function (e) { if (e.target === box) shut(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('is-open')) shut(); });
-  }
-
   /* Field reports: moving line + full-report dialog */
   var refsSec = document.querySelector('.refs');
   var dlg = document.querySelector('.ref-dialog');
@@ -307,18 +286,29 @@
     facts.forEach(function (f) { fio.observe(f); });
   }
 
-  /* Explanatory illustrations: loop their build every 5s while visible */
-  var exArt = document.querySelectorAll('svg.stage-art, svg.log-art, svg.tool-icon, .log-art svg, .tool-icon svg');
+  /* Explanatory illustrations: loop in sequence per section (0.5s apart) while the section is visible */
+  var exArt = Array.prototype.slice.call(document.querySelectorAll('svg.stage-art, svg.log-art, svg.tool-icon'));
   if (exArt.length && !reduce && 'IntersectionObserver' in window) {
+    var exGroups = [];
     exArt.forEach(function (svg) {
+      var host = svg.closest('section') || document.body, kind = svg.getAttribute('class'), g = null;
+      exGroups.forEach(function (x) { if (x.host === host && x.kind === kind) g = x; });
+      if (!g) { g = { host: host, kind: kind, svgs: [] }; exGroups.push(g); }
+      svg.style.setProperty('--g', g.svgs.length);
+      g.svgs.push(svg);
       Array.prototype.forEach.call(svg.children, function (el, i) { el.style.setProperty('--i', i); });
       svg.querySelectorAll('.draw').forEach(function (el, i) { el.style.setProperty('--i', i + 2); });
     });
     var exIO = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { e.target.classList.toggle('ex-play', e.isIntersecting); });
-    }, { threshold: .35 });
-    exArt.forEach(function (svg) { exIO.observe(svg); });
+      es.forEach(function (e) {
+        exGroups.forEach(function (g) {
+          if (g.host === e.target) g.svgs.forEach(function (s) { s.classList.toggle('ex-play', e.isIntersecting); });
+        });
+      });
+    }, { threshold: .15 });
+    exGroups.forEach(function (g) { exIO.observe(g.host); });
   }
+
 
   /* Hero starfield — ported from V1: drifting dots threaded into a polygon mesh.
      Same motion model; colours swapped to the Dig Site palette (bone / ochre / tag). */
@@ -501,6 +491,87 @@
       ok.hidden = false;
     });
   }
+
+  /* Image viewer: every content thumbnail opens a large view with prev/next through its section */
+  (function initViewer() {
+    var sel = '.spec-thumbs img, img.spec-shot, img.portrait, .ba img, [data-full]';
+    var els = Array.prototype.slice.call(document.querySelectorAll(sel)).filter(function (el) { return !el.closest('[data-gal]'); });
+    if (!els.length) return;
+    var dlg = document.createElement('dialog');
+    dlg.className = 'gal-dialog vw';
+    dlg.setAttribute('aria-label', 'Image viewer');
+    dlg.innerHTML = '<div class="gal-box"><header class="gal-head"><span class="mono" data-vw-count></span><h3 data-vw-title></h3>' +
+      '<button class="gal-x" type="button" data-vw-close aria-label="Close viewer">×</button></header>' +
+      '<p class="vw-sub" data-vw-sub></p><div class="gal-media" data-vw-media></div>' +
+      '<footer class="gal-foot"><button class="gal-nav" type="button" data-vw-prev>← Previous</button><span class="mono" data-vw-group></span><button class="gal-nav" type="button" data-vw-next>Next →</button></footer></div>';
+    document.body.appendChild(dlg);
+    var q = function (s) { return dlg.querySelector(s); };
+    var full = function (el) {
+      if (el.hasAttribute('data-full')) return el.getAttribute('data-full');
+      var src = el.currentSrc || el.getAttribute('src');
+      if (/\/igaming\/[^/]+\.jpg$/.test(src) && !/-full\.jpg$/.test(src)) return src.replace(/\.jpg$/, '-full.jpg');
+      return src;
+    };
+    var info = function (el) {
+      var fig = el.closest('figure'), cap = fig && fig.querySelector('figcaption');
+      var title = el.getAttribute('data-vw-title') || el.getAttribute('data-alt') || el.getAttribute('alt') || '', sub = el.getAttribute('data-vw-sub') || '';
+      if (cap && !el.hasAttribute('data-vw-title')) {
+        var b = cap.querySelector('b');
+        if (b) { title = b.textContent; sub = cap.textContent.replace(b.textContent, '').trim(); } else { sub = cap.textContent.trim(); }
+      }
+      return { title: title, sub: sub, alt: el.getAttribute('data-alt') || el.getAttribute('alt') || title };
+    };
+    var groupOf = function (el) {
+      var host = el.closest('.spec, .art, .ba, .about, section') || document.body;
+      return host;
+    };
+    var labelOf = function (host) {
+      var sec = host.closest('section') || host, eb = (host.querySelector('.eyebrow') || sec.querySelector('.eyebrow'));
+      return eb ? eb.textContent.trim() : '';
+    };
+    var groups = [], list = [], idx = 0, opener = null;
+    els.forEach(function (el) {
+      var host = groupOf(el), g = null;
+      groups.forEach(function (x) { if (x.host === host) g = x; });
+      if (!g) { g = { host: host, items: [], label: labelOf(host) }; groups.push(g); }
+      g.items.push(el);
+      if (el.tagName === 'IMG') { el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'Enlarge: ' + (el.getAttribute('alt') || 'image')); }
+      el.setAttribute('data-vw', '');
+      var open = function (e) {
+        e.preventDefault(); e.stopPropagation();
+        list = g.items; opener = el; show(list.indexOf(el), g.label);
+        if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+        q('[data-vw-close]').focus();
+      };
+      el.addEventListener('click', open);
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') open(e); });
+    });
+    var show = function (i, label) {
+      idx = (i + list.length) % list.length;
+      var el = list[idx], d = info(el), media = q('[data-vw-media]');
+      q('[data-vw-title]').textContent = d.title;
+      q('[data-vw-sub]').textContent = d.sub;
+      q('[data-vw-count]').textContent = (idx + 1) + ' / ' + list.length;
+      if (label !== undefined) q('[data-vw-group]').textContent = label;
+      var multi = list.length > 1;
+      q('[data-vw-prev]').style.visibility = multi ? '' : 'hidden';
+      q('[data-vw-next]').style.visibility = multi ? '' : 'hidden';
+      media.innerHTML = '';
+      var im = document.createElement('img');
+      im.src = full(el); im.alt = d.alt;
+      if (el.classList.contains('portrait--tall')) im.className = 'vw-tall';
+      media.appendChild(im);
+    };
+    q('[data-vw-close]').addEventListener('click', function () { dlg.close(); });
+    q('[data-vw-prev]').addEventListener('click', function () { show(idx - 1); });
+    q('[data-vw-next]').addEventListener('click', function () { show(idx + 1); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') show(idx + 1);
+      if (e.key === 'ArrowLeft') show(idx - 1);
+    });
+    dlg.addEventListener('close', function () { q('[data-vw-media]').innerHTML = ''; if (opener) opener.focus({ preventScroll: true }); });
+  })();
 
   /* Print button (resume) */
   document.querySelectorAll('[data-print]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });

@@ -356,7 +356,7 @@ def home():
 
 <section class="section" id="about" data-crumb="About the Dino" data-depth="0.4m" data-era="2007–now" aria-labelledby="about-title">
 <div class="about reveal">
-<div><picture class="portrait-pic"><source type="image/webp" srcset="assets/images/portrait-animated.webp" media="(prefers-reduced-motion: no-preference)"><img class="portrait portrait--tall" src="assets/images/portrait-still.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky, glancing around thoughtfully" width="450" height="800" loading="lazy" decoding="async"></picture><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
+<div><picture class="portrait-pic"><source type="image/webp" srcset="assets/images/portrait-animated.webp" media="(prefers-reduced-motion: no-preference)"><img class="portrait portrait--tall" data-vw-title="Jonathan Edward Nestler" data-vw-sub="Senior Product Designer &amp; Product Owner · Jeffreys Bay, South Africa" src="assets/images/portrait-still.jpg" alt="Jonathan Nestler in a navy jacket and headphones, hand to chin, under a green-gold sky, glancing around thoughtfully" width="450" height="800" loading="lazy" decoding="async"></picture><div style="margin-top:28px">{guide('06', '', left=True)}</div></div>
 <div>
 <p class="eyebrow">Topsoil — The specimen</p>
 <h2 class="h-xl" id="about-title" style="margin-top:10px">Twenty years.<br>Every era left a mark.</h2>
@@ -405,14 +405,14 @@ def home():
 <p class="eyebrow">Specimen 02 · iGaming · Astria Systems · 2018–2026</p>
 <h3 class="h-l">Reels, Rules &amp; Revenue</h3>
 <p class="body-2">Promoted from Product Designer to Jr. Product Owner. UX/UI across Wonderlabz, Playsafe and Pantelotteriet — backlog, flows and design system in one pair of claws.</p>
-<div class="spec-thumbs spec-thumbs--5">{''.join(f'<img src="assets/images/igaming/{stem}.jpg" alt="{n} slot game reel frame" width="1200" height="622" loading="lazy">' for n, stem, _ in ALL_GAMES)}</div>
+<div class="spec-thumbs spec-thumbs--5">{''.join(f'<img src="assets/images/igaming/{stem}.jpg" alt="{n} slot game reel frame" data-vw-title="{n}" data-vw-sub="Live, regulated slot game UI — reel frame designed at Astria Systems (formerly Wonderlabz)." width="1200" height="622" loading="lazy">' for n, stem, _ in ALL_GAMES)}</div>
 <span class="spec-cta">Read the dig report →</span>
 </a>
 <a class="spec spec-card reveal" href="work/indiemode.html">
 <p class="eyebrow">Specimen 03 · Indiemode Rework · Fashion</p>
 <h3 class="h-l">A week of build in two days</h3>
 <p class="body-2">Full-site redesign with Claude as build partner. I directed hierarchy and brand; Claude wrote the code.</p>
-<img class="spec-shot" src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" loading="lazy">
+<img class="spec-shot" src="{A}/images/indiemode-after.jpg" alt="Indiemode homepage after the redesign" data-vw-title="Indiemode Rework" data-vw-sub="Homepage after the redesign — editorial dark mode, bold serif type, neon palette. Built with Claude in a two-day sprint." loading="lazy">
 <span class="spec-cta">Read the dig report →</span>
 </a>
 </div>
@@ -670,7 +670,7 @@ def archive():
 <div class="docs reveal">{docs_html}</div>
 </section>
 </main>
-<div class="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer"><button type="button" aria-label="Close">×</button><img alt=""></div>
+
 """ + footer('')
 
 

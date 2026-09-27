@@ -656,11 +656,11 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .li-link { display: inline-flex; align-items: center; gap: 5px; color: var(--ochre); text-decoration: underline; text-underline-offset: 3px; }
 .li-link .li-icon { width: 13px; height: 13px; color: #0A66C2; background: #fff; border-radius: 2px; }
 
-/* Explanatory illustrations: 5-second build loop while on screen */
-.ex-play > :not(.draw):not(defs):not(title):not(style) { animation: ex-build 5s ease-in-out infinite both; animation-delay: calc(var(--i, 0) * 90ms); }
-.ex-play .draw { transition: none; animation: ex-draw 5s ease-in-out infinite both; animation-delay: calc(var(--i, 0) * 90ms); }
-@keyframes ex-build { 0% { opacity: 0; } 14% { opacity: 1; } 84% { opacity: 1; } 96%, 100% { opacity: 0; } }
-@keyframes ex-draw { 0% { stroke-dashoffset: 1; opacity: 1; } 38% { stroke-dashoffset: 0; } 84% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+/* Explanatory illustrations: one 4-second loop per section; each illustration starts 0.5s after the previous one */
+.ex-play > :not(.draw):not(defs):not(title):not(style) { animation: ex-build 4s ease-in-out infinite both; animation-delay: calc(var(--g, 0) * .5s + var(--i, 0) * 45ms); }
+.ex-play .draw { transition: none; animation: ex-draw 4s ease-in-out infinite both; animation-delay: calc(var(--g, 0) * .5s + var(--i, 0) * 45ms); }
+@keyframes ex-build { 0% { opacity: 0; } 8% { opacity: 1; } 80% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@keyframes ex-draw { 0% { stroke-dashoffset: 1; opacity: 1; } 22% { stroke-dashoffset: 0; } 80% { stroke-dashoffset: 0; opacity: 1; } 92%, 100% { stroke-dashoffset: 0; opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .ex-play > *, .ex-play .draw { animation: none !important; opacity: 1; stroke-dashoffset: 0; } }
 
 /* ---------- About: clients, toolkit, timeline, certs ---------- */
@@ -1000,3 +1000,11 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
   .hero-copy .btn-row { margin-top: 20px; }
   .hero-grid > .hero-data { align-self: start; justify-self: center; margin-top: 18px; font-size: clamp(11px, 1.35vw, 13px); }
 }
+
+/* ---------- Image viewer (site-wide) ---------- */
+[data-vw] { cursor: zoom-in; }
+[data-vw]:focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; }
+.vw-sub { padding: 12px 20px 0; font-size: 15px; line-height: 1.5; color: var(--bone-2); }
+.vw-sub:empty { display: none; }
+.gal-media img.vw-tall { width: auto; max-width: 100%; }
+.gal-foot .mono { align-self: center; font-size: 11px; color: var(--muted); }
