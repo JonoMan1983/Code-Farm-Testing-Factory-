@@ -1009,3 +1009,4 @@ button.slab:hover .slab-view, button.slab:focus-visible .slab-view { opacity: 1;
 .vw-sub:empty { display: none; }
 .gal-media img.vw-tall { width: auto; max-width: 100%; }
 .gal-foot .mono { align-self: center; font-size: 11px; color: var(--muted); }
+.anims figure[data-vw] figcaption::after { content: ' ⤢'; color: var(--ochre); }

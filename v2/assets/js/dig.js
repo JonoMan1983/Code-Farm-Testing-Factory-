@@ -511,7 +511,7 @@
 
   /* Image viewer: every content thumbnail opens a large view with prev/next through its section */
   (function initViewer() {
-    var sel = '.spec-thumbs img, img.spec-shot, img.portrait, .ba img, [data-full]';
+    var sel = '.spec-thumbs img, img.spec-shot, img.portrait, .ba img, [data-full], .anims figure';
     var els = Array.prototype.slice.call(document.querySelectorAll(sel)).filter(function (el) { return !el.closest('[data-gal]'); });
     if (!els.length) return;
     var dlg = document.createElement('dialog');
@@ -530,16 +530,18 @@
       return src;
     };
     var info = function (el) {
-      var fig = el.closest('figure'), cap = fig && fig.querySelector('figcaption');
+      var fig = el.tagName === 'FIGURE' ? el : el.closest('figure'), cap = fig && fig.querySelector('figcaption');
       var title = el.getAttribute('data-vw-title') || el.getAttribute('data-alt') || el.getAttribute('alt') || '', sub = el.getAttribute('data-vw-sub') || '';
       if (cap && !el.hasAttribute('data-vw-title')) {
         var b = cap.querySelector('b');
-        if (b) { title = b.textContent; sub = cap.textContent.replace(b.textContent, '').trim(); } else { sub = cap.textContent.trim(); }
+        if (b) { title = b.textContent; sub = cap.textContent.replace(b.textContent, '').trim(); }
+        else if (!title) { title = cap.textContent.trim(); }
+        else { sub = cap.textContent.trim(); }
       }
       return { title: title, sub: sub, alt: el.getAttribute('data-alt') || el.getAttribute('alt') || title };
     };
     var groupOf = function (el) {
-      var host = el.closest('.spec, .art, .ba, .about, section') || document.body;
+      var host = el.closest('.spec, .art, .ba, .anims, .about, section') || document.body;
       return host;
     };
     var labelOf = function (host) {
@@ -553,9 +555,11 @@
       if (!g) { g = { host: host, items: [], label: labelOf(host) }; groups.push(g); }
       g.items.push(el);
       if (el.tagName === 'IMG') { el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'Enlarge: ' + (el.getAttribute('alt') || 'image')); }
+      if (el.tagName === 'FIGURE') { var fc = el.querySelector('figcaption'); el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'Play large: ' + (fc ? fc.textContent : 'animation')); }
       el.setAttribute('data-vw', '');
       var open = function (e) {
         e.preventDefault(); e.stopPropagation();
+        var tv = el.tagName === 'FIGURE' && el.querySelector('video'); if (tv) tv.pause();
         list = g.items; opener = el; show(list.indexOf(el), g.label);
         if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
         q('[data-vw-close]').focus();
@@ -574,6 +578,17 @@
       q('[data-vw-prev]').style.visibility = multi ? '' : 'hidden';
       q('[data-vw-next]').style.visibility = multi ? '' : 'hidden';
       media.innerHTML = '';
+      var vid = el.tagName === 'FIGURE' ? el.querySelector('video') : null;
+      if (vid) {
+        var v = document.createElement('video');
+        v.src = (vid.getAttribute('src') || '').replace(/,w_\d+/, '');   // full-size clip, not the 720px tile
+        v.poster = (vid.getAttribute('poster') || '').replace(/,w_\d+/, '');
+        v.muted = true; v.loop = true; v.playsInline = true; v.controls = true;
+        if (!reduce) v.autoplay = true;
+        v.setAttribute('aria-label', d.title + ' animation');
+        media.appendChild(v);
+        return;
+      }
       var im = document.createElement('img');
       im.src = full(el); im.alt = d.alt;
       if (el.classList.contains('portrait--tall')) im.className = 'vw-tall';
