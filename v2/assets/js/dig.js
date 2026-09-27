@@ -344,6 +344,7 @@
       return {
         x: Math.random() * w, y: Math.random() * h,
         r: (glow ? 1.6 + Math.random() * 2.4 : 0.5 + Math.random() * 1.6) * (0.6 + depth * 0.9),
+        rot: Math.random() * Math.PI * 2, spin: (Math.random() - 0.5) * 0.5,
         glow: glow, colorIdx: colorIdx, lineRgb: lineRgb, depth: depth,
         baseAlpha: glow ? 0.3 + Math.random() * 0.25 : 0.2 + Math.random() * 0.5,
         twFreq: 0.2 + Math.random() * 1.3, twPhase: Math.random() * Math.PI * 2,
@@ -351,6 +352,16 @@
         bobFreq: 0.12 + Math.random() * 0.28, bobPhase: Math.random() * Math.PI * 2, bobAmp: 3 + depth * 11,
         pulseFreq: 0.1 + Math.random() * 0.2, pulsePhase: Math.random() * Math.PI * 2
       };
+    }
+    function drawBone(x, y, len, ang, fill) {
+      var k = len * 0.17, half = len / 2 - k, shaft = len * 0.2;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.fillStyle = fill;
+      ctx.beginPath(); ctx.rect(-half, -shaft / 2, half * 2, shaft); ctx.fill();
+      ctx.beginPath();
+      ctx.arc(-half, -k * 0.72, k, 0, Math.PI * 2); ctx.arc(-half, k * 0.72, k, 0, Math.PI * 2);
+      ctx.moveTo(half + k, -k * 0.72); ctx.arc(half, -k * 0.72, k, 0, Math.PI * 2);
+      ctx.moveTo(half + k, k * 0.72); ctx.arc(half, k * 0.72, k, 0, Math.PI * 2);
+      ctx.fill(); ctx.restore();
     }
     function buildStars(w, h) {
       var count = Math.round(Math.min(102, Math.max(35, (w * h) / 23040)));   // 1.6× spacing = density ÷ 2.56
@@ -448,9 +459,8 @@
           grd.addColorStop(1, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0)');
           ctx.beginPath(); ctx.arc(px, py, glowR, 0, Math.PI * 2); ctx.fillStyle = grd; ctx.fill();
         }
-        ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
-        ctx.fill();
+        s.rot += s.spin * dt;
+        drawBone(px, py, Math.max(10, r * 6.5), s.rot, 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + Math.min(1, alpha * 1.25) + ')');
       });
 
       rafId = (reduce || !onScreen || document.hidden) ? null : requestAnimationFrame(frame);
