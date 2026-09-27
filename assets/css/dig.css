@@ -29,7 +29,7 @@
   --section-y: clamp(64px, 9vw, 120px);
   --max: 1320px;
 
-  --assets: '/Code-Farm-Testing-Factory-/assets';
+  --assets: '/assets';
 }
 
 /* ---------- Reset ---------- */

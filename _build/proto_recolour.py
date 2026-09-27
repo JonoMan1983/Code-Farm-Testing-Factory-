@@ -35,7 +35,7 @@ def rgbsub(m):
 t = open(SRC, encoding='utf-8').read()
 t = re.sub(r'#[0-9a-fA-F]{6}\b', hexsub, t)
 t = re.sub(r'(rgba?)\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)', rgbsub, t)
-t = t.replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">', 1)
+t = t.replace('<head>', '<head>\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'G-VR87BLZQG1\',{site_version:\'v2\'});</script>', 1)
 back = ('<a href="../pantelotteriet.html#prototype" target="_top" style="position:fixed;right:12px;bottom:12px;z-index:9999;'
         'font:500 12px/1 monospace;letter-spacing:.06em;padding:9px 12px;background:#E8A33D;color:#15110E;text-decoration:none;'
         'box-shadow:0 6px 18px rgba(0,0,0,.4)">← THE RECYCLING LOTTERY</a>'

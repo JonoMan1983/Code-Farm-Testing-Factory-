@@ -51,7 +51,7 @@ s = open(SRC, encoding='utf-8').read()
 m = re.search(r'(<script type="__bundler/template">)(.*?)(</script>)', s, re.S)
 tpl = json.loads(m.group(2))
 tpl = recolour(tpl)
-tpl = tpl.replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">', 1)
+tpl = tpl.replace('<head>', '<head>\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR87BLZQG1"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'G-VR87BLZQG1\',{site_version:\'v2\'});</script>', 1)
 new = m.group(1) + '\n' + json.dumps(tpl).replace('</', '<\\/') + '\n  ' + m.group(3)
 s = s[:m.start()] + new + s[m.end():]
 s = re.sub(r'(<div id="__bundler_thumbnail">.*?</div>)', lambda mm: recolour(mm.group(1)), s, count=1, flags=re.S)

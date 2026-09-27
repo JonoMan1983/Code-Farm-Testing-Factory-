@@ -15,7 +15,7 @@ async def main():
         b = await p.chromium.launch(executable_path='/home/claude/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome', args=['--no-sandbox'])
         pg = await b.new_page()
         await pg.route('https://fonts.googleapis.com/**', lambda r: r.fulfill(status=200, content_type='text/css', body=FONTCSS))
-        await pg.goto(f'http://127.0.0.1:{port}/Code-Farm-Testing-Factory-/v2/resume.html'); await asyncio.sleep(1.5)
+        await pg.goto(f'http://127.0.0.1:{port}/resume.html'); await asyncio.sleep(1.5)
         await pg.emulate_media(media='print')
         await pg.pdf(path='/tmp/cv_raw.pdf', format='A4', print_background=True, prefer_css_page_size=True)
         await b.close()
