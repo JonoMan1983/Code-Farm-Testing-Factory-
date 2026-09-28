@@ -93,7 +93,7 @@ def header(pre, active, home=False, crumbs=None):
         trail.append(f'<li><a href="{href}">{label}</a></li>' if href else f'<li><span aria-current="page">{label}</span></li>')
     trail.append('<li class="crumb-live" hidden><span data-crumb-live></span></li>')
     return f"""<header class="site-header">
-<a class="brand" href="{pre}index.html" aria-label="Designasaurus Rex — home">
+<a class="brand" href="{pre}index.html" aria-label="The Designasaurus — home">
 <img class="brand-logo" src="{pre}assets/brand/jen-logo.svg" alt="" width="84" height="52">
 <span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
 </a>
@@ -113,7 +113,7 @@ def _plain(t):
 
 def footer(pre):
     return f"""<footer class="site-footer">
-<span class="foot-brand"><img src="{pre}assets/brand/jen-logo.svg" alt="" width="58" height="36"><span>© <span data-year>2026</span> Jonathan Edward Nestler · Designasaurus Rex</span></span>
+<span class="foot-brand"><img src="{pre}assets/brand/jen-logo.svg" alt="" width="58" height="36"><span>© <span data-year>2026</span> Jonathan Edward Nestler · The Designasaurus</span></span>
 <span>Jeffreys Bay, ZA · Remote worldwide · Open to relocate anywhere in South Africa</span>
 </footer>
 <script src="{pre}assets/js/dig.js" defer></script>
@@ -840,7 +840,7 @@ def _sec(title, depth, body, cls=''):
 
 PERSON_LD = {
     '@context': 'https://schema.org', '@type': 'Person',
-    'name': 'Jonathan Edward Nestler', 'alternateName': 'Jonno Nestler',
+    'name': 'Jonathan Edward Nestler', 'alternateName': ['Jonno Nestler', 'The Designasaurus'],
     'jobTitle': 'Senior Product Designer',
     'description': 'Senior Product Designer, UX/UI Designer and Jr. Product Owner with 20+ years of design experience, specialising in AI-integrated product design with Claude, Claude Code and Figma MCP.',
     'hasOccupation': [{'@type': 'Occupation', 'name': t} for t in ['Senior Product Designer', 'UX/UI Designer', 'Product Owner']],
@@ -938,7 +938,7 @@ def resume():
 <div>
 <p class="cv-kicker">Curriculum vitae · 2026</p>
 <h1 class="cv-name">Jonathan Edward Nestler</h1>
-<p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner</p>
+<p class="cv-title">Senior Product Designer · UX/UI Designer · Jr. Product Owner · The Designasaurus</p>
 <p class="cv-tag">20+ years · AI-integrated product design with Claude, Claude Code and Figma MCP</p>
 <a class="cv-site" href="https://www.designasaurus.co.za"><span>Portfolio</span>www.designasaurus.co.za →</a>
 </div>
@@ -954,7 +954,7 @@ def resume():
 <footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer</span><span>Page 1 of 2</span></footer>
 </article>"""
     page2 = f"""<article class="paper" aria-label="Resume page 2">
-<div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration</span></div>
+<div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration · The Designasaurus</span></div>
 <div class="cv-body">
 {_sec('Experience <span class="sr-only">(continued)</span>', '03', p2 + early)}
 {_sec('AI toolkit', '04', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p></div>')}
