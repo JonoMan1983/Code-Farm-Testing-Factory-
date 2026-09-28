@@ -95,7 +95,7 @@ def header(pre, active, home=False, crumbs=None):
     return f"""<header class="site-header">
 <a class="brand" href="{pre}index.html" aria-label="The Designasaurus — home">
 <img class="brand-logo" src="{pre}assets/brand/jen-logo.svg" alt="" width="84" height="52">
-<span class="brand-name"><b>DESIGNASAURUS REX</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
+<span class="brand-name"><b>THE DESIGNASAURUS</b><span>FIELD SITE · PORTFOLIO v2.0</span></span>
 </a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
 <nav class="nav" id="site-nav" aria-label="Main"><ul class="nav-list">{''.join(items)}</ul></nav>
@@ -912,6 +912,7 @@ CV_CSS = """<style>
 .cv-ref .cv-ref-org{color:#5B4A3A}
 .cv-ref a{margin-top:3px;font-family:var(--f-mono);font-size:8.6pt;color:#9A5F12!important}
 .cv-ref-note{margin-top:10px;font-size:8.6pt;color:#5B4A3A}
+@media screen{.paper{height:auto;min-height:297mm}}
 @media screen and (max-width:860px){.cv-pages{grid-template-columns:minmax(0,1fr)}.paper{width:100%}}
 @media screen and (max-width:760px){.paper{height:auto;font-size:15px}.cv-head{padding:24px 20px}.cv-body,.cv-contact,.cv-foot,.cv-run{padding-left:20px;padding-right:20px}.cv-head{grid-template-columns:1fr}.cv-logo{width:96px}.cv-sec{grid-template-columns:1fr;gap:8px}.cv-name{font-size:40px}}
 @page{size:A4;margin:0}
