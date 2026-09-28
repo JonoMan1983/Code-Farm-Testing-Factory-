@@ -803,10 +803,10 @@ CV_SKILLS = [
 
 CV_JOBS_P1 = [
     ('Jr. Product Owner <span>(promoted from Product Designer)</span>', 'Astria Systems (formerly Wonderlabz)', 'Remote', 'Nov 2023 – Jul 2026', [
-        'Lead UX/UI product design across three portfolio brands: Wonderlabz, Playsafe and Pantelotteriet.',
-        'Integrated Claude, Claude Code and Figma MCP into the design workflow; AI-assisted HTML prototypes validate timing-heavy flows before engineering builds them.',
-        'Scope user journeys, prioritise the backlog and align product, design and engineering.',
-        'Drive CI development, slot-game animation and cross-platform UI prototyping.']),
+        'Led UX/UI product design across three portfolio brands: Wonderlabz, Playsafe and Pantelotteriet.',
+        'Integrated Claude, Claude Code and Figma MCP into the design workflow; AI-assisted HTML prototypes validated timing-heavy flows before engineering built them.',
+        'Scoped user journeys, prioritised the backlog and aligned product, design and engineering.',
+        'Drove CI development, slot-game animation and cross-platform UI prototyping.']),
     ('Product Designer — VFX · UX &amp; UI', 'Wonderlabz SA (now Livescore SA)', 'Table View, Cape Town', 'Oct 2018 – Nov 2023', [
         'Led design collateral across multiple portfolio brands for live Scandinavian, South African and UK audiences.',
         'UI/UX prototyping, corporate identity, illustration and animation for online slot games (Samurai, Geisha, Atlantis, Mayan Madness).',
@@ -951,7 +951,7 @@ def resume():
 {_sec('Core skills', '02', f'<div class="cv-skills">{skills}</div>')}
 {_sec('Experience', '03', p1)}
 </div>
-<footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer</span><span>Page 1 of 2</span></footer>
+<footer class="cv-foot"><span>Jonathan Edward Nestler — Senior Product Designer · The Designasaurus</span><span>Page 1 of 2</span></footer>
 </article>"""
     page2 = f"""<article class="paper" aria-label="Resume page 2">
 <div class="cv-run"><b>Jonathan Edward Nestler</b><span>Senior Product Designer · UX/UI · AI integration · The Designasaurus</span></div>
