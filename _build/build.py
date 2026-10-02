@@ -72,7 +72,7 @@ def header(pre, active, home=False, crumbs=None):
         return ' aria-current="page"' if k == active else ''
 
     menu = [
-        ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
+        ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Diploma', f'{h}#diploma'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
         ('work', 'Specimens', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Reels, Rules &amp; Revenue', f'{pre}work/astria-platform.html'), ('Indiemode Rework', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
@@ -317,6 +317,14 @@ def about_more():
 <div class="sub-block reveal" id="timeline">
 <div class="sec-head"><div><p class="eyebrow">Career timeline · {len(_TIMELINE)} roles</p><h3 class="h-l" style="margin-top:10px">Two decades. No two projects alike.</h3></div>{guide('05', '')}</div>
 {_timeline()}
+</div>
+<div class="sub-block reveal" id="diploma">
+<div class="certs">
+<a class="doc" href="{A}/docs/UXDI_diploma.pdf" aria-label="Professional Diploma in UX Design — credential, PDF, 1 page"><span class="doc-thumb"><span class="doc-img"><img src="assets/images/docs/UXDI_diploma.jpg" alt="" width="640" height="480" loading="lazy"></span></span><span class="mono">Credential · PDF · 1 page</span><span class="h-m">UX Design Institute diploma</span><span class="doc-open">Open PDF →</span></a>
+<div><p class="eyebrow">Formal qualification</p><h3 class="h-l" style="margin-top:10px">Professional Diploma in UX Design</h3><p class="lede" style="margin-top:12px">UX Design Institute, Dublin.</p>
+<ul class="cert-list"><li>25 October 2023<span class="cert-src">Awarded</span></li><li>UXDI-0123-0606<span class="cert-src">Student ID</span></li><li>SCQF Level 8 · 20 credits<span class="cert-src">Scottish Credit and Qualifications Framework</span></li><li>Glasgow Caledonian University<span class="cert-src">Credit-rated by</span></li></ul>
+</div>
+</div>
 </div>
 <div class="sub-block reveal" id="certs">
 <div class="certs">
@@ -848,7 +856,7 @@ PERSON_LD = {
                    'Prototyping', 'Design systems', 'Accessibility (WCAG)', 'Product ownership', 'AI integration', 'Claude', 'Claude Code', 'Figma MCP',
                    'ChatGPT', 'Gemini', 'Figma', 'Brand identity', 'Motion graphics', 'iGaming'],
     'alumniOf': {'@type': 'EducationalOrganization', 'name': 'UX Design Institute'},
-    'hasCredential': {'@type': 'EducationalOccupationalCredential', 'name': 'Professional Diploma in UX Design', 'recognizedBy': {'@type': 'Organization', 'name': 'UX Design Institute'}},
+    'hasCredential': {'@type': 'EducationalOccupationalCredential', 'name': 'Professional Diploma in UX Design', 'credentialCategory': 'diploma', 'identifier': 'UXDI-0123-0606', 'dateCreated': '2023-10-25', 'recognizedBy': {'@type': 'Organization', 'name': 'UX Design Institute'}},
     'address': {'@type': 'PostalAddress', 'addressLocality': 'Jeffreys Bay', 'addressRegion': 'Eastern Cape', 'addressCountry': 'ZA'},
     'email': 'mailto:' + EMAIL, 'url': 'https://www.designasaurus.co.za', 'telephone': '+27628629697',
     'sameAs': [LINKEDIN, 'https://github.com/JonoMan1983'],
@@ -960,7 +968,7 @@ def resume():
 {_sec('Experience <span class="sr-only">(continued)</span>', '03', p2 + early)}
 {_sec('AI toolkit', '04', '<div class="cv-ai"><p><b>Claude — extensive, every stage:</b> chat, Claude Code, Figma MCP, custom skills, AI prototyping, prompt-driven UX copy. <b>Daily:</b> ChatGPT · Gemini. <span class="muted">Occasional: Midjourney · DALL·E. Never automated: user interviews, prioritisation, final visual judgment.</span></p></div>')}
 {_sec('Selected work', '05', '<p><b>The Recycling Lottery (Pantelotteriet)</b> — mobile app and raffle site; timing-heavy flows proven in a Claude Code prototype before handoff. <b>Indiemode</b> — full redesign for an independent SA fashion label, built with Claude in two days. <b>Wonderlabz.com</b> — stakeholder research, IA and hi-fi redesign to launch.</p>')}
-{_sec('Education', '06', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
+{_sec('Education', '06', '<p><b>Professional Diploma in UX Design</b> — UX Design Institute, Dublin (SCQF Level 8) · 2023<br>Awarded 25 Oct 2023 · Student ID UXDI-0123-0606 · 20 SCQF credits, credit-rated by Glasgow Caledonian University</p><p><b>Visual Communication (first year)</b> — The Open Window, Pretoria · 2008–2010</p><p><b>Live Design &amp; Progressive Media</b> — Damelin, Vaal · 2003–2005</p><p>27 certifications, including Product Management Frameworks, WCAG Accessibility and Gamification Psychology.</p>')}
 {_sec('References', '07', '<div class="cv-refs"><div class="cv-ref"><b>Nicolaas Du Plessis</b><span>Head of Product</span><span class="cv-ref-org">Astria Systems</span><a href="tel:+27844799928">+27 (0)84 479 9928</a></div><div class="cv-ref"><b>Anne Jacobson</b><span>General Manager, PPG Africa Studio</span><span class="cv-ref-org">Former GM, Wonderlabz</span><a href="tel:+27625144517">+27 (0)62 514 4517</a></div><div class="cv-ref"><b>Hennie Groenewald</b><span>Creative Director</span><span class="cv-ref-org">Wonderlabz</span><a href="tel:+27833009796">+27 (0)83 300 9796</a></div><div class="cv-ref"><b>Justin Gieselbach</b><span>Frontend Developer &amp; Designer</span><span class="cv-ref-org">Colleague, Xcellent Media &amp; Riviera on Vaal</span><a href="tel:+27761121565">+27 (0)76 112 1565</a></div></div><p class="cv-ref-note">Ten written recommendations are published at www.designasaurus.co.za.</p>')}
 </div>
 <footer class="cv-foot"><span>Jonathan Edward Nestler · <a href="https://www.designasaurus.co.za">www.designasaurus.co.za</a></span><span>Page 2 of 2</span></footer>
