@@ -72,7 +72,7 @@ def header(pre, active, home=False, crumbs=None):
         return ' aria-current="page"' if k == active else ''
 
     menu = [
-        ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Career timeline', f'{h}#timeline'), ('Diploma', f'{h}#diploma'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
+        ('about', 'About the Dino', f'{h}#about', [('The specimen', f'{h}#about'), ('Clients', f'{h}#clients'), ('Tools of the trade', f'{h}#toolkit'), ('Diploma', f'{h}#diploma'), ('Career timeline', f'{h}#timeline'), ('Certifications', f'{h}#certs'), ('References', f'{h}#proof')]),
         ('work', 'Specimens', f'{h}#work', [('One Platform, Three Portals', f'{pre}work/three-portals.html'), ('The Recycling Lottery', f'{pre}work/pantelotteriet.html'), ('Reels, Rules &amp; Revenue', f'{pre}work/astria-platform.html'), ('Indiemode Rework', f'{pre}work/indiemode.html')]),
         ('ai', 'AI Practice', f'{h}#ai', [('How AI fits each stage', f'{h}#ai'), ('Tool strata', f'{h}#ai-tools'), ('Built with Claude', f'{h}#ai-builds')]),
         ('archive', 'Creative Archive', arc, [('Motion reel', f'{arc}#reel'), ('Video', f'{arc}#videos'), ('Animation', f'{arc}#anims'), ('Artistic expression', f'{arc}#art'), ('Brand &amp; legacy', f'{arc}#docs')]),
@@ -314,10 +314,6 @@ def about_more():
 <div class="sec-head"><div><p class="eyebrow">Software proficiency</p><h3 class="h-l" style="margin-top:10px">Tools of the trade</h3><p class="lede" style="margin-top:12px">The armoury. Wielded, not just installed — Claude first.</p></div>{guide('02', '')}</div>
 <div class="toolkit">{_tools_v2()}</div>
 </div>
-<div class="sub-block reveal" id="timeline">
-<div class="sec-head"><div><p class="eyebrow">Career timeline · {len(_TIMELINE)} roles</p><h3 class="h-l" style="margin-top:10px">Two decades. No two projects alike.</h3></div>{guide('05', '')}</div>
-{_timeline()}
-</div>
 <div class="sub-block reveal" id="diploma">
 <div class="certs">
 <a class="doc" href="{A}/docs/UXDI_diploma.pdf" aria-label="Professional Diploma in UX Design — credential, PDF, 1 page"><span class="doc-thumb"><span class="doc-img"><img src="assets/images/docs/UXDI_diploma.jpg" alt="" width="640" height="480" loading="lazy"></span></span><span class="mono">Credential · PDF · 1 page</span><span class="h-m">UX Design Institute diploma</span><span class="doc-open">Open PDF →</span></a>
@@ -325,6 +321,10 @@ def about_more():
 <ul class="cert-list"><li>25 October 2023<span class="cert-src">Awarded</span></li><li>UXDI-0123-0606<span class="cert-src">Student ID</span></li><li>SCQF Level 8 · 20 credits<span class="cert-src">Scottish Credit and Qualifications Framework</span></li><li>Glasgow Caledonian University<span class="cert-src">Credit-rated by</span></li></ul>
 </div>
 </div>
+</div>
+<div class="sub-block reveal" id="timeline">
+<div class="sec-head"><div><p class="eyebrow">Career timeline · {len(_TIMELINE)} roles</p><h3 class="h-l" style="margin-top:10px">Two decades. No two projects alike.</h3></div>{guide('05', '')}</div>
+{_timeline()}
 </div>
 <div class="sub-block reveal" id="certs">
 <div class="certs">
